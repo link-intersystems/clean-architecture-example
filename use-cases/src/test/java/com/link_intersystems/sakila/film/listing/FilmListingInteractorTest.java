@@ -39,5 +39,8 @@ class FilmListingInteractorTest {
         assertNotNull(filmListing);
 
         assertEquals(1, filmListing.size());
+        ListedFilm listedFilm = filmListing.get(0);
+
+        assertEquals(1001, listedFilm.getId());
     }
 }

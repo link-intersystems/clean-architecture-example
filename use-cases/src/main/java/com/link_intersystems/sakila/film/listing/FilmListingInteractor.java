@@ -40,6 +40,7 @@ public class FilmListingInteractor implements FilmListingUseCase {
 
     private ListedFilm map(Film film) {
         ListedFilm listedFilm = new ListedFilm();
+        listedFilm.setId(film.getId());
         return listedFilm;
     }
 }

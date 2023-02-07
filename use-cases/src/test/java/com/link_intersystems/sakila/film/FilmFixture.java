@@ -19,7 +19,7 @@ public class FilmFixture {
 
     private FilmRecord createFilmId1001() {
         FilmRecord record = new FilmRecord();
-        record.id = 4;
+        record.id = 1001;
         record.title = "ZORRO ARK";
         record.description = "A Intrepid Panorama of a Mad Scientist And a Boy who must Redeem a Boy in A Monastery";
         record.releaseYear = LocalDate.of(2006, 1, 1);

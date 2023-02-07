@@ -12,6 +12,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class FilmListingAnswer implements Answer<List<Film>> {
+
+    private FilmFactory filmFactory = new FilmFactory();
+
     private FilmFixture filmFixture;
     private LanguageFixture languageFixture;
 
@@ -44,8 +47,9 @@ public class FilmListingAnswer implements Answer<List<Film>> {
     }
 
     private Film map(FilmRecord record) {
-        Film film = new Film();
-        return film;
+
+
+        return filmFactory.newFilm(record);
     }
 
     private List<FilmRecord> applyCriteria(List<FilmRecord> filmRecords, FilmCriteria filmCriteria) {
