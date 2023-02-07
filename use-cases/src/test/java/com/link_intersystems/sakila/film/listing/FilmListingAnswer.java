@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class FilmListingAnswer implements Answer<List<Film>> {
 
-    private FilmFactory filmFactory = new FilmFactory();
+    private FilmFactory filmFactory;
 
     private FilmFixture filmFixture;
     private LanguageFixture languageFixture;
@@ -21,6 +21,8 @@ public class FilmListingAnswer implements Answer<List<Film>> {
     public FilmListingAnswer(FilmFixture filmFixture, LanguageFixture languageFixture) {
         this.filmFixture = filmFixture;
         this.languageFixture = languageFixture;
+        LanguageFactory languageFactory = new LanguageFactory(languageFixture);
+        filmFactory = new FilmFactory(languageFactory);
     }
 
     @Override

@@ -1,9 +1,12 @@
 package com.link_intersystems.sakila.film.listing;
 
+import java.util.Locale;
+
 public class ListedFilm {
 
     private int id;
     private String title;
+    private Locale language;
 
     public int getId() {
         return id;
@@ -19,5 +22,13 @@ public class ListedFilm {
 
     public String getTitle() {
         return title;
+    }
+
+    void setLanguage(Locale language) {
+        this.language = language;
+    }
+
+    public Locale getLanguage() {
+        return language;
     }
 }

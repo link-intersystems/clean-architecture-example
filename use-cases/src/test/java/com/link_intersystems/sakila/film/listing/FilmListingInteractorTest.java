@@ -43,5 +43,6 @@ class FilmListingInteractorTest {
 
         assertEquals(1001, listedFilm.getId());
         assertEquals("ZORRO ARK",listedFilm.getTitle());
+        assertEquals(Locale.GERMAN,listedFilm.getLanguage());
     }
 }
