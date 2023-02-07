@@ -47,8 +47,6 @@ public class FilmListingAnswer implements Answer<List<Film>> {
     }
 
     private Film map(FilmRecord record) {
-
-
         return filmFactory.newFilm(record);
     }
 

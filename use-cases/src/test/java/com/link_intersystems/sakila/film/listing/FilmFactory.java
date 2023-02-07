@@ -9,14 +9,23 @@ public class FilmFactory {
     public Film newFilm(FilmRecord record) {
         Film film = new Film();
         setId(film, record.id);
+        setTitle(film, record.title);
         return film;
     }
 
-    private void setId(Film film, int id){
+    private void setTitle(Film film, String title) {
+        setField(film, "title", title);
+    }
+
+    private void setId(Film film, int id) {
+        setField(film, "id", id);
+    }
+
+    private void setField(Film film, String fieldName, Object value) {
         try {
-            Field idField = Film.class.getDeclaredField("id");
-            idField.setAccessible(true);
-            idField.set(film, id);
+            Field field = Film.class.getDeclaredField(fieldName);
+            field.setAccessible(true);
+            field.set(film, value);
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }

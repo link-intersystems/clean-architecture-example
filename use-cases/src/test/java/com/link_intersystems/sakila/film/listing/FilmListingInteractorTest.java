@@ -42,5 +42,6 @@ class FilmListingInteractorTest {
         ListedFilm listedFilm = filmListing.get(0);
 
         assertEquals(1001, listedFilm.getId());
+        assertEquals("ZORRO ARK",listedFilm.getTitle());
     }
 }
