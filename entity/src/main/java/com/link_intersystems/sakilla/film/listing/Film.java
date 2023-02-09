@@ -1,20 +1,13 @@
 package com.link_intersystems.sakilla.film.listing;
 
-import com.link_intersystems.sakilla.film.rating.MotionPicturesRating;
-
-import java.time.Duration;
-import java.time.Year;
+import com.link_intersystems.sakilla.film.rating.Rating;
 
 public class Film {
 
     private int id;
     private String title;
-    private String description;
-    private Year releaseYear;
     private Language language;
-    private Duration length;
-    private Amount rentalRate;
-    private MotionPicturesRating rating;
+    private Rating rating;
 
     public int getId() {
         return id;
@@ -24,27 +17,11 @@ public class Film {
         return title;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public Year getReleaseYear() {
-        return releaseYear;
-    }
-
     public Language getLanguage() {
         return language;
     }
 
-    public Duration getLength() {
-        return length;
-    }
-
-    public Amount getRentalRate() {
-        return rentalRate;
-    }
-
-    public MotionPicturesRating getRating() {
+    public Rating getRating() {
         return rating;
     }
 }

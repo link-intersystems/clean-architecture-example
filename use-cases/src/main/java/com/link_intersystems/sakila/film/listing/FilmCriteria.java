@@ -1,11 +1,17 @@
 package com.link_intersystems.sakila.film.listing;
 
+import com.link_intersystems.sakilla.film.rating.Rating;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
 public class FilmCriteria {
 
     public static final Locale DEFAULT_LANGUAGE = Locale.ENGLISH;
     private Locale language = DEFAULT_LANGUAGE;
+    private List<Rating> ratings = Collections.emptyList();
 
     public void setLanguage(Locale language) {
         if (language == null) {
@@ -16,5 +22,13 @@ public class FilmCriteria {
 
     public Locale getLanguage() {
         return language;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = new ArrayList<>(ratings);
+    }
+
+    public List<Rating> getRatings() {
+        return ratings;
     }
 }

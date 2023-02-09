@@ -1,6 +1,6 @@
 package com.link_intersystems.sakilla.film.rating;
 
-import com.link_intersystems.sakilla.person.Age;
+import com.link_intersystems.sakilla.lender.Age;
 
 import java.time.Clock;
 

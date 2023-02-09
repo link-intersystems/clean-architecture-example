@@ -1,6 +1,6 @@
 package com.link_intersystems.sakilla.film.rating;
 
-import com.link_intersystems.sakilla.person.Age;
+import com.link_intersystems.sakilla.lender.Age;
 
 import java.time.Clock;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class MotionPicturesRatingPolicy implements RatingPolicy {
     }
 
     @Override
-    public List<Rating> getAllowedRagings(Clock clock, Age age) {
+    public List<Rating> getAllowedRatings(Clock clock, Age age) {
         List<Rating> allowedRatings = new ArrayList<>();
 
         for (Rating rating : ratings) {

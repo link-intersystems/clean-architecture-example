@@ -2,19 +2,35 @@ package com.link_intersystems.sakila.film.listing;
 
 import com.link_intersystems.sakilla.film.listing.Film;
 import com.link_intersystems.sakilla.film.listing.Language;
+import com.link_intersystems.sakilla.lender.Lender;
+import com.link_intersystems.sakilla.film.rating.Rating;
+import com.link_intersystems.sakilla.film.rating.RatingPolicy;
 
+import java.time.Clock;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 public class FilmListingInteractor implements FilmListingUseCase {
+
+    private final Clock clock;
+    private final RatingPolicy ratingPolicy;
+
+    public static interface Deps {
+        public FilmListingRepository getRepository();
+        public Clock getClock();
+        public RatingPolicy getRatingPolicy();
+    }
+
     Map<Language, Locale> languageMapping = new HashMap<>();
 
-    private FilmListingRepository repository;
+    private final FilmListingRepository repository;
 
-    public FilmListingInteractor(FilmListingRepository repository) {
-        this.repository = repository;
+    public FilmListingInteractor(Deps deps) {
+        repository = deps.getRepository();
+        clock = deps.getClock();
+        ratingPolicy = deps.getRatingPolicy();
 
         languageMapping.put(Language.ENGLISH, Locale.ENGLISH);
         languageMapping.put(Language.GERMAN, Locale.GERMAN);
@@ -23,8 +39,16 @@ public class FilmListingInteractor implements FilmListingUseCase {
     @Override
     public FilmListingResponseModel listFilms(FilmListingRequestModel request) {
 
+        Integer lenderId = request.getLenderId();
+
+        Lender lender = repository.findLender(lenderId);
+
         FilmCriteria filmCriteria = new FilmCriteria();
-        filmCriteria.setLanguage(request.language);
+        filmCriteria.setLanguage(request.getLanguage());
+
+        List<Rating> allowedRatings = ratingPolicy.getAllowedRatings(clock, lender.getAge());
+        filmCriteria.setRatings(allowedRatings);
+
         List<Film> films = repository.findFilms(filmCriteria);
 
         FilmListingResponseModel responseModel = new FilmListingResponseModel();
@@ -53,6 +77,7 @@ public class FilmListingInteractor implements FilmListingUseCase {
         Language language = film.getLanguage();
 
         listedFilm.setLanguage(languageMapping.get(language));
+        listedFilm.setRating(film.getRating().getName());
         return listedFilm;
     }
 

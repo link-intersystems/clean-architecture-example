@@ -8,11 +8,6 @@ public class FilmListing extends AbstractList<ListedFilm> {
 
     private List<ListedFilm> listedFilms = new ArrayList<>();
 
-    void setFilmListing(List<ListedFilm> listedFilms) {
-        this.listedFilms.clear();
-        this.listedFilms.addAll(listedFilms);
-    }
-
     void addListedFilm(ListedFilm listedFilm) {
         listedFilms.add(listedFilm);
     }

@@ -1,12 +1,11 @@
 package com.link_intersystems.sakilla.film.rating;
 
-import com.link_intersystems.sakilla.person.Age;
-import com.link_intersystems.sakilla.person.AgeFixture;
+import com.link_intersystems.sakilla.lender.Age;
+import com.link_intersystems.sakilla.customer.AgeFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.Clock;
-import java.util.Collection;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,7 +28,7 @@ class MotionPicturesRatingPolicyTest {
     void getAllowedRagingsAge0() {
         Clock clockAtAge10 = ageFixture.getClockAtAge(10);
 
-        List<Rating> allowedRagings = ratingPolicy.getAllowedRagings(clockAtAge10, age);
+        List<Rating> allowedRagings = ratingPolicy.getAllowedRatings(clockAtAge10, age);
         assertEquals(2, allowedRagings.size());
 
         assertEquals(ratingPolicy.getRatingByName("G"), allowedRagings.get(0));
@@ -40,7 +39,7 @@ class MotionPicturesRatingPolicyTest {
     void getAllowedRagingsAdult() {
         Clock clockAtAge18 = ageFixture.getClockAtAge(18);
 
-        List<Rating> allowedRagings = ratingPolicy.getAllowedRagings(clockAtAge18, age);
+        List<Rating> allowedRagings = ratingPolicy.getAllowedRatings(clockAtAge18, age);
         assertEquals(5, allowedRagings.size());
 
         assertEquals(ratingPolicy.getRatingByName("G"), allowedRagings.get(0));
@@ -54,7 +53,7 @@ class MotionPicturesRatingPolicyTest {
     void ratingToString() {
         Clock clockAtAge18 = ageFixture.getClockAtAge(18);
 
-        List<Rating> allowedRagings = ratingPolicy.getAllowedRagings(clockAtAge18, age);
+        List<Rating> allowedRagings = ratingPolicy.getAllowedRatings(clockAtAge18, age);
         allowedRagings.forEach(Object::toString);
     }
 }
