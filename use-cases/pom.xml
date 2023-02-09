@@ -11,10 +11,6 @@
 
     <artifactId>use-cases</artifactId>
 
-    <properties>
-        <junit-jupiter.version>5.5.2</junit-jupiter.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.link-intersystems.architecture.clean-architecture</groupId>

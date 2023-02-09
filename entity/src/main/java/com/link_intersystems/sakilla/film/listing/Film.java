@@ -1,5 +1,7 @@
 package com.link_intersystems.sakilla.film.listing;
 
+import com.link_intersystems.sakilla.film.rating.MotionPicturesRating;
+
 import java.time.Duration;
 import java.time.Year;
 
@@ -12,7 +14,7 @@ public class Film {
     private Language language;
     private Duration length;
     private Amount rentalRate;
-    private Rating rating;
+    private MotionPicturesRating rating;
 
     public int getId() {
         return id;
@@ -42,7 +44,7 @@ public class Film {
         return rentalRate;
     }
 
-    public Rating getRating() {
+    public MotionPicturesRating getRating() {
         return rating;
     }
 }
