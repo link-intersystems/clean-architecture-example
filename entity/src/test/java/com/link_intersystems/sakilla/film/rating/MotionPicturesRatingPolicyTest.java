@@ -38,9 +38,9 @@ class MotionPicturesRatingPolicyTest {
 
     @Test
     void getAllowedRagingsAdult() {
-        Clock clockAtAge10 = ageFixture.getClockAtAge(18);
+        Clock clockAtAge18 = ageFixture.getClockAtAge(18);
 
-        List<Rating> allowedRagings = ratingPolicy.getAllowedRagings(clockAtAge10, age);
+        List<Rating> allowedRagings = ratingPolicy.getAllowedRagings(clockAtAge18, age);
         assertEquals(5, allowedRagings.size());
 
         assertEquals(ratingPolicy.getRatingByName("G"), allowedRagings.get(0));
@@ -48,5 +48,13 @@ class MotionPicturesRatingPolicyTest {
         assertEquals(ratingPolicy.getRatingByName("PG-13"), allowedRagings.get(2));
         assertEquals(ratingPolicy.getRatingByName("R"), allowedRagings.get(3));
         assertEquals(ratingPolicy.getRatingByName("NC-17"), allowedRagings.get(4));
+    }
+
+    @Test
+    void ratingToString() {
+        Clock clockAtAge18 = ageFixture.getClockAtAge(18);
+
+        List<Rating> allowedRagings = ratingPolicy.getAllowedRagings(clockAtAge18, age);
+        allowedRagings.forEach(Object::toString);
     }
 }
