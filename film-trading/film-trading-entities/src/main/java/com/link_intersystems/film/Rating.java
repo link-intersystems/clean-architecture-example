@@ -7,7 +7,7 @@ import java.time.Clock;
 /**
  * @link https://www.motionpictures.org/film-ratings/
  */
-public class Rating   {
+public class Rating {
 
     private String name;
     private int minAge;
@@ -27,7 +27,7 @@ public class Rating   {
 
     @Override
     public String toString() {
-        return "MotionPicturesRating{" +
+        return "Rating{" +
                 "name='" + name + '\'' +
                 ", minAge=" + minAge +
                 '}';
