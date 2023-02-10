@@ -7,17 +7,12 @@
         <groupId>com.link-intersystems.architecture.clean-architecture</groupId>
         <artifactId>clean-architecture-example</artifactId>
         <version>1.0.0</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>entity</artifactId>
+    <artifactId>film-trading-entities</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>com.link-intersystems.architecture.clean-architecture</groupId>
-            <artifactId>entity</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -26,12 +21,6 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>5.1.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.link-intersystems.commons</groupId>
-            <artifactId>lis-commons-jdbc-test</artifactId>
-            <version>1.8.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
