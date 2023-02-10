@@ -33,7 +33,7 @@ class FilmListingInteractorTest {
 
         CustomerTable customerTable = new CustomerTable();
         FindLenderAnswer findLenderAnswer = new FindLenderAnswer(customerTable);
-        when(repository.findLender(any(Integer.class))).thenAnswer(findLenderAnswer);
+        when(repository.findCustomer(any(Integer.class))).thenAnswer(findLenderAnswer);
 
         FilmListingInteractor.Deps interactorDeps = mock(FilmListingInteractor.Deps.class);
         when(interactorDeps.getRepository()).thenReturn(repository);
@@ -52,7 +52,7 @@ class FilmListingInteractorTest {
     void listFilmsForA10YearOld() {
         FilmListingRequestModel requestModel = new FilmListingRequestModel();
         requestModel.setLanguage(Locale.ENGLISH);
-        requestModel.setLenderId(1);
+        requestModel.setCustomerId(1);
         requestModel.setViewerAge(10);
 
         FilmListingResponseModel responseModel = filmListingInteractor.listFilms(requestModel);

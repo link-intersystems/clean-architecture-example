@@ -4,7 +4,7 @@ import java.util.Locale;
 
 public class FilmListingRequestModel {
 
-    private Integer lenderId;
+    private Integer customerId;
     private Locale language;
     private Integer viewerAge;
 
@@ -16,8 +16,8 @@ public class FilmListingRequestModel {
         return viewerAge;
     }
 
-    public void setLenderId(Integer lenderId) {
-        this.lenderId = lenderId;
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
     }
 
     public void setLanguage(Locale language) {
@@ -28,7 +28,7 @@ public class FilmListingRequestModel {
         return language;
     }
 
-    public Integer getLenderId() {
-        return lenderId;
+    public Integer getCustomerId() {
+        return customerId;
     }
 }

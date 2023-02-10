@@ -9,5 +9,5 @@ public interface FilmListingRepository {
 
     public List<Film> findFilms(FilmCriteria criteria);
 
-    Customer findLender(Integer lenderId);
+    Customer findCustomer(Integer lenderId);
 }

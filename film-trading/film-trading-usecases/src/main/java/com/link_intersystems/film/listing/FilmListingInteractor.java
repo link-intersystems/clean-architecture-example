@@ -42,9 +42,9 @@ public class FilmListingInteractor implements FilmListingUseCase {
     @Override
     public FilmListingResponseModel listFilms(FilmListingRequestModel request) {
 
-        Integer lenderId = request.getLenderId();
+        Integer customerId = request.getCustomerId();
 
-        Customer customer = repository.findLender(lenderId);
+        Customer customer = repository.findCustomer(customerId);
 
         FilmCriteria filmCriteria = new FilmCriteria();
         filmCriteria.setLanguage(request.getLanguage());
