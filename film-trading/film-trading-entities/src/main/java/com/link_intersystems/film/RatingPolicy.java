@@ -10,20 +10,11 @@ public class RatingPolicy {
     private List<Rating> ratings = new ArrayList<>();
 
     public RatingPolicy() {
-        Rating generalAudiences = new Rating("G", 0);
-        ratings.add(generalAudiences);
-
-        Rating parentalGuidance = new Rating("PG", 0);
-        ratings.add(parentalGuidance);
-
-        Rating parentalGuidance13 = new Rating("PG-13", 13);
-        ratings.add(parentalGuidance13);
-
-        Rating restricted = new Rating("R", 17);
-        ratings.add(restricted);
-
-        Rating noOne17AndUnderAdmitted = new Rating("NC-17", 18);
-        ratings.add(noOne17AndUnderAdmitted);
+        ratings.add(Rating.GENERAL_AUDIENCES);
+        ratings.add(Rating.PARENTAL_GUIDANCE);
+        ratings.add(Rating.PARENTAL_GUIDANCE_13);
+        ratings.add(Rating.RESTRICTED);
+        ratings.add(Rating.NO_ONE_17_AND_UNDER_ADMITTED);
     }
 
     public List<Rating> getAllowedRatings(Age age) {
