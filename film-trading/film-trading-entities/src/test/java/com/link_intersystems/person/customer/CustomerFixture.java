@@ -1,22 +1,20 @@
-package com.link_intersystems.customer;
-
-import com.link_intersystems.lender.Age;
+package com.link_intersystems.person.customer;
 
 import java.time.*;
 import java.util.function.Function;
 
-public class AgeFixture {
+public class CustomerFixture {
 
-    private final Age age;
+    private final Customer customer;
     private LocalDate birthday;
 
-    public AgeFixture() {
+    public CustomerFixture() {
         birthday = LocalDate.of(2000, 5, 17);
-        age = new Age(birthday);
+        customer = new Customer(1, birthday);
     }
 
-    public Age getAge() {
-        return age;
+    public Customer getCustomer() {
+        return customer;
     }
 
     public Clock getClockAtAge(int age) {

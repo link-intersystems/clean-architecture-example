@@ -1,36 +1,27 @@
 package com.link_intersystems.film.rating;
 
-import com.link_intersystems.customer.AgeFixture;
+import com.link_intersystems.person.Age;
 import com.link_intersystems.film.Rating;
 import com.link_intersystems.film.RatingPolicy;
-import com.link_intersystems.lender.Age;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.Clock;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RatingPolicyTest {
 
-    private AgeFixture ageFixture;
-    private Age age;
     private RatingPolicy ratingPolicy;
 
     @BeforeEach
     void setUp() {
-        ageFixture = new AgeFixture();
-        age = ageFixture.getAge();
-
         ratingPolicy = new RatingPolicy();
     }
 
     @Test
     void getAllowedRagingsAge0() {
-        Clock clockAtAge10 = ageFixture.getClockAtAge(10);
-
-        List<Rating> allowedRagings = ratingPolicy.getAllowedRatings(clockAtAge10, age);
+        List<Rating> allowedRagings = ratingPolicy.getAllowedRatings(new Age(10));
         assertEquals(2, allowedRagings.size());
 
         assertEquals(ratingPolicy.getRatingByName("G"), allowedRagings.get(0));
@@ -39,9 +30,7 @@ class RatingPolicyTest {
 
     @Test
     void getAllowedRagingsAdult() {
-        Clock clockAtAge18 = ageFixture.getClockAtAge(18);
-
-        List<Rating> allowedRagings = ratingPolicy.getAllowedRatings(clockAtAge18, age);
+        List<Rating> allowedRagings = ratingPolicy.getAllowedRatings(new Age(18));
         assertEquals(5, allowedRagings.size());
 
         assertEquals(ratingPolicy.getRatingByName("G"), allowedRagings.get(0));
@@ -53,9 +42,7 @@ class RatingPolicyTest {
 
     @Test
     void ratingToString() {
-        Clock clockAtAge18 = ageFixture.getClockAtAge(18);
-
-        List<Rating> allowedRagings = ratingPolicy.getAllowedRatings(clockAtAge18, age);
+        List<Rating> allowedRagings = ratingPolicy.getAllowedRatings(new Age(30));
         allowedRagings.forEach(Object::toString);
     }
 }

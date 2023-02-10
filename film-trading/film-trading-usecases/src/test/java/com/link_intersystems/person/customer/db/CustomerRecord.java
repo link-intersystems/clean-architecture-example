@@ -1,4 +1,4 @@
-package com.link_intersystems.customer;
+package com.link_intersystems.person.customer.db;
 
 import java.time.LocalDate;
 

@@ -1,10 +1,11 @@
 package com.link_intersystems.film.listing;
 
+import com.link_intersystems.person.Age;
 import com.link_intersystems.film.Film;
 import com.link_intersystems.film.Language;
 import com.link_intersystems.film.Rating;
 import com.link_intersystems.film.RatingPolicy;
-import com.link_intersystems.lender.Lender;
+import com.link_intersystems.person.customer.Customer;
 
 import java.time.Clock;
 import java.util.HashMap;
@@ -43,12 +44,14 @@ public class FilmListingInteractor implements FilmListingUseCase {
 
         Integer lenderId = request.getLenderId();
 
-        Lender lender = repository.findLender(lenderId);
+        Customer customer = repository.findLender(lenderId);
 
         FilmCriteria filmCriteria = new FilmCriteria();
         filmCriteria.setLanguage(request.getLanguage());
 
-        List<Rating> allowedRatings = ratingPolicy.getAllowedRatings(clock, lender.getAge());
+        Age viewerAge = getViewerAge(request, customer);
+
+        List<Rating> allowedRatings = ratingPolicy.getAllowedRatings(viewerAge);
         filmCriteria.setRatings(allowedRatings);
 
         List<Film> films = repository.findFilms(filmCriteria);
@@ -59,6 +62,16 @@ public class FilmListingInteractor implements FilmListingUseCase {
         responseModel.setFilmListing(filmListing);
 
         return responseModel;
+    }
+
+    private Age getViewerAge(FilmListingRequestModel request, Customer customer) {
+        Integer viewerAgeYears = request.getViewerAge();
+
+        if (viewerAgeYears == null) {
+            return customer.getAge(clock);
+        }
+
+        return new Age(viewerAgeYears);
     }
 
     private FilmListing mapFilms(List<Film> films) {

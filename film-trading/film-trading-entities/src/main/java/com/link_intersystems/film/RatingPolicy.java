@@ -1,8 +1,7 @@
 package com.link_intersystems.film;
 
-import com.link_intersystems.lender.Age;
+import com.link_intersystems.person.Age;
 
-import java.time.Clock;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,11 +26,11 @@ public class RatingPolicy {
         ratings.add(noOne17AndUnderAdmitted);
     }
 
-    public List<Rating> getAllowedRatings(Clock clock, Age age) {
+    public List<Rating> getAllowedRatings(Age age) {
         List<Rating> allowedRatings = new ArrayList<>();
 
         for (Rating rating : ratings) {
-            if (rating.isAgeAllowed(age, clock)) {
+            if (rating.isAgeAllowed(age)) {
                 allowedRatings.add(rating);
             }
         }

@@ -1,4 +1,9 @@
-package com.link_intersystems.film;
+package com.link_intersystems.film.db;
+
+import com.link_intersystems.film.Film;
+import com.link_intersystems.film.Language;
+import com.link_intersystems.film.Rating;
+import com.link_intersystems.film.RatingPolicy;
 
 import java.lang.reflect.Field;
 

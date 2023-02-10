@@ -1,29 +1,29 @@
 package com.link_intersystems.film.listing;
 
-import com.link_intersystems.customer.CustomerFixture;
-import com.link_intersystems.customer.CustomerRecord;
-import com.link_intersystems.lender.Lender;
+import com.link_intersystems.person.customer.db.CustomerTable;
+import com.link_intersystems.person.customer.db.CustomerRecord;
+import com.link_intersystems.person.customer.Customer;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-public class FindLenderAnswer implements Answer<Lender> {
+public class FindLenderAnswer implements Answer<Customer> {
 
-    private CustomerFixture customerFixture;
+    private CustomerTable customerTable;
 
-    public FindLenderAnswer(CustomerFixture customerFixture) {
-        this.customerFixture = customerFixture;
+    public FindLenderAnswer(CustomerTable customerTable) {
+        this.customerTable = customerTable;
     }
 
     @Override
-    public Lender answer(InvocationOnMock invocationOnMock) throws Throwable {
+    public Customer answer(InvocationOnMock invocationOnMock) throws Throwable {
         Integer customerId = invocationOnMock.getArgument(0, Integer.class);
 
-        CustomerRecord customerRecord = customerFixture.getById(customerId);
+        CustomerRecord customerRecord = customerTable.getById(customerId);
 
         return map(customerRecord);
     }
 
-    private Lender map(CustomerRecord record) {
-        return new Lender(record.id, record.birthday);
+    private Customer map(CustomerRecord record) {
+        return new Customer(record.id, record.birthday);
     }
 }

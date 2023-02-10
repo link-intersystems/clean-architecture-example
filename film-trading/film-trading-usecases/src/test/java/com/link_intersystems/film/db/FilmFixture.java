@@ -1,4 +1,4 @@
-package com.link_intersystems.film;
+package com.link_intersystems.film.db;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

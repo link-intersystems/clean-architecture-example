@@ -1,4 +1,6 @@
-package com.link_intersystems.film;
+package com.link_intersystems.film.db;
+
+import com.link_intersystems.film.Language;
 
 import java.util.HashMap;
 import java.util.Map;

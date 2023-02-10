@@ -1,7 +1,7 @@
 package com.link_intersystems.film.listing;
 
 import com.link_intersystems.film.Film;
-import com.link_intersystems.lender.Lender;
+import com.link_intersystems.person.customer.Customer;
 
 import java.util.List;
 
@@ -9,5 +9,5 @@ public interface FilmListingRepository {
 
     public List<Film> findFilms(FilmCriteria criteria);
 
-    Lender findLender(Integer lenderId);
+    Customer findLender(Integer lenderId);
 }

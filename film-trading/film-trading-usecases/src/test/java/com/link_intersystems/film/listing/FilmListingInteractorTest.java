@@ -1,8 +1,8 @@
 package com.link_intersystems.film.listing;
 
-import com.link_intersystems.customer.CustomerFixture;
-import com.link_intersystems.film.FilmFixture;
-import com.link_intersystems.film.LanguageFixture;
+import com.link_intersystems.person.customer.db.CustomerTable;
+import com.link_intersystems.film.db.FilmFixture;
+import com.link_intersystems.film.db.LanguageFixture;
 import com.link_intersystems.film.RatingPolicy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,8 +31,8 @@ class FilmListingInteractorTest {
         FindFilmsAnswer findFilmsAnswer = new FindFilmsAnswer(filmFixture, languageFixture);
         when(repository.findFilms(any(FilmCriteria.class))).thenAnswer(findFilmsAnswer);
 
-        CustomerFixture customerFixture = new CustomerFixture();
-        FindLenderAnswer findLenderAnswer = new FindLenderAnswer(customerFixture);
+        CustomerTable customerTable = new CustomerTable();
+        FindLenderAnswer findLenderAnswer = new FindLenderAnswer(customerTable);
         when(repository.findLender(any(Integer.class))).thenAnswer(findLenderAnswer);
 
         FilmListingInteractor.Deps interactorDeps = mock(FilmListingInteractor.Deps.class);

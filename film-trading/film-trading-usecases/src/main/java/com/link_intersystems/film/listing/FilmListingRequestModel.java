@@ -6,6 +6,15 @@ public class FilmListingRequestModel {
 
     private Integer lenderId;
     private Locale language;
+    private Integer viewerAge;
+
+    public void setViewerAge(Integer viewerAge) {
+        this.viewerAge = viewerAge;
+    }
+
+    public Integer getViewerAge() {
+        return viewerAge;
+    }
 
     public void setLenderId(Integer lenderId) {
         this.lenderId = lenderId;

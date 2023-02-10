@@ -1,8 +1,6 @@
 package com.link_intersystems.film;
 
-import com.link_intersystems.lender.Age;
-
-import java.time.Clock;
+import com.link_intersystems.person.Age;
 
 /**
  * @link https://www.motionpictures.org/film-ratings/
@@ -21,8 +19,8 @@ public class Rating {
         return name;
     }
 
-    public boolean isAgeAllowed(Age age, Clock clock) {
-        return age.getYears(clock) >= minAge;
+    public boolean isAgeAllowed(Age age) {
+        return age.getYears() >= minAge;
     }
 
     @Override

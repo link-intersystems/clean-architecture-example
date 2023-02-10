@@ -1,15 +1,15 @@
-package com.link_intersystems.customer;
+package com.link_intersystems.person.customer.db;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class CustomerFixture {
+public class CustomerTable {
 
     private List<CustomerRecord> customerRecords = new ArrayList<>();
 
-    public CustomerFixture() {
+    public CustomerTable() {
         customerRecords.add(createMarySmith());
     }
 
