@@ -6,6 +6,7 @@ public class Film {
     private String title;
     private Language language;
     private Rating rating;
+    private Category category;
 
     public int getId() {
         return id;
@@ -21,5 +22,9 @@ public class Film {
 
     public Rating getRating() {
         return rating;
+    }
+
+    public Category getCategory() {
+        return category;
     }
 }

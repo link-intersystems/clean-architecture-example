@@ -7,6 +7,7 @@ public class FilmListingRequestModel {
     private Integer customerId;
     private Locale language;
     private Integer viewerAge;
+    private String category;
 
     public void setViewerAge(Integer viewerAge) {
         this.viewerAge = viewerAge;
@@ -30,5 +31,13 @@ public class FilmListingRequestModel {
 
     public Integer getCustomerId() {
         return customerId;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getCategory() {
+        return category;
     }
 }

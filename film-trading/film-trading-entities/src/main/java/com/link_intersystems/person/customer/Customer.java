@@ -20,4 +20,12 @@ public class Customer {
         Period age = Period.between(birthday, LocalDate.ofInstant(now, zone));
         return new Age(age.getYears());
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public LocalDate getBirthday() {
+        return birthday;
+    }
 }

@@ -1,16 +1,16 @@
-package com.link_intersystems.film.rating;
+package com.link_intersystems.film;
 
 import com.link_intersystems.person.Age;
-import com.link_intersystems.film.Rating;
-import com.link_intersystems.film.RatingPolicy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class RatingPolicyTest {
+
+    private static final short LOWER = -1;
 
     private RatingPolicy ratingPolicy;
 
@@ -38,6 +38,20 @@ class RatingPolicyTest {
         assertEquals(ratingPolicy.getRatingByName("PG-13"), allowedRagings.get(2));
         assertEquals(ratingPolicy.getRatingByName("R"), allowedRagings.get(3));
         assertEquals(ratingPolicy.getRatingByName("NC-17"), allowedRagings.get(4));
+    }
+
+
+    @Test
+    void includes() {
+        assertTrue(Rating.NO_ONE_17_AND_UNDER_ADMITTED.includes(Rating.RESTRICTED));
+        assertTrue(Rating.RESTRICTED.includes(Rating.PARENTAL_GUIDANCE_13));
+        assertTrue(Rating.PARENTAL_GUIDANCE_13.includes(Rating.PARENTAL_GUIDANCE));
+        assertTrue(Rating.PARENTAL_GUIDANCE.includes(Rating.GENERAL_AUDIENCES));
+        assertTrue(Rating.GENERAL_AUDIENCES.includes(Rating.PARENTAL_GUIDANCE));
+
+        assertFalse(Rating.RESTRICTED.includes(Rating.NO_ONE_17_AND_UNDER_ADMITTED));
+        assertFalse(Rating.PARENTAL_GUIDANCE_13.includes(Rating.RESTRICTED));
+        assertFalse(Rating.PARENTAL_GUIDANCE.includes(Rating.PARENTAL_GUIDANCE_13));
     }
 
     @Test

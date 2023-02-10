@@ -1,5 +1,6 @@
 package com.link_intersystems.film.listing;
 
+import com.link_intersystems.film.Category;
 import com.link_intersystems.film.Rating;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class FilmCriteria {
     public static final Locale DEFAULT_LANGUAGE = Locale.ENGLISH;
     private Locale language = DEFAULT_LANGUAGE;
     private List<Rating> ratings = Collections.emptyList();
+    private Category category;
 
     public void setLanguage(Locale language) {
         if (language == null) {
@@ -30,5 +32,13 @@ public class FilmCriteria {
 
     public List<Rating> getRatings() {
         return ratings;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Category getCategory() {
+        return category;
     }
 }

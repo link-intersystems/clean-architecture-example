@@ -8,6 +8,7 @@ public class ListedFilm {
     private String title;
     private Locale language;
     private String rating;
+    private String category;
 
     public int getId() {
         return id;
@@ -39,5 +40,13 @@ public class ListedFilm {
 
     void setRating(String rating) {
         this.rating = rating;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    void setCategory(String category) {
+        this.category = category;
     }
 }

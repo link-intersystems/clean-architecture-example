@@ -2,6 +2,8 @@ package com.link_intersystems.film;
 
 import com.link_intersystems.person.Age;
 
+import java.util.Objects;
+
 /**
  * @link https://www.motionpictures.org/film-ratings/
  */
@@ -30,10 +32,29 @@ public class Rating {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rating rating = (Rating) o;
+        return minAge == rating.minAge && name.equals(rating.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, minAge);
+    }
+
+    @Override
     public String toString() {
         return "Rating{" +
                 "name='" + name + '\'' +
                 ", minAge=" + minAge +
                 '}';
     }
+
+    public boolean includes(Rating o) {
+        return this.minAge >= o.minAge;
+    }
+
+
 }

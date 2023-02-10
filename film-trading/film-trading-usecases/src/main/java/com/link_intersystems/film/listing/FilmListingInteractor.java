@@ -1,10 +1,7 @@
 package com.link_intersystems.film.listing;
 
+import com.link_intersystems.film.*;
 import com.link_intersystems.person.Age;
-import com.link_intersystems.film.Film;
-import com.link_intersystems.film.Language;
-import com.link_intersystems.film.Rating;
-import com.link_intersystems.film.RatingPolicy;
 import com.link_intersystems.person.customer.Customer;
 
 import java.time.Clock;
@@ -48,6 +45,9 @@ public class FilmListingInteractor implements FilmListingUseCase {
 
         FilmCriteria filmCriteria = new FilmCriteria();
         filmCriteria.setLanguage(request.getLanguage());
+
+        Category category = repository.findCategoryByName(request.getCategory());
+        filmCriteria.setCategory(category);
 
         Age viewerAge = getViewerAge(request, customer);
 
@@ -93,6 +93,7 @@ public class FilmListingInteractor implements FilmListingUseCase {
 
         listedFilm.setLanguage(languageMapping.get(language));
         listedFilm.setRating(film.getRating().getName());
+        listedFilm.setCategory(film.getCategory().name());
         return listedFilm;
     }
 
