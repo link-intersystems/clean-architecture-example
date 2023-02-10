@@ -2,9 +2,9 @@ package com.link_intersystems.film.listing;
 
 import com.link_intersystems.film.Film;
 import com.link_intersystems.film.Language;
-import com.link_intersystems.lender.Lender;
 import com.link_intersystems.film.Rating;
 import com.link_intersystems.film.RatingPolicy;
+import com.link_intersystems.lender.Lender;
 
 import java.time.Clock;
 import java.util.HashMap;
@@ -19,7 +19,9 @@ public class FilmListingInteractor implements FilmListingUseCase {
 
     public static interface Deps {
         public FilmListingRepository getRepository();
+
         public Clock getClock();
+
         public RatingPolicy getRatingPolicy();
     }
 

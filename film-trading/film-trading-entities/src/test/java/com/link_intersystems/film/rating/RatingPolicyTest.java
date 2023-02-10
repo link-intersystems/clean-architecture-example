@@ -1,29 +1,29 @@
 package com.link_intersystems.film.rating;
 
-import com.link_intersystems.film.MotionPicturesRatingPolicy;
-import com.link_intersystems.film.Rating;
-import com.link_intersystems.lender.Age;
 import com.link_intersystems.customer.AgeFixture;
+import com.link_intersystems.film.Rating;
+import com.link_intersystems.film.RatingPolicy;
+import com.link_intersystems.lender.Age;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.Clock;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class MotionPicturesRatingPolicyTest {
+class RatingPolicyTest {
 
     private AgeFixture ageFixture;
     private Age age;
-    private MotionPicturesRatingPolicy ratingPolicy;
+    private RatingPolicy ratingPolicy;
 
     @BeforeEach
     void setUp() {
         ageFixture = new AgeFixture();
         age = ageFixture.getAge();
 
-        ratingPolicy = new MotionPicturesRatingPolicy();
+        ratingPolicy = new RatingPolicy();
     }
 
     @Test

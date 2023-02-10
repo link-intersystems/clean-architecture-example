@@ -3,7 +3,6 @@ package com.link_intersystems.film.listing;
 import com.link_intersystems.customer.CustomerFixture;
 import com.link_intersystems.film.FilmFixture;
 import com.link_intersystems.film.LanguageFixture;
-import com.link_intersystems.film.MotionPicturesRatingPolicy;
 import com.link_intersystems.film.RatingPolicy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,7 +42,7 @@ class FilmListingInteractorTest {
         Clock fixedClock = Clock.fixed(fixtedDateTime.toInstant(ZoneOffset.UTC), ZoneOffset.systemDefault());
         when(interactorDeps.getClock()).thenReturn(fixedClock);
 
-        RatingPolicy ratingPolicy = new MotionPicturesRatingPolicy();
+        RatingPolicy ratingPolicy = new RatingPolicy();
         when(interactorDeps.getRatingPolicy()).thenReturn(ratingPolicy);
 
         filmListingInteractor = new FilmListingInteractor(interactorDeps);

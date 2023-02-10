@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 
 public class FilmFactory {
 
+    private RatingPolicy ratingPolicy = new RatingPolicy();
     private LanguageFactory languageFactory;
 
     public FilmFactory(LanguageFactory languageFactory) {
@@ -15,7 +16,7 @@ public class FilmFactory {
         setId(film, record.id);
         setTitle(film, record.title);
         setLanguage(film, languageFactory.getLanguage(record.languageId));
-        Rating rating = new MotionPicturesRatingPolicy().getRatingByName(record.rating);
+        Rating rating = ratingPolicy.getRatingByName(record.rating);
         setRating(film, rating);
         return film;
     }
