@@ -9,7 +9,7 @@ public class CustomerFixture {
     private LocalDate birthday;
 
     public CustomerFixture() {
-        birthday = LocalDate.of(2000, 5, 17);
+        birthday = LocalDate.of(2000, 7, 19);
         customer = new Customer(1, birthday);
     }
 

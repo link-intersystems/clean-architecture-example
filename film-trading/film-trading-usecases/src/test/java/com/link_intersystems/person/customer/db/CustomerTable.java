@@ -16,7 +16,7 @@ public class CustomerTable {
     private CustomerRecord createMarySmith() {
         CustomerRecord customerRecord = new CustomerRecord();
         customerRecord.id = 1;
-        customerRecord.birthday = LocalDate.of(2010, 7, 19);
+        customerRecord.birthday = LocalDate.of(2000, 7, 19);
         return customerRecord;
     }
 

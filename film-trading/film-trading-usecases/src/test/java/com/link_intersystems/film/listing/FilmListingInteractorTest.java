@@ -38,7 +38,7 @@ class FilmListingInteractorTest {
         FilmListingInteractor.Deps interactorDeps = mock(FilmListingInteractor.Deps.class);
         when(interactorDeps.getRepository()).thenReturn(repository);
 
-        LocalDateTime fixtedDateTime = LocalDateTime.of(2020, 1, 1, 0, 0, 0);
+        LocalDateTime fixtedDateTime = LocalDateTime.of(2010, 1, 1, 0, 0, 0);
         Clock fixedClock = Clock.fixed(fixtedDateTime.toInstant(ZoneOffset.UTC), ZoneOffset.systemDefault());
         when(interactorDeps.getClock()).thenReturn(fixedClock);
 
