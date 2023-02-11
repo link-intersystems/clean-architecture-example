@@ -13,7 +13,7 @@ public class CarOffersRequestModel {
         this.vehicleType = category;
     }
 
-    public String getVehicleType() {
+    String getVehicleType() {
         return vehicleType;
     }
 
@@ -21,7 +21,7 @@ public class CarOffersRequestModel {
         this.pickUpDateTime = pickUpDateTime;
     }
 
-    public LocalDateTime getPickUpDateTime() {
+    LocalDateTime getPickUpDateTime() {
         return pickUpDateTime;
     }
 
@@ -29,7 +29,7 @@ public class CarOffersRequestModel {
         this.returnDateTime = returnDateTime;
     }
 
-    public LocalDateTime getReturnDateTime() {
+    LocalDateTime getReturnDateTime() {
         return returnDateTime;
     }
 
@@ -37,7 +37,7 @@ public class CarOffersRequestModel {
         this.stationId = stationId;
     }
 
-    public int getStationId() {
+    int getStationId() {
         return stationId;
     }
 }

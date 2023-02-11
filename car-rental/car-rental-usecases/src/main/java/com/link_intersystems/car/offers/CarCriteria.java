@@ -2,7 +2,7 @@ package com.link_intersystems.car.offers;
 
 import com.link_intersystems.car.VehicleType;
 
-public class CarCriteria {
+class CarCriteria {
 
     private VehicleType vehicleType;
 

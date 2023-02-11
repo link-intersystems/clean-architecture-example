@@ -7,9 +7,9 @@ import com.link_intersystems.rental.RentalsByCar;
 
 import java.util.List;
 
-public interface CarOffersRepository {
+interface CarOffersRepository {
 
-    public List<Car> findCars(CarCriteria criteria);
+    List<Car> findCars(CarCriteria criteria);
 
     RentalsByCar findCarRentals(List<CarId> carIds, RentalPeriod desiredRentalPeriod);
 }

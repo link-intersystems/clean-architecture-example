@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CarOffersInteractor implements CarOffersUseCase {
+class CarOffersInteractor implements CarOffersUseCase {
 
     private final CarOffersRepository repository;
 
