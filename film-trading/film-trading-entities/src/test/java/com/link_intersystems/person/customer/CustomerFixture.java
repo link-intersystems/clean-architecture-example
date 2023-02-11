@@ -1,14 +1,16 @@
 package com.link_intersystems.person.customer;
 
+import com.link_intersystems.time.ClockFactory;
+
 import java.time.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.function.Function;
 
 public class CustomerFixture {
 
+    private ClockFactory clockFactory = new ClockFactory();
     private List<Customer> customers = new ArrayList<>();
 
     public CustomerFixture() {
@@ -39,9 +41,6 @@ public class CustomerFixture {
     private Clock getBirthdayRelativeClock(LocalDate birthday, Function<LocalDateTime, LocalDateTime> timeEditor) {
         LocalDateTime birthDayStartOfDay = birthday.atStartOfDay();
         LocalDateTime editedTime = timeEditor.apply(birthDayStartOfDay);
-        ZoneId zoneId = ZoneId.systemDefault();
-        ZoneOffset offset = zoneId.getRules().getOffset(editedTime);
-        Instant intstant = editedTime.toInstant(offset);
-        return Clock.fixed(intstant, zoneId);
+        return clockFactory.getClock(editedTime);
     }
 }
