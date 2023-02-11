@@ -11,7 +11,7 @@ public class CarOffersResponseModel {
         return carOffers;
     }
 
-    void setFilmListing(CarOffers carOffers) {
+    void setCarOffers(CarOffers carOffers) {
         this.carOffers = carOffers;
     }
 }

@@ -2,6 +2,9 @@ package com.link_intersystems.rental;
 
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDateTime;
+import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 public class RentalPeriod {
 
@@ -9,8 +12,8 @@ public class RentalPeriod {
     private LocalDateTime returnDate;
 
     public RentalPeriod(LocalDateTime pickUpDate, LocalDateTime returnDate) {
-        this.pickUpDate = pickUpDate;
-        this.returnDate = returnDate;
+        this.pickUpDate = requireNonNull(pickUpDate);
+        this.returnDate = requireNonNull(returnDate);
     }
 
     public LocalDateTime getPickUpDate() {
@@ -36,5 +39,13 @@ public class RentalPeriod {
 
         LocalDateTime thatReturnDate = rentalPeriod.getReturnDate();
         return pickUpDate.isBefore(thatReturnDate) && returnDate.isAfter(thatReturnDate);
+    }
+
+    @Override
+    public String toString() {
+        return "RentalPeriod{" +
+                "pickUpDate=" + pickUpDate +
+                ", returnDate=" + returnDate +
+                '}';
     }
 }

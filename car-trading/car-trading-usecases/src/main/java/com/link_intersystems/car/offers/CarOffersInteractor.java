@@ -3,7 +3,6 @@ package com.link_intersystems.car.offers;
 import com.link_intersystems.car.Car;
 import com.link_intersystems.car.CarId;
 import com.link_intersystems.car.VehicleType;
-import com.link_intersystems.rental.CarRental;
 import com.link_intersystems.rental.CarRentals;
 import com.link_intersystems.rental.RentalPeriod;
 import com.link_intersystems.rental.RentalsByCar;
@@ -12,7 +11,6 @@ import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CarOffersInteractor implements CarOffersUseCase {
@@ -41,11 +39,21 @@ public class CarOffersInteractor implements CarOffersUseCase {
         carCriteria.setVehicleType(vehicleType);
 
         List<Car> cars = repository.findCars(carCriteria);
+        List<Car> availableCars = findAvailableCars(request, cars);
+
+        CarOffersResponseModel responseModel = new CarOffersResponseModel();
+
+        CarOffers carOffers = mapCars(availableCars);
+        responseModel.setCarOffers(carOffers);
+
+        return responseModel;
+    }
+
+    private List<Car> findAvailableCars(CarOffersRequestModel request, List<Car> cars) {
+        List<Car> availableCars = new ArrayList<>();
 
         List<CarId> carIds = cars.stream().map(Car::getId).collect(Collectors.toList());
         RentalsByCar rentalsByCar = repository.findCarRentals(carIds);
-
-        List<Car> availableCars = new ArrayList<>();
 
         LocalDateTime desiredPickUpDateTime = request.getPickUpDateTime();
         LocalDateTime resiredReturnDateTime = request.getReturnDateTime();
@@ -53,17 +61,13 @@ public class CarOffersInteractor implements CarOffersUseCase {
 
         for (Car car : cars) {
             CarId carId = car.getId();
-            CarRentals carRentals = rentalsByCar.get(carId);
-            carRentals.isAvailable(desiredRentalPeriod);
+            CarRentals carRentals = rentalsByCar.getOrDefault(carId, new CarRentals());
+            if (carRentals.isAvailable(desiredRentalPeriod)) {
+                availableCars.add(car);
+            }
 
         }
-
-        CarOffersResponseModel responseModel = new CarOffersResponseModel();
-
-        CarOffers carOffers = mapCars(cars);
-        responseModel.setFilmListing(carOffers);
-
-        return responseModel;
+        return availableCars;
     }
 
     private CarOffers mapCars(List<Car> cars) {

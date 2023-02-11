@@ -1,12 +1,30 @@
 package com.link_intersystems.rental;
 
+import com.link_intersystems.car.CarId;
+
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class CarRentals extends AbstractList<CarRental> {
 
     private List<CarRental> carRentalList = new ArrayList<>();
+
+    public CarRentals() {
+    }
+
+    public CarRentals(List<CarRental> carRentalList) {
+        this.carRentalList.addAll(carRentalList);
+    }
+
+    public RentalsByCar groupByCar() {
+        Map<CarId, List<CarRental>> rentalsByCar = carRentalList.stream().collect(Collectors.groupingBy(CarRental::getCarId));
+        Map<CarId, CarRentals> collect = rentalsByCar.entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), e -> new CarRentals(e.getValue())));
+        return new RentalsByCar(collect);
+    }
 
     @Override
     public CarRental get(int index) {
