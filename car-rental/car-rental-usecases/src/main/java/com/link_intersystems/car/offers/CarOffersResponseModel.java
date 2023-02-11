@@ -27,7 +27,4 @@ public class CarOffersResponseModel {
         return carOffers;
     }
 
-    void setCarOffers(CarOffers carOffers) {
-        this.carOffers = carOffers;
-    }
 }
