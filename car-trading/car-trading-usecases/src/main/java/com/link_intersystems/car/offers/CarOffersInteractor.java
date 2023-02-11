@@ -56,7 +56,7 @@ public class CarOffersInteractor implements CarOffersUseCase {
         CarOffer carOffer = new CarOffer();
         carOffer.setId(car.getId());
         carOffer.setName(car.getName());
-        carOffer.setVerhicleType(car.getCategory().name());
+        carOffer.setVerhicleType(car.getVehicleType().name());
         return carOffer;
     }
 

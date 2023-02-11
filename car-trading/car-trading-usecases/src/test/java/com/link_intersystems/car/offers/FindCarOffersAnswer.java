@@ -29,7 +29,7 @@ public class FindCarOffersAnswer implements Answer<List<Car>> {
     private List<Car> applyCriteria(List<Car> cars, CarCriteria carCriteria) {
         VehicleType vehicleTypeCriterion = carCriteria.getVehicleType();
 
-        Predicate<Car> vehicleTypePredicate = vehicleTypeCriterion == null ? f -> true : fr -> vehicleTypeCriterion.equals(fr.getCategory());
+        Predicate<Car> vehicleTypePredicate = vehicleTypeCriterion == null ? f -> true : fr -> vehicleTypeCriterion.equals(fr.getVehicleType());
 
         return cars.stream()
                 .filter(vehicleTypePredicate)

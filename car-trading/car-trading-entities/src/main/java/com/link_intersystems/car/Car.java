@@ -14,7 +14,7 @@ public class Car {
         return name;
     }
 
-    public VehicleType getCategory() {
+    public VehicleType getVehicleType() {
         return vehicleType;
     }
 }
