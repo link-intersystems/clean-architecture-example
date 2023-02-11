@@ -22,29 +22,28 @@ public class CarOffersInteractor implements CarOffersUseCase {
 
     @Override
     public CarOffersResponseModel findOffers(CarOffersRequestModel request) {
+        List<Car> cars = findMatchingCars(request);
+        List<Car> availableCars = getAvailableCars(request, cars);
+        return new CarOffersResponseModel(availableCars);
+    }
 
+    private List<Car> findMatchingCars(CarOffersRequestModel request) {
         CarCriteria carCriteria = new CarCriteria();
 
         VehicleType vehicleType = VehicleType.valueOf(request.getVehicleType());
         carCriteria.setVehicleType(vehicleType);
 
-        List<Car> cars = repository.findCars(carCriteria);
+        return repository.findCars(carCriteria);
+    }
 
-
+    private List<Car> getAvailableCars(CarOffersRequestModel request, List<Car> cars) {
         LocalDateTime desiredPickUpDateTime = request.getPickUpDateTime();
         LocalDateTime resiredReturnDateTime = request.getReturnDateTime();
         RentalPeriod desiredRentalPeriod = new RentalPeriod(desiredPickUpDateTime, resiredReturnDateTime);
-        List<Car> availableCars = findAvailableCars(desiredRentalPeriod, cars);
-
-        CarOffersResponseModel responseModel = new CarOffersResponseModel();
-
-        CarOffers carOffers = mapCars(availableCars);
-        responseModel.setCarOffers(carOffers);
-
-        return responseModel;
+        return filterAvailableCars(desiredRentalPeriod, cars);
     }
 
-    private List<Car> findAvailableCars(RentalPeriod desiredRentalPeriod, List<Car> cars) {
+    private List<Car> filterAvailableCars(RentalPeriod desiredRentalPeriod, List<Car> cars) {
         List<Car> availableCars = new ArrayList<>();
 
         List<CarId> carIds = cars.stream().map(Car::getId).collect(Collectors.toList());
@@ -58,26 +57,7 @@ public class CarOffersInteractor implements CarOffersUseCase {
             }
 
         }
+
         return availableCars;
     }
-
-    private CarOffers mapCars(List<Car> cars) {
-        CarOffers carOffers = new CarOffers();
-
-        for (Car car : cars) {
-            CarOffer carOffer = map(car);
-            carOffers.addListedFilm(carOffer);
-        }
-
-        return carOffers;
-    }
-
-    private CarOffer map(Car car) {
-        CarOffer carOffer = new CarOffer();
-        carOffer.setId(car.getId().getValue());
-        carOffer.setName(car.getName());
-        carOffer.setVerhicleType(car.getVehicleType().name());
-        return carOffer;
-    }
-
 }

@@ -16,4 +16,5 @@ public class RentalsByCar extends AbstractMap<CarId, CarRentals> {
     public Set<Entry<CarId, CarRentals>> entrySet() {
         return Collections.unmodifiableMap(rentalsByCar).entrySet();
     }
+
 }
