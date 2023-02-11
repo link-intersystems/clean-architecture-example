@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.link-intersystems.architecture.clean-architecture</groupId>
-        <artifactId>car-trading</artifactId>
+        <artifactId>car-rental</artifactId>
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>car-trading-entities</artifactId>
+    <artifactId>car-rental-entities</artifactId>
 
     <dependencies>
         <dependency>

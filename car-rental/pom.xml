@@ -5,15 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.link-intersystems.architecture.clean-architecture</groupId>
-        <artifactId>car-rental</artifactId>
+        <artifactId>car-rental-project</artifactId>
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>car-trading</artifactId>
+    <artifactId>car-rental</artifactId>
     <packaging>pom</packaging>
 
     <modules>
-        <module>car-trading-usecases</module>
-        <module>car-trading-entities</module>
+        <module>car-rental-usecases</module>
+        <module>car-rental-entities</module>
     </modules>
 </project>
