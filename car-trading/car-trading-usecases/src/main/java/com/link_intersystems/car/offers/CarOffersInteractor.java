@@ -7,7 +7,6 @@ import com.link_intersystems.rental.CarRentals;
 import com.link_intersystems.rental.RentalPeriod;
 import com.link_intersystems.rental.RentalsByCar;
 
-import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,19 +14,10 @@ import java.util.stream.Collectors;
 
 public class CarOffersInteractor implements CarOffersUseCase {
 
-    private final Clock clock;
-
-    public static interface Deps {
-        public CarOffersRepository getRepository();
-
-        public Clock getClock();
-    }
-
     private final CarOffersRepository repository;
 
-    public CarOffersInteractor(Deps deps) {
-        repository = deps.getRepository();
-        clock = deps.getClock();
+    public CarOffersInteractor(CarOffersRepository repository) {
+        this.repository = repository;
     }
 
     @Override
@@ -39,7 +29,12 @@ public class CarOffersInteractor implements CarOffersUseCase {
         carCriteria.setVehicleType(vehicleType);
 
         List<Car> cars = repository.findCars(carCriteria);
-        List<Car> availableCars = findAvailableCars(request, cars);
+
+
+        LocalDateTime desiredPickUpDateTime = request.getPickUpDateTime();
+        LocalDateTime resiredReturnDateTime = request.getReturnDateTime();
+        RentalPeriod desiredRentalPeriod = new RentalPeriod(desiredPickUpDateTime, resiredReturnDateTime);
+        List<Car> availableCars = findAvailableCars(desiredRentalPeriod, cars);
 
         CarOffersResponseModel responseModel = new CarOffersResponseModel();
 
@@ -49,15 +44,11 @@ public class CarOffersInteractor implements CarOffersUseCase {
         return responseModel;
     }
 
-    private List<Car> findAvailableCars(CarOffersRequestModel request, List<Car> cars) {
+    private List<Car> findAvailableCars(RentalPeriod desiredRentalPeriod, List<Car> cars) {
         List<Car> availableCars = new ArrayList<>();
 
         List<CarId> carIds = cars.stream().map(Car::getId).collect(Collectors.toList());
-        RentalsByCar rentalsByCar = repository.findCarRentals(carIds);
-
-        LocalDateTime desiredPickUpDateTime = request.getPickUpDateTime();
-        LocalDateTime resiredReturnDateTime = request.getReturnDateTime();
-        RentalPeriod desiredRentalPeriod = new RentalPeriod(desiredPickUpDateTime, resiredReturnDateTime);
+        RentalsByCar rentalsByCar = repository.findCarRentals(carIds, desiredRentalPeriod);
 
         for (Car car : cars) {
             CarId carId = car.getId();
