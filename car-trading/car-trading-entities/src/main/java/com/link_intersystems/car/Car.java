@@ -2,11 +2,11 @@ package com.link_intersystems.car;
 
 public class Car {
 
-    private int id;
+    private CarId id;
     private String name;
     private VehicleType vehicleType;
 
-    public int getId() {
+    public CarId getId() {
         return id;
     }
 

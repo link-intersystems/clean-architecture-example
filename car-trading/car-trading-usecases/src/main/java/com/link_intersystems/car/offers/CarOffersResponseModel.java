@@ -7,7 +7,7 @@ public class CarOffersResponseModel {
     CarOffersResponseModel() {
     }
 
-    public CarOffers getFilmListing() {
+    public CarOffers getCarOffers() {
         return carOffers;
     }
 

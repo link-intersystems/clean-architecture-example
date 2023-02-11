@@ -1,10 +1,8 @@
 package com.link_intersystems.car.offers;
 
 import com.link_intersystems.car.CarFixture;
-import com.link_intersystems.car.VehicleType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.stubbing.Answer;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
@@ -13,7 +11,6 @@ import java.time.ZoneOffset;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -27,10 +24,7 @@ class CarOffersInteractorTest {
 
         CarFixture carFixture = new CarFixture();
         FindCarOffersAnswer findCarOffersAnswer = new FindCarOffersAnswer(carFixture);
-        when(repository.findFilms(any(CarCriteria.class))).thenAnswer(findCarOffersAnswer);
-
-        Answer<VehicleType> findCategoryAnswer = new FindVehicleTypeAnswer();
-        when(repository.findVehicleTypeByName(anyString())).thenAnswer(findCategoryAnswer);
+        when(repository.findCars(any(CarCriteria.class))).thenAnswer(findCarOffersAnswer);
 
         CarOffersInteractor.Deps interactorDeps = mock(CarOffersInteractor.Deps.class);
         when(interactorDeps.getRepository()).thenReturn(repository);
@@ -49,20 +43,23 @@ class CarOffersInteractorTest {
 
         CarOffersResponseModel responseModel = carOffersInteractor.findOffers(requestModel);
 
-        CarOffers carOffers = responseModel.getFilmListing();
+        CarOffers carOffers = responseModel.getCarOffers();
         assertNotNull(carOffers);
 
         assertEquals(2, carOffers.size());
     }
 
     @Test
-    void findSedanOffers() {
+    void findOffersDateRange() {
         CarOffersRequestModel requestModel = new CarOffersRequestModel();
+        requestModel.setStationId(1);
+        requestModel.setPickUpDateTime(LocalDateTime.of(2023, 1,5, 8,30,0));
+        requestModel.setReturnDateTime(LocalDateTime.of(2023, 1,8, 17,00,0));
         requestModel.setVehicleType("SEDAN");
 
         CarOffersResponseModel responseModel = carOffersInteractor.findOffers(requestModel);
 
-        CarOffers carOffers = responseModel.getFilmListing();
+        CarOffers carOffers = responseModel.getCarOffers();
         assertNotNull(carOffers);
 
         assertEquals(2, carOffers.size());
@@ -75,7 +72,7 @@ class CarOffersInteractorTest {
 
         CarOffersResponseModel responseModel = carOffersInteractor.findOffers(requestModel);
 
-        CarOffers carOffers = responseModel.getFilmListing();
+        CarOffers carOffers = responseModel.getCarOffers();
         assertNotNull(carOffers);
 
         assertEquals(2, carOffers.size());

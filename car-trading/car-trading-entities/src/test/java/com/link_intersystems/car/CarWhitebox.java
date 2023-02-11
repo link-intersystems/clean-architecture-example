@@ -9,7 +9,7 @@ public class CarWhitebox {
     }
 
     public void setId(Car car, int id) {
-        setField(car, "id", id);
+        setField(car, "id", new CarId(id));
     }
 
     public void setVehicleType(Car car, VehicleType vehicleType) {
