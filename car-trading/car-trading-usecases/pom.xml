@@ -5,23 +5,21 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.link-intersystems.architecture.clean-architecture</groupId>
-        <artifactId>clean-architecture-example</artifactId>
+        <artifactId>car-trading</artifactId>
         <version>1.0.0</version>
-        <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>film-trading-usecases</artifactId>
-
+    <artifactId>car-trading-usecases</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.link-intersystems.architecture.clean-architecture</groupId>
-            <artifactId>film-trading-entities</artifactId>
+            <artifactId>car-trading-entities</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.link-intersystems.architecture.clean-architecture</groupId>
-            <artifactId>film-trading-entities</artifactId>
+            <artifactId>car-trading-entities</artifactId>
             <version>1.0.0</version>
             <type>test-jar</type>
             <scope>test</scope>
