@@ -4,6 +4,7 @@ import com.link_intersystems.car.Car;
 import com.link_intersystems.money.Amount;
 import com.link_intersystems.rental.RentalCar;
 import com.link_intersystems.rental.RentalOffer;
+import com.link_intersystems.rental.RentalRate;
 import com.link_intersystems.time.Period;
 
 import java.util.List;
@@ -29,6 +30,9 @@ public class CarOffersResponseModel {
         RentalOffer rentalOffer = rentalCar.getRentalOffer(rentalPeriod);
         Amount totalRentalAmount = rentalOffer.getTotalRentalAmount();
         carOffer.setTotalRentalRate(totalRentalAmount.getValue());
+
+        RentalRate rentalRate = rentalCar.getRentalRate();
+        carOffer.setPerDayRentalRate(rentalRate.getAmount().getValue());
 
         return carOffer;
     }

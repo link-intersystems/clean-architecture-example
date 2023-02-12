@@ -1,8 +1,6 @@
 package com.link_intersystems.car.offers;
 
-import com.link_intersystems.car.Car;
 import com.link_intersystems.car.CarFixture;
-import com.link_intersystems.car.CarId;
 import com.link_intersystems.rental.CarRentalFixture;
 import com.link_intersystems.rental.RentalRateFixture;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +24,7 @@ class CarOffersInteractorTest {
     }
 
     @Test
-    void carOffer() {
+    void rentalRate() {
         CarOffersRequestModel requestModel = new CarOffersRequestModel();
         requestModel.setStationId(1);
         requestModel.setPickUpDateTime(dateTime("2023-01-17", "08:30:00"));
@@ -43,6 +41,7 @@ class CarOffersInteractorTest {
 
         assertEquals(2, carOffer.getId());
         assertEquals(new BigDecimal("190.00"), carOffer.getTotalRentalRate());
+        assertEquals(new BigDecimal("95.00"), carOffer.getPerDayRentalRate());
     }
 
     @Test

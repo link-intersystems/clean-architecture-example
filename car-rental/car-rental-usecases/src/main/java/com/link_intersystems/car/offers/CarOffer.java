@@ -8,6 +8,7 @@ public class CarOffer {
     private String name;
     private String verhicleType;
     private BigDecimal totalRentalRate;
+    private BigDecimal perDayRentalRate;
 
     void setId(int id) {
         this.id = id;
@@ -31,5 +32,13 @@ public class CarOffer {
 
     void setTotalRentalRate(BigDecimal totalRentalRate) {
         this.totalRentalRate = totalRentalRate;
+    }
+
+    public BigDecimal getPerDayRentalRate() {
+        return perDayRentalRate;
+    }
+
+    public void setPerDayRentalRate(BigDecimal perDayRentalRate) {
+        this.perDayRentalRate = perDayRentalRate;
     }
 }

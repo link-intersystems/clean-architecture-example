@@ -13,6 +13,10 @@ public class RentalCar {
         this.rentalRate = rentalRate;
     }
 
+    public RentalRate getRentalRate() {
+        return rentalRate;
+    }
+
     public Car getCar() {
         return car;
     }

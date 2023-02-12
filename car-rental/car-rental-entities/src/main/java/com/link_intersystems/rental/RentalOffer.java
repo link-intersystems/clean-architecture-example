@@ -1,7 +1,6 @@
 package com.link_intersystems.rental;
 
 import com.link_intersystems.money.Amount;
-import com.link_intersystems.rental.RentalRate;
 import com.link_intersystems.time.Period;
 
 public class RentalOffer {
