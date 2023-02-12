@@ -1,10 +1,10 @@
 package com.link_intersystems.car.offers;
 
 import com.link_intersystems.car.CarId;
-import com.link_intersystems.rental.CarRental;
-import com.link_intersystems.rental.CarRentalFixture;
-import com.link_intersystems.rental.CarRentals;
-import com.link_intersystems.rental.RentalsByCar;
+import com.link_intersystems.car.rental.CarRental;
+import com.link_intersystems.car.rental.CarRentalFixture;
+import com.link_intersystems.car.rental.CarRentals;
+import com.link_intersystems.car.rental.RentalsByCar;
 import com.link_intersystems.time.Period;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;

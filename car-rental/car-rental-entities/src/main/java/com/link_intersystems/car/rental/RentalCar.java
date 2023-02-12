@@ -1,7 +1,6 @@
-package com.link_intersystems.rental;
+package com.link_intersystems.car.rental;
 
 import com.link_intersystems.car.Car;
-import com.link_intersystems.time.Period;
 
 public class RentalCar {
 
@@ -21,7 +20,4 @@ public class RentalCar {
         return car;
     }
 
-    public RentalOffer getRentalOffer(Period rentalPeriod) {
-        return new RentalOffer(rentalRate, rentalPeriod);
-    }
 }

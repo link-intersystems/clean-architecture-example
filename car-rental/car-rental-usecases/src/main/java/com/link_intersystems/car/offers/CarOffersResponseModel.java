@@ -2,11 +2,10 @@ package com.link_intersystems.car.offers;
 
 import com.link_intersystems.car.Car;
 import com.link_intersystems.car.Specs;
+import com.link_intersystems.car.offer.RentalOffer;
+import com.link_intersystems.car.rental.RentalCar;
+import com.link_intersystems.car.rental.RentalRate;
 import com.link_intersystems.money.Amount;
-import com.link_intersystems.rental.RentalCar;
-import com.link_intersystems.rental.RentalOffer;
-import com.link_intersystems.rental.RentalRate;
-import com.link_intersystems.time.Period;
 
 import java.util.List;
 
@@ -14,21 +13,22 @@ public class CarOffersResponseModel {
 
     private CarOffersModel carOffersModel = new CarOffersModel();
 
-    CarOffersResponseModel(List<RentalCar> rentalCars, Period rentalPeriod) {
-        for (RentalCar rentalCar : rentalCars) {
-            CarOfferModel carOfferModel = map(rentalCar, rentalPeriod);
+    CarOffersResponseModel(List<RentalOffer> rentalOffers) {
+        for (RentalOffer rentalOffer : rentalOffers) {
+            CarOfferModel carOfferModel = map(rentalOffer);
             carOffersModel.addCarOffer(carOfferModel);
         }
     }
 
-    private CarOfferModel map(RentalCar rentalCar, Period rentalPeriod) {
+    private CarOfferModel map(RentalOffer rentalOffer) {
         CarOfferModel carOfferModel = new CarOfferModel();
+
+        RentalCar rentalCar = rentalOffer.getRentalCar();
         Car car = rentalCar.getCar();
         carOfferModel.setId(car.getId().getValue());
         carOfferModel.setName(car.getName());
         carOfferModel.setVerhicleType(car.getVehicleType().name());
 
-        RentalOffer rentalOffer = rentalCar.getRentalOffer(rentalPeriod);
         Amount totalRentalAmount = rentalOffer.getTotalRentalAmount();
         carOfferModel.setTotalRentalRate(totalRentalAmount.getValue());
 

@@ -3,10 +3,10 @@ package com.link_intersystems.car.offers;
 import com.link_intersystems.car.Car;
 import com.link_intersystems.car.CarFixture;
 import com.link_intersystems.car.CarId;
-import com.link_intersystems.rental.CarRentalFixture;
-import com.link_intersystems.rental.RentalRateFixture;
-import com.link_intersystems.rental.RentalRatesByCar;
-import com.link_intersystems.rental.RentalsByCar;
+import com.link_intersystems.car.rental.CarRentalFixture;
+import com.link_intersystems.car.rental.RentalRateFixture;
+import com.link_intersystems.car.rental.RentalRatesByCar;
+import com.link_intersystems.car.rental.RentalsByCar;
 import com.link_intersystems.time.Period;
 
 import java.util.List;

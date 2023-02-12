@@ -1,4 +1,4 @@
-package com.link_intersystems.rental;
+package com.link_intersystems.car.rental;
 
 import com.link_intersystems.car.CarId;
 import com.link_intersystems.money.Amount;

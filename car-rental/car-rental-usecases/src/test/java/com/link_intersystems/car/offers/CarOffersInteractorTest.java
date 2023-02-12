@@ -1,8 +1,8 @@
 package com.link_intersystems.car.offers;
 
 import com.link_intersystems.car.CarFixture;
-import com.link_intersystems.rental.CarRentalFixture;
-import com.link_intersystems.rental.RentalRateFixture;
+import com.link_intersystems.car.rental.CarRentalFixture;
+import com.link_intersystems.car.rental.RentalRateFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

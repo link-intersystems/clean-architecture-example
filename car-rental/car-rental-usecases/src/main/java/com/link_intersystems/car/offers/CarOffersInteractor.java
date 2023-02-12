@@ -3,7 +3,8 @@ package com.link_intersystems.car.offers;
 import com.link_intersystems.car.Car;
 import com.link_intersystems.car.CarId;
 import com.link_intersystems.car.VehicleType;
-import com.link_intersystems.rental.*;
+import com.link_intersystems.car.offer.RentalOffer;
+import com.link_intersystems.car.rental.*;
 import com.link_intersystems.time.Period;
 
 import java.time.LocalDateTime;
@@ -26,9 +27,15 @@ class CarOffersInteractor implements CarOffersUseCase {
         LocalDateTime desiredPickUpDateTime = request.getPickUpDateTime();
         LocalDateTime resiredReturnDateTime = request.getReturnDateTime();
         Period desiredPeriod = new Period(desiredPickUpDateTime, resiredReturnDateTime);
-        List<RentalCar> availableCars = getRentalCars(cars, desiredPeriod);
+        List<RentalCar> rentalCars = getRentalCars(cars, desiredPeriod);
 
-        return new CarOffersResponseModel(availableCars, desiredPeriod);
+        List<RentalOffer> rentalOffers = makeOffer(rentalCars, desiredPeriod);
+
+        return new CarOffersResponseModel(rentalOffers);
+    }
+
+    private List<RentalOffer> makeOffer(List<RentalCar> rentalCars, Period desiredPeriod) {
+        return rentalCars.stream().map(rc -> new RentalOffer(rc, desiredPeriod)).collect(Collectors.toList());
     }
 
 
