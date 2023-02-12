@@ -6,18 +6,18 @@ import static com.link_intersystems.time.LocalDateTimeUtils.dateTime;
 
 public class PeriodBuilder {
 
-    public static PeriodBuilder pickUpDate(String date, String time) {
+    public static PeriodBuilder from(String date, String time) {
         return new PeriodBuilder(dateTime(date, time));
     }
 
-    private LocalDateTime pickUpDateTime;
+    private LocalDateTime fromDate;
 
-    public PeriodBuilder(LocalDateTime pickUpDateTime) {
-        this.pickUpDateTime = pickUpDateTime;
+    public PeriodBuilder(LocalDateTime fromDate) {
+        this.fromDate = fromDate;
     }
 
-    public Period returnDate(String date, String time) {
+    public Period to(String date, String time) {
         LocalDateTime returnDateTime = dateTime(date, time);
-        return new Period(pickUpDateTime, returnDateTime);
+        return new Period(fromDate, returnDateTime);
     }
 }

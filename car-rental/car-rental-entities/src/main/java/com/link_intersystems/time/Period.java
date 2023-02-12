@@ -7,7 +7,7 @@ import static java.util.Objects.requireNonNull;
 
 public class Period {
 
-    public static final Period INFINITE = new Period(LocalDate.MIN.atStartOfDay(), LocalDate.MAX.atTime(23,59,59,  999_999_999));
+    public static final Period INFINITE = new Period(LocalDate.MIN.atStartOfDay(), LocalDate.MAX.atTime(23, 59, 59, 999_999_999));
 
     private LocalDateTime begin;
     private LocalDateTime end;
@@ -49,5 +49,10 @@ public class Period {
                 "begin=" + begin +
                 ", end=" + end +
                 '}';
+    }
+
+    public int getDays() {
+        java.time.Period between = java.time.Period.between(getBegin().toLocalDate(), end.toLocalDate());
+        return between.getDays() + 1;
     }
 }

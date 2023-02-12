@@ -23,8 +23,13 @@ class CarOffersInteractor implements CarOffersUseCase {
     @Override
     public CarOffersResponseModel findOffers(CarOffersRequestModel request) {
         List<Car> cars = findMatchingCars(request);
-        List<RentalCar> availableCars = getAvailableCars(request, cars);
-        return new CarOffersResponseModel(availableCars);
+
+        LocalDateTime desiredPickUpDateTime = request.getPickUpDateTime();
+        LocalDateTime resiredReturnDateTime = request.getReturnDateTime();
+        Period desiredPeriod = new Period(desiredPickUpDateTime, resiredReturnDateTime);
+        List<RentalCar> availableCars = getAvailableCars(desiredPeriod, cars);
+
+        return new CarOffersResponseModel(availableCars, desiredPeriod);
     }
 
 
@@ -37,10 +42,8 @@ class CarOffersInteractor implements CarOffersUseCase {
         return repository.findCars(carCriteria);
     }
 
-    private List<RentalCar> getAvailableCars(CarOffersRequestModel request, List<Car> cars) {
-        LocalDateTime desiredPickUpDateTime = request.getPickUpDateTime();
-        LocalDateTime resiredReturnDateTime = request.getReturnDateTime();
-        Period desiredPeriod = new Period(desiredPickUpDateTime, resiredReturnDateTime);
+    private List<RentalCar> getAvailableCars(Period desiredPeriod, List<Car> cars) {
+
         List<Car> availableCars = filterAvailableCars(desiredPeriod, cars);
 
         List<CarId> carIds = cars.stream().map(Car::getId).collect(Collectors.toList());
