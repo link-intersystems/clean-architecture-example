@@ -23,6 +23,8 @@ public class CarFixture extends EntityFixture<Car> {
         carWhitebox.setId(car, 1);
         carWhitebox.setName(car, "Open Corsa");
         carWhitebox.setVehicleType(car, VehicleType.MICRO);
+        Specs specs = new Specs(new Seats(5), new Doors(5), new Consumption(EnergyCarrier.PETROL, 5.3));
+        carWhitebox.setSpecs(car, specs);
         return car;
     }
 
@@ -31,6 +33,8 @@ public class CarFixture extends EntityFixture<Car> {
         carWhitebox.setId(car, 2);
         carWhitebox.setName(car, "Fiat 500");
         carWhitebox.setVehicleType(car, VehicleType.MICRO);
+        Specs specs = new Specs(new Seats(5), new Doors(3), new Consumption(EnergyCarrier.PETROL, 4.6));
+        carWhitebox.setSpecs(car, specs);
         return car;
     }
 

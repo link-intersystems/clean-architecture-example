@@ -1,6 +1,7 @@
 package com.link_intersystems.car.offers;
 
 import com.link_intersystems.car.Car;
+import com.link_intersystems.car.Specs;
 import com.link_intersystems.money.Amount;
 import com.link_intersystems.rental.RentalCar;
 import com.link_intersystems.rental.RentalOffer;
@@ -11,34 +12,47 @@ import java.util.List;
 
 public class CarOffersResponseModel {
 
-    private CarOffers carOffers = new CarOffers();
+    private CarOffersModel carOffersModel = new CarOffersModel();
 
     CarOffersResponseModel(List<RentalCar> rentalCars, Period rentalPeriod) {
         for (RentalCar rentalCar : rentalCars) {
-            CarOffer carOffer = map(rentalCar, rentalPeriod);
-            carOffers.addCarOffer(carOffer);
+            CarOfferModel carOfferModel = map(rentalCar, rentalPeriod);
+            carOffersModel.addCarOffer(carOfferModel);
         }
     }
 
-    private CarOffer map(RentalCar rentalCar, Period rentalPeriod) {
-        CarOffer carOffer = new CarOffer();
+    private CarOfferModel map(RentalCar rentalCar, Period rentalPeriod) {
+        CarOfferModel carOfferModel = new CarOfferModel();
         Car car = rentalCar.getCar();
-        carOffer.setId(car.getId().getValue());
-        carOffer.setName(car.getName());
-        carOffer.setVerhicleType(car.getVehicleType().name());
+        carOfferModel.setId(car.getId().getValue());
+        carOfferModel.setName(car.getName());
+        carOfferModel.setVerhicleType(car.getVehicleType().name());
 
         RentalOffer rentalOffer = rentalCar.getRentalOffer(rentalPeriod);
         Amount totalRentalAmount = rentalOffer.getTotalRentalAmount();
-        carOffer.setTotalRentalRate(totalRentalAmount.getValue());
+        carOfferModel.setTotalRentalRate(totalRentalAmount.getValue());
 
         RentalRate rentalRate = rentalCar.getRentalRate();
-        carOffer.setPerDayRentalRate(rentalRate.getAmount().getValue());
+        carOfferModel.setPerDayRentalRate(rentalRate.getAmount().getValue());
 
-        return carOffer;
+        CarSpecModel carSpecModel = mapCarSpec(car);
+        carOfferModel.setCarSpecModel(carSpecModel);
+
+        return carOfferModel;
     }
 
-    public CarOffers getCarOffers() {
-        return carOffers;
+    private CarSpecModel mapCarSpec(Car car) {
+        CarSpecModel carSpecModel = new CarSpecModel();
+        Specs specs = car.getSpecs();
+        carSpecModel.setSeats(specs.getSeats().getValue());
+        carSpecModel.setDoors(specs.getDoors().getValue());
+        carSpecModel.setConsumption(specs.getConsumption().getEnergyUnitsPerKm());
+        carSpecModel.setEnergyType(specs.getConsumption().getEnergyType().name());
+        return carSpecModel;
+    }
+
+    public CarOffersModel getCarOffers() {
+        return carOffersModel;
     }
 
 }

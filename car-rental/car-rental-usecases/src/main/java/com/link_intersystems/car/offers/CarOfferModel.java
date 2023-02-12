@@ -2,13 +2,14 @@ package com.link_intersystems.car.offers;
 
 import java.math.BigDecimal;
 
-public class CarOffer {
+public class CarOfferModel {
 
     private int id;
     private String name;
     private String verhicleType;
     private BigDecimal totalRentalRate;
     private BigDecimal perDayRentalRate;
+    private CarSpecModel carSpecModel;
 
     void setId(int id) {
         this.id = id;
@@ -38,7 +39,15 @@ public class CarOffer {
         return perDayRentalRate;
     }
 
-    public void setPerDayRentalRate(BigDecimal perDayRentalRate) {
+    void setPerDayRentalRate(BigDecimal perDayRentalRate) {
         this.perDayRentalRate = perDayRentalRate;
+    }
+
+    public CarSpecModel getSpecModel() {
+        return carSpecModel;
+    }
+
+    void setCarSpecModel(CarSpecModel carSpecModel) {
+        this.carSpecModel = carSpecModel;
     }
 }

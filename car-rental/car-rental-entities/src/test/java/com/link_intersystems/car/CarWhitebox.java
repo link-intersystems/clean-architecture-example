@@ -16,6 +16,10 @@ public class CarWhitebox {
         setField(car, "vehicleType", vehicleType);
     }
 
+    public void setSpecs(Car car, Specs specs) {
+        setField(car, "specs", specs);
+    }
+
     private void setField(Car car, String fieldName, Object value) {
         try {
             Field field = Car.class.getDeclaredField(fieldName);
