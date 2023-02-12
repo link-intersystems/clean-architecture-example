@@ -8,7 +8,7 @@ public class CarOffers extends AbstractList<CarOffer> {
 
     private List<CarOffer> carOffers = new ArrayList<>();
 
-    void addListedFilm(CarOffer carOffer) {
+    void addCarOffer(CarOffer carOffer) {
         carOffers.add(carOffer);
     }
 

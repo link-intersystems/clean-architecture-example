@@ -1,15 +1,16 @@
 package com.link_intersystems.rental;
 
 import com.link_intersystems.car.CarId;
+import com.link_intersystems.time.Period;
 
 public class CarRental {
 
     private int stationId;
     private CarId carId;
     private int customerId;
-    private RentalPeriod rentalPeriod;
+    private Period rentalPeriod;
 
-    public CarRental(int stationId, CarId carId, int customerId, RentalPeriod rentalPeriod) {
+    public CarRental(int stationId, CarId carId, int customerId, Period rentalPeriod) {
         this.stationId = stationId;
         this.carId = carId;
         this.customerId = customerId;
@@ -28,7 +29,7 @@ public class CarRental {
         return customerId;
     }
 
-    public RentalPeriod getRentalPeriod() {
+    public Period getRentalPeriod() {
         return rentalPeriod;
     }
 }

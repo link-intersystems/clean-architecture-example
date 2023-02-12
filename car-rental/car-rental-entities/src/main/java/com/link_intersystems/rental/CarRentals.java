@@ -1,6 +1,7 @@
 package com.link_intersystems.rental;
 
 import com.link_intersystems.car.CarId;
+import com.link_intersystems.time.Period;
 
 import java.util.AbstractList;
 import java.util.ArrayList;
@@ -35,10 +36,10 @@ public class CarRentals extends AbstractList<CarRental> {
         return carRentalList.size();
     }
 
-    public boolean isAvailable(RentalPeriod rentalPeriod) {
+    public boolean isAvailable(Period period) {
         for (CarRental carRental : carRentalList) {
-            RentalPeriod rentedPeriod = carRental.getRentalPeriod();
-            if (rentedPeriod.overlaps(rentalPeriod)) {
+            Period rentedPeriod = carRental.getRentalPeriod();
+            if (rentedPeriod.overlaps(period)) {
                 return false;
             }
         }

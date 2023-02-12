@@ -1,6 +1,7 @@
 package com.link_intersystems.rental;
 
 import com.link_intersystems.car.CarId;
+import com.link_intersystems.time.Period;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,18 +17,18 @@ public class CarRentalFixture {
     }
 
     private CarRental createCarRental1() {
-        RentalPeriod rentalPeriod = rentalPeriod(15, 8, 17, 17);
-        return new CarRental(1, new CarId(1), 1, rentalPeriod);
+        Period period = rentalPeriod(15, 8, 17, 17);
+        return new CarRental(1, new CarId(1), 1, period);
     }
 
     private CarRental createCarRental2() {
-        RentalPeriod rentalPeriod = rentalPeriod(19, 8, 20, 8);
-        return new CarRental(1, new CarId(1), 1, rentalPeriod);
+        Period period = rentalPeriod(19, 8, 20, 8);
+        return new CarRental(1, new CarId(1), 1, period);
     }
 
 
-    private RentalPeriod rentalPeriod(int fromDayOfMonth, int fromHour, int toDayOfMonth, int toHour) {
-        return new RentalPeriod(dateTime(fromDayOfMonth, fromHour), dateTime(toDayOfMonth, toHour));
+    private Period rentalPeriod(int fromDayOfMonth, int fromHour, int toDayOfMonth, int toHour) {
+        return new Period(dateTime(fromDayOfMonth, fromHour), dateTime(toDayOfMonth, toHour));
     }
 
     private LocalDateTime dateTime(int dayOfMonth, int hour) {

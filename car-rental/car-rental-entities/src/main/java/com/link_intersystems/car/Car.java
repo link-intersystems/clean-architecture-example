@@ -5,6 +5,7 @@ public class Car {
     private CarId id;
     private String name;
     private VehicleType vehicleType;
+    private Specs specs;
 
     public CarId getId() {
         return id;
@@ -16,5 +17,9 @@ public class Car {
 
     public VehicleType getVehicleType() {
         return vehicleType;
+    }
+
+    public Specs getSpecs() {
+        return specs;
     }
 }
