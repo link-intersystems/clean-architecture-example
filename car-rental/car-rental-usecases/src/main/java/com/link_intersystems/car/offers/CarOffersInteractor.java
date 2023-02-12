@@ -9,7 +9,6 @@ import com.link_intersystems.time.Period;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 class CarOffersInteractor implements CarOffersUseCase {
@@ -27,7 +26,7 @@ class CarOffersInteractor implements CarOffersUseCase {
         LocalDateTime desiredPickUpDateTime = request.getPickUpDateTime();
         LocalDateTime resiredReturnDateTime = request.getReturnDateTime();
         Period desiredPeriod = new Period(desiredPickUpDateTime, resiredReturnDateTime);
-        List<RentalCar> availableCars = getAvailableCars(desiredPeriod, cars);
+        List<RentalCar> availableCars = getRentalCars(cars, desiredPeriod);
 
         return new CarOffersResponseModel(availableCars, desiredPeriod);
     }
@@ -42,20 +41,29 @@ class CarOffersInteractor implements CarOffersUseCase {
         return repository.findCars(carCriteria);
     }
 
-    private List<RentalCar> getAvailableCars(Period desiredPeriod, List<Car> cars) {
+    private List<RentalCar> getRentalCars(List<Car> cars, Period rentalPeriod) {
 
-        List<Car> availableCars = filterAvailableCars(desiredPeriod, cars);
+        List<Car> availableCars = filterAvailableCars(rentalPeriod, cars);
 
         List<CarId> carIds = cars.stream().map(Car::getId).collect(Collectors.toList());
         RentalRatesByCar rentalRates = repository.findRentalRates(carIds);
 
-        Function<Car, RentalCar> rentalCarMapper = car -> {
-            RentalRates rentalRatesForCar = rentalRates.get(car.getId());
-            RentalRate activeRentalRate = rentalRatesForCar.getActiveForPeriod(desiredPeriod);
-            return new RentalCar(car, activeRentalRate);
-        };
 
-        return availableCars.stream().map(rentalCarMapper).collect(Collectors.toList());
+        return getRentalCars(rentalPeriod, availableCars, rentalRates);
+    }
+
+    private List<RentalCar> getRentalCars(Period desiredPeriod, List<Car> availableCars, RentalRatesByCar rentalRates) {
+        List<RentalCar> rentalCars = new ArrayList<>();
+
+        for (Car availableCar : availableCars) {
+            RentalRates rentalRatesForCar = rentalRates.get(availableCar.getId());
+            RentalRate activeRentalRate = rentalRatesForCar.getActiveForPeriod(desiredPeriod);
+            if (activeRentalRate != null) {
+                rentalCars.add(new RentalCar(availableCar, activeRentalRate));
+            }
+        }
+
+        return rentalCars;
     }
 
     private List<Car> filterAvailableCars(Period desiredPeriod, List<Car> cars) {

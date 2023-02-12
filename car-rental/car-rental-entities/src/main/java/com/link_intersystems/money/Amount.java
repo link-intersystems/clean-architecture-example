@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;
 
-import static java.util.Objects.requireNonNull;
-
 public class Amount {
 
     private BigDecimal value;
@@ -15,8 +13,11 @@ public class Amount {
     }
 
     public Amount(BigDecimal value) {
-        this.value = requireNonNull(value)
-                .setScale(2, RoundingMode.HALF_UP);
+        if (value.compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("An amount can not be less then 0");
+        }
+
+        this.value = value.setScale(2, RoundingMode.HALF_UP);
     }
 
     public BigDecimal getValue() {

@@ -83,4 +83,10 @@ class PeriodTest {
         assertFalse(period2.overlaps(period1));
     }
 
+    @Test
+    void toStringTest() {
+        Period period = from("2023-01-15", "08:00:00").to("2023-01-17", "17:00:00");
+        assertNotNull(period.toString());
+    }
+
 }

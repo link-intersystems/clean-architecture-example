@@ -21,7 +21,7 @@ public class CarRentals extends AbstractList<CarRental> {
     }
 
     public RentalsByCar groupByCar() {
-        Map<CarId, List<CarRental>> rentalsByCar = carRentalList.stream().collect(Collectors.groupingBy(CarRental::getCarId));
+        Map<CarId, List<CarRental>> rentalsByCar = stream().collect(Collectors.groupingBy(CarRental::getCarId));
         Map<CarId, CarRentals> collect = rentalsByCar.entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), e -> new CarRentals(e.getValue())));
         return new RentalsByCar(collect);
     }
@@ -37,7 +37,7 @@ public class CarRentals extends AbstractList<CarRental> {
     }
 
     public boolean isAvailable(Period period) {
-        for (CarRental carRental : carRentalList) {
+        for (CarRental carRental : this) {
             Period rentedPeriod = carRental.getRentalPeriod();
             if (rentedPeriod.overlaps(period)) {
                 return false;
