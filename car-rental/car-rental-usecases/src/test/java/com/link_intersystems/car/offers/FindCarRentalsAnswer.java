@@ -1,7 +1,10 @@
 package com.link_intersystems.car.offers;
 
 import com.link_intersystems.car.CarId;
-import com.link_intersystems.rental.*;
+import com.link_intersystems.rental.CarRental;
+import com.link_intersystems.rental.CarRentalFixture;
+import com.link_intersystems.rental.CarRentals;
+import com.link_intersystems.rental.RentalsByCar;
 import com.link_intersystems.time.Period;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
@@ -22,8 +25,7 @@ public class FindCarRentalsAnswer implements Answer<RentalsByCar> {
         List<CarId> carIds = invocationOnMock.getArgument(0, List.class);
         Period period = invocationOnMock.getArgument(1, Period.class);
 
-        CarRentals carRentals = carRentalFixture.getCarRentals();
-        List<CarRental> filteredCarRentals = carRentals.stream()
+        List<CarRental> filteredCarRentals = carRentalFixture.stream()
                 .filter(cr -> carIds.contains(cr.getCarId()))
                 .filter(cr -> cr.getRentalPeriod().overlaps(period))
                 .collect(Collectors.toList());

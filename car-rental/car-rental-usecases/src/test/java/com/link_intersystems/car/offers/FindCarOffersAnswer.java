@@ -1,6 +1,8 @@
 package com.link_intersystems.car.offers;
 
-import com.link_intersystems.car.*;
+import com.link_intersystems.car.Car;
+import com.link_intersystems.car.CarFixture;
+import com.link_intersystems.car.VehicleType;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
@@ -20,8 +22,7 @@ public class FindCarOffersAnswer implements Answer<List<Car>> {
     public List<Car> answer(InvocationOnMock invocationOnMock) throws Throwable {
         CarCriteria carCriteria = invocationOnMock.getArgument(0, CarCriteria.class);
 
-        List<Car> cars = carFixture.getFilms();
-        List<Car> selectedCars = applyCriteria(cars, carCriteria);
+        List<Car> selectedCars = applyCriteria(carFixture, carCriteria);
 
         return selectedCars;
     }

@@ -1,32 +1,29 @@
 package com.link_intersystems.person.customer;
 
+import com.link_intersystems.EntityFixture;
 import com.link_intersystems.time.ClockFactory;
 
-import java.time.*;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.time.Clock;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Function;
 
-public class CustomerFixture {
+public class CustomerFixture extends EntityFixture<Customer> {
 
     private ClockFactory clockFactory = new ClockFactory();
-    private List<Customer> customers = new ArrayList<>();
 
-    public CustomerFixture() {
-        customers.add(createMarySmith());
+    @Override
+    protected void init(List<Customer> entities) {
+        entities.add(createMarySmith());
     }
 
     private Customer createMarySmith() {
         return new Customer(1, LocalDate.of(2000, 7, 19));
     }
 
-    public List<Customer> getCustomers() {
-        return Collections.unmodifiableList(customers);
-    }
-
     public Customer getById(Integer customerId) {
-        return getCustomers().stream().filter(c -> c.getId() == customerId).findFirst().orElse(null);
+        return stream().filter(c -> c.getId() == customerId).findFirst().orElse(null);
     }
 
     public Clock getClockAtAge(LocalDate birthday, int age) {

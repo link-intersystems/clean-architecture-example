@@ -1,20 +1,21 @@
 package com.link_intersystems.car;
 
-import java.util.ArrayList;
+import com.link_intersystems.EntityFixture;
+
 import java.util.List;
 
-public class CarFixture {
+public class CarFixture extends EntityFixture<Car> {
 
     private CarWhitebox carWhitebox = new CarWhitebox();
-    private List<Car> cars = new ArrayList<>();
 
-    public CarFixture() {
-        cars.add(createAudiA6());
-        cars.add(createBMW530());
-        cars.add(createVWTRoc());
-        cars.add(createFiat500());
-        cars.add(createOpelCorsa());
-        cars.add(createAudiQ3());
+    @Override
+    protected void init(List<Car> entities) {
+        entities.add(createAudiA6());
+        entities.add(createBMW530());
+        entities.add(createVWTRoc());
+        entities.add(createFiat500());
+        entities.add(createOpelCorsa());
+        entities.add(createAudiQ3());
     }
 
     private Car createOpelCorsa() {
@@ -64,9 +65,5 @@ public class CarFixture {
         carWhitebox.setName(car, "AUDI Q3");
         carWhitebox.setVehicleType(car, VehicleType.SUV);
         return car;
-    }
-
-    public List<Car> getFilms() {
-        return cars;
     }
 }

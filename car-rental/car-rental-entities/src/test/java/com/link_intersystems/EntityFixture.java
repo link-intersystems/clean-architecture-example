@@ -6,22 +6,25 @@ import java.util.List;
 
 public abstract class EntityFixture<E> extends AbstractList<E> {
 
-    private List<E> entities = new ArrayList<>();
-
-
-    public EntityFixture() {
-        init(entities);
-    }
+    private List<E> entities;
 
     protected abstract void init(List<E> entities);
 
+    private List<E> getEntities() {
+        if (entities == null) {
+            entities = new ArrayList<>();
+            init(entities);
+        }
+        return entities;
+    }
+
     @Override
     public E get(int index) {
-        return entities.get(index);
+        return getEntities().get(index);
     }
 
     @Override
     public int size() {
-        return entities.size();
+        return getEntities().size();
     }
 }
