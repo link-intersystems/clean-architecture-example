@@ -8,12 +8,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class PeriodTest {
 
     @Test
-    void pickUpDateAfterReturnDate() {
-//        assertThrows(IllegalArgumentException.class, new RentalPeriod())
+    void beginAfterEnd() {
+        assertThrows(IllegalArgumentException.class, () -> from("2023-01-15", "09:00:00").to("2023-01-15", "08:00:00"));
     }
 
     @Test
-    void getDays(){
+    void endBeforeBegin() {
+        assertThrows(IllegalArgumentException.class, () -> from("2023-01-15", "08:00:00").to("2023-01-15", "07:00:00"));
+    }
+
+    @Test
+    void getDays() {
         assertEquals(1, from("2023-01-15", "08:00:00").to("2023-01-15", "17:00:00").getDays());
         assertEquals(3, from("2023-01-15", "08:00:00").to("2023-01-17", "08:00:00").getDays());
     }

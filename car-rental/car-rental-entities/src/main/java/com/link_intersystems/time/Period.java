@@ -3,8 +3,6 @@ package com.link_intersystems.time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import static java.util.Objects.requireNonNull;
-
 public class Period {
 
     public static final Period INFINITE = new Period(LocalDate.MIN.atStartOfDay(), LocalDate.MAX.atTime(23, 59, 59, 999_999_999));
@@ -13,8 +11,11 @@ public class Period {
     private LocalDateTime end;
 
     public Period(LocalDateTime begin, LocalDateTime end) {
-        this.begin = requireNonNull(begin);
-        this.end = requireNonNull(end);
+        if (begin.isAfter(end)) {
+            throw new IllegalArgumentException("begin must be before end");
+        }
+        this.begin = begin;
+        this.end = end;
     }
 
     public LocalDateTime getBegin() {
