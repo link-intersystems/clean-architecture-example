@@ -31,7 +31,7 @@ class CarOffersInteractorTest {
         requestModel.setReturnDateTime(dateTime("2023-01-18", "17:00:00"));
         requestModel.setVehicleType("MICRO");
 
-        CarOffersResponseModel responseModel = carOffersInteractor.findOffers(requestModel);
+        CarOffersResponseModel responseModel = carOffersInteractor.makeOffers(requestModel);
 
         CarOffersModel carOffersModel = responseModel.getCarOffers();
         assertNotNull(carOffersModel);
@@ -52,7 +52,7 @@ class CarOffersInteractorTest {
         requestModel.setReturnDateTime(dateTime("2023-01-17", "17:00:00"));
         requestModel.setVehicleType("MICRO");
 
-        CarOffersResponseModel responseModel = carOffersInteractor.findOffers(requestModel);
+        CarOffersResponseModel responseModel = carOffersInteractor.makeOffers(requestModel);
 
         CarOffersModel carOffersModel = responseModel.getCarOffers();
         assertNotNull(carOffersModel);
@@ -79,7 +79,7 @@ class CarOffersInteractorTest {
         requestModel.setReturnDateTime(dateTime("2023-01-17", "17:00:00"));
         requestModel.setVehicleType("MICRO");
 
-        CarOffersResponseModel responseModel = carOffersInteractor.findOffers(requestModel);
+        CarOffersResponseModel responseModel = carOffersInteractor.makeOffers(requestModel);
 
         CarOffersModel carOffersModel = responseModel.getCarOffers();
         assertNotNull(carOffersModel);
@@ -95,7 +95,7 @@ class CarOffersInteractorTest {
         requestModel.setReturnDateTime(dateTime("2023-01-14", "17:00:00"));
         requestModel.setVehicleType("MICRO");
 
-        CarOffersResponseModel responseModel = carOffersInteractor.findOffers(requestModel);
+        CarOffersResponseModel responseModel = carOffersInteractor.makeOffers(requestModel);
 
         CarOffersModel carOffersModel = responseModel.getCarOffers();
         assertNotNull(carOffersModel);

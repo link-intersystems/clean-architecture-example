@@ -21,7 +21,7 @@ class CarOffersInteractor implements CarOffersUseCase {
     }
 
     @Override
-    public CarOffersResponseModel findOffers(CarOffersRequestModel request) {
+    public CarOffersResponseModel makeOffers(CarOffersRequestModel request) {
         List<Car> cars = findMatchingCars(request);
 
         LocalDateTime desiredPickUpDateTime = request.getPickUpDateTime();
