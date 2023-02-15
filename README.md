@@ -28,3 +28,5 @@ Here is a list of user story proposals.
 
 1. As a sales manager I would like to define multiple rental rates with
 a different, but never overlapping, validity period, so that rates can vary over the time.
+2. As a sales manager I would like to specify different stations where the customer can pick up cars.
+3. As a customer I would like to get offers for stations in the city where I live (my address).
