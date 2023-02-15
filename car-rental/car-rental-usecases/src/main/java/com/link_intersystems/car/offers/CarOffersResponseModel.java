@@ -46,8 +46,8 @@ public class CarOffersResponseModel {
         Specs specs = car.getSpecs();
         carSpecModel.setSeats(specs.getSeats().getValue());
         carSpecModel.setDoors(specs.getDoors().getValue());
-        carSpecModel.setConsumption(specs.getConsumption().getEnergyUnitsPerKm());
-        carSpecModel.setEnergyType(specs.getConsumption().getEnergyType().name());
+        carSpecModel.setConsumption(specs.getConsumption().getUnitsPerKm());
+        carSpecModel.setEnergyType(specs.getConsumption().getFuelType().name());
         return carSpecModel;
     }
 

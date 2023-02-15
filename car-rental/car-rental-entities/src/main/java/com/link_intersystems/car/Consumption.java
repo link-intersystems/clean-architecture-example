@@ -2,19 +2,19 @@ package com.link_intersystems.car;
 
 public class Consumption {
 
-    private EnergyCarrier energyCarrier;
-    private double energyUnitsPerKm;
+    private FuelType fuelType;
+    private double unitsPerKm;
 
-    public Consumption(EnergyCarrier energyCarrier, double energyUnitsPerKm) {
-        this.energyCarrier = energyCarrier;
-        this.energyUnitsPerKm = energyUnitsPerKm;
+    public Consumption(FuelType fuelType, double unitsPerKm) {
+        this.fuelType = fuelType;
+        this.unitsPerKm = unitsPerKm;
     }
 
-    public double getEnergyUnitsPerKm() {
-        return energyUnitsPerKm;
+    public double getUnitsPerKm() {
+        return unitsPerKm;
     }
 
-    public EnergyCarrier getEnergyType() {
-        return energyCarrier;
+    public FuelType getFuelType() {
+        return fuelType;
     }
 }
