@@ -3,6 +3,7 @@ package com.link_intersystems.car.offers;
 import com.link_intersystems.car.Car;
 import com.link_intersystems.car.CarId;
 import com.link_intersystems.car.VehicleType;
+import com.link_intersystems.car.booking.CarBookings;
 import com.link_intersystems.car.offer.RentalOffer;
 import com.link_intersystems.car.rental.*;
 import com.link_intersystems.time.Period;
@@ -78,8 +79,8 @@ class CarOffersInteractor implements CarOffersUseCase {
 
         for (Car car : cars) {
             CarId carId = car.getId();
-            CarRentals carRentals = rentalsByCar.getOrDefault(carId, new CarRentals());
-            if (carRentals.isAvailable(desiredPeriod)) {
+            CarBookings carBookings = rentalsByCar.getOrDefault(carId, new CarBookings());
+            if (carBookings.isAvailable(desiredPeriod)) {
                 availableCars.add(car);
             }
         }

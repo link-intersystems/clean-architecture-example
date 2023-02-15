@@ -3,7 +3,7 @@ package com.link_intersystems.car.offers;
 import com.link_intersystems.car.CarId;
 import com.link_intersystems.car.rental.CarRental;
 import com.link_intersystems.car.rental.CarRentalFixture;
-import com.link_intersystems.car.rental.CarRentals;
+import com.link_intersystems.car.booking.CarBookings;
 import com.link_intersystems.car.rental.RentalsByCar;
 import com.link_intersystems.time.Period;
 import org.mockito.invocation.InvocationOnMock;
@@ -29,7 +29,7 @@ public class FindCarRentalsAnswer implements Answer<RentalsByCar> {
                 .filter(cr -> carIds.contains(cr.getCarId()))
                 .filter(cr -> cr.getRentalPeriod().overlaps(period))
                 .collect(Collectors.toList());
-        return new CarRentals(filteredCarRentals).groupByCar();
+        return new CarBookings(filteredCarRentals).groupByCar();
     }
 
 }
