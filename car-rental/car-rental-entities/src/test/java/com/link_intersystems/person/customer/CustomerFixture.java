@@ -19,11 +19,11 @@ public class CustomerFixture extends EntityFixture<Customer> {
     }
 
     private Customer createMarySmith() {
-        return new Customer(1, LocalDate.of(2000, 7, 19));
+        return new Customer(new CustomerId(1), LocalDate.of(2000, 7, 19));
     }
 
     public Customer getById(Integer customerId) {
-        return stream().filter(c -> c.getId() == customerId).findFirst().orElse(null);
+        return stream().filter(c -> c.getId().getValue() == customerId).findFirst().orElse(null);
     }
 
     public Clock getClockAtAge(LocalDate birthday, int age) {

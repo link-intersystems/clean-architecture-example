@@ -6,10 +6,10 @@ import java.time.*;
 
 public class Customer {
 
-    private int id;
+    private CustomerId id;
     private LocalDate birthday;
 
-    public Customer(int id, LocalDate birthday) {
+    public Customer(CustomerId id, LocalDate birthday) {
         this.id = id;
         this.birthday = birthday;
     }
@@ -21,7 +21,7 @@ public class Customer {
         return new Age(age.getYears());
     }
 
-    public int getId() {
+    public CustomerId getId() {
         return id;
     }
 
