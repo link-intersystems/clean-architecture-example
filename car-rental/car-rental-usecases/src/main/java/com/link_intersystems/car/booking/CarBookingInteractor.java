@@ -1,8 +1,11 @@
 package com.link_intersystems.car.booking;
 
 import com.link_intersystems.car.CarId;
+import com.link_intersystems.person.customer.CustomerId;
+import com.link_intersystems.time.ClockProvider;
 import com.link_intersystems.time.Period;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 
 public class CarBookingInteractor implements CarBookingUseCase {
@@ -14,18 +17,42 @@ public class CarBookingInteractor implements CarBookingUseCase {
     }
 
     @Override
-    public CarBookingResponseModel bookCar(CarBookingRequestModel request) throws CarNotAvailableException {
-        CarId carId = new CarId(request.getCarId());
+    public CarBookingResponseModel bookCar(CarBookingRequestModel request) throws CarBookingException {
+        Period bookingPeriod = getBookingPeriod(request);
 
-        LocalDateTime pickUpDateTime = request.getPickUpDateTime();
-        LocalDateTime returnDateTime = request.getReturnDateTime();
-        Period bookingPeriod = new Period(pickUpDateTime, returnDateTime);
+        CarId carId = new CarId(request.getCarId());
+        ensureCarAvailable(carId, bookingPeriod);
+
+        CustomerId customerId = new CustomerId(request.getCustomerId());
+
+        CarBooking carBooking = new CarBooking(customerId, carId, bookingPeriod);
+
+        repository.persist(carBooking);
+
+        return new CarBookingResponseModel();
+    }
+
+    private void ensureCarAvailable(CarId carId, Period bookingPeriod) throws CarNotAvailableException {
+
         CarBooking carBooking = repository.findBooking(carId, bookingPeriod);
 
         if (carBooking != null) {
-            throw new CarNotAvailableException(request.getCarId(), pickUpDateTime, returnDateTime);
+            LocalDateTime pickUpDateTime = bookingPeriod.getBegin();
+            LocalDateTime returnDateTime = bookingPeriod.getEnd();
+            throw new CarNotAvailableException(carId.getValue(), pickUpDateTime, returnDateTime);
+        }
+    }
+
+    private Period getBookingPeriod(CarBookingRequestModel request) throws CarBookingException {
+        LocalDateTime pickUpDateTime = request.getPickUpDateTime();
+        LocalDateTime returnDateTime = request.getReturnDateTime();
+        Period bookingPeriod = new Period(pickUpDateTime, returnDateTime);
+
+        Clock clock = ClockProvider.getClock();
+        if (bookingPeriod.isPast(clock)) {
+            throw new CarBookingException("bookingPeriod is in the past.");
         }
 
-        return new CarBookingResponseModel();
+        return bookingPeriod;
     }
 }

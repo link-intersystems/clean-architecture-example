@@ -1,11 +1,8 @@
 package com.link_intersystems.time;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.*;
 
 public class Period {
-
-    public static final Period INFINITE = new Period(LocalDate.MIN.atStartOfDay(), LocalDate.MAX.atTime(23, 59, 59, 999_999_999));
 
     private LocalDateTime begin;
     private LocalDateTime end;
@@ -55,5 +52,14 @@ public class Period {
     public int getDays() {
         java.time.Period between = java.time.Period.between(getBegin().toLocalDate(), end.toLocalDate());
         return between.getDays() + 1;
+    }
+
+    public boolean isPast(Clock clock) {
+        Instant instant = clock.instant();
+        ZoneId zoneId = clock.getZone();
+
+        LocalDateTime beginDateTime = getBegin();
+        ZoneOffset zoneOffset = zoneId.getRules().getOffset(instant);
+        return beginDateTime.toInstant(zoneOffset).isBefore(instant);
     }
 }

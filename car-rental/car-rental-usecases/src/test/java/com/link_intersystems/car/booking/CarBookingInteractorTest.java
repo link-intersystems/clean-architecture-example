@@ -1,11 +1,15 @@
 package com.link_intersystems.car.booking;
 
+import com.link_intersystems.time.EnableFixedClock;
+import com.link_intersystems.time.FixedClock;
 import com.link_intersystems.time.LocalDateTimeUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@EnableFixedClock
 class CarBookingInteractorTest {
 
     private CarBookingInteractor carBookingInteractor;
@@ -17,13 +21,12 @@ class CarBookingInteractorTest {
     }
 
     @Test
-    void bookFiat500For3Days() throws CarNotAvailableException {
-        CarBookingRequestModel requestModel = new CarBookingRequestModel();
-        requestModel.setPickUpDateTime(LocalDateTimeUtils.dateTime("2018-05-13", "08:00:00"));
-        requestModel.setReturnDateTime(LocalDateTimeUtils.dateTime("2018-05-16", "17:00:00"));
+    @FixedClock("2018-05-20 08:00:00")
+    void bookingPeriodIsInThePast() {
+        CarBookingRequestModel request = new CarBookingRequestModel();
+        request.setPickUpDateTime(LocalDateTimeUtils.dateTime("2018-05-13", "08:00:00"));
+        request.setReturnDateTime(LocalDateTimeUtils.dateTime("2018-05-16", "17:00:00"));
 
-        CarBookingResponseModel responseModel = carBookingInteractor.bookCar(requestModel);
-
-        assertNotNull(responseModel, "responseModel");
+        assertThrows(CarBookingException.class, () -> carBookingInteractor.bookCar(request));
     }
 }
