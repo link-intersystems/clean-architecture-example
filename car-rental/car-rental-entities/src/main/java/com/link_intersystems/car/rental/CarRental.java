@@ -5,20 +5,14 @@ import com.link_intersystems.time.Period;
 
 public class CarRental {
 
-    private int stationId;
     private CarId carId;
     private int customerId;
     private Period rentalPeriod;
 
-    public CarRental(int stationId, CarId carId, int customerId, Period rentalPeriod) {
-        this.stationId = stationId;
+    public CarRental(CarId carId, int customerId, Period rentalPeriod) {
         this.carId = carId;
         this.customerId = customerId;
         this.rentalPeriod = rentalPeriod;
-    }
-
-    public int getStationId() {
-        return stationId;
     }
 
     public CarId getCarId() {
