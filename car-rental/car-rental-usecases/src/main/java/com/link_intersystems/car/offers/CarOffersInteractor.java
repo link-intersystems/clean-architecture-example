@@ -53,21 +53,18 @@ class CarOffersInteractor implements CarOffersUseCase {
         List<Car> availableCars = filterAvailableCars(rentalPeriod, cars);
 
         List<CarId> carIds = cars.stream().map(Car::getId).collect(Collectors.toList());
-        RentalRatesByCar rentalRates = repository.findRentalRates(carIds);
+        RentalRateByCar rentalRates = repository.findRentalRates(carIds);
 
 
-        return getRentalCars(rentalPeriod, availableCars, rentalRates);
+        return getRentalCars(availableCars, rentalRates);
     }
 
-    private List<RentalCar> getRentalCars(Period desiredPeriod, List<Car> availableCars, RentalRatesByCar rentalRates) {
+    private List<RentalCar> getRentalCars(List<Car> availableCars, RentalRateByCar rentalRates) {
         List<RentalCar> rentalCars = new ArrayList<>();
 
         for (Car availableCar : availableCars) {
-            RentalRates rentalRatesForCar = rentalRates.get(availableCar.getId());
-            RentalRate activeRentalRate = rentalRatesForCar.getActiveForPeriod(desiredPeriod);
-            if (activeRentalRate != null) {
-                rentalCars.add(new RentalCar(availableCar, activeRentalRate));
-            }
+            RentalRate rentalRateForCar = rentalRates.get(availableCar.getId());
+            rentalCars.add(new RentalCar(availableCar, rentalRateForCar));
         }
 
         return rentalCars;

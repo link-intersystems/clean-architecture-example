@@ -5,7 +5,7 @@ import com.link_intersystems.car.CarFixture;
 import com.link_intersystems.car.CarId;
 import com.link_intersystems.car.rental.CarRentalFixture;
 import com.link_intersystems.car.rental.RentalRateFixture;
-import com.link_intersystems.car.rental.RentalRatesByCar;
+import com.link_intersystems.car.rental.RentalRateByCar;
 import com.link_intersystems.car.rental.RentalsByCar;
 import com.link_intersystems.time.Period;
 
@@ -42,7 +42,7 @@ public class MockCarOffersRepository implements CarOffersRepository {
     }
 
     @Override
-    public RentalRatesByCar findRentalRates(List<CarId> carIds) {
+    public RentalRateByCar findRentalRates(List<CarId> carIds) {
         return repository.findRentalRates(carIds);
     }
 }
