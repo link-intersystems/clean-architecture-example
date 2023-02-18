@@ -9,7 +9,5 @@ public interface CarBookingRepository {
 
     void persist(CarBooking carBooking);
 
-    BookingNumber nextBookingNumber();
-
     boolean isCustomerExistent(CustomerId customerId);
 }

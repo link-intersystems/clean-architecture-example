@@ -28,13 +28,13 @@ public class CarBookingInteractor implements CarBookingUseCase {
             throw new CarBookingException("customer does not exist");
         }
 
-        BookingNumber bookingNumber = repository.nextBookingNumber();
-        CarBooking carBooking = new CarBooking(bookingNumber, customerId, carId, bookingPeriod);
+
+        CarBooking carBooking = new CarBooking(customerId, carId, bookingPeriod);
 
         repository.persist(carBooking);
 
         CarBookingResponseModel responseModel = new CarBookingResponseModel();
-        responseModel.setBookingNumber(Integer.toString(bookingNumber.getValue()));
+        responseModel.setBookingNumber(Integer.toString(carBooking.getBookingNumber().getValue()));
         return responseModel;
     }
 

@@ -31,11 +31,12 @@ class MockCarBookingRepository implements CarBookingRepository {
 
     @Override
     public void persist(CarBooking carBooking) {
+        BookingNumber bookingNumber = nextBookingNumber();
+        carBooking.setBookingNumber(bookingNumber);
         this.latestPersistedCarBooking = carBooking;
     }
 
-    @Override
-    public BookingNumber nextBookingNumber() {
+    private BookingNumber nextBookingNumber() {
         return new BookingNumber(bookingNumberSeq++);
     }
 
