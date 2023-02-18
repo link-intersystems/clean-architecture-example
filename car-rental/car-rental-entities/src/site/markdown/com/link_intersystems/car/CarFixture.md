@@ -1,5 +1,9 @@
 # Cars
 
+## Related entities
+
+- [CarRentals](rental/CarRentalFixture.md)
+
 ## Id 1
 
 - Name: Opel Corsa
