@@ -1,5 +1,10 @@
 # Car Rentals
 
+## Related entities
+
+- [Car](../CarFixture.md)
+- [Customer](../../person/customer/CustomerFixture.md)
+
 ## #1
 
 - car id: [1](../CarFixture.md#id-1)
