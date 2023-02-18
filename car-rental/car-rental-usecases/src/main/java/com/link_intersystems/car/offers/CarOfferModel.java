@@ -50,4 +50,8 @@ public class CarOfferModel {
     void setCarSpecModel(CarSpecModel carSpecModel) {
         this.carSpecModel = carSpecModel;
     }
+
+    public String getVehicleType() {
+        return verhicleType;
+    }
 }

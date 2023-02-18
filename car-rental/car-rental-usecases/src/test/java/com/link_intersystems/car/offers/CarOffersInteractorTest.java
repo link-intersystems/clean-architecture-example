@@ -42,6 +42,7 @@ class CarOffersInteractorTest {
         assertEquals(2, carOfferModel.getId(), "carId");
         assertEquals(new BigDecimal("190.00"), carOfferModel.getTotalRentalRate());
         assertEquals(new BigDecimal("95.00"), carOfferModel.getPerDayRentalRate());
+        assertEquals("MICRO", carOfferModel.getVehicleType());
     }
 
     @Test
