@@ -15,7 +15,7 @@
 
 #### Referenced by
 
-- CarRental: [#1](rental/CarRentalFixture.md#1)
+- CarRental: [#1](rental/CarRentalFixture.md#1), [#2](rental/CarRentalFixture.md#2)
 
 ## Id 2
 

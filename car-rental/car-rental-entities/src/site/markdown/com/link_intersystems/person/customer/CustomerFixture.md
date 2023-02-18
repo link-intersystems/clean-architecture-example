@@ -10,4 +10,4 @@
 
 #### Referenced by
 
-- CarRental: [#1](../../car/rental/CarRentalFixture.md#1)
+- CarRental: [#1](../../car/rental/CarRentalFixture.md#1), [#2](../../car/rental/CarRentalFixture.md#2)
