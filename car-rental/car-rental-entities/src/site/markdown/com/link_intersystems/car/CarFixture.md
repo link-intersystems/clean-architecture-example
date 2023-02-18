@@ -18,15 +18,6 @@
 - Fuel type: petrol
 - consumption: 4.6
 
-## Id 2
-
-- Name: Fiat 500
-- Vehicle Type: MICRO
-- Seats: 5
-- Doors: 3
-- Fuel type: petrol
-- consumption: 4.6
-
 ## Id 3
 
 - Name: VW T-Roc
@@ -54,7 +45,7 @@
 - Fuel type: petrol
 - consumption: 8.0
 
-## Id 5
+## Id 6
 
 - Name: Audi Q4
 - Vehicle Type: SEDAN
