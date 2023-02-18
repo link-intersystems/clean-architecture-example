@@ -12,7 +12,7 @@ public class CarBooking {
     private CarId carId;
     private Period bookingPeriod;
 
-    public CarBooking(CustomerId customerId, CarId carId, Period bookingPeriod) {
+    public CarBooking(BookingNumber bookingNumber, CustomerId customerId, CarId carId, Period bookingPeriod) {
         this.customerId = requireNonNull(customerId);
         this.carId = requireNonNull(carId);
         this.bookingPeriod = requireNonNull(bookingPeriod);

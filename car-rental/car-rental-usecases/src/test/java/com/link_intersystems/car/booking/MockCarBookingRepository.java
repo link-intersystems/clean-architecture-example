@@ -1,36 +1,50 @@
 package com.link_intersystems.car.booking;
 
+import com.link_intersystems.car.CarFixture;
 import com.link_intersystems.car.CarId;
+import com.link_intersystems.person.customer.CustomerFixture;
+import com.link_intersystems.person.customer.CustomerId;
 import com.link_intersystems.time.Period;
-import org.mockito.ArgumentCaptor;
-import org.mockito.stubbing.Answer;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 class MockCarBookingRepository implements CarBookingRepository {
 
-    private final ArgumentCaptor<CarBooking> carBookingArgumentCaptor;
-    private CarBookingRepository repository = mock(CarBookingRepository.class);
+    private final CarFixture carFixture;
+    private final CustomerFixture customers;
+
+    private int bookingNumberSeq = 1;
+    private CarBooking latestPersistedCarBooking;
 
     public MockCarBookingRepository() {
-        Answer<CarBooking> findBookingAnswer = new FindBookingsAnswer();
-        when(repository.findBooking(any(CarId.class), any(Period.class))).thenAnswer(findBookingAnswer);
-        carBookingArgumentCaptor = ArgumentCaptor.forClass(CarBooking.class);
+        this(new CarFixture(), new CustomerFixture());
+    }
+
+    public MockCarBookingRepository(CarFixture carFixture, CustomerFixture customers) {
+
+        this.carFixture = carFixture;
+        this.customers = customers;
     }
 
     @Override
     public CarBooking findBooking(CarId carId, Period bookingPeriod) {
-        return repository.findBooking(carId, bookingPeriod);
+        return null;
     }
 
     @Override
     public void persist(CarBooking carBooking) {
-        repository.persist(carBooking);
+        this.latestPersistedCarBooking = carBooking;
+    }
+
+    @Override
+    public BookingNumber nextBookingNumber() {
+        return new BookingNumber(bookingNumberSeq++);
+    }
+
+    @Override
+    public boolean isCustomerExistent(CustomerId customerId) {
+        return customers.getById(customerId.getValue()) != null;
     }
 
     public CarBooking getLastPersistedCarBooking() {
-        verify(repository).persist(carBookingArgumentCaptor.capture());
-        return carBookingArgumentCaptor.getValue();
+        return latestPersistedCarBooking;
     }
 }

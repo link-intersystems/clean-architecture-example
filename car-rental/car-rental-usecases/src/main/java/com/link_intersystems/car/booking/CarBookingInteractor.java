@@ -24,12 +24,18 @@ public class CarBookingInteractor implements CarBookingUseCase {
         ensureCarAvailable(carId, bookingPeriod);
 
         CustomerId customerId = new CustomerId(request.getCustomerId());
+        if (!repository.isCustomerExistent(customerId)) {
+            throw new CarBookingException("customer does not exist");
+        }
 
-        CarBooking carBooking = new CarBooking(customerId, carId, bookingPeriod);
+        BookingNumber bookingNumber = repository.nextBookingNumber();
+        CarBooking carBooking = new CarBooking(bookingNumber, customerId, carId, bookingPeriod);
 
         repository.persist(carBooking);
 
-        return new CarBookingResponseModel();
+        CarBookingResponseModel responseModel = new CarBookingResponseModel();
+        responseModel.setBookingNumber(Integer.toString(bookingNumber.getValue()));
+        return responseModel;
     }
 
     private void ensureCarAvailable(CarId carId, Period bookingPeriod) throws CarNotAvailableException {
