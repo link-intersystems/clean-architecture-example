@@ -2,27 +2,31 @@ package com.link_intersystems.car;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CarIdTest {
 
     @Test
     void testEquals() {
-        assertEquals(new CarId(1), new CarId(1));
+        assertEquals(newCarId("YV4952ND0F1201834"), newCarId("YV4952ND0F1201834"));
+    }
+
+    private static CarId newCarId(String value) {
+        return new CarId(new VIN(value));
     }
 
     @Test
     void testHashCode() {
-        assertEquals(new CarId(1).hashCode(), new CarId(1).hashCode());
+        assertEquals(newCarId("YV4952ND0F1201834").hashCode(), newCarId("YV4952ND0F1201834").hashCode());
     }
 
     @Test
     void getValue() {
-        assertEquals(1, new CarId(1).getValue());
+        assertEquals("YV4952ND0F1201834", newCarId("YV4952ND0F1201834").getValue());
     }
 
     @Test
     void testToString() {
-        new CarId(1).toString();
+        newCarId("YV4952ND0F1201834").toString();
     }
 }

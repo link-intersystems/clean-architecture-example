@@ -1,5 +1,7 @@
 package com.link_intersystems.car.booking;
 
+import com.link_intersystems.car.CarFixture;
+import com.link_intersystems.person.customer.CustomerFixture;
 import com.link_intersystems.time.EnableFixedClock;
 import com.link_intersystems.time.FixedClock;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,10 +15,13 @@ class CarBookingInteractorTest {
 
     private CarBookingInteractor carBookingInteractor;
     private MockCarBookingRepository repository;
+    private CarFixture carFixture;
 
     @BeforeEach
     void setUp() {
-        repository = new MockCarBookingRepository();
+        CustomerFixture customers = new CustomerFixture();
+        carFixture = new CarFixture();
+        repository = new MockCarBookingRepository(carFixture, customers);
         carBookingInteractor = new CarBookingInteractor(repository);
     }
 
@@ -35,7 +40,8 @@ class CarBookingInteractorTest {
     void bookFiat500() throws CarBookingException {
         CarBookingRequestModel request = new CarBookingRequestModel();
         request.setCustomerId(1);
-        request.setCarId(2);
+        System.out.println(carFixture.getVolvoXC90());
+        request.setCarId(carFixture.getVolvoXC90().getId().getValue());
         request.setPickUpDateTime(dateTime("2018-05-13", "08:00:00"));
         request.setReturnDateTime(dateTime("2018-05-16", "17:00:00"));
 
@@ -45,7 +51,7 @@ class CarBookingInteractorTest {
 
         CarBooking carBooking = repository.getLastPersistedCarBooking();
         assertNotNull(carBooking);
-        assertEquals(2, carBooking.getCarId().getValue());
+        assertEquals(carFixture.getVolvoXC90().getId().getValue(), carBooking.getCarId().getValue());
         assertEquals(1, carBooking.getCustomerId().getValue());
         assertEquals(request.getPickUpDateTime(), carBooking.getBookingPeriod().getBegin());
         assertEquals(request.getReturnDateTime(), carBooking.getBookingPeriod().getEnd());
@@ -56,7 +62,7 @@ class CarBookingInteractorTest {
     void bookUnknwonCustomer() {
         CarBookingRequestModel request = new CarBookingRequestModel();
         request.setCustomerId(1000);
-        request.setCarId(2);
+        request.setCarId(carFixture.getVolvoXC90().getId().getValue());
         request.setPickUpDateTime(dateTime("2018-05-13", "08:00:00"));
         request.setReturnDateTime(dateTime("2018-05-16", "17:00:00"));
 

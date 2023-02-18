@@ -3,9 +3,11 @@ package com.link_intersystems.car.offers;
 import com.link_intersystems.car.Car;
 import com.link_intersystems.car.CarId;
 import com.link_intersystems.car.VehicleType;
-import com.link_intersystems.car.booking.CarBookings;
 import com.link_intersystems.car.offer.RentalOffer;
-import com.link_intersystems.car.rental.*;
+import com.link_intersystems.car.rental.RentalCar;
+import com.link_intersystems.car.rental.RentalRate;
+import com.link_intersystems.car.rental.RentalRateByCar;
+import com.link_intersystems.car.rental.RentalsByCar;
 import com.link_intersystems.time.Period;
 
 import java.time.LocalDateTime;
@@ -65,7 +67,9 @@ class CarOffersInteractor implements CarOffersUseCase {
 
         for (Car availableCar : availableCars) {
             RentalRate rentalRateForCar = rentalRates.get(availableCar.getId());
-            rentalCars.add(new RentalCar(availableCar, rentalRateForCar));
+            if (rentalRateForCar != null) {
+                rentalCars.add(new RentalCar(availableCar, rentalRateForCar));
+            }
         }
 
         return rentalCars;
@@ -79,8 +83,7 @@ class CarOffersInteractor implements CarOffersUseCase {
 
         for (Car car : cars) {
             CarId carId = car.getId();
-            CarBookings carBookings = rentalsByCar.getOrDefault(carId, new CarBookings());
-            if (carBookings.isAvailable(desiredPeriod)) {
+            if (!rentalsByCar.keySet().contains(carId)) {
                 availableCars.add(car);
             }
         }

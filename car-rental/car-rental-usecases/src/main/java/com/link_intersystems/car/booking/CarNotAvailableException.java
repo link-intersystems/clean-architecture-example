@@ -3,17 +3,17 @@ package com.link_intersystems.car.booking;
 import java.time.LocalDateTime;
 
 public class CarNotAvailableException extends CarBookingException {
-    private final int carId;
+    private final String carId;
     private final LocalDateTime pickUpDateTime;
     private final LocalDateTime returnDateTime;
 
-    public CarNotAvailableException(int carId, LocalDateTime pickUpDateTime, LocalDateTime returnDateTime) {
+    public CarNotAvailableException(String carId, LocalDateTime pickUpDateTime, LocalDateTime returnDateTime) {
         this.carId = carId;
         this.pickUpDateTime = pickUpDateTime;
         this.returnDateTime = returnDateTime;
     }
 
-    public int getCarId() {
+    public String getCarId() {
         return carId;
     }
 

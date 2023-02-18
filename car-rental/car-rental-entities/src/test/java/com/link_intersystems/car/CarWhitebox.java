@@ -8,8 +8,8 @@ public class CarWhitebox {
         setField(car, "name", title);
     }
 
-    public void setId(Car car, int id) {
-        setField(car, "id", new CarId(id));
+    public void setId(Car car, String vin) {
+        setField(car, "id", new CarId(new VIN(vin)));
     }
 
     public void setVehicleType(Car car, VehicleType vehicleType) {

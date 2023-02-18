@@ -1,20 +1,22 @@
 package com.link_intersystems.car.rental;
 
 import com.link_intersystems.car.CarId;
-import com.link_intersystems.car.booking.CarBookings;
 
 import java.util.*;
 
-public class RentalsByCar extends AbstractMap<CarId, CarBookings> {
+public class RentalsByCar extends AbstractMap<CarId, CarRental> {
 
-    private Map<CarId, CarBookings> rentalsByCar = new HashMap<>();
+    private Map<CarId, CarRental> rentalsByCar = new HashMap<>();
 
-    public RentalsByCar(Map<CarId, CarBookings> rentalsByCar) {
-        this.rentalsByCar.putAll(rentalsByCar);
+    public RentalsByCar(List<CarRental> carRentals) {
+        for (CarRental carRental : carRentals) {
+            CarId carId = carRental.getCarId();
+            rentalsByCar.put(carId, carRental);
+        }
     }
 
     @Override
-    public Set<Entry<CarId, CarBookings>> entrySet() {
+    public Set<Entry<CarId, CarRental>> entrySet() {
         return Collections.unmodifiableMap(rentalsByCar).entrySet();
     }
 

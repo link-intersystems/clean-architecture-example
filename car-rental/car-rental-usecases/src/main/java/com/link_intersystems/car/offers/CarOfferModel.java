@@ -4,18 +4,18 @@ import java.math.BigDecimal;
 
 public class CarOfferModel {
 
-    private int id;
+    private String id;
     private String name;
     private String verhicleType;
     private BigDecimal totalRentalRate;
     private BigDecimal perDayRentalRate;
     private CarSpecModel carSpecModel;
 
-    void setId(int id) {
+    void setId(String id) {
         this.id = id;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

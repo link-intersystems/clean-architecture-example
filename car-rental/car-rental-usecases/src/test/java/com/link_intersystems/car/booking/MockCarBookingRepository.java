@@ -14,10 +14,6 @@ class MockCarBookingRepository implements CarBookingRepository {
     private int bookingNumberSeq = 1;
     private CarBooking latestPersistedCarBooking;
 
-    public MockCarBookingRepository() {
-        this(new CarFixture(), new CustomerFixture());
-    }
-
     public MockCarBookingRepository(CarFixture carFixture, CustomerFixture customers) {
 
         this.carFixture = carFixture;

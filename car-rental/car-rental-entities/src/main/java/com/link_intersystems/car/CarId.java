@@ -2,12 +2,14 @@ package com.link_intersystems.car;
 
 import java.util.Objects;
 
+import static java.util.Objects.requireNonNull;
+
 public class CarId {
 
-    private int value;
+    private VIN vin;
 
-    public CarId(int value) {
-        this.value = value;
+    public CarId(VIN vin) {
+        this.vin = requireNonNull(vin);
     }
 
     @Override
@@ -15,22 +17,22 @@ public class CarId {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CarId carId = (CarId) o;
-        return value == carId.value;
+        return Objects.equals(vin, carId.vin);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(value);
+        return Objects.hash(vin);
     }
 
-    public int getValue() {
-        return value;
+    public String getValue() {
+        return vin.getValue();
     }
 
     @Override
     public String toString() {
         return "CarId{" +
-                "value=" + value +
+                "vin=" + vin +
                 '}';
     }
 }

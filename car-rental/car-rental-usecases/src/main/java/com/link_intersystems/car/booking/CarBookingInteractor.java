@@ -1,6 +1,7 @@
 package com.link_intersystems.car.booking;
 
 import com.link_intersystems.car.CarId;
+import com.link_intersystems.car.VIN;
 import com.link_intersystems.person.customer.CustomerId;
 import com.link_intersystems.time.ClockProvider;
 import com.link_intersystems.time.Period;
@@ -20,7 +21,7 @@ public class CarBookingInteractor implements CarBookingUseCase {
     public CarBookingResponseModel bookCar(CarBookingRequestModel request) throws CarBookingException {
         Period bookingPeriod = getBookingPeriod(request);
 
-        CarId carId = new CarId(request.getCarId());
+        CarId carId = new CarId(new VIN(request.getCarId()));
         ensureCarAvailable(carId, bookingPeriod);
 
         CustomerId customerId = new CustomerId(request.getCustomerId());

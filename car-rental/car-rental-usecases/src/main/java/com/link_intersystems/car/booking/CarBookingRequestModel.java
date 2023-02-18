@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class CarBookingRequestModel {
     private int customerId;
-    private int carId;
+    private String carId;
     private int stationId;
     private LocalDateTime pickUpDateTime;
     private LocalDateTime returnDateTime;
@@ -17,11 +17,11 @@ public class CarBookingRequestModel {
         this.customerId = customerId;
     }
 
-    public int getCarId() {
+    public String getCarId() {
         return carId;
     }
 
-    public void setCarId(int carId) {
+    public void setCarId(String carId) {
         this.carId = carId;
     }
 

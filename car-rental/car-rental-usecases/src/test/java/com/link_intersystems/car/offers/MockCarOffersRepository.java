@@ -4,6 +4,7 @@ import com.link_intersystems.car.Car;
 import com.link_intersystems.car.CarFixture;
 import com.link_intersystems.car.CarId;
 import com.link_intersystems.car.VehicleType;
+import com.link_intersystems.car.booking.CarBookingFixture;
 import com.link_intersystems.car.booking.CarBookings;
 import com.link_intersystems.car.rental.*;
 import com.link_intersystems.time.Period;
@@ -16,12 +17,14 @@ public class MockCarOffersRepository implements CarOffersRepository {
 
     private CarFixture carFixture;
     private final CarRentalFixture carRentalFixture;
+    private final CarBookingFixture carBookingFixture;
     private final RentalRateFixture rentalRateFixture;
 
-    public MockCarOffersRepository(CarFixture carFixture, CarRentalFixture carRentalFixture, RentalRateFixture rentalRateFixture) {
+    public MockCarOffersRepository(CarFixture carFixture, CarRentalFixture carRentalFixture, RentalRateFixture rentalRateFixture, CarBookingFixture carBookingFixture) {
         this.carFixture = carFixture;
         this.carRentalFixture = carRentalFixture;
         this.rentalRateFixture = rentalRateFixture;
+        this.carBookingFixture = carBookingFixture;
     }
 
     @Override
@@ -45,7 +48,7 @@ public class MockCarOffersRepository implements CarOffersRepository {
                 .filter(cr -> carIds.contains(cr.getCarId()))
                 .filter(cr -> cr.getRentalPeriod().overlaps(desiredPeriod))
                 .collect(Collectors.toList());
-        return new CarBookings(filteredCarRentals).groupByCar();
+        return new RentalsByCar(filteredCarRentals);
     }
 
     @Override

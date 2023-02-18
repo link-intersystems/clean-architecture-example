@@ -1,35 +1,36 @@
-package com.link_intersystems.car.rental;
+package com.link_intersystems.car.booking;
 
 import com.link_intersystems.EntityFixture;
 import com.link_intersystems.car.CarFixture;
+import com.link_intersystems.car.CarId;
+import com.link_intersystems.person.customer.CustomerId;
 import com.link_intersystems.time.Period;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class CarRentalFixture extends EntityFixture<CarRental> {
-
+public class CarBookingFixture extends EntityFixture<CarBooking> {
 
     private CarFixture carFixture;
 
-    public CarRentalFixture(CarFixture carFixture) {
+    public CarBookingFixture(CarFixture carFixture) {
         this.carFixture = carFixture;
     }
 
     @Override
-    protected void init(List<CarRental> entities) {
+    protected void init(List<CarBooking> entities) {
         entities.add(createCarRental1());
         entities.add(createCarRental2());
     }
 
-    private CarRental createCarRental1() {
+    private CarBooking createCarRental1() {
         Period period = rentalPeriod(15, 8, 17, 17);
-        return new CarRental(carFixture.getSmartFortwo().getId(), 1, period);
+        return new CarBooking(new CustomerId(1), carFixture.getSmartFortwo().getId(), period);
     }
 
-    private CarRental createCarRental2() {
+    private CarBooking createCarRental2() {
         Period period = rentalPeriod(19, 8, 20, 8);
-        return new CarRental(carFixture.getSmartFortwo().getId(), 1, period);
+        return new CarBooking(new CustomerId(1), carFixture.getSmartFortwo().getId(), period);
     }
 
 

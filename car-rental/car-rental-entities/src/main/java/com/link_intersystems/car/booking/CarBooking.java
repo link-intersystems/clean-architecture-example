@@ -4,19 +4,29 @@ import com.link_intersystems.car.CarId;
 import com.link_intersystems.person.customer.CustomerId;
 import com.link_intersystems.time.Period;
 
+import java.time.LocalDateTime;
+
 import static java.util.Objects.requireNonNull;
 
+/**
+ * A reservation of a
+ */
 public class CarBooking {
 
     private BookingNumber bookingNumber;
     private CustomerId customerId;
     private CarId carId;
     private Period bookingPeriod;
+    private LocalDateTime bookingDateTime = LocalDateTime.now();
 
     public CarBooking(CustomerId customerId, CarId carId, Period bookingPeriod) {
         this.customerId = requireNonNull(customerId);
         this.carId = requireNonNull(carId);
         this.bookingPeriod = requireNonNull(bookingPeriod);
+    }
+
+    public LocalDateTime getBookingDateTime() {
+        return bookingDateTime;
     }
 
     void setBookingNumber(BookingNumber bookingNumber) {

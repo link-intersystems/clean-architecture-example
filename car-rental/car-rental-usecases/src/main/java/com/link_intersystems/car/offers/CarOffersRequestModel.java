@@ -7,7 +7,6 @@ public class CarOffersRequestModel {
     private String vehicleType;
     private LocalDateTime pickUpDateTime;
     private LocalDateTime returnDateTime;
-    private int stationId;
 
     public void setVehicleType(String category) {
         this.vehicleType = category;
@@ -31,13 +30,5 @@ public class CarOffersRequestModel {
 
     LocalDateTime getReturnDateTime() {
         return returnDateTime;
-    }
-
-    public void setStationId(int stationId) {
-        this.stationId = stationId;
-    }
-
-    int getStationId() {
-        return stationId;
     }
 }
