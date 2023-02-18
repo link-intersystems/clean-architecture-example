@@ -13,6 +13,10 @@
 - Fuel type: petrol
 - consumption: 5.3
 
+#### Referenced by
+
+- CarRental: [#1](rental/CarRentalFixture.md#1)
+
 ## Id 2
 
 - Name: Fiat 500
