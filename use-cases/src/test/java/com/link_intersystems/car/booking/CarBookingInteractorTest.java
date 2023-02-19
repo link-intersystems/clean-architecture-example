@@ -41,7 +41,6 @@ class CarBookingInteractorTest {
     void bookFiat500() throws CarBookingException {
         CarBookingRequestModel request = new CarBookingRequestModel();
         request.setCustomerId(1);
-        System.out.println(carFixture.getVolvoXC90());
         request.setCarId(carFixture.getVolvoXC90().getId().getValue());
         request.setPickUpDateTime(dateTime("2018-05-13", "08:00:00"));
         request.setReturnDateTime(dateTime("2018-05-16", "17:00:00"));
@@ -52,6 +51,8 @@ class CarBookingInteractorTest {
 
         CarBooking carBooking = repository.getLastPersistedCarBooking();
         assertNotNull(carBooking);
+
+        assertEquals("1", responseModel.getBookingNumber());
         assertEquals(carFixture.getVolvoXC90().getId().getValue(), carBooking.getCarId().getValue());
         assertEquals(1, carBooking.getCustomerId().getValue());
         assertEquals(request.getPickUpDateTime(), carBooking.getBookingPeriod().getBegin());
