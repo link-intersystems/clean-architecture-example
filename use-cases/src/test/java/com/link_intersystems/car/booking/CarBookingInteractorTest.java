@@ -60,7 +60,7 @@ class CarBookingInteractorTest {
 
     @Test
     @FixedClock("2018-05-01 08:00:00")
-    void bookUnknwonCustomer() {
+    void bookUnknownCustomer() {
         CarBookingRequestModel request = new CarBookingRequestModel();
         request.setCustomerId(1000);
         request.setCarId(carFixture.getVolvoXC90().getId().getValue());
