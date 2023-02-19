@@ -5,8 +5,9 @@ import com.link_intersystems.car.CarFixture;
 import com.link_intersystems.person.customer.CustomerId;
 import com.link_intersystems.time.Period;
 
-import java.time.LocalDateTime;
 import java.util.List;
+
+import static com.link_intersystems.time.PeriodBuilder.from;
 
 public class CarBookingFixture extends EntityFixture<CarBooking> {
 
@@ -23,21 +24,13 @@ public class CarBookingFixture extends EntityFixture<CarBooking> {
     }
 
     private CarBooking createBooking1() {
-        Period period = rentalPeriod(15, 8, 17, 17);
+        Period period = from("2023-01-15", "08:00:00").to("2023-01-17", "17:00:00");
         return new CarBooking(new CustomerId(1), carFixture.getSmartFortwo().getId(), period);
     }
 
     private CarBooking createBooking2() {
-        Period period = rentalPeriod(19, 8, 20, 8);
+        Period period = from("2023-01-19", "08:00:00").to("2023-01-20", "08:00:00");
         return new CarBooking(new CustomerId(1), carFixture.getSmartFortwo().getId(), period);
     }
 
-
-    private Period rentalPeriod(int fromDayOfMonth, int fromHour, int toDayOfMonth, int toHour) {
-        return new Period(dateTime(fromDayOfMonth, fromHour), dateTime(toDayOfMonth, toHour));
-    }
-
-    private LocalDateTime dateTime(int dayOfMonth, int hour) {
-        return LocalDateTime.of(2023, 1, dayOfMonth, hour, 0, 0);
-    }
 }

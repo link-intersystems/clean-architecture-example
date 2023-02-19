@@ -68,4 +68,16 @@ class CarBookingInteractorTest {
 
         assertThrows(CarBookingException.class, () -> carBookingInteractor.bookCar(request));
     }
+
+    @Test
+    @FixedClock("2018-05-01 08:00:00")
+    void unavailableCar() {
+        CarBookingRequestModel request = new CarBookingRequestModel();
+        request.setCustomerId(1);
+        request.setCarId(carFixture.getSmartFortwo().getId().getValue());
+        request.setPickUpDateTime(dateTime("2018-05-13", "08:00:00"));
+        request.setReturnDateTime(dateTime("2018-05-16", "17:00:00"));
+
+        assertThrows(CarBookingException.class, () -> carBookingInteractor.bookCar(request));
+    }
 }
