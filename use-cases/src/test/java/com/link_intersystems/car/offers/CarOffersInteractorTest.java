@@ -36,16 +36,16 @@ class CarOffersInteractorTest {
 
         CarOffersResponseModel responseModel = carOffersInteractor.makeOffers(requestModel);
 
-        CarOffersModel carOffersModel = responseModel.getCarOffers();
-        assertNotNull(carOffersModel);
+        CarOffersOutputModel carOffersOutputModel = responseModel.getCarOffers();
+        assertNotNull(carOffersOutputModel);
 
-        assertEquals(1, carOffersModel.size(), "carOffers");
-        CarOfferModel carOfferModel = carOffersModel.get(0);
+        assertEquals(1, carOffersOutputModel.size(), "carOffers");
+        CarOfferOutputModel carOfferOutputModel = carOffersOutputModel.get(0);
 
-        assertEquals(carFixture.getFiat500().getId().getValue(), carOfferModel.getId(), "carId");
-        assertEquals(new BigDecimal("190.00"), carOfferModel.getTotalRentalRate());
-        assertEquals(new BigDecimal("95.00"), carOfferModel.getPerDayRentalRate());
-        assertEquals("MICRO", carOfferModel.getVehicleType());
+        assertEquals(carFixture.getFiat500().getId().getValue(), carOfferOutputModel.getId(), "carId");
+        assertEquals(new BigDecimal("190.00"), carOfferOutputModel.getTotalRentalRate());
+        assertEquals(new BigDecimal("95.00"), carOfferOutputModel.getPerDayRentalRate());
+        assertEquals("MICRO", carOfferOutputModel.getVehicleType());
     }
 
     @Test
@@ -57,14 +57,14 @@ class CarOffersInteractorTest {
 
         CarOffersResponseModel responseModel = carOffersInteractor.makeOffers(requestModel);
 
-        CarOffersModel carOffersModel = responseModel.getCarOffers();
-        assertNotNull(carOffersModel);
+        CarOffersOutputModel carOffersOutputModel = responseModel.getCarOffers();
+        assertNotNull(carOffersOutputModel);
 
-        assertEquals(1, carOffersModel.size(), "carOffers");
-        CarOfferModel carOfferModel = carOffersModel.get(0);
+        assertEquals(1, carOffersOutputModel.size(), "carOffers");
+        CarOfferOutputModel carOfferOutputModel = carOffersOutputModel.get(0);
 
-        assertEquals(carFixture.getFiat500().getId().getValue(), carOfferModel.getId(), "carId");
-        CarSpecModel specModel = carOfferModel.getSpecModel();
+        assertEquals(carFixture.getFiat500().getId().getValue(), carOfferOutputModel.getId(), "carId");
+        CarSpecModel specModel = carOfferOutputModel.getSpecModel();
 
         assertNotNull(specModel, "carSpecModel");
         assertEquals(5, specModel.getSeats());
@@ -83,10 +83,10 @@ class CarOffersInteractorTest {
 
         CarOffersResponseModel responseModel = carOffersInteractor.makeOffers(requestModel);
 
-        CarOffersModel carOffersModel = responseModel.getCarOffers();
-        assertNotNull(carOffersModel);
+        CarOffersOutputModel carOffersOutputModel = responseModel.getCarOffers();
+        assertNotNull(carOffersOutputModel);
 
-        assertEquals(1, carOffersModel.size());
+        assertEquals(1, carOffersOutputModel.size());
     }
 
     @Test
@@ -98,9 +98,9 @@ class CarOffersInteractorTest {
 
         CarOffersResponseModel responseModel = carOffersInteractor.makeOffers(requestModel);
 
-        CarOffersModel carOffersModel = responseModel.getCarOffers();
-        assertNotNull(carOffersModel);
+        CarOffersOutputModel carOffersOutputModel = responseModel.getCarOffers();
+        assertNotNull(carOffersOutputModel);
 
-        assertEquals(2, carOffersModel.size());
+        assertEquals(2, carOffersOutputModel.size());
     }
 }

@@ -9,13 +9,21 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>use-cases</artifactId>
+    <artifactId>ui</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.link-intersystems.architecture.clean-architecture</groupId>
-            <artifactId>entities</artifactId>
+            <artifactId>use-cases</artifactId>
             <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.link-intersystems.architecture.clean-architecture</groupId>
+            <artifactId>use-cases</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <type>test-jar</type>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.link-intersystems.architecture.clean-architecture</groupId>
@@ -24,6 +32,7 @@
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
+
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -37,20 +46,4 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.2</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>test-jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>

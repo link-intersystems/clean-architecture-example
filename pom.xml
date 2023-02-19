@@ -12,6 +12,7 @@
     <modules>
         <module>use-cases</module>
         <module>entities</module>
+        <module>ui</module>
     </modules>
 
     <properties>

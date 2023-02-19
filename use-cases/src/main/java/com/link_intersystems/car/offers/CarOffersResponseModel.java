@@ -11,34 +11,34 @@ import java.util.List;
 
 public class CarOffersResponseModel {
 
-    private CarOffersModel carOffersModel = new CarOffersModel();
+    private CarOffersOutputModel carOffersOutputModel = new CarOffersOutputModel();
 
     CarOffersResponseModel(List<RentalOffer> rentalOffers) {
         for (RentalOffer rentalOffer : rentalOffers) {
-            CarOfferModel carOfferModel = map(rentalOffer);
-            carOffersModel.addCarOffer(carOfferModel);
+            CarOfferOutputModel carOfferOutputModel = map(rentalOffer);
+            carOffersOutputModel.addCarOffer(carOfferOutputModel);
         }
     }
 
-    private CarOfferModel map(RentalOffer rentalOffer) {
-        CarOfferModel carOfferModel = new CarOfferModel();
+    private CarOfferOutputModel map(RentalOffer rentalOffer) {
+        CarOfferOutputModel carOfferOutputModel = new CarOfferOutputModel();
 
         RentalCar rentalCar = rentalOffer.getRentalCar();
         Car car = rentalCar.getCar();
-        carOfferModel.setId(car.getId().getValue());
-        carOfferModel.setName(car.getName());
-        carOfferModel.setVerhicleType(car.getVehicleType().name());
+        carOfferOutputModel.setId(car.getId().getValue());
+        carOfferOutputModel.setName(car.getName());
+        carOfferOutputModel.setVerhicleType(car.getVehicleType().name());
 
         Amount totalRentalAmount = rentalOffer.getTotalRentalAmount();
-        carOfferModel.setTotalRentalRate(totalRentalAmount.getValue());
+        carOfferOutputModel.setTotalRentalRate(totalRentalAmount.getValue());
 
         RentalRate rentalRate = rentalCar.getRentalRate();
-        carOfferModel.setPerDayRentalRate(rentalRate.getAmount().getValue());
+        carOfferOutputModel.setPerDayRentalRate(rentalRate.getAmount().getValue());
 
         CarSpecModel carSpecModel = mapCarSpec(car);
-        carOfferModel.setCarSpecModel(carSpecModel);
+        carOfferOutputModel.setCarSpecModel(carSpecModel);
 
-        return carOfferModel;
+        return carOfferOutputModel;
     }
 
     private CarSpecModel mapCarSpec(Car car) {
@@ -51,8 +51,8 @@ public class CarOffersResponseModel {
         return carSpecModel;
     }
 
-    public CarOffersModel getCarOffers() {
-        return carOffersModel;
+    public CarOffersOutputModel getCarOffers() {
+        return carOffersOutputModel;
     }
 
 }

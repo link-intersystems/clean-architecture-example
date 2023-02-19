@@ -2,7 +2,7 @@ package com.link_intersystems.car.offers;
 
 import java.math.BigDecimal;
 
-public class CarOfferModel {
+public class CarOfferOutputModel {
 
     private String id;
     private String name;
