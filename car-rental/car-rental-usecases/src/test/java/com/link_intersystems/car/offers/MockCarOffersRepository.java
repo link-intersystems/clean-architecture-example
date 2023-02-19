@@ -1,15 +1,12 @@
 package com.link_intersystems.car.offers;
 
-import com.link_intersystems.car.Car;
-import com.link_intersystems.car.CarFixture;
 import com.link_intersystems.car.CarId;
 import com.link_intersystems.car.VehicleType;
 import com.link_intersystems.car.booking.CarBooking;
 import com.link_intersystems.car.booking.CarBookingFixture;
 import com.link_intersystems.car.booking.CarBookinsByCar;
-import com.link_intersystems.car.rental.RentalRate;
-import com.link_intersystems.car.rental.RentalRateByCar;
-import com.link_intersystems.car.rental.RentalRateFixture;
+import com.link_intersystems.car.rental.RentalCar;
+import com.link_intersystems.car.rental.RentalCarFixture;
 import com.link_intersystems.time.Period;
 
 import java.util.List;
@@ -18,27 +15,25 @@ import java.util.stream.Collectors;
 
 public class MockCarOffersRepository implements CarOffersRepository {
 
-    private CarFixture carFixture;
+    private RentalCarFixture carFixture;
     private final CarBookingFixture carBookingFixture;
-    private final RentalRateFixture rentalRateFixture;
 
-    public MockCarOffersRepository(CarFixture carFixture, RentalRateFixture rentalRateFixture, CarBookingFixture carBookingFixture) {
+    public MockCarOffersRepository(RentalCarFixture carFixture, CarBookingFixture carBookingFixture) {
         this.carFixture = carFixture;
-        this.rentalRateFixture = rentalRateFixture;
         this.carBookingFixture = carBookingFixture;
     }
 
     @Override
-    public List<Car> findCars(CarCriteria criteria) {
+    public List<RentalCar> findRentalCars(CarCriteria criteria) {
         return applyCriteria(carFixture, criteria);
     }
 
-    private List<Car> applyCriteria(List<Car> cars, CarCriteria carCriteria) {
+    private List<RentalCar> applyCriteria(List<RentalCar> rentalCars, CarCriteria carCriteria) {
         VehicleType vehicleTypeCriterion = carCriteria.getVehicleType();
 
-        Predicate<Car> vehicleTypePredicate = vehicleTypeCriterion == null ? f -> true : fr -> vehicleTypeCriterion.equals(fr.getVehicleType());
+        Predicate<RentalCar> vehicleTypePredicate = vehicleTypeCriterion == null ? f -> true : fr -> vehicleTypeCriterion.equals(fr.getCar().getVehicleType());
 
-        return cars.stream()
+        return rentalCars.stream()
                 .filter(vehicleTypePredicate)
                 .collect(Collectors.toList());
     }
@@ -50,14 +45,5 @@ public class MockCarOffersRepository implements CarOffersRepository {
                 .filter(cr -> cr.getBookingPeriod().overlaps(desiredPeriod))
                 .collect(Collectors.toList());
         return new CarBookinsByCar(carBookings);
-    }
-
-    @Override
-    public RentalRateByCar findRentalRates(List<CarId> carIds) {
-        List<RentalRate> filteredCarRentals = rentalRateFixture.stream()
-                .filter(cr -> carIds.contains(cr.getCarId()))
-                .collect(Collectors.toList());
-
-        return new RentalRateByCar(filteredCarRentals);
     }
 }

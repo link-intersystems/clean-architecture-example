@@ -6,9 +6,6 @@ import com.link_intersystems.car.VehicleType;
 import com.link_intersystems.car.booking.CarBookinsByCar;
 import com.link_intersystems.car.offer.RentalOffer;
 import com.link_intersystems.car.rental.RentalCar;
-import com.link_intersystems.car.rental.RentalRate;
-import com.link_intersystems.car.rental.RentalRateByCar;
-import com.link_intersystems.car.rental.RentalsByCar;
 import com.link_intersystems.time.Period;
 
 import java.time.LocalDateTime;
@@ -26,14 +23,14 @@ class CarOffersInteractor implements CarOffersUseCase {
 
     @Override
     public CarOffersResponseModel makeOffers(CarOffersRequestModel request) {
-        List<Car> cars = findMatchingCars(request);
+        List<RentalCar> rentalCars = findMatchingCars(request);
 
         LocalDateTime desiredPickUpDateTime = request.getPickUpDateTime();
         LocalDateTime resiredReturnDateTime = request.getReturnDateTime();
         Period desiredPeriod = new Period(desiredPickUpDateTime, resiredReturnDateTime);
-        List<RentalCar> rentalCars = getCarBookins(cars, desiredPeriod);
+        List<RentalCar> carBookins = getCarBookins(rentalCars, desiredPeriod);
 
-        List<RentalOffer> rentalOffers = makeOffer(rentalCars, desiredPeriod);
+        List<RentalOffer> rentalOffers = makeOffer(carBookins, desiredPeriod);
 
         return new CarOffersResponseModel(rentalOffers);
     }
@@ -43,49 +40,31 @@ class CarOffersInteractor implements CarOffersUseCase {
     }
 
 
-    private List<Car> findMatchingCars(CarOffersRequestModel request) {
+    private List<RentalCar> findMatchingCars(CarOffersRequestModel request) {
         CarCriteria carCriteria = new CarCriteria();
 
         VehicleType vehicleType = VehicleType.valueOf(request.getVehicleType());
         carCriteria.setVehicleType(vehicleType);
 
-        return repository.findCars(carCriteria);
+        return repository.findRentalCars(carCriteria);
     }
 
-    private List<RentalCar> getCarBookins(List<Car> cars, Period rentalPeriod) {
+    private List<RentalCar> getCarBookins(List<RentalCar> rentalCars, Period rentalPeriod) {
 
-        List<Car> availableCars = filterAvailableCars(rentalPeriod, cars);
-
-        List<CarId> carIds = cars.stream().map(Car::getId).collect(Collectors.toList());
-        RentalRateByCar rentalRates = repository.findRentalRates(carIds);
-
-
-        return getCarBookins(availableCars, rentalRates);
+        return filterAvailableCars(rentalPeriod, rentalCars);
     }
 
-    private List<RentalCar> getCarBookins(List<Car> availableCars, RentalRateByCar rentalRates) {
-        List<RentalCar> rentalCars = new ArrayList<>();
+    private List<RentalCar> filterAvailableCars(Period desiredPeriod, List<RentalCar> rentalCars) {
+        List<RentalCar> availableCars = new ArrayList<>();
 
-        for (Car availableCar : availableCars) {
-            RentalRate rentalRateForCar = rentalRates.get(availableCar.getId());
-            if (rentalRateForCar != null) {
-                rentalCars.add(new RentalCar(availableCar, rentalRateForCar));
-            }
-        }
-
-        return rentalCars;
-    }
-
-    private List<Car> filterAvailableCars(Period desiredPeriod, List<Car> cars) {
-        List<Car> availableCars = new ArrayList<>();
-
-        List<CarId> carIds = cars.stream().map(Car::getId).collect(Collectors.toList());
+        List<CarId> carIds = rentalCars.stream().map(RentalCar::getCar).map(Car::getId).collect(Collectors.toList());
         CarBookinsByCar carBookins = repository.findCarBookins(carIds, desiredPeriod);
 
-        for (Car car : cars) {
+        for (RentalCar rentalCar : rentalCars) {
+            Car car = rentalCar.getCar();
             CarId carId = car.getId();
             if (!carBookins.keySet().contains(carId)) {
-                availableCars.add(car);
+                availableCars.add(rentalCar);
             }
         }
 

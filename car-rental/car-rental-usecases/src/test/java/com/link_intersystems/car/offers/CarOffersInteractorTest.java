@@ -2,8 +2,7 @@ package com.link_intersystems.car.offers;
 
 import com.link_intersystems.car.CarFixture;
 import com.link_intersystems.car.booking.CarBookingFixture;
-import com.link_intersystems.car.rental.CarRentalFixture;
-import com.link_intersystems.car.rental.RentalRateFixture;
+import com.link_intersystems.car.rental.RentalCarFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,9 +20,9 @@ class CarOffersInteractorTest {
     @BeforeEach
     void setUp() {
         carFixture = new CarFixture();
-        RentalRateFixture rentalRateFixture = new RentalRateFixture(carFixture);
+        RentalCarFixture rentalCarFixture = new RentalCarFixture(carFixture);
         CarBookingFixture carBookingFixture = new CarBookingFixture(carFixture);
-        CarOffersRepository repository = new MockCarOffersRepository(carFixture, rentalRateFixture, carBookingFixture);
+        CarOffersRepository repository = new MockCarOffersRepository(rentalCarFixture, carBookingFixture);
 
         carOffersInteractor = new CarOffersInteractor(repository);
     }

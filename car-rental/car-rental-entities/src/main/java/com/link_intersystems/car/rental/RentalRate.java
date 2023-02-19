@@ -1,7 +1,8 @@
 package com.link_intersystems.car.rental;
 
-import com.link_intersystems.car.CarId;
 import com.link_intersystems.money.Amount;
+
+import java.time.temporal.ChronoUnit;
 
 import static java.util.Objects.requireNonNull;
 
@@ -10,20 +11,23 @@ import static java.util.Objects.requireNonNull;
  */
 public class RentalRate {
 
-    private CarId carId;
     private Amount amount;
+    private ChronoUnit timePeriodUnit;
 
-    public RentalRate(CarId carId, Amount amount) {
-        this.carId = requireNonNull(carId);
-        this.amount = requireNonNull(amount);
+    public RentalRate(Amount amount) {
+        this(amount, ChronoUnit.DAYS);
     }
 
-    public CarId getCarId() {
-        return carId;
+    public RentalRate(Amount amount, ChronoUnit timePeriodUnit) {
+        this.amount = requireNonNull(amount);
+        this.timePeriodUnit = requireNonNull(timePeriodUnit);
     }
 
     public Amount getAmount() {
         return amount;
     }
 
+    public ChronoUnit getTimePeriodUnit() {
+        return timePeriodUnit;
+    }
 }
