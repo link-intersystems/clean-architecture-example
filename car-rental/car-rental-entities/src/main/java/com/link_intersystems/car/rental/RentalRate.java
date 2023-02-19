@@ -7,7 +7,7 @@ import java.time.temporal.ChronoUnit;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Combines a rental {@link Amount} with a {@link com.link_intersystems.car.Car}.
+ * A rental {@link Amount} for a specific period as defined by a ({@link ChronoUnit}).
  */
 public class RentalRate {
 
