@@ -9,7 +9,7 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>usecases</artifactId>
+    <artifactId>use-cases</artifactId>
 
     <dependencies>
         <dependency>

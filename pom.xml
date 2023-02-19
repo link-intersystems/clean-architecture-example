@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>usecases</module>
+        <module>use-cases</module>
         <module>entities</module>
     </modules>
 
