@@ -79,6 +79,6 @@ class CarBookingInteractorTest {
         request.setPickUpDateTime(dateTime("2023-01-13", "08:00:00"));
         request.setReturnDateTime(dateTime("2023-01-15", "08:00:00"));
 
-        assertThrows(CarBookingException.class, () -> carBookingInteractor.bookCar(request));
+        assertThrows(CarNotAvailableException.class, () -> carBookingInteractor.bookCar(request));
     }
 }
