@@ -73,7 +73,37 @@ class PeriodTest {
 
     /**
      * <pre>
-     * period1         |-----|
+     * period1    |-------|
+     * period2            |-----|
+     * </pre>
+     */
+    @Test
+    void overlapsByEndDateTime() {
+        Period period1 = from("2023-01-13", "08:00:00").to("2023-01-15", "08:00:00");
+        Period period2 = from("2023-01-15", "08:00:00").to("2023-01-15", "09:00:00");
+
+        assertTrue(period1.overlaps(period2));
+        assertTrue(period2.overlaps(period1));
+    }
+
+    /**
+     * <pre>
+     * period1           |-------|
+     * period2     |-----|
+     * </pre>
+     */
+    @Test
+    void overlapsByBeginDateTime() {
+        Period period1 = from("2023-01-15", "08:00:00").to("2023-01-15", "09:00:00");
+        Period period2 = from("2023-01-13", "08:00:00").to("2023-01-15", "08:00:00");
+
+        assertTrue(period1.overlaps(period2));
+        assertTrue(period2.overlaps(period1));
+    }
+
+    /**
+     * <pre>
+     * period1            |-----|
      * period2  |-----|
      * </pre>
      */

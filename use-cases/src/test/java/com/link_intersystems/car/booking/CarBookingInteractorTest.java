@@ -21,7 +21,8 @@ class CarBookingInteractorTest {
     void setUp() {
         CustomerFixture customers = new CustomerFixture();
         carFixture = new CarFixture();
-        repository = new MockCarBookingRepository(carFixture, customers);
+        CarBookingFixture carBookingFixture = new CarBookingFixture(carFixture);
+        repository = new MockCarBookingRepository(carFixture, customers, carBookingFixture);
         carBookingInteractor = new CarBookingInteractor(repository);
     }
 
@@ -75,8 +76,8 @@ class CarBookingInteractorTest {
         CarBookingRequestModel request = new CarBookingRequestModel();
         request.setCustomerId(1);
         request.setCarId(carFixture.getSmartFortwo().getId().getValue());
-        request.setPickUpDateTime(dateTime("2018-05-13", "08:00:00"));
-        request.setReturnDateTime(dateTime("2018-05-16", "17:00:00"));
+        request.setPickUpDateTime(dateTime("2023-01-13", "08:00:00"));
+        request.setReturnDateTime(dateTime("2023-01-15", "08:00:00"));
 
         assertThrows(CarBookingException.class, () -> carBookingInteractor.bookCar(request));
     }

@@ -32,21 +32,29 @@ public class Period {
     private boolean includes(Period period) {
         LocalDateTime thatBegin = period.getBegin();
 
-        if (begin.isBefore(thatBegin) && end.isAfter(thatBegin)) {
+        if (begin.compareTo(thatBegin) <= 0 && end.compareTo(thatBegin) >= 0) {
             return true;
         }
 
         LocalDateTime thatEnd = period.getEnd();
-        return begin.isBefore(thatEnd) && end.isAfter(thatEnd);
+        return begin.compareTo(thatEnd) <= 0 && end.compareTo(thatEnd) >= 0;
     }
 
     @Override
     public String
     toString() {
-        return "Period{" +
-                "begin=" + begin +
-                ", end=" + end +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append(getBegin().toLocalDate());
+        sb.append(" ");
+        sb.append(getBegin().toLocalTime());
+
+        sb.append(" >> ");
+
+        sb.append(getEnd().toLocalDate());
+        sb.append(" ");
+        sb.append(getEnd().toLocalTime());
+
+        return sb.toString();
     }
 
     public int getDays() {
