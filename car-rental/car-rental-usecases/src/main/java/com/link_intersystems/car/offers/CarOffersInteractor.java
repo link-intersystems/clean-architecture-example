@@ -26,11 +26,12 @@ class CarOffersInteractor implements CarOffersUseCase {
         List<RentalCar> rentalCars = findMatchingCars(request);
 
         LocalDateTime desiredPickUpDateTime = request.getPickUpDateTime();
-        LocalDateTime resiredReturnDateTime = request.getReturnDateTime();
-        Period desiredPeriod = new Period(desiredPickUpDateTime, resiredReturnDateTime);
-        List<RentalCar> carBookins = getCarBookins(rentalCars, desiredPeriod);
+        LocalDateTime desiredReturnDateTime = request.getReturnDateTime();
+        Period desiredPeriod = new Period(desiredPickUpDateTime, desiredReturnDateTime);
 
-        List<RentalOffer> rentalOffers = makeOffer(carBookins, desiredPeriod);
+        List<RentalCar> availableCars = filterAvailableCars(desiredPeriod, rentalCars);
+
+        List<RentalOffer> rentalOffers = makeOffer(availableCars, desiredPeriod);
 
         return new CarOffersResponseModel(rentalOffers);
     }
@@ -47,11 +48,6 @@ class CarOffersInteractor implements CarOffersUseCase {
         carCriteria.setVehicleType(vehicleType);
 
         return repository.findRentalCars(carCriteria);
-    }
-
-    private List<RentalCar> getCarBookins(List<RentalCar> rentalCars, Period rentalPeriod) {
-
-        return filterAvailableCars(rentalPeriod, rentalCars);
     }
 
     private List<RentalCar> filterAvailableCars(Period desiredPeriod, List<RentalCar> rentalCars) {
