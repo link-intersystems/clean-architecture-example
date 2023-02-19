@@ -1,6 +1,5 @@
 package com.link_intersystems.car.offers;
 
-import com.link_intersystems.car.Car;
 import com.link_intersystems.car.CarId;
 import com.link_intersystems.car.VehicleType;
 import com.link_intersystems.car.booking.CarBookinsByCar;
@@ -33,7 +32,9 @@ class CarOffersInteractor implements CarOffersUseCase {
 
         List<RentalOffer> rentalOffers = makeOffer(availableCars, desiredPeriod);
 
-        return new CarOffersResponseModel(rentalOffers);
+        List<CarId> carIds = rentalOffers.stream().map(RentalOffer::getRentalCar).map(RentalCar::getCarId).collect(Collectors.toList());
+        CarsById carsById = repository.findCars(carIds);
+        return new CarOffersResponseModel(carsById, rentalOffers);
     }
 
     private List<RentalOffer> makeOffer(List<RentalCar> rentalCars, Period desiredPeriod) {
@@ -53,12 +54,11 @@ class CarOffersInteractor implements CarOffersUseCase {
     private List<RentalCar> filterAvailableCars(Period desiredPeriod, List<RentalCar> rentalCars) {
         List<RentalCar> availableCars = new ArrayList<>();
 
-        List<CarId> carIds = rentalCars.stream().map(RentalCar::getCar).map(Car::getId).collect(Collectors.toList());
+        List<CarId> carIds = rentalCars.stream().map(RentalCar::getCarId).collect(Collectors.toList());
         CarBookinsByCar carBookins = repository.findCarBookins(carIds, desiredPeriod);
 
         for (RentalCar rentalCar : rentalCars) {
-            Car car = rentalCar.getCar();
-            CarId carId = car.getId();
+            CarId carId = rentalCar.getCarId();
             if (!carBookins.keySet().contains(carId)) {
                 availableCars.add(rentalCar);
             }

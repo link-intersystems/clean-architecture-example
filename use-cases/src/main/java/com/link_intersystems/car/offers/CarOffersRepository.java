@@ -13,4 +13,5 @@ interface CarOffersRepository {
 
     CarBookinsByCar findCarBookins(List<CarId> carIds, Period desiredPeriod);
 
+    CarsById findCars(List<CarId> carIds);
 }

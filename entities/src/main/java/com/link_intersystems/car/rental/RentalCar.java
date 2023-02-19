@@ -1,6 +1,7 @@
 package com.link_intersystems.car.rental;
 
 import com.link_intersystems.car.Car;
+import com.link_intersystems.car.CarId;
 
 import static java.util.Objects.requireNonNull;
 
@@ -9,11 +10,11 @@ import static java.util.Objects.requireNonNull;
  */
 public class RentalCar {
 
-    private Car car;
+    private CarId carId;
     private RentalRate rentalRate;
 
-    public RentalCar(Car car, RentalRate rentalRate) {
-        this.car = requireNonNull(car);
+    public RentalCar(CarId car, RentalRate rentalRate) {
+        this.carId = requireNonNull(car);
         this.rentalRate = requireNonNull(rentalRate);
     }
 
@@ -21,8 +22,7 @@ public class RentalCar {
         return rentalRate;
     }
 
-    public Car getCar() {
-        return car;
+    public CarId getCarId() {
+        return carId;
     }
-
 }

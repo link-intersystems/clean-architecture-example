@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <car vin='WMEEJ8AA3FK792135' name='Smart Fortwo' vehicleType='MICRO' seats='2' doors='2' fuelType='PETROL'
+         consumptionUnits='5.0'/>
+    <car vin='3C3CFFBR3CTR12014' name='Fiat 500' vehicleType='MICRO' seats='5' doors='3' fuelType='PETROL'
+         consumptionUnits='4.6'/>
+    <car vin='YV4952CYXE1702329' name='Volvo XC90' vehicleType='SUV' seats='5' doors='4' fuelType='PETROL'
+         consumptionUnits='11.1'/>
+    <car vin='WBAFR1C54BCC47391' name='BMW 530' vehicleType='SEDAN' seats='5' doors='4' fuelType='PETROL'
+         consumptionUnits='8.9'/>
+    <car vin='WAUDV74F98N394362' name='Audi A6' vehicleType='SEDAN' seats='5' doors='4' fuelType='PETROL'
+         consumptionUnits='9.0'/>
+    <car vin='WDDHF5GB7CA482637' name='Mercedes Benz E 200' vehicleType='SEDAN' seats='5' doors='4' fuelType='PETROL'
+         consumptionUnits='8.1'/>
+</dataset>

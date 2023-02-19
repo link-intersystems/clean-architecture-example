@@ -1,5 +1,6 @@
 package com.link_intersystems.car.offers.ui;
 
+import com.link_intersystems.car.offers.CarOfferUseCaseConfig;
 import com.link_intersystems.car.offers.CarOffersUseCase;
 
 import javax.swing.*;
@@ -12,7 +13,8 @@ public class CarOfferViewManualTest {
         jFrame.setSize(800, 600);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        CarOffersUseCase carOfferUseCase = new MockCarOffersUseCase();
+        CarOfferUseCaseConfig carOfferUseCaseConfig = new CarOfferUseCaseConfig();
+        CarOffersUseCase carOfferUseCase = carOfferUseCaseConfig.getCarOfferUseCase();
         CarOfferComponent carOfferComponent = new CarOfferComponent(carOfferUseCase);
 
         jFrame.getContentPane().add(carOfferComponent.getCarOfferView().getViewComponent(), BorderLayout.CENTER);

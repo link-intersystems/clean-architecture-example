@@ -1,5 +1,7 @@
 package com.link_intersystems.car.offers;
 
+import com.link_intersystems.car.Car;
+import com.link_intersystems.car.CarFixture;
 import com.link_intersystems.car.CarId;
 import com.link_intersystems.car.VehicleType;
 import com.link_intersystems.car.booking.CarBooking;
@@ -15,23 +17,27 @@ import java.util.stream.Collectors;
 
 public class MockCarOffersRepository implements CarOffersRepository {
 
-    private RentalCarFixture carFixture;
+    private RentalCarFixture rentalCarFixture;
     private final CarBookingFixture carBookingFixture;
+    private CarFixture carFixture;
 
-    public MockCarOffersRepository(RentalCarFixture carFixture, CarBookingFixture carBookingFixture) {
-        this.carFixture = carFixture;
+    public MockCarOffersRepository(RentalCarFixture rentalCarFixture, CarBookingFixture carBookingFixture, CarFixture carFixture) {
+        this.rentalCarFixture = rentalCarFixture;
         this.carBookingFixture = carBookingFixture;
+        this.carFixture = carFixture;
     }
 
     @Override
     public List<RentalCar> findRentalCars(CarCriteria criteria) {
-        return applyCriteria(carFixture, criteria);
+        List<CarId> carIds = rentalCarFixture.stream().map(RentalCar::getCarId).collect(Collectors.toList());
+        CarsById carsById = findCars(carIds);
+        return applyCriteria(rentalCarFixture, carsById, criteria);
     }
 
-    private List<RentalCar> applyCriteria(List<RentalCar> rentalCars, CarCriteria carCriteria) {
+    private List<RentalCar> applyCriteria(List<RentalCar> rentalCars, CarsById carsById, CarCriteria carCriteria) {
         VehicleType vehicleTypeCriterion = carCriteria.getVehicleType();
 
-        Predicate<RentalCar> vehicleTypePredicate = vehicleTypeCriterion == null ? f -> true : fr -> vehicleTypeCriterion.equals(fr.getCar().getVehicleType());
+        Predicate<RentalCar> vehicleTypePredicate = vehicleTypeCriterion == null ? f -> true : fr -> vehicleTypeCriterion.equals(carsById.getCar(fr.getCarId()).getVehicleType());
 
         return rentalCars.stream()
                 .filter(vehicleTypePredicate)
@@ -45,5 +51,11 @@ public class MockCarOffersRepository implements CarOffersRepository {
                 .filter(cr -> cr.getBookingPeriod().overlaps(desiredPeriod))
                 .collect(Collectors.toList());
         return new CarBookinsByCar(carBookings);
+    }
+
+    @Override
+    public CarsById findCars(List<CarId> carIds) {
+        List<Car> cars = carFixture.stream().filter(c -> carIds.contains(c.getId())).collect(Collectors.toList());
+        return new CarsById(cars);
     }
 }

@@ -17,19 +17,19 @@ public class RentalCarFixture extends EntityFixture<RentalCar> {
 
     @Override
     protected void init(List<RentalCar> entities) {
-        RentalCar smartForTwoRentalCar = new RentalCar(carFixture.getSmartFortwo(), new RentalRate(new Amount("89.99")));
+        RentalCar smartForTwoRentalCar = new RentalCar(carFixture.getSmartFortwo().getId(), new RentalRate(new Amount("89.99")));
         entities.add(smartForTwoRentalCar);
 
-        RentalCar fiat500RentalCar = new RentalCar(carFixture.getFiat500(), new RentalRate(new Amount("95.00")));
+        RentalCar fiat500RentalCar = new RentalCar(carFixture.getFiat500().getId(), new RentalRate(new Amount("95.00")));
         entities.add(fiat500RentalCar);
 
-        RentalCar bmw500 = new RentalCar(carFixture.getBmw530(), new RentalRate(new Amount("116.98")));
+        RentalCar bmw500 = new RentalCar(carFixture.getBmw530().getId(), new RentalRate(new Amount("116.98")));
         entities.add(bmw500);
 
-        RentalCar volvoXC90 = new RentalCar(carFixture.getVolvoXC90(), new RentalRate(new Amount("165.99")));
+        RentalCar volvoXC90 = new RentalCar(carFixture.getVolvoXC90().getId(), new RentalRate(new Amount("165.99")));
         entities.add(volvoXC90);
 
-        RentalCar mercedesBenzE200 = new RentalCar(carFixture.getMercedesBenzE200(), new RentalRate(new Amount("120.96")));
+        RentalCar mercedesBenzE200 = new RentalCar(carFixture.getMercedesBenzE200().getId(), new RentalRate(new Amount("120.96")));
         entities.add(mercedesBenzE200);
     }
 

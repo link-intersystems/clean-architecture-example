@@ -13,6 +13,7 @@
         <module>use-cases</module>
         <module>entities</module>
         <module>ui</module>
+        <module>gateways</module>
     </modules>
 
     <properties>

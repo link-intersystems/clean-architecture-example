@@ -22,7 +22,7 @@ class CarOffersInteractorTest {
         carFixture = new CarFixture();
         RentalCarFixture rentalCarFixture = new RentalCarFixture(carFixture);
         CarBookingFixture carBookingFixture = new CarBookingFixture(carFixture);
-        CarOffersRepository repository = new MockCarOffersRepository(rentalCarFixture, carBookingFixture);
+        CarOffersRepository repository = new MockCarOffersRepository(rentalCarFixture, carBookingFixture, carFixture);
 
         carOffersInteractor = new CarOffersInteractor(repository);
     }

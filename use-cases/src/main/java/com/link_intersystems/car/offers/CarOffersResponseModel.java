@@ -1,6 +1,7 @@
 package com.link_intersystems.car.offers;
 
 import com.link_intersystems.car.Car;
+import com.link_intersystems.car.CarId;
 import com.link_intersystems.car.Specs;
 import com.link_intersystems.car.offer.RentalOffer;
 import com.link_intersystems.car.rental.RentalCar;
@@ -13,18 +14,19 @@ public class CarOffersResponseModel {
 
     private CarOffersOutputModel carOffersOutputModel = new CarOffersOutputModel();
 
-    CarOffersResponseModel(List<RentalOffer> rentalOffers) {
+    CarOffersResponseModel(CarsById carsById, List<RentalOffer> rentalOffers) {
         for (RentalOffer rentalOffer : rentalOffers) {
-            CarOfferOutputModel carOfferOutputModel = map(rentalOffer);
+            CarOfferOutputModel carOfferOutputModel = map(carsById, rentalOffer);
             carOffersOutputModel.addCarOffer(carOfferOutputModel);
         }
     }
 
-    private CarOfferOutputModel map(RentalOffer rentalOffer) {
+    private CarOfferOutputModel map(CarsById carsById, RentalOffer rentalOffer) {
         CarOfferOutputModel carOfferOutputModel = new CarOfferOutputModel();
 
         RentalCar rentalCar = rentalOffer.getRentalCar();
-        Car car = rentalCar.getCar();
+        CarId carId = rentalCar.getCarId();
+        Car car = carsById.getCar(carId);
         carOfferOutputModel.setId(car.getId().getValue());
         carOfferOutputModel.setName(car.getName());
         carOfferOutputModel.setVerhicleType(car.getVehicleType().name());
@@ -44,10 +46,12 @@ public class CarOffersResponseModel {
     private CarSpecModel mapCarSpec(Car car) {
         CarSpecModel carSpecModel = new CarSpecModel();
         Specs specs = car.getSpecs();
-        carSpecModel.setSeats(specs.getSeats().getValue());
-        carSpecModel.setDoors(specs.getDoors().getValue());
-        carSpecModel.setConsumption(specs.getConsumption().getUnitsPerKm());
-        carSpecModel.setEnergyType(specs.getConsumption().getFuelType().name());
+        if (specs != null) {
+            carSpecModel.setSeats(specs.getSeats().getValue());
+            carSpecModel.setDoors(specs.getDoors().getValue());
+            carSpecModel.setConsumption(specs.getConsumption().getUnitsPerKm());
+            carSpecModel.setEnergyType(specs.getConsumption().getFuelType().name());
+        }
         return carSpecModel;
     }
 
