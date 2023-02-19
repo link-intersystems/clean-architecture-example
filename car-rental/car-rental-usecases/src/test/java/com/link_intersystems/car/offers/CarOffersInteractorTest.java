@@ -21,10 +21,9 @@ class CarOffersInteractorTest {
     @BeforeEach
     void setUp() {
         carFixture = new CarFixture();
-        CarRentalFixture carRentalFixture = new CarRentalFixture(carFixture);
         RentalRateFixture rentalRateFixture = new RentalRateFixture(carFixture);
         CarBookingFixture carBookingFixture = new CarBookingFixture(carFixture);
-        CarOffersRepository repository = new MockCarOffersRepository(carFixture, carRentalFixture, rentalRateFixture, carBookingFixture);
+        CarOffersRepository repository = new MockCarOffersRepository(carFixture, rentalRateFixture, carBookingFixture);
 
         carOffersInteractor = new CarOffersInteractor(repository);
     }

@@ -2,6 +2,7 @@ package com.link_intersystems.car.rental;
 
 import com.link_intersystems.EntityFixture;
 import com.link_intersystems.car.CarFixture;
+import com.link_intersystems.person.customer.CustomerId;
 import com.link_intersystems.time.Period;
 
 import java.time.LocalDateTime;
@@ -24,12 +25,12 @@ public class CarRentalFixture extends EntityFixture<CarRental> {
 
     private CarRental createCarRental1() {
         Period period = rentalPeriod(15, 8, 17, 17);
-        return new CarRental(carFixture.getSmartFortwo().getId(), 1, period);
+        return new CarRental(carFixture.getSmartFortwo().getId(), new CustomerId(1), period);
     }
 
     private CarRental createCarRental2() {
         Period period = rentalPeriod(19, 8, 20, 8);
-        return new CarRental(carFixture.getSmartFortwo().getId(), 1, period);
+        return new CarRental(carFixture.getSmartFortwo().getId(), new CustomerId(1), period);
     }
 
 

@@ -4,9 +4,12 @@ import com.link_intersystems.car.Car;
 import com.link_intersystems.car.CarFixture;
 import com.link_intersystems.car.CarId;
 import com.link_intersystems.car.VehicleType;
+import com.link_intersystems.car.booking.CarBooking;
 import com.link_intersystems.car.booking.CarBookingFixture;
-import com.link_intersystems.car.booking.CarBookings;
-import com.link_intersystems.car.rental.*;
+import com.link_intersystems.car.booking.CarBookinsByCar;
+import com.link_intersystems.car.rental.RentalRate;
+import com.link_intersystems.car.rental.RentalRateByCar;
+import com.link_intersystems.car.rental.RentalRateFixture;
 import com.link_intersystems.time.Period;
 
 import java.util.List;
@@ -16,13 +19,11 @@ import java.util.stream.Collectors;
 public class MockCarOffersRepository implements CarOffersRepository {
 
     private CarFixture carFixture;
-    private final CarRentalFixture carRentalFixture;
     private final CarBookingFixture carBookingFixture;
     private final RentalRateFixture rentalRateFixture;
 
-    public MockCarOffersRepository(CarFixture carFixture, CarRentalFixture carRentalFixture, RentalRateFixture rentalRateFixture, CarBookingFixture carBookingFixture) {
+    public MockCarOffersRepository(CarFixture carFixture, RentalRateFixture rentalRateFixture, CarBookingFixture carBookingFixture) {
         this.carFixture = carFixture;
-        this.carRentalFixture = carRentalFixture;
         this.rentalRateFixture = rentalRateFixture;
         this.carBookingFixture = carBookingFixture;
     }
@@ -43,12 +44,12 @@ public class MockCarOffersRepository implements CarOffersRepository {
     }
 
     @Override
-    public RentalsByCar findCarRentals(List<CarId> carIds, Period desiredPeriod) {
-        List<CarRental> filteredCarRentals = carRentalFixture.stream()
+    public CarBookinsByCar findCarBookins(List<CarId> carIds, Period desiredPeriod) {
+        List<CarBooking> carBookings = carBookingFixture.stream()
                 .filter(cr -> carIds.contains(cr.getCarId()))
-                .filter(cr -> cr.getRentalPeriod().overlaps(desiredPeriod))
+                .filter(cr -> cr.getBookingPeriod().overlaps(desiredPeriod))
                 .collect(Collectors.toList());
-        return new RentalsByCar(filteredCarRentals);
+        return new CarBookinsByCar(carBookings);
     }
 
     @Override

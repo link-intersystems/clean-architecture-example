@@ -2,7 +2,6 @@ package com.link_intersystems.car.booking;
 
 import com.link_intersystems.EntityFixture;
 import com.link_intersystems.car.CarFixture;
-import com.link_intersystems.car.CarId;
 import com.link_intersystems.person.customer.CustomerId;
 import com.link_intersystems.time.Period;
 
@@ -19,16 +18,16 @@ public class CarBookingFixture extends EntityFixture<CarBooking> {
 
     @Override
     protected void init(List<CarBooking> entities) {
-        entities.add(createCarRental1());
-        entities.add(createCarRental2());
+        entities.add(createBooking1());
+        entities.add(createBooking2());
     }
 
-    private CarBooking createCarRental1() {
+    private CarBooking createBooking1() {
         Period period = rentalPeriod(15, 8, 17, 17);
         return new CarBooking(new CustomerId(1), carFixture.getSmartFortwo().getId(), period);
     }
 
-    private CarBooking createCarRental2() {
+    private CarBooking createBooking2() {
         Period period = rentalPeriod(19, 8, 20, 8);
         return new CarBooking(new CustomerId(1), carFixture.getSmartFortwo().getId(), period);
     }
