@@ -25,12 +25,14 @@ public class CarRentalFixture extends EntityFixture<CarRental> {
 
     private CarRental createCarRental1() {
         Period period = rentalPeriod(15, 8, 17, 17);
-        return new CarRental(carFixture.getSmartFortwo().getId(), new CustomerId(1), period);
+        CarRental carRental = new CarRental(carFixture.getSmartFortwo().getId(), new CustomerId(1), period.getBegin());
+        carRental.setReturnDateTime(period.getEnd());
+        return carRental;
     }
 
     private CarRental createCarRental2() {
         Period period = rentalPeriod(19, 8, 20, 8);
-        return new CarRental(carFixture.getSmartFortwo().getId(), new CustomerId(1), period);
+        return new CarRental(carFixture.getSmartFortwo().getId(), new CustomerId(1), period.getBegin());
     }
 
 

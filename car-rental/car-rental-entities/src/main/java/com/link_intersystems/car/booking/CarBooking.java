@@ -9,7 +9,8 @@ import java.time.LocalDateTime;
 import static java.util.Objects.requireNonNull;
 
 /**
- * A reservation of a
+ * A reservation of a {@link com.link_intersystems.car.rental.RentalCar} that a {@link com.link_intersystems.person.customer.Customer}
+ * would like to rent in the future.
  */
 public class CarBooking {
 

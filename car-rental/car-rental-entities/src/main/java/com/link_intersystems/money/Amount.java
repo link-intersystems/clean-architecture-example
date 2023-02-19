@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;
 
+/**
+ * An amount of money.
+ */
 public class Amount {
 
     private BigDecimal value;

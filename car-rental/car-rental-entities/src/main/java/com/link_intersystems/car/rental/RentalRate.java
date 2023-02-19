@@ -5,6 +5,9 @@ import com.link_intersystems.money.Amount;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Combines a rental {@link Amount} with a {@link com.link_intersystems.car.Car}.
+ */
 public class RentalRate {
 
     private CarId carId;
