@@ -9,11 +9,13 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>gateways</artifactId>
+    <artifactId>details</artifactId>
     <packaging>pom</packaging>
+
     <modules>
-        <module>repository-dbunit</module>
-        <module>repository-h2</module>
+        <module>gateways</module>
+        <module>ui</module>
+        <module>app</module>
     </modules>
 
 
