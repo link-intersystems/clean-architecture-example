@@ -12,7 +12,8 @@
     <artifactId>gateways</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>dbunit-persistence</module>
+        <module>repository-dbunit</module>
+        <module>repository-h2</module>
     </modules>
 
 

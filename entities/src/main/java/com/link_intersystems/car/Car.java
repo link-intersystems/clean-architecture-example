@@ -11,6 +11,15 @@ public class Car {
     private VehicleType vehicleType;
     private Specs specs;
 
+    public Car() {
+    }
+
+    public Car(CarId id, String name, VehicleType vehicleType) {
+        this.id = id;
+        this.name = name;
+        this.vehicleType = vehicleType;
+    }
+
     public CarId getId() {
         return id;
     }

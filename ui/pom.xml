@@ -34,7 +34,7 @@
         </dependency>
         <dependency>
             <groupId>com.link-intersystems.architecture.clean-architecture</groupId>
-            <artifactId>dbunit-persistence</artifactId>
+            <artifactId>repository-dbunit</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>

@@ -9,7 +9,7 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>dbunit-persistence</artifactId>
+    <artifactId>repository-dbunit</artifactId>
 
     <dependencies>
         <dependency>
