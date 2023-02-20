@@ -4,6 +4,7 @@ import com.link_intersystems.car.offers.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.time.LocalDateTime;
 
 public class CarOfferController extends AbstractAction {
 
@@ -18,6 +19,10 @@ public class CarOfferController extends AbstractAction {
         this.carOffersUseCase = carOffersUseCase;
 
         putValue(Action.NAME, "Search");
+
+        carSearchModel.setVehicleType("MICRO");
+        carSearchModel.setPickupDate(LocalDateTime.now().toString());
+        carSearchModel.setReturnDate(LocalDateTime.now().plusDays(1).toString());
     }
 
     public ListModel<CarOfferModel> getCarOfferListModel() {
@@ -34,10 +39,7 @@ public class CarOfferController extends AbstractAction {
     }
 
     public void searchCars() {
-        CarOffersRequestModel requestModel = new CarOffersRequestModel();
-        requestModel.setVehicleType(carSearchModel.getVehicleType());
-        requestModel.setPickUpDateTime(carSearchModel.getPickupDate());
-        requestModel.setReturnDateTime(carSearchModel.getReturnDate());
+        CarOffersRequestModel requestModel = carOfferPresenter.toRequestModel(carSearchModel);
 
         CarOffersResponseModel responseModel = carOffersUseCase.makeOffers(requestModel);
 
@@ -45,7 +47,7 @@ public class CarOfferController extends AbstractAction {
 
         carOfferListModel.clear();
         for (CarOfferOutputModel carOffer : carOffers) {
-            CarOfferModel carOfferModel = carOfferPresenter.toPresentationModel(carOffer);
+            CarOfferModel carOfferModel = carOfferPresenter.toCarOfferModel(carOffer);
             carOfferListModel.addElement(carOfferModel);
         }
     }

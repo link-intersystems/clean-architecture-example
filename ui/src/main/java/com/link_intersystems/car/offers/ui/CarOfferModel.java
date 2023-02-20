@@ -6,6 +6,7 @@ public class CarOfferModel {
     private String totalRentalRate;
     private String perDayRentalRate;
     private String vehicleType;
+    private String name;
 
     public String getId() {
         return id;
@@ -37,5 +38,13 @@ public class CarOfferModel {
 
     public void setVehicleType(String vehicleType) {
         this.vehicleType = vehicleType;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 }

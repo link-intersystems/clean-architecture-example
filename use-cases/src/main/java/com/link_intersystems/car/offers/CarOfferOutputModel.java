@@ -54,4 +54,8 @@ public class CarOfferOutputModel {
     public String getVehicleType() {
         return verhicleType;
     }
+
+    public String getName() {
+        return name;
+    }
 }

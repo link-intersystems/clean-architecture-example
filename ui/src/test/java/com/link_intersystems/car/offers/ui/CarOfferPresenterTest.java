@@ -20,7 +20,7 @@ class CarOfferPresenterTest {
                 .setVehicleType("MICRO") //
                 .build();
 
-        CarOfferModel carOfferModel = carOfferPresenter.toPresentationModel(carOfferOutputModel);
+        CarOfferModel carOfferModel = carOfferPresenter.toCarOfferModel(carOfferOutputModel);
 
         assertEquals("123", carOfferModel.getId());
         assertEquals("122.97", carOfferModel.getTotalRentalRate());

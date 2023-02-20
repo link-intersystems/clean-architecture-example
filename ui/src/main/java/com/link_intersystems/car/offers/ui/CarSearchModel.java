@@ -1,11 +1,9 @@
 package com.link_intersystems.car.offers.ui;
 
-import java.time.LocalDateTime;
-
 public class CarSearchModel {
     private String vehicleType;
-    private LocalDateTime pickupDate;
-    private LocalDateTime returnDate;
+    private String pickupDate;
+    private String returnDate;
 
     public void setVehicleType(String vehicleType) {
         this.vehicleType = vehicleType;
@@ -15,19 +13,19 @@ public class CarSearchModel {
         return vehicleType;
     }
 
-    public void setPickupDate(LocalDateTime pickupDate) {
+    public void setPickupDate(String pickupDate) {
         this.pickupDate = pickupDate;
     }
 
-    public LocalDateTime getPickupDate() {
+    public String getPickupDate() {
         return pickupDate;
     }
 
-    public void setReturnDate(LocalDateTime returnDate) {
+    public void setReturnDate(String returnDate) {
         this.returnDate = returnDate;
     }
 
-    public LocalDateTime getReturnDate() {
+    public String getReturnDate() {
         return returnDate;
     }
 }

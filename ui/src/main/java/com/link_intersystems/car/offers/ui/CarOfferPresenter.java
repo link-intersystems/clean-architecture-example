@@ -1,16 +1,20 @@
 package com.link_intersystems.car.offers.ui;
 
 import com.link_intersystems.car.offers.CarOfferOutputModel;
+import com.link_intersystems.car.offers.CarOffersRequestModel;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDateTime;
 
 public class CarOfferPresenter {
 
-    public CarOfferModel toPresentationModel(CarOfferOutputModel carOfferOutputModel) {
+    public CarOfferModel toCarOfferModel(CarOfferOutputModel carOfferOutputModel) {
         CarOfferModel carOfferModel = new CarOfferModel();
 
         carOfferModel.setId(carOfferOutputModel.getId());
+
+        carOfferModel.setName(carOfferOutputModel.getName());
 
         BigDecimal totalRentalRate = carOfferOutputModel.getTotalRentalRate();
         carOfferModel.setTotalRentalRate(totalRentalRate.setScale(2, RoundingMode.HALF_UP).toString());
@@ -21,5 +25,18 @@ public class CarOfferPresenter {
         carOfferModel.setVehicleType(carOfferOutputModel.getVehicleType());
 
         return carOfferModel;
+    }
+
+    public CarOffersRequestModel toRequestModel(CarSearchModel carSearchModel) {
+        CarOffersRequestModel requestModel = new CarOffersRequestModel();
+        requestModel.setVehicleType(carSearchModel.getVehicleType());
+
+        String pickupDate = carSearchModel.getPickupDate();
+        requestModel.setPickUpDateTime(LocalDateTime.parse(pickupDate));
+
+        String returnDate = carSearchModel.getReturnDate();
+        requestModel.setReturnDateTime(LocalDateTime.parse(returnDate));
+
+        return requestModel;
     }
 }

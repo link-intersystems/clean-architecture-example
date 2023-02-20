@@ -14,6 +14,7 @@
         <module>entities</module>
         <module>ui</module>
         <module>gateways</module>
+        <module>application</module>
     </modules>
 
     <properties>
