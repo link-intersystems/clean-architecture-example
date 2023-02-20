@@ -32,7 +32,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>6.0.5</version>
+            <version>5.3.25</version>
         </dependency>
         <dependency>
             <groupId>com.link-intersystems.commons</groupId>
