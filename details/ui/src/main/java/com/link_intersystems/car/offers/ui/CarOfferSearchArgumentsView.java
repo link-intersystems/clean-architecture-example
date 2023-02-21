@@ -1,8 +1,10 @@
 package com.link_intersystems.car.offers.ui;
 
+import com.link_intersystems.swing.action.FuncAsyncWorkLifecycle;
+import com.link_intersystems.swing.action.SimpleAsyncAction;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 class CarOfferSearchArgumentsView {
     private JPanel searchPanel = new JPanel();
@@ -67,13 +69,8 @@ class CarOfferSearchArgumentsView {
     }
 
     public void setSearchRunnable(Runnable runnable) {
-        AbstractAction searchAction = new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateCarSearchModel();
-                runnable.run();
-            }
-        };
+        SimpleAsyncAction<Void> searchAction = new SimpleAsyncAction<>(runnable::run);
+        searchAction.setAsyncWorkLifecycle(new FuncAsyncWorkLifecycle.Builder<>().setPrepareForExecution(this::updateCarSearchModel).build());
         searchAction.putValue(Action.NAME, "Search");
         searchButton.setAction(searchAction);
     }
