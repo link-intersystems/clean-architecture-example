@@ -122,7 +122,7 @@ public class H2CarOfferRepository implements CarOffersRepository {
         }, carIds.stream().map(CarId::getValue).toArray());
 
 
-        return new CarBookinsByCar(carBookings.stream().filter(cb -> !cb.getBookingPeriod().overlaps(desiredPeriod)).collect(Collectors.toList()));
+        return new CarBookinsByCar(carBookings.stream().filter(cb -> cb.getBookingPeriod().overlaps(desiredPeriod)).collect(Collectors.toList()));
     }
 
     @Override
