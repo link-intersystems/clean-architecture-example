@@ -1,6 +1,6 @@
 package com.link_intersystems.car.offers.ui;
 
-import com.link_intersystems.swing.table.BeanListTableCellSupport;
+import com.link_intersystems.swing.table.beans.BeanListTableCellSupport;
 import com.link_intersystems.swing.table.ListTableModel;
 
 import javax.swing.*;
