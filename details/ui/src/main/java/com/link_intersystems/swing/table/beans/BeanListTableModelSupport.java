@@ -1,6 +1,6 @@
 package com.link_intersystems.swing.table.beans;
 
-import com.link_intersystems.swing.table.ListTableCellSupport;
+import com.link_intersystems.swing.table.ListTableModelSupport;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.*;
 
-public class BeanListTableCellSupport<E> implements ListTableCellSupport<E> {
+public class BeanListTableModelSupport<E> implements ListTableModelSupport<E> {
 
     public static final Predicate<PropertyDescriptor> DEFAULT_PROPERTY_FILTER = p -> p.getReadMethod() != null;
 
@@ -22,8 +22,8 @@ public class BeanListTableCellSupport<E> implements ListTableCellSupport<E> {
     private Optional<Comparator<PropertyDescriptor>> propertyOrder = Optional.empty();
     private Predicate<PropertyDescriptor> propertyFilter = DEFAULT_PROPERTY_FILTER;
 
-    public static <E> BeanListTableCellSupport<E> of(Class<E> beanType) {
-        BeanListTableCellSupport<E> beanListTableCellSupport = new BeanListTableCellSupport<>();
+    public static <E> BeanListTableModelSupport<E> of(Class<E> beanType) {
+        BeanListTableModelSupport<E> beanListTableCellSupport = new BeanListTableModelSupport<>();
         beanListTableCellSupport.setBeanInfo(beanType);
         return beanListTableCellSupport;
     }

@@ -9,7 +9,6 @@ import static java.util.Objects.*;
 
 public class ListTableModel<E> extends AbstractTableModel {
 
-
     private ListDataListener listDataListener = new ListDataListener() {
         @Override
         public void intervalAdded(ListDataEvent e) {
@@ -28,7 +27,7 @@ public class ListTableModel<E> extends AbstractTableModel {
     };
 
     private ListModel<E> listModel = new DefaultListModel<>();
-    private ListTableCellSupport<E> listTableCellSupport = new DefaultListTableCellSupport<>();
+    private ListTableModelSupport<E> listTableModelSupport = new DefaultListTableModelSupport<>();
 
     public void setListModel(ListModel<E> listModel) {
         requireNonNull(listModel);
@@ -38,8 +37,8 @@ public class ListTableModel<E> extends AbstractTableModel {
         this.listModel.addListDataListener(listDataListener);
     }
 
-    public void setListTableCellRenderer(ListTableCellSupport<E> listTableCellSupport) {
-        this.listTableCellSupport = requireNonNull(listTableCellSupport);
+    public void setListTableModelSupport(ListTableModelSupport<E> listTableModelSupport) {
+        this.listTableModelSupport = requireNonNull(listTableModelSupport);
     }
 
     @Override
@@ -49,22 +48,22 @@ public class ListTableModel<E> extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return listTableCellSupport.getColumnCount();
+        return listTableModelSupport.getColumnCount();
     }
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        return listTableCellSupport.getColumnClass(columnIndex);
+        return listTableModelSupport.getColumnClass(columnIndex);
     }
 
     @Override
     public String getColumnName(int column) {
-        return listTableCellSupport.getColumnName(column);
+        return listTableModelSupport.getColumnName(column);
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         E elementAt = listModel.getElementAt(rowIndex);
-        return listTableCellSupport.getValue(elementAt, columnIndex);
+        return listTableModelSupport.getValue(elementAt, columnIndex);
     }
 }

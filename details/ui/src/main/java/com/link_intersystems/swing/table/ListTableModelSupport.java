@@ -1,6 +1,6 @@
 package com.link_intersystems.swing.table;
 
-public interface ListTableCellSupport<E> {
+public interface ListTableModelSupport<E> {
 
     public int getColumnCount();
 

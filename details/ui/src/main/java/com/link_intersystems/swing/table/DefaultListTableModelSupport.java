@@ -1,6 +1,6 @@
 package com.link_intersystems.swing.table;
 
-public class DefaultListTableCellSupport<E> implements ListTableCellSupport<E> {
+public class DefaultListTableModelSupport<E> implements ListTableModelSupport<E> {
 
     @Override
     public int getColumnCount() {
@@ -9,7 +9,7 @@ public class DefaultListTableCellSupport<E> implements ListTableCellSupport<E> {
 
     @Override
     public String getColumnName(int column) {
-        return "element";
+        return "A";
     }
 
     @Override

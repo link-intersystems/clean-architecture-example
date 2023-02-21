@@ -10,14 +10,14 @@ import java.util.Comparator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BeanListTableCellSupportTest {
+class BeanListTableModelSupportTest {
 
-    private BeanListTableCellSupport<PersonBean> listTableCellSupport;
+    private BeanListTableModelSupport<PersonBean> listTableCellSupport;
     private PersonBean personBean;
 
     @BeforeEach
     void setUp() {
-        listTableCellSupport = BeanListTableCellSupport.of(PersonBean.class);
+        listTableCellSupport = BeanListTableModelSupport.of(PersonBean.class);
         personBean = new PersonBean();
         personBean.setFirstname("Nick");
         personBean.setLastname("Wahlberg");
@@ -94,11 +94,11 @@ class BeanListTableCellSupportTest {
 
     @Test
     void exceptionOnPropertyRead() {
-        listTableCellSupport = new BeanListTableCellSupport<>() {
+        listTableCellSupport = new BeanListTableModelSupport<>() {
             @Override
             protected Method getReadMethod(int column) {
                 try {
-                    return BeanListTableCellSupportTest.class.getDeclaredMethod("exceptionOnPropertyRead");
+                    return BeanListTableModelSupportTest.class.getDeclaredMethod("exceptionOnPropertyRead");
                 } catch (NoSuchMethodException e) {
                     throw new RuntimeException(e);
                 }
@@ -110,11 +110,11 @@ class BeanListTableCellSupportTest {
 
     @Test
     void omitReadMethodException() {
-        listTableCellSupport = new BeanListTableCellSupport<>() {
+        listTableCellSupport = new BeanListTableModelSupport<>() {
             @Override
             protected Method getReadMethod(int column) {
                 try {
-                    return BeanListTableCellSupportTest.class.getDeclaredMethod("exceptionOnPropertyRead");
+                    return BeanListTableModelSupportTest.class.getDeclaredMethod("exceptionOnPropertyRead");
                 } catch (NoSuchMethodException e) {
                     throw new RuntimeException(e);
                 }

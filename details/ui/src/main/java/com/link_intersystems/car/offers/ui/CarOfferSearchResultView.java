@@ -1,6 +1,6 @@
 package com.link_intersystems.car.offers.ui;
 
-import com.link_intersystems.swing.table.beans.BeanListTableCellSupport;
+import com.link_intersystems.swing.table.beans.BeanListTableModelSupport;
 import com.link_intersystems.swing.table.ListTableModel;
 
 import javax.swing.*;
@@ -16,7 +16,7 @@ class CarOfferSearchResultView {
         ListTableModel<CarOfferModel> carOfferModelListTableModel = new ListTableModel<>();
 
         carOfferModelListTableModel.setListModel(carOfferListModel);
-        carOfferModelListTableModel.setListTableCellRenderer(BeanListTableCellSupport.of(CarOfferModel.class));
+        carOfferModelListTableModel.setListTableModelSupport(BeanListTableModelSupport.of(CarOfferModel.class));
 
         carOfferTable.setModel(carOfferModelListTableModel);
     }
