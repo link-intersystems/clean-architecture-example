@@ -8,7 +8,6 @@ import com.link_intersystems.car.rental.RentalCar;
 import com.link_intersystems.time.Period;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,18 +51,18 @@ class CarOffersInteractor implements CarOffersUseCase {
     }
 
     private List<RentalCar> filterAvailableCars(Period desiredPeriod, List<RentalCar> rentalCars) {
-        List<RentalCar> availableCars = new ArrayList<>();
+        List<CarId> carIds = rentalCars
+                .stream()
+                .map(RentalCar::getCarId)
+                .collect(Collectors.toList());
 
-        List<CarId> carIds = rentalCars.stream().map(RentalCar::getCarId).collect(Collectors.toList());
         CarBookinsByCar carBookins = repository.findCarBookins(carIds, desiredPeriod);
 
-        for (RentalCar rentalCar : rentalCars) {
-            CarId carId = rentalCar.getCarId();
-            if (!carBookins.keySet().contains(carId)) {
-                availableCars.add(rentalCar);
-            }
-        }
-
-        return availableCars;
+        return rentalCars
+                .stream()
+                .filter(rc -> {
+                    CarId carId = rc.getCarId();
+                    return !carBookins.contains(carId);
+                }).collect(Collectors.toList());
     }
 }

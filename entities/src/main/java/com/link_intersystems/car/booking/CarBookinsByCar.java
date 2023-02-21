@@ -20,4 +20,7 @@ public class CarBookinsByCar extends AbstractMap<CarId, CarBooking> {
         return Collections.unmodifiableMap(bookingsByCar).entrySet();
     }
 
+    public boolean contains(CarId carId) {
+        return keySet().contains(carId);
+    }
 }
