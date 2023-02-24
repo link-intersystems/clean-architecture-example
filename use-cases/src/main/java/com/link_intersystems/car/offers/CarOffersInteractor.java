@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 
 class CarOffersInteractor implements CarOffersUseCase {
 
+    private IntputOutputMapper intputOutputMapper = new IntputOutputMapper();
+
     private final CarOffersRepository repository;
 
     public CarOffersInteractor(CarOffersRepository repository) {
@@ -33,7 +35,7 @@ class CarOffersInteractor implements CarOffersUseCase {
 
         List<CarId> carIds = rentalOffers.stream().map(RentalOffer::getRentalCar).map(RentalCar::getCarId).collect(Collectors.toList());
         CarsById carsById = repository.findCars(carIds);
-        return new CarOffersResponseModel(carsById, rentalOffers);
+        return intputOutputMapper.toOutputModel(carsById, rentalOffers);
     }
 
     private List<RentalOffer> makeOffer(List<RentalCar> rentalCars, Period desiredPeriod) {

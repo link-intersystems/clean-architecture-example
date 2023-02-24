@@ -1,12 +1,9 @@
 package com.link_intersystems.car.offers;
 
-import java.math.BigDecimal;
-
-import static org.mockito.Mockito.*;
 
 public class CarOfferResponseBuilder {
 
-    private CarOffersResponseModel responseModel = mock(CarOffersResponseModel.class);
+    private CarOffersResponseModel responseModel = new CarOffersResponseModel();
     private CarOffersOutputModel carOffersOutputModel = new CarOffersOutputModel();
 
     public CarOfferResponseBuilder() {
@@ -14,10 +11,11 @@ public class CarOfferResponseBuilder {
     }
 
     public CarOffersResponseModel build() {
+        responseModel.setCarOffersOutputModel(carOffersOutputModel);
         CarOffersResponseModel returnModel = responseModel;
-        responseModel = mock(CarOffersResponseModel.class);
+
+        responseModel = new CarOffersResponseModel();
         carOffersOutputModel = new CarOffersOutputModel();
-        when(responseModel.getCarOffers()).thenReturn(carOffersOutputModel);
         return returnModel;
     }
 

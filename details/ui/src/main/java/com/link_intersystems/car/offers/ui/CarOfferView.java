@@ -1,5 +1,7 @@
 package com.link_intersystems.car.offers.ui;
 
+import com.link_intersystems.swing.selection.SelectionProvider;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,12 +11,18 @@ public class CarOfferView {
 
     private CarOfferSearchArgumentsView carOfferSearchArgumentsView = new CarOfferSearchArgumentsView();
     private CarOfferSearchResultView carOfferSearchResultView = new CarOfferSearchResultView();
+    private CarOfferBookingView carOfferBookingView = new CarOfferBookingView();
 
     public CarOfferView() {
 
         viewPanel.setLayout(new BorderLayout());
         viewPanel.add(carOfferSearchArgumentsView.getViewComponent(), BorderLayout.NORTH);
         viewPanel.add(carOfferSearchResultView.getViewComponent(), BorderLayout.CENTER);
+        viewPanel.add(carOfferBookingView.getViewComponent(), BorderLayout.EAST);
+    }
+
+    public SelectionProvider<CarOfferModel> getSelectionProvider() {
+        return carOfferSearchResultView.getSelectionProvider();
     }
 
     public void setCarSearchModel(CarSearchModel carSearchModel) {
@@ -25,12 +33,16 @@ public class CarOfferView {
         carOfferSearchResultView.setCarOfferListModel(carOfferListModel);
     }
 
+    public void setCarSearchAction(Action action) {
+        carOfferSearchArgumentsView.setCarBookAction(action);
+    }
 
-    public void setCarSearchRunnable(Runnable runnable) {
-        carOfferSearchArgumentsView.setSearchRunnable(runnable);
+    public void setBookCarAction(Action action) {
+        carOfferBookingView.setBookCarAction(action);
     }
 
     public Component getViewComponent() {
         return viewPanel;
     }
+
 }

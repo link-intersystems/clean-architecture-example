@@ -1,5 +1,6 @@
 package com.link_intersystems.car;
 
+import com.link_intersystems.car.booking.CarBookingConfig;
 import com.link_intersystems.car.offers.CarOfferConfig;
 import com.link_intersystems.car.offers.ui.CarOfferComponentConfig;
 import com.link_intersystems.car.ui.MainFrame;
@@ -14,8 +15,11 @@ public class CarRentalApp {
 
     private void run() {
         CarOfferConfig carOfferUseCaseConfig = new CarOfferConfig();
-        CarOfferComponentConfig carOfferComponentConfig = new CarOfferComponentConfig(carOfferUseCaseConfig);
+        CarBookingConfig carBookingConfig = new CarBookingConfig();
+
+        CarOfferComponentConfig carOfferComponentConfig = new CarOfferComponentConfig(carOfferUseCaseConfig, carBookingConfig);
         MainComponentConfig mainComponentConfig = new MainComponentConfig(carOfferComponentConfig);
+
         MainFrame mainFrame = mainComponentConfig.getMainComponent();
         mainFrame.show();
     }

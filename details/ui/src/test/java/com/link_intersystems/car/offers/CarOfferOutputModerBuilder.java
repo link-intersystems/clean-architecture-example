@@ -6,10 +6,10 @@ import static org.mockito.Mockito.*;
 
 public class CarOfferOutputModerBuilder {
 
-    private CarOfferOutputModel carOfferOutputModel = mock(CarOfferOutputModel.class);
+    private CarOfferOutputModelMock carOfferOutputModel = new CarOfferOutputModelMock();
 
     public CarOfferOutputModerBuilder setId(String id) {
-        when(carOfferOutputModel.getId()).thenReturn(id);
+        carOfferOutputModel.setId(id);
         return this;
     }
 
@@ -18,7 +18,7 @@ public class CarOfferOutputModerBuilder {
     }
 
     public CarOfferOutputModerBuilder setTotalRentalRate(BigDecimal totalRentalRate) {
-        when(carOfferOutputModel.getTotalRentalRate()).thenReturn(totalRentalRate);
+        carOfferOutputModel.setTotalRentalRate(totalRentalRate);
         return this;
     }
 
@@ -27,7 +27,7 @@ public class CarOfferOutputModerBuilder {
     }
 
     public CarOfferOutputModerBuilder setPerDayRentalRate(BigDecimal perDayRentalRate) {
-        when(carOfferOutputModel.getPerDayRentalRate()).thenReturn(perDayRentalRate);
+        carOfferOutputModel.setPerDayRentalRate(perDayRentalRate);
         return this;
     }
 
@@ -38,18 +38,18 @@ public class CarOfferOutputModerBuilder {
         when(carSpecModel.getEnergyType()).thenReturn(energyType);
         when(carSpecModel.getConsumption()).thenReturn(consumption);
 
-        when(carOfferOutputModel.getSpecModel()).thenReturn(carSpecModel);
+        carOfferOutputModel.setCarSpecModel(carSpecModel);
         return this;
     }
 
     public CarOfferOutputModerBuilder setVehicleType(String vehicleType) {
-        when(carOfferOutputModel.getVehicleType()).thenReturn(vehicleType);
+        carOfferOutputModel.setVehicleType(vehicleType);
         return this;
     }
 
     public CarOfferOutputModel build() {
         CarOfferOutputModel returnModel = carOfferOutputModel;
-        carOfferOutputModel = mock(CarOfferOutputModel.class);
+        carOfferOutputModel = new CarOfferOutputModelMock();
         return returnModel;
     }
 }

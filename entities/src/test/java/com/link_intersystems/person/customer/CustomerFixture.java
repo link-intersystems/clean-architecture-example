@@ -16,7 +16,7 @@ public class CustomerFixture extends EntityFixture<Customer> {
     }
 
     private Customer createMarySmith() {
-        return new Customer(new CustomerId(1), LocalDate.of(2000, 7, 19));
+        return new Customer(new CustomerId(1), "Mary", "Smith");
     }
 
     public Customer getById(Integer customerId) {

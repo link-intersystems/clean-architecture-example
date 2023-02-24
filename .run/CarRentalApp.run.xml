@@ -4,7 +4,7 @@
     <module name="app" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="com.link_intersystems.car.*" />
+        <option name="PATTERN" value="com.link_intersystems.car.booking.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

@@ -6,7 +6,7 @@ public class CarOfferOutputModel {
 
     private String id;
     private String name;
-    private String verhicleType;
+    private String vehicleType;
     private BigDecimal totalRentalRate;
     private BigDecimal perDayRentalRate;
     private CarSpecModel carSpecModel;
@@ -23,8 +23,8 @@ public class CarOfferOutputModel {
         this.name = name;
     }
 
-    void setVerhicleType(String verhicleType) {
-        this.verhicleType = verhicleType;
+    void setVehicleType(String vehicleType) {
+        this.vehicleType = vehicleType;
     }
 
     public BigDecimal getTotalRentalRate() {
@@ -52,7 +52,7 @@ public class CarOfferOutputModel {
     }
 
     public String getVehicleType() {
-        return verhicleType;
+        return vehicleType;
     }
 
     public String getName() {

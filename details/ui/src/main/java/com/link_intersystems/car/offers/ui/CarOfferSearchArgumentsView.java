@@ -1,9 +1,8 @@
 package com.link_intersystems.car.offers.ui;
 
-import com.link_intersystems.swing.action.FuncAsyncWorkLifecycle;
-import com.link_intersystems.swing.action.SimpleAsyncAction;
-
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 
 class CarOfferSearchArgumentsView {
@@ -11,7 +10,9 @@ class CarOfferSearchArgumentsView {
     private ComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>(new String[]{"MICRO", "SEDAN", "SUV"});
     private JComboBox<String> vehicleType = new JComboBox<>();
     private JTextField pickUpDate = new JTextField();
+    private JTextComponentBinding pickupDateBinding = new JTextComponentBinding(pickUpDate);
     private JTextField returnDate = new JTextField();
+    private JTextComponentBinding returnDateBinding = new JTextComponentBinding(returnDate);
     private JButton searchButton = new JButton();
     private CarSearchModel carSearchModel = new CarSearchModel();
 
@@ -53,26 +54,32 @@ class CarOfferSearchArgumentsView {
 
     public void setCarSearchModel(CarSearchModel carSearchModel) {
         this.carSearchModel = carSearchModel;
-        modelToView();
+        bindToView(carSearchModel);
     }
 
-    private void modelToView() {
-        String vehicleType = carSearchModel.getVehicleType();
+    private void bindToView(CarSearchModel carSearchModel) {
+
+        pickUpDate.setText(carSearchModel.getPickupDate());
+        returnDate.setText(carSearchModel.getReturnDate());
+
+        pickupDateBinding.setDocumentTextConsumer(carSearchModel::setPickupDate);
+        returnDateBinding.setDocumentTextConsumer(carSearchModel::setReturnDate);
+
+        String vehicleType = this.carSearchModel.getVehicleType();
         comboBoxModel.setSelectedItem(vehicleType);
 
-        pickUpDate.setText(carSearchModel.getPickupDate().toString());
-        returnDate.setText(carSearchModel.getReturnDate().toString());
+        this.vehicleType.addItemListener(e -> {
+            Object selectedItem = comboBoxModel.getSelectedItem();
+            carSearchModel.setVehicleType(String.valueOf(selectedItem));
+        });
     }
 
     public Component getViewComponent() {
         return searchPanel;
     }
 
-    public void setSearchRunnable(Runnable runnable) {
-        SimpleAsyncAction<Void> searchAction = new SimpleAsyncAction<>(runnable::run);
-        searchAction.setAsyncWorkLifecycle(new FuncAsyncWorkLifecycle.Builder<>().setPrepareForExecution(this::updateCarSearchModel).build());
-        searchAction.putValue(Action.NAME, "Search");
-        searchButton.setAction(searchAction);
+    public void setCarBookAction(Action action) {
+        searchButton.setAction(action);
     }
 
     private void updateCarSearchModel() {
@@ -81,4 +88,35 @@ class CarOfferSearchArgumentsView {
         carSearchModel.setPickupDate(pickUpDate.getText().trim());
         carSearchModel.setReturnDate(returnDate.getText().trim());
     }
+
+    class CarSearchModelBinging {
+
+        private DocumentListener documentListener = new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                changedUpdate(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                changedUpdate(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+
+
+        };
+
+        private CarSearchModel carSearchModel;
+
+        public void bind(CarSearchModel carSearchModel) {
+            this.carSearchModel = carSearchModel;
+        }
+
+
+    }
+
+
 }

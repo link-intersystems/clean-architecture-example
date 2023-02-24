@@ -38,7 +38,7 @@ public class CarOfferController extends AbstractAction {
         searchCars();
     }
 
-    public void searchCars() {
+    void searchCars() {
         CarOffersRequestModel requestModel = carOfferPresenter.toRequestModel(carSearchModel);
 
         CarOffersResponseModel responseModel = carOffersUseCase.makeOffers(requestModel);

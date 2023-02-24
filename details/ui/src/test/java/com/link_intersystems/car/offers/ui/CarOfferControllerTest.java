@@ -1,6 +1,9 @@
 package com.link_intersystems.car.offers.ui;
 
-import com.link_intersystems.car.offers.*;
+import com.link_intersystems.car.offers.CarOfferOutputModerBuilder;
+import com.link_intersystems.car.offers.CarOfferResponseBuilder;
+import com.link_intersystems.car.offers.CarOffersRequestModel;
+import com.link_intersystems.car.offers.CarOffersResponseModel;
 import com.link_intersystems.time.LocalDateTimeUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,18 +12,17 @@ import javax.swing.*;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class CarOfferControllerTest {
 
-    private CarOffersUseCase carOffersUseCase;
+    private CarOffersUseCaseMock carOffersUseCase;
     private CarOfferController carOfferController;
     private CarSearchModel carSearchModel;
     private ListModel<CarOfferModel> carOfferListModel;
 
     @BeforeEach
     void setUp() {
-        carOffersUseCase = mock(CarOffersUseCase.class);
+        carOffersUseCase = new CarOffersUseCaseMock();
         carOfferController = new CarOfferController(carOffersUseCase);
         carSearchModel = carOfferController.getCarSearchModel();
         carOfferListModel = carOfferController.getCarOfferListModel();
@@ -52,7 +54,7 @@ class CarOfferControllerTest {
                         .build());
         CarOffersResponseModel carOffersResponseModel = responseBuilder.build();
 
-        when(carOffersUseCase.makeOffers(refEq(requestModel))).thenReturn(carOffersResponseModel);
+        carOffersUseCase.setResponseModel(carOffersResponseModel);
 
         carSearchModel.setVehicleType("MICRO");
         carSearchModel.setPickupDate("2023-01-15T08:00:00");
@@ -60,7 +62,7 @@ class CarOfferControllerTest {
 
         carOfferController.searchCars();
 
-        verify(carOffersUseCase, times(1)).makeOffers(any(CarOffersRequestModel.class));
+        assertTrue(carOffersUseCase.isInvoked());
 
         assertEquals(2, carOfferListModel.getSize());
     }
