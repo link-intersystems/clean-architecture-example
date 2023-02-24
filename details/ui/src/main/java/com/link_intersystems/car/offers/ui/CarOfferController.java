@@ -20,9 +20,9 @@ public class CarOfferController extends AbstractAction {
 
         putValue(Action.NAME, "Search");
 
-        carSearchModel.setVehicleType("MICRO");
-        carSearchModel.setPickupDate(LocalDateTime.now().toString());
-        carSearchModel.setReturnDate(LocalDateTime.now().plusDays(1).toString());
+        carSearchModel.getVehicleType().setValue("MICRO");
+        carSearchModel.getPickupDate().setValue(LocalDateTime.now().toString());
+        carSearchModel.getReturnDate().setValue(LocalDateTime.now().plusDays(1).toString());
     }
 
     public ListModel<CarOfferModel> getCarOfferListModel() {

@@ -1,31 +1,22 @@
 package com.link_intersystems.car.offers.ui;
 
+import com.link_intersystems.swing.binding.BindingValue;
+import com.link_intersystems.swing.binding.DefaultBindingValue;
+
 public class CarSearchModel {
-    private String vehicleType;
-    private String pickupDate;
-    private String returnDate;
+    private BindingValue<String> vehicleType = new DefaultBindingValue<>();
+    private BindingValue<String> pickupDate = new DefaultBindingValue<>();
+    private BindingValue<String> returnDate = new DefaultBindingValue<>();
 
-    public void setVehicleType(String vehicleType) {
-        this.vehicleType = vehicleType;
-    }
-
-    public String getVehicleType() {
-        return vehicleType;
-    }
-
-    public void setPickupDate(String pickupDate) {
-        this.pickupDate = pickupDate;
-    }
-
-    public String getPickupDate() {
+    public BindingValue<String> getPickupDate() {
         return pickupDate;
     }
 
-    public void setReturnDate(String returnDate) {
-        this.returnDate = returnDate;
+    public BindingValue<String> getReturnDate() {
+        return returnDate;
     }
 
-    public String getReturnDate() {
-        return returnDate;
+    public BindingValue<String> getVehicleType() {
+        return vehicleType;
     }
 }

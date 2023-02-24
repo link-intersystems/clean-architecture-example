@@ -1,23 +1,31 @@
-package com.link_intersystems.car.offers.ui;
+package com.link_intersystems.swing.binding.text;
+
+import com.link_intersystems.swing.binding.BindingValue;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
-import java.util.function.Consumer;
 
 public class JTextComponentBinding implements DocumentListener {
 
     private JTextComponent textComponent;
-    private Consumer<String> documentTextConsumer;
+    private BindingValue<String> bindingValue;
 
     public JTextComponentBinding(JTextComponent textComponent) {
         setTextComponent(textComponent);
     }
 
-    public void setDocumentTextConsumer(Consumer<String> documentTextConsumer) {
-        this.documentTextConsumer = documentTextConsumer;
+    public void setBindingValue(BindingValue<String> bindingValue) {
+        this.bindingValue = bindingValue;
+        if (bindingValue != null && textComponent != null) {
+            valueToView(bindingValue, textComponent);
+        }
+    }
+
+    private void valueToView(BindingValue<String> bindingValue, JTextComponent textComponent) {
+        textComponent.setText(bindingValue.getValue());
     }
 
     public void setTextComponent(JTextComponent textComponent) {
@@ -26,6 +34,9 @@ public class JTextComponentBinding implements DocumentListener {
         }
 
         this.textComponent = textComponent;
+        if (bindingValue != null && textComponent != null) {
+            valueToView(bindingValue, textComponent);
+        }
 
         if (this.textComponent != null) {
             this.textComponent.getDocument().addDocumentListener(this);
@@ -44,16 +55,16 @@ public class JTextComponentBinding implements DocumentListener {
 
     @Override
     public void changedUpdate(DocumentEvent e) {
-        updateConsumer();
+        viewToBinding();
 
     }
 
-    private void updateConsumer() {
-        if (documentTextConsumer != null) {
+    private void viewToBinding() {
+        if (bindingValue != null) {
             Document document = textComponent.getDocument();
             try {
                 String text = document.getText(0, document.getLength());
-                documentTextConsumer.accept(text);
+                bindingValue.setValue(text);
             } catch (BadLocationException ex) {
                 throw new RuntimeException(ex);
             }

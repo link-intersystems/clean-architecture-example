@@ -56,9 +56,9 @@ class CarOfferControllerTest {
 
         carOffersUseCase.setResponseModel(carOffersResponseModel);
 
-        carSearchModel.setVehicleType("MICRO");
-        carSearchModel.setPickupDate("2023-01-15T08:00:00");
-        carSearchModel.setReturnDate("2023-01-17T08:00:00");
+        carSearchModel.getVehicleType().setValue("MICRO");
+        carSearchModel.getPickupDate().setValue("2023-01-15T08:00:00");
+        carSearchModel.getReturnDate().setValue("2023-01-17T08:00:00");
 
         carOfferController.searchCars();
 

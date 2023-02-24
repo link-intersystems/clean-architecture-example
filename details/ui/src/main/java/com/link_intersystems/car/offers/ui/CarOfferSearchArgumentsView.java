@@ -1,8 +1,9 @@
 package com.link_intersystems.car.offers.ui;
 
+import com.link_intersystems.swing.binding.BindingValue;
+import com.link_intersystems.swing.binding.text.JTextComponentBinding;
+
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 
 class CarOfferSearchArgumentsView {
@@ -58,19 +59,15 @@ class CarOfferSearchArgumentsView {
     }
 
     private void bindToView(CarSearchModel carSearchModel) {
+        pickupDateBinding.setBindingValue(carSearchModel.getPickupDate());
+        returnDateBinding.setBindingValue(carSearchModel.getReturnDate());
 
-        pickUpDate.setText(carSearchModel.getPickupDate());
-        returnDate.setText(carSearchModel.getReturnDate());
-
-        pickupDateBinding.setDocumentTextConsumer(carSearchModel::setPickupDate);
-        returnDateBinding.setDocumentTextConsumer(carSearchModel::setReturnDate);
-
-        String vehicleType = this.carSearchModel.getVehicleType();
-        comboBoxModel.setSelectedItem(vehicleType);
+        BindingValue<String> vehicleType = this.carSearchModel.getVehicleType();
+        comboBoxModel.setSelectedItem(vehicleType.getValue());
 
         this.vehicleType.addItemListener(e -> {
             Object selectedItem = comboBoxModel.getSelectedItem();
-            carSearchModel.setVehicleType(String.valueOf(selectedItem));
+            vehicleType.setValue(String.valueOf(selectedItem));
         });
     }
 
@@ -81,42 +78,5 @@ class CarOfferSearchArgumentsView {
     public void setCarBookAction(Action action) {
         searchButton.setAction(action);
     }
-
-    private void updateCarSearchModel() {
-        Object selectedItem = vehicleType.getSelectedItem();
-        carSearchModel.setVehicleType(String.valueOf(selectedItem));
-        carSearchModel.setPickupDate(pickUpDate.getText().trim());
-        carSearchModel.setReturnDate(returnDate.getText().trim());
-    }
-
-    class CarSearchModelBinging {
-
-        private DocumentListener documentListener = new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                changedUpdate(e);
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                changedUpdate(e);
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-
-
-        };
-
-        private CarSearchModel carSearchModel;
-
-        public void bind(CarSearchModel carSearchModel) {
-            this.carSearchModel = carSearchModel;
-        }
-
-
-    }
-
 
 }

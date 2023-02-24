@@ -2,6 +2,7 @@ package com.link_intersystems.car.offers.ui;
 
 import com.link_intersystems.car.offers.CarOfferOutputModel;
 import com.link_intersystems.car.offers.CarOffersRequestModel;
+import com.link_intersystems.swing.binding.BindingValue;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -29,13 +30,13 @@ public class CarOfferPresenter {
 
     public CarOffersRequestModel toRequestModel(CarSearchModel carSearchModel) {
         CarOffersRequestModel requestModel = new CarOffersRequestModel();
-        requestModel.setVehicleType(carSearchModel.getVehicleType());
+        requestModel.setVehicleType(carSearchModel.getVehicleType().getValue());
 
-        String pickupDate = carSearchModel.getPickupDate();
-        requestModel.setPickUpDateTime(LocalDateTime.parse(pickupDate));
+        BindingValue<String> pickupDate = carSearchModel.getPickupDate();
+        requestModel.setPickUpDateTime(LocalDateTime.parse(pickupDate.getValue()));
 
-        String returnDate = carSearchModel.getReturnDate();
-        requestModel.setReturnDateTime(LocalDateTime.parse(returnDate));
+        BindingValue<String> returnDate = carSearchModel.getReturnDate();
+        requestModel.setReturnDateTime(LocalDateTime.parse(returnDate.getValue()));
 
         return requestModel;
     }
