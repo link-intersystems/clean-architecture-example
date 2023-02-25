@@ -36,11 +36,11 @@
     <build>
         <pluginManagement>
             <plugins>
-                <serviceProvider>
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-serviceProvider</artifactId>
+                    <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.22.2</version>
-                </serviceProvider>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
