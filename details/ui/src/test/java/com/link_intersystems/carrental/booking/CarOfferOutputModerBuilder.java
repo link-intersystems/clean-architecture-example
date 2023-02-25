@@ -1,6 +1,7 @@
 package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.offers.CarOfferOutputModel;
+import com.link_intersystems.carrental.offers.CarOfferOutputModelMock;
 import com.link_intersystems.carrental.offers.CarSpecModel;
 
 import java.math.BigDecimal;

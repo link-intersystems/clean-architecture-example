@@ -1,5 +1,6 @@
 package com.link_intersystems.carrental.booking;
 
+import com.link_intersystems.carrental.offers.CarOfferResponseBuilder;
 import com.link_intersystems.carrental.offers.CarOffersRequestModel;
 import com.link_intersystems.carrental.offers.CarOffersResponseModel;
 import com.link_intersystems.swing.action.ActionTrigger;

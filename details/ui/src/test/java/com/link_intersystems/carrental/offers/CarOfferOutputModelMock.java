@@ -1,7 +1,4 @@
-package com.link_intersystems.carrental.booking;
-
-import com.link_intersystems.carrental.offers.CarOfferOutputModel;
-import com.link_intersystems.carrental.offers.CarSpecModel;
+package com.link_intersystems.carrental.offers;
 
 import java.math.BigDecimal;
 
@@ -28,12 +25,12 @@ public class CarOfferOutputModelMock extends CarOfferOutputModel {
     }
 
     @Override
-    void setPerDayRentalRate(BigDecimal perDayRentalRate) {
+    public void setPerDayRentalRate(BigDecimal perDayRentalRate) {
         super.setPerDayRentalRate(perDayRentalRate);
     }
 
     @Override
-    void setCarSpecModel(CarSpecModel carSpecModel) {
+    public void setCarSpecModel(CarSpecModel carSpecModel) {
         super.setCarSpecModel(carSpecModel);
     }
 }

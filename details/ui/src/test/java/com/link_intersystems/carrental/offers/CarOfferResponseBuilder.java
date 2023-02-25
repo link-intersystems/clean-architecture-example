@@ -1,4 +1,4 @@
-package com.link_intersystems.carrental.booking;
+package com.link_intersystems.carrental.offers;
 
 
 import com.link_intersystems.carrental.offers.CarOfferOutputModel;
