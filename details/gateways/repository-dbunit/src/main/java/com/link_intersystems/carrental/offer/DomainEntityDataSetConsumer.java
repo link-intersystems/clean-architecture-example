@@ -1,4 +1,4 @@
-package com.link_intersystems.carrental.offers;
+package com.link_intersystems.carrental.offer;
 
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.ITableMetaData;

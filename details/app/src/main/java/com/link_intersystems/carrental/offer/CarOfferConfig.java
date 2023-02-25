@@ -1,4 +1,4 @@
-package com.link_intersystems.carrental.offers;
+package com.link_intersystems.carrental.offer;
 
 import com.link_intersystems.plugins.ApplicationContext;
 

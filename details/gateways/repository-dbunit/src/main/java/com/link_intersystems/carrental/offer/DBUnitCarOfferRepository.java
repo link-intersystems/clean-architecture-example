@@ -1,4 +1,4 @@
-package com.link_intersystems.carrental.offers;
+package com.link_intersystems.carrental.offer;
 
 import com.link_intersystems.carrental.*;
 import com.link_intersystems.carrental.booking.CarBooking;
@@ -30,7 +30,7 @@ public class DBUnitCarOfferRepository implements CarOffersRepository {
         domainEntityDataSetConsumer.addDomainEntityMapper("carbooking", this::mapCarBooking);
 
         loadDataSet("/com/link_intersystems/carrental/Car.xml");
-        loadDataSet("/com/link_intersystems/carrental/offers/CarBooking.xml");
+        loadDataSet("/com/link_intersystems/carrental/offer/CarBooking.xml");
         loadDataSet("/com/link_intersystems/carrental/rental/RentalCar.xml");
     }
 

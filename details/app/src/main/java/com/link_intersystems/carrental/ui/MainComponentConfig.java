@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.ui;
 
 import com.link_intersystems.carrental.MainFrame;
-import com.link_intersystems.carrental.offers.CarOfferComponentConfig;
+import com.link_intersystems.carrental.offer.CarOfferComponentConfig;
 import com.link_intersystems.carrental.booking.CarOfferView;
 import com.link_intersystems.plugins.ApplicationContext;
 

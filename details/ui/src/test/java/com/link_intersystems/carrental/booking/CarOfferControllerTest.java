@@ -1,8 +1,8 @@
 package com.link_intersystems.carrental.booking;
 
-import com.link_intersystems.carrental.offers.CarOfferResponseBuilder;
-import com.link_intersystems.carrental.offers.CarOffersRequestModel;
-import com.link_intersystems.carrental.offers.CarOffersResponseModel;
+import com.link_intersystems.carrental.offer.CarOfferResponseBuilder;
+import com.link_intersystems.carrental.offer.CarOffersRequestModel;
+import com.link_intersystems.carrental.offer.CarOffersResponseModel;
 import com.link_intersystems.swing.action.ActionTrigger;
 import com.link_intersystems.time.LocalDateTimeUtils;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental.booking;
 
-import com.link_intersystems.carrental.offers.*;
+import com.link_intersystems.carrental.offer.*;
 
 import java.math.BigDecimal;
 

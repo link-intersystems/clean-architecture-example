@@ -1,9 +1,8 @@
-package com.link_intersystems.carrental.offers;
+package com.link_intersystems.carrental.offer;
 
 import com.link_intersystems.carrental.Car;
 import com.link_intersystems.carrental.CarId;
 import com.link_intersystems.carrental.Specs;
-import com.link_intersystems.carrental.offer.RentalOffer;
 import com.link_intersystems.carrental.rental.RentalCar;
 import com.link_intersystems.carrental.rental.RentalRate;
 import com.link_intersystems.money.Amount;

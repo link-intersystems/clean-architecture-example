@@ -1,8 +1,8 @@
 package com.link_intersystems.carrental.booking;
 
-import com.link_intersystems.carrental.offers.CarOffersRequestModel;
-import com.link_intersystems.carrental.offers.CarOffersResponseModel;
-import com.link_intersystems.carrental.offers.CarOffersUseCase;
+import com.link_intersystems.carrental.offer.CarOffersRequestModel;
+import com.link_intersystems.carrental.offer.CarOffersResponseModel;
+import com.link_intersystems.carrental.offer.CarOffersUseCase;
 
 public class CarOffersUseCaseMock implements CarOffersUseCase {
 

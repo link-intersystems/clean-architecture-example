@@ -1,4 +1,4 @@
-package com.link_intersystems.carrental.offers;
+package com.link_intersystems.carrental.offer;
 
 import java.util.AbstractList;
 import java.util.ArrayList;
