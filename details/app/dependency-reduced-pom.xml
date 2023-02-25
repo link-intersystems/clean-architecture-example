@@ -22,7 +22,7 @@
                         <configuration>
                             <transformers>
                                 <transformer>
-                                    <mainClass>com.link_intersystems.car.CarRentalApp</mainClass>
+                                    <mainClass>com.link_intersystems.carrental.CarRentalApp</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
