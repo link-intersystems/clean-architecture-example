@@ -1,14 +1,17 @@
 package com.link_intersystems.carrental.offer;
 
-import com.link_intersystems.carrental.*;
+import com.link_intersystems.carrental.Car;
+import com.link_intersystems.carrental.CarId;
+import com.link_intersystems.carrental.VIN;
+import com.link_intersystems.carrental.VehicleType;
 import com.link_intersystems.carrental.booking.CarBooking;
 import com.link_intersystems.carrental.booking.CarBookinsByCar;
+import com.link_intersystems.carrental.customer.CustomerId;
 import com.link_intersystems.carrental.rental.RentalCar;
 import com.link_intersystems.carrental.rental.RentalRate;
 import com.link_intersystems.dbunit.stream.producer.support.DefaultDataSetProducerSupport;
 import com.link_intersystems.dbunit.table.Row;
 import com.link_intersystems.money.Amount;
-import com.link_intersystems.carrental.customer.CustomerId;
 import com.link_intersystems.time.Period;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.ITableMetaData;
@@ -97,12 +100,12 @@ public class DBUnitCarOfferRepository implements CarOfferRepository {
     private Car mapCar(ITableMetaData tabelMetaData, Object[] values) {
         try {
             Row row = new Row(tabelMetaData, values);
-            Car car = new Car();
-            CarWhitebox carWhitebox = new CarWhitebox();
-            carWhitebox.setId(car, (String) row.getValue("vin"));
-            carWhitebox.setName(car, (String) row.getValue("name"));
-            carWhitebox.setVehicleType(car, VehicleType.valueOf((String) row.getValue("vehicleType")));
-            return car;
+
+            String vin = (String) row.getValue("vin");
+            String name = (String) row.getValue("name");
+            VehicleType vehicleType = VehicleType.valueOf((String) row.getValue("vehicleType"));
+
+            return new Car(new CarId(new VIN(vin)), name, vehicleType);
         } catch (DataSetException e) {
             return null;
         }

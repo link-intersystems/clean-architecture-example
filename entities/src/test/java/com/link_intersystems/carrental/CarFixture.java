@@ -6,7 +6,6 @@ import java.util.List;
 
 public class CarFixture extends EntityFixture<Car> {
 
-    private CarWhitebox carWhitebox = new CarWhitebox();
     private Car mercedesBenzE200;
     private Car audiA6;
     private Car smartFortwo;
@@ -25,63 +24,45 @@ public class CarFixture extends EntityFixture<Car> {
     }
 
     private Car createSmartFortwo() {
-        Car car = new Car();
-        carWhitebox.setId(car, "WMEEJ8AA3FK792135");
-        carWhitebox.setName(car, "Smart Fortwo");
-        carWhitebox.setVehicleType(car, VehicleType.MICRO);
+        Car car = new Car(new CarId(new VIN("WMEEJ8AA3FK792135")), "Smart Fortwo", VehicleType.MICRO);
         Specs specs = new Specs(new Seats(2), new Doors(2), new Consumption(FuelType.PETROL, 5.0));
-        carWhitebox.setSpecs(car, specs);
+        car.setSpecs(specs);
         return car;
     }
 
     private Car createFiat500() {
-        Car car = new Car();
-        carWhitebox.setId(car, "3C3CFFBR3CTR12014");
-        carWhitebox.setName(car, "Fiat 500");
-        carWhitebox.setVehicleType(car, VehicleType.MICRO);
+        Car car = new Car(new CarId(new VIN("3C3CFFBR3CTR12014")), "Fiat 500", VehicleType.MICRO);
         Specs specs = new Specs(new Seats(5), new Doors(3), new Consumption(FuelType.PETROL, 4.6));
-        carWhitebox.setSpecs(car, specs);
+        car.setSpecs(specs);
         return car;
     }
 
     private Car createVolvoXC90() {
-        Car car = new Car();
-        carWhitebox.setId(car, "YV4952CYXE1702329");
-        carWhitebox.setName(car, "Volvo XC90");
-        carWhitebox.setVehicleType(car, VehicleType.SUV);
+        Car car = new Car(new CarId(new VIN("YV4952CYXE1702329")), "Volvo XC90", VehicleType.SUV);
         Specs specs = new Specs(new Seats(5), new Doors(4), new Consumption(FuelType.PETROL, 11.1));
-        carWhitebox.setSpecs(car, specs);
+        car.setSpecs(specs);
         return car;
     }
 
     private Car createBMW530() {
-        Car car = new Car();
-        carWhitebox.setId(car, "WBAFR1C54BCC47391");
-        carWhitebox.setName(car, "BMW 530");
-        carWhitebox.setVehicleType(car, VehicleType.SEDAN);
+        Car car = new Car(new CarId(new VIN("WBAFR1C54BCC47391")), "BMW 530", VehicleType.SEDAN);
         Specs specs = new Specs(new Seats(5), new Doors(4), new Consumption(FuelType.PETROL, 5.4));
-        carWhitebox.setSpecs(car, specs);
+        car.setSpecs(specs);
         return car;
     }
 
     private Car createAudiA6() {
-        Car car = new Car();
-        carWhitebox.setId(car, "WAUDV74F98N394362");
-        carWhitebox.setName(car, "Audi A6");
-        carWhitebox.setVehicleType(car, VehicleType.SEDAN);
+        Car car = new Car(new CarId(new VIN("WAUDV74F98N394362")), "Audi A6", VehicleType.SEDAN);
         Specs specs = new Specs(new Seats(5), new Doors(4), new Consumption(FuelType.PETROL, 8.0));
-        carWhitebox.setSpecs(car, specs);
+        car.setSpecs(specs);
         return car;
     }
 
 
     private Car createMercedesBenzE200() {
-        Car car = new Car();
-        carWhitebox.setId(car, "WDDHF5GB7CA482637");
-        carWhitebox.setName(car, " Mercedes Benz E 200");
-        carWhitebox.setVehicleType(car, VehicleType.SEDAN);
+        Car car = new Car(new CarId(new VIN("WDDHF5GB7CA482637")), "Mercedes Benz E 200", VehicleType.SEDAN);
         Specs specs = new Specs(new Seats(5), new Doors(4), new Consumption(FuelType.PETROL, 8.1));
-        carWhitebox.setSpecs(car, specs);
+        car.setSpecs(specs);
         return car;
     }
 
