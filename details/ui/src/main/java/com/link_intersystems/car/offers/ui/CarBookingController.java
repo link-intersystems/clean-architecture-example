@@ -5,6 +5,7 @@ import com.link_intersystems.car.booking.CarBookingResponseModel;
 import com.link_intersystems.car.booking.CarBookingUseCase;
 import com.link_intersystems.car.ui.MessageDialog;
 import com.link_intersystems.swing.action.AbstractWorkerAction;
+import com.link_intersystems.swing.action.ActionTrigger;
 import com.link_intersystems.swing.action.BackgroundProgress;
 import com.link_intersystems.swing.selection.Selection;
 import com.link_intersystems.swing.selection.SelectionListener;
@@ -20,22 +21,20 @@ public class CarBookingController extends AbstractWorkerAction<CarBookingRespons
 
     private Selection<CarOfferModel> carOfferSelection = Selection.empty();
 
+    private ActionTrigger actionTrigger = new ActionTrigger(this);
+
     private SelectionListener<CarOfferModel> carOfferModelSelectionListener = event -> {
         Selection<CarOfferModel> selection = event.getSelection();
         setCarOfferSelection(selection);
     };
-    private CarSearchModel carSearchModel;
+    private CarOfferController carOfferController;
 
-    public CarBookingController(CarBookingUseCase carBookingUseCase, MessageDialog messageDialog) {
+    public CarBookingController(CarBookingUseCase carBookingUseCase, MessageDialog messageDialog, CarOfferController carOfferController) {
         this.carBookingUseCase = carBookingUseCase;
         this.messageDialog = messageDialog;
+        this.carOfferController = carOfferController;
 
         putValue(Action.NAME, "Book");
-        updateEnablement();
-    }
-
-    public void setCarSearchModel(CarSearchModel carSearchModel) {
-        this.carSearchModel = carSearchModel;
         updateEnablement();
     }
 
@@ -45,7 +44,7 @@ public class CarBookingController extends AbstractWorkerAction<CarBookingRespons
     }
 
     private void updateEnablement() {
-        setEnabled(this.carSearchModel != null && !carOfferSelection.isEmpty());
+        setEnabled(!carOfferSelection.isEmpty());
     }
 
     public SelectionListener<CarOfferModel> getSelectionListener() {
@@ -56,18 +55,19 @@ public class CarBookingController extends AbstractWorkerAction<CarBookingRespons
     protected CarBookingResponseModel doInBackground(BackgroundProgress<Void> backgroundProgress) throws Exception {
         CarOfferModel carToBook = carOfferSelection.getFirstElement();
         CarBookingRequestModel requestModel = new CarBookingRequestModel();
+        requestModel.setCustomerId(1);
         requestModel.setCarId(carToBook.getId());
+
+        CarSearchModel carSearchModel = carOfferController.getCarSearchModel();
         requestModel.setPickUpDateTime(LocalDateTime.parse(carSearchModel.getPickupDate().getValue()));
         requestModel.setReturnDateTime(LocalDateTime.parse(carSearchModel.getReturnDate().getValue()));
         CarBookingResponseModel carBookingResponseModel = carBookingUseCase.bookCar(requestModel);
-
-        CarBookingResponseModel responseModel = new CarBookingResponseModel();
-        return responseModel;
+        return carBookingResponseModel;
     }
 
     @Override
     protected void done(CarBookingResponseModel result) {
-
+        actionTrigger.performAction(carOfferController);
     }
 
     @Override

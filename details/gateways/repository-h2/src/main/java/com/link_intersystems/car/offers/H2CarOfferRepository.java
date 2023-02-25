@@ -10,16 +10,11 @@ import com.link_intersystems.car.rental.RentalCar;
 import com.link_intersystems.car.rental.RentalRate;
 import com.link_intersystems.money.Amount;
 import com.link_intersystems.person.customer.CustomerId;
-import com.link_intersystems.sql.io.InputStreamScriptResource;
-import com.link_intersystems.sql.io.SqlScript;
 import com.link_intersystems.time.Period;
-import org.h2.jdbcx.JdbcDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import java.io.File;
-import java.io.InputStream;
-import java.sql.Connection;
+import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -32,26 +27,8 @@ public class H2CarOfferRepository implements CarOffersRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public H2CarOfferRepository() {
-        StringBuilder urlBuilder = new StringBuilder("jdbc:h2:file:./car-rental");
-        JdbcDataSource jdbcDataSource = new JdbcDataSource();
-        jdbcDataSource.setURL(urlBuilder.toString());
-        jdbcDataSource.setUser("");
-        jdbcDataSource.setPassword("");
-
-        if (!new File("./car-rental.mv.db").exists()) {
-
-
-            try (Connection connection = jdbcDataSource.getConnection()) {
-                InputStream resourceAsStream = H2CarOfferRepository.class.getResourceAsStream("init.sql");
-                SqlScript sqlScript = new SqlScript(new InputStreamScriptResource(resourceAsStream));
-                sqlScript.execute(connection);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        jdbcTemplate = new JdbcTemplate(jdbcDataSource);
+    public H2CarOfferRepository(DataSource dataSource) {
+        jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     @Override

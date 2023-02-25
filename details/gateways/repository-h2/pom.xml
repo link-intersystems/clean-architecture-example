@@ -37,7 +37,12 @@
         <dependency>
             <groupId>com.link-intersystems.commons</groupId>
             <artifactId>lis-commons-sql</artifactId>
-            <version>1.8.2</version>
+            <version>1.8.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.link-intersystems.architecture.clean-architecture</groupId>
+            <artifactId>infrastructure</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -45,6 +50,12 @@
             <version>2.1.214</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.link-intersystems.commons</groupId>
+            <artifactId>lis-commons-jdbc-test</artifactId>
+            <version>1.8.5</version>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>

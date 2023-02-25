@@ -1,17 +1,12 @@
 package com.link_intersystems.car.offers;
 
-import java.util.Optional;
-import java.util.ServiceLoader;
+import com.link_intersystems.plugins.ApplicationContext;
 
 public class CarOfferConfig {
 
-    public CarOffersUseCase getCarOfferUseCase() {
-        return new CarOffersInteractor(getCarOfferRepository());
+    public CarOffersUseCase getCarOfferUseCase(ApplicationContext applicationContext) {
+        CarOffersRepository carOffersRepository = applicationContext.getService(CarOffersRepository.class);
+        return new CarOffersInteractor(carOffersRepository);
     }
 
-    private CarOffersRepository getCarOfferRepository() {
-        ServiceLoader<CarOffersRepository> serviceLoader = ServiceLoader.load(CarOffersRepository.class);
-        Optional<CarOffersRepository> carOffersRepository = serviceLoader.findFirst();
-        return carOffersRepository.orElseThrow(() -> new RuntimeException("Unable to find CarOfferRepository provider."));
-    }
 }

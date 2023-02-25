@@ -1,18 +1,12 @@
 package com.link_intersystems.car.booking;
 
-import java.util.Optional;
-import java.util.ServiceLoader;
+import com.link_intersystems.plugins.ApplicationContext;
 
 public class CarBookingConfig {
 
-    public CarBookingUseCase getCarBookingUseCase() {
-        return new CarBookingInteractor(getCarBookingRepository());
+    public CarBookingUseCase getCarBookingUseCase(ApplicationContext applicationContext) {
+        CarBookingRepository carBookingRepository = applicationContext.getService(CarBookingRepository.class);
+        return new CarBookingInteractor(carBookingRepository);
     }
 
-    private CarBookingRepository getCarBookingRepository() {
-        Class<CarBookingRepository> providerType = CarBookingRepository.class;
-        ServiceLoader<CarBookingRepository> serviceLoader = ServiceLoader.load(providerType);
-        Optional<CarBookingRepository> carOffersRepository = serviceLoader.findFirst();
-        return carOffersRepository.orElseThrow(() -> new RuntimeException("Unable to find " + providerType.getName() + " provider."));
-    }
 }

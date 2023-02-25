@@ -26,9 +26,9 @@
 
     <build>
         <plugins>
-            <plugin>
+            <serviceProvider>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
+                <artifactId>maven-jar-serviceProvider</artifactId>
                 <version>3.2.2</version>
                 <executions>
                     <execution>
@@ -37,7 +37,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </serviceProvider>
         </plugins>
     </build>
 </project>

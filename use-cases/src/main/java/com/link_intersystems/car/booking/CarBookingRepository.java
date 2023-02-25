@@ -4,7 +4,7 @@ import com.link_intersystems.car.CarId;
 import com.link_intersystems.person.customer.CustomerId;
 import com.link_intersystems.time.Period;
 
-public interface CarBookingRepository {
+interface CarBookingRepository {
     CarBooking findBooking(CarId carId, Period bookingPeriod);
 
     void persist(CarBooking carBooking);

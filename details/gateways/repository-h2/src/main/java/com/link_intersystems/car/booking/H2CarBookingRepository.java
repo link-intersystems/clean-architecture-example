@@ -11,13 +11,20 @@ import org.h2.jdbcx.JdbcDataSource;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
+import javax.sql.DataSource;
 import java.io.File;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class H2CarBookingRepository implements CarBookingRepository {
 
@@ -45,10 +52,17 @@ public class H2CarBookingRepository implements CarBookingRepository {
         jdbcTemplate = new JdbcTemplate(jdbcDataSource);
     }
 
+    public H2CarBookingRepository(DataSource dataSource) {
+        jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
     @Override
     public CarBooking findBooking(CarId carId, Period bookingPeriod) {
         try {
-            CarBooking carBooking = jdbcTemplate.queryForObject("select * from car_booking where carid = ?", new Object[]{carId.getValue()}, new RowMapper<CarBooking>() {
+            String sql = "select * from car_booking where carid = ? " + " AND ((CAR_BOOKING.PICKUP_DATETIME >= ? OR CAR_BOOKING.PICKUP_DATETIME <= ?)" + " OR (CAR_BOOKING.RETURN_DATETIME >= ? OR CAR_BOOKING.RETURN_DATETIME <= ?))";
+            LocalDateTime begin = bookingPeriod.getBegin();
+            LocalDateTime end = bookingPeriod.getEnd();
+            List<CarBooking> carBookings = jdbcTemplate.query(sql, new Object[]{carId.getValue(), begin, end, begin, end}, new RowMapper<CarBooking>() {
                 @Override
                 public CarBooking mapRow(ResultSet rs, int rowNum) throws SQLException {
                     CustomerId customerId = new CustomerId(rs.getInt("CUSTOMER_ID"));
@@ -58,11 +72,14 @@ public class H2CarBookingRepository implements CarBookingRepository {
                     Timestamp returnDateTime = rs.getTimestamp("RETURN_DATETIME");
 
                     Period bookingPeriod = new Period(pickupDateTime.toLocalDateTime(), returnDateTime.toLocalDateTime());
-                    return new CarBooking(customerId, carId, bookingPeriod);
+                    CarBooking carBooking = new CarBooking(customerId, carId, bookingPeriod);
+                    carBooking.setBookingNumber(new BookingNumber(rs.getInt("BOOKING_NUMBER")));
+                    return carBooking;
                 }
             });
 
-            return carBooking;
+            List<CarBooking> overlappingCarBookings = carBookings.stream().filter(cb -> bookingPeriod.overlaps(cb.getBookingPeriod())).collect(Collectors.toList());
+            return overlappingCarBookings.isEmpty() ? null : overlappingCarBookings.get(0);
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
@@ -70,7 +87,20 @@ public class H2CarBookingRepository implements CarBookingRepository {
 
     @Override
     public void persist(CarBooking carBooking) {
+        CarId carId = carBooking.getCarId();
+        CustomerId customerId = carBooking.getCustomerId();
+        Period bookingPeriod = carBooking.getBookingPeriod();
 
+        SimpleJdbcInsert carBookingInsert = new SimpleJdbcInsert(jdbcTemplate.getDataSource()).withTableName("CAR_BOOKING").usingGeneratedKeyColumns("BOOKING_NUMBER");
+        Map<String, Object> parameters = new HashMap<>(1);
+        parameters.put("CARID", carId.getValue());
+        parameters.put("CUSTOMER_ID", customerId.getValue());
+        parameters.put("PICKUP_DATETIME", bookingPeriod.getBegin());
+        parameters.put("RETURN_DATETIME", bookingPeriod.getEnd());
+
+        Number newId = carBookingInsert.executeAndReturnKey(parameters);
+
+        carBooking.setBookingNumber(new BookingNumber(newId.intValue()));
     }
 
     @Override
@@ -81,7 +111,7 @@ public class H2CarBookingRepository implements CarBookingRepository {
                 public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
                     CustomerId customerId = new CustomerId(rs.getInt("ID"));
 
-                    String firstname = rs.getString("FISTNAME");
+                    String firstname = rs.getString("firstname");
                     String lastname = rs.getString("lastname");
 
                     return new Customer(customerId, firstname, lastname);

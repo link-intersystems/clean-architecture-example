@@ -28,15 +28,10 @@ public class MainFrame {
     }
 
     public MessageDialog getMessageDialog() {
-        return new MessageDialog() {
-            @Override
-            public void showException(Throwable ex) {
-                StringBuilder sb = new StringBuilder();
-                sb.append(ex.getClass().getName());
-                sb.append(":\n\n");
-                sb.append(ex.getMessage());
-                JOptionPane.showMessageDialog(mainFrame, sb);
-            }
+        return ex -> {
+            ThrowableView throwableView = new ThrowableView();
+            throwableView.setException(ex);
+            JOptionPane.showMessageDialog(mainFrame, throwableView.getViewComponent());
         };
     }
 

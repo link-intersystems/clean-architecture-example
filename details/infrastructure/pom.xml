@@ -5,19 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.link-intersystems.architecture.clean-architecture</groupId>
-        <artifactId>car-rental</artifactId>
+        <artifactId>details</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>details</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>infrastructure</artifactId>
 
-    <modules>
-        <module>gateways</module>
-        <module>ui</module>
-        <module>app</module>
-        <module>infrastructure</module>
-    </modules>
-
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
 </project>

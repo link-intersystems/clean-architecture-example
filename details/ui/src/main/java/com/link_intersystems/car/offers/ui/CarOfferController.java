@@ -1,12 +1,15 @@
 package com.link_intersystems.car.offers.ui;
 
 import com.link_intersystems.car.offers.*;
+import com.link_intersystems.car.ui.MessageDialog;
+import com.link_intersystems.swing.action.AbstractWorkerAction;
+import com.link_intersystems.swing.action.BackgroundProgress;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.time.LocalDateTime;
+import java.util.concurrent.ExecutionException;
 
-public class CarOfferController extends AbstractAction {
+public class CarOfferController extends AbstractWorkerAction<CarOffersResponseModel, Void> {
 
     private CarOffersUseCase carOffersUseCase;
 
@@ -14,6 +17,7 @@ public class CarOfferController extends AbstractAction {
 
     private CarSearchModel carSearchModel = new CarSearchModel();
     private CarOfferPresenter carOfferPresenter = new CarOfferPresenter();
+    private MessageDialog messageDialog;
 
     public CarOfferController(CarOffersUseCase carOffersUseCase) {
         this.carOffersUseCase = carOffersUseCase;
@@ -33,16 +37,19 @@ public class CarOfferController extends AbstractAction {
         return carSearchModel;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        searchCars();
+    public void setMessageDialog(MessageDialog messageDialog) {
+        this.messageDialog = messageDialog;
     }
 
-    void searchCars() {
+    @Override
+    protected CarOffersResponseModel doInBackground(BackgroundProgress<Void> backgroundProgress) throws Exception {
         CarOffersRequestModel requestModel = carOfferPresenter.toRequestModel(carSearchModel);
+        throw new Exception("Test");
+//        return carOffersUseCase.makeOffers(requestModel);
+    }
 
-        CarOffersResponseModel responseModel = carOffersUseCase.makeOffers(requestModel);
-
+    @Override
+    protected void done(CarOffersResponseModel responseModel) {
         CarOffersOutputModel carOffers = responseModel.getCarOffers();
 
         carOfferListModel.clear();
@@ -52,5 +59,10 @@ public class CarOfferController extends AbstractAction {
         }
     }
 
-
+    @Override
+    protected void failed(ExecutionException e) {
+        if (messageDialog != null) {
+            messageDialog.showException(e.getCause());
+        }
+    }
 }

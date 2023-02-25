@@ -9,8 +9,8 @@
   <artifactId>app</artifactId>
   <build>
     <plugins>
-      <plugin>
-        <artifactId>maven-shade-plugin</artifactId>
+      <serviceProvider>
+        <artifactId>maven-shade-serviceProvider</artifactId>
         <version>3.4.1</version>
         <executions>
           <execution>
@@ -27,7 +27,7 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>
+      </serviceProvider>
     </plugins>
   </build>
   <dependencies>
