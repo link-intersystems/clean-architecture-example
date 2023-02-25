@@ -8,6 +8,7 @@ import com.link_intersystems.sql.io.InputStreamScriptResource;
 import com.link_intersystems.sql.io.SqlScript;
 import com.link_intersystems.time.Period;
 import org.h2.jdbcx.JdbcDataSource;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -46,22 +47,25 @@ public class H2CarBookingRepository implements CarBookingRepository {
 
     @Override
     public CarBooking findBooking(CarId carId, Period bookingPeriod) {
-        CarBooking carBooking = jdbcTemplate.queryForObject("select * from car_booking where carid = ?", new Object[]{carId.getValue()}, new RowMapper<CarBooking>() {
-            @Override
-            public CarBooking mapRow(ResultSet rs, int rowNum) throws SQLException {
-                CustomerId customerId = new CustomerId(rs.getInt("CUSTOMER_ID"));
-                CarId carId = new CarId(new VIN(rs.getString("CARID")));
+        try {
+            CarBooking carBooking = jdbcTemplate.queryForObject("select * from car_booking where carid = ?", new Object[]{carId.getValue()}, new RowMapper<CarBooking>() {
+                @Override
+                public CarBooking mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    CustomerId customerId = new CustomerId(rs.getInt("CUSTOMER_ID"));
+                    CarId carId = new CarId(new VIN(rs.getString("CARID")));
 
-                Timestamp pickupDateTime = rs.getTimestamp("PICKUP_DATETIME");
-                Timestamp returnDateTime = rs.getTimestamp("RETURN_DATETIME");
+                    Timestamp pickupDateTime = rs.getTimestamp("PICKUP_DATETIME");
+                    Timestamp returnDateTime = rs.getTimestamp("RETURN_DATETIME");
 
-                Period bookingPeriod = new Period(pickupDateTime.toLocalDateTime(), returnDateTime.toLocalDateTime());
-                return new CarBooking(customerId, carId, bookingPeriod);
-            }
-        });
+                    Period bookingPeriod = new Period(pickupDateTime.toLocalDateTime(), returnDateTime.toLocalDateTime());
+                    return new CarBooking(customerId, carId, bookingPeriod);
+                }
+            });
 
-
-        return carBooking;
+            return carBooking;
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
@@ -71,17 +75,21 @@ public class H2CarBookingRepository implements CarBookingRepository {
 
     @Override
     public boolean isCustomerExistent(CustomerId customerId) {
-        Customer customer = jdbcTemplate.queryForObject("select * from customer where id = ?", new Object[]{customerId}, new RowMapper<Customer>() {
-            @Override
-            public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
-                CustomerId customerId = new CustomerId(rs.getInt("ID"));
+        try {
+            Customer customer = jdbcTemplate.queryForObject("select * from customer where id = ?", new Object[]{customerId.getValue()}, new RowMapper<Customer>() {
+                @Override
+                public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    CustomerId customerId = new CustomerId(rs.getInt("ID"));
 
-                String firstname = rs.getString("FISTNAME");
-                String lastname = rs.getString("lastname");
+                    String firstname = rs.getString("FISTNAME");
+                    String lastname = rs.getString("lastname");
 
-                return new Customer(customerId, firstname, lastname);
-            }
-        });
-        return customer != null;
+                    return new Customer(customerId, firstname, lastname);
+                }
+            });
+            return customer != null;
+        } catch (EmptyResultDataAccessException e) {
+            return false;
+        }
     }
 }

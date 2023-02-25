@@ -12,7 +12,9 @@ public class MainComponentConfig {
     }
 
     public MainFrame getMainComponent() {
-        CarOfferView carOfferView = carOfferComponentConfig.getCarOfferView();
-        return new MainFrame(carOfferView);
+        MainFrame mainFrame = new MainFrame();
+        CarOfferView carOfferView = carOfferComponentConfig.getCarOfferView(mainFrame.getMessageDialog());
+        mainFrame.setCarOfferView(carOfferView);
+        return mainFrame;
     }
 }

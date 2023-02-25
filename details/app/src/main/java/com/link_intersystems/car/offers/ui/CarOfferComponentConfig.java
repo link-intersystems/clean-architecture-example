@@ -4,6 +4,7 @@ import com.link_intersystems.car.booking.CarBookingConfig;
 import com.link_intersystems.car.booking.CarBookingUseCase;
 import com.link_intersystems.car.offers.CarOfferConfig;
 import com.link_intersystems.car.offers.CarOffersUseCase;
+import com.link_intersystems.car.ui.MessageDialog;
 
 public class CarOfferComponentConfig {
 
@@ -15,12 +16,13 @@ public class CarOfferComponentConfig {
         this.carBookingConfig = carBookingConfig;
     }
 
-    public CarOfferView getCarOfferView() {
+    public CarOfferView getCarOfferView(MessageDialog messageDialog) {
         CarOffersUseCase carOffersUseCase = carOfferConfig.getCarOfferUseCase();
         CarOfferController carOfferController = new CarOfferController(carOffersUseCase);
 
         CarBookingUseCase carBookingUseCase = carBookingConfig.getCarBookingUseCase();
-        CarBookingController carBookingController = new CarBookingController(carBookingUseCase);
+        CarBookingController carBookingController = new CarBookingController(carBookingUseCase, messageDialog);
+        carBookingController.setCarSearchModel(carOfferController.getCarSearchModel());
 
         CarOfferView carOfferView = new CarOfferView();
         carOfferView.setCarOfferListModel(carOfferController.getCarOfferListModel());
