@@ -11,10 +11,6 @@
 
     <artifactId>ui</artifactId>
 
-    <properties>
-        <lis-commons.verions>1.8.5</lis-commons.verions>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.link-intersystems.architecture.clean-architecture</groupId>
@@ -43,14 +39,17 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>com.link-intersystems.architecture.clean-architecture</groupId>
+            <artifactId>infrastructure</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>com.link-intersystems.commons</groupId>
             <artifactId>lis-commons-swing</artifactId>
-            <version>${lis-commons.verions}</version>
         </dependency>
         <dependency>
             <groupId>com.link-intersystems.commons</groupId>
             <artifactId>lis-commons-events</artifactId>
-            <version>${lis-commons.verions}</version>
         </dependency>
 
 

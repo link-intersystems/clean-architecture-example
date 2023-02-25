@@ -15,18 +15,15 @@ public class CarOfferController extends AbstractWorkerAction<CarOfferResponseMod
 
     private DefaultListModel<CarOfferModel> carOfferListModel = new DefaultListModel<>();
 
-    private CarSearchModel carSearchModel = new CarSearchModel();
+    private CarSearchModel carSearchModel;
     private CarOfferPresenter carOfferPresenter = new CarOfferPresenter();
     private MessageDialog messageDialog;
 
-    public CarOfferController(CarOfferUseCase carOfferUseCase) {
+    public CarOfferController(CarOfferUseCase carOfferUseCase, CarSearchModel carSearchModel) {
         this.carOfferUseCase = carOfferUseCase;
+        this.carSearchModel = carSearchModel;
 
         putValue(Action.NAME, "Search");
-
-        carSearchModel.getVehicleType().setValue("MICRO");
-        carSearchModel.getPickupDate().setValue(LocalDateTime.now().plusDays(1).toString());
-        carSearchModel.getReturnDate().setValue(LocalDateTime.now().plusDays(2).toString());
     }
 
     public ListModel<CarOfferModel> getCarOfferListModel() {

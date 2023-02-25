@@ -7,11 +7,36 @@ import com.link_intersystems.swing.table.ListTableModel;
 import com.link_intersystems.swing.table.beans.BeanListTableModelSupport;
 
 import javax.swing.*;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 import java.awt.*;
 
 class CarOfferSearchResultView {
 
-    private JTable carOfferTable = new JTable();
+    private ListModel<CarOfferModel> carOfferListModel;
+
+    private class ListDataAdapter implements ListDataListener {
+
+        @Override
+        public void intervalAdded(ListDataEvent e) {
+            listSelectionModel.clearSelection();
+        }
+
+        @Override
+        public void intervalRemoved(ListDataEvent e) {
+            listSelectionModel.clearSelection();
+        }
+
+        @Override
+        public void contentsChanged(ListDataEvent e) {
+            listSelectionModel.clearSelection();
+        }
+    }
+
+    private ListDataListener listDataListener = new ListDataAdapter();
+
+    private ListTableModel<CarOfferModel> carOfferModelListTableModel = new ListTableModel<>();
+    private JTable carOfferTable = new JTable(carOfferModelListTableModel);
     private ListSelectionModel listSelectionModel = new DefaultListSelectionModel();
     private ListModelSelection<CarOfferModel> listModelSelection = new ListModelSelection<>();
     private JScrollPane carOfferTableScrollPane = new JScrollPane(carOfferTable);
@@ -36,19 +61,30 @@ class CarOfferSearchResultView {
     }
 
     public void setCarOfferListModel(ListModel<CarOfferModel> carOfferListModel) {
+        if (this.carOfferListModel != null) {
+            this.carOfferListModel.removeListDataListener(listDataListener);
+        }
 
-        ListTableModel<CarOfferModel> carOfferModelListTableModel = new ListTableModel<>();
+        this.carOfferListModel = carOfferListModel;
 
+        if (this.carOfferListModel != null) {
+            this.carOfferListModel.addListDataListener(listDataListener);
+        }
+
+        onCarOfferListModelChange(carOfferListModel);
+    }
+
+    private void onCarOfferListModelChange(ListModel<CarOfferModel> carOfferListModel) {
         carOfferModelListTableModel.setListModel(carOfferListModel);
         carOfferModelListTableModel.setListTableModelSupport(BeanListTableModelSupport.of(CarOfferModel.class));
         listModelSelection.setListModel(carOfferListModel);
         carOfferTable.setModel(carOfferModelListTableModel);
+        carOfferModelListTableModel.fireTableStructureChanged();
     }
 
     public SelectionProvider<CarOfferModel> getSelectionProvider() {
         return carOfferModelSelectionProvider;
     }
-
 
     public Component getViewComponent() {
         return carOfferTableScrollPane;

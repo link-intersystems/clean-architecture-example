@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.booking;
 
-import com.link_intersystems.carrental.offer.CarOfferResponseBuilder;
 import com.link_intersystems.carrental.offer.CarOfferRequestModel;
+import com.link_intersystems.carrental.offer.CarOfferResponseBuilder;
 import com.link_intersystems.carrental.offer.CarOfferResponseModel;
 import com.link_intersystems.swing.action.ActionTrigger;
 import com.link_intersystems.time.LocalDateTimeUtils;
@@ -27,14 +27,14 @@ class CarOfferControllerTest {
         controllerDone = new Semaphore(0);
 
         carOffersUseCase = new CarOfferUseCaseMock();
-        carOfferController = new CarOfferController(carOffersUseCase) {
+        carSearchModel = new CarSearchModel();
+        carOfferController = new CarOfferController(carOffersUseCase, carSearchModel) {
             @Override
             protected void done(CarOfferResponseModel responseModel) {
                 super.done(responseModel);
                 controllerDone.release();
             }
         };
-        carSearchModel = carOfferController.getCarSearchModel();
         carOfferListModel = carOfferController.getCarOfferListModel();
     }
 

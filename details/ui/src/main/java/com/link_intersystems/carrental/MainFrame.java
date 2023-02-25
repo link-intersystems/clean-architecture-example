@@ -27,22 +27,9 @@ public class MainFrame {
         contentPane.add(viewComponent, BorderLayout.CENTER);
     }
 
-    public MessageDialog getMessageDialog() {
-        return new MessageDialog() {
-            @Override
-            public void showException(Throwable ex) {
-                ThrowableView throwableView = new ThrowableView();
-                throwableView.setException(ex);
-                JOptionPane.showMessageDialog(mainFrame, throwableView.getViewComponent());
-            }
-
-            @Override
-            public void showInfo(String info) {
-                JOptionPane.showMessageDialog(mainFrame, info, "Info", JOptionPane.INFORMATION_MESSAGE);
-            }
-        };
+    public Component getComponent() {
+        return mainFrame;
     }
-
 
     public void show() {
         mainFrame.setVisible(true);

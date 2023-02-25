@@ -1,9 +1,5 @@
 package com.link_intersystems.carrental;
 
-import com.link_intersystems.carrental.booking.CarBookingConfig;
-import com.link_intersystems.carrental.offer.CarOfferConfig;
-import com.link_intersystems.carrental.offer.CarOfferComponentConfig;
-import com.link_intersystems.carrental.ui.MainComponentConfig;
 import com.link_intersystems.plugins.ApplicationContext;
 
 public class CarRentalApp {
@@ -15,13 +11,7 @@ public class CarRentalApp {
 
     private void run() {
         ApplicationContext applicationContext = new ApplicationContext();
-        CarOfferConfig carOfferUseCaseConfig = new CarOfferConfig();
-        CarBookingConfig carBookingConfig = new CarBookingConfig();
-
-        CarOfferComponentConfig carOfferComponentConfig = new CarOfferComponentConfig(carOfferUseCaseConfig, carBookingConfig);
-        MainComponentConfig mainComponentConfig = new MainComponentConfig(carOfferComponentConfig);
-
-        MainFrame mainFrame = mainComponentConfig.getMainComponent(applicationContext);
+        MainFrame mainFrame = applicationContext.getService(MainFrame.class);
         mainFrame.show();
     }
 }

@@ -20,6 +20,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit-jupiter.version>5.5.2</junit-jupiter.version>
+        <lis-commons.verions>1.8.5</lis-commons.verions>
     </properties>
 
     <dependencyManagement>
@@ -29,6 +30,26 @@
                 <artifactId>junit-jupiter-engine</artifactId>
                 <version>${junit-jupiter.version}</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.link-intersystems.commons</groupId>
+                <artifactId>lis-commons-swing</artifactId>
+                <version>${lis-commons.verions}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.link-intersystems.commons</groupId>
+                <artifactId>lis-commons-events</artifactId>
+                <version>${lis-commons.verions}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.link-intersystems.commons</groupId>
+                <artifactId>lis-commons-sql</artifactId>
+                <version>${lis-commons.verions}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.link-intersystems.commons</groupId>
+                <artifactId>lis-commons-jdbc-test</artifactId>
+                <version>${lis-commons.verions}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

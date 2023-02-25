@@ -16,7 +16,7 @@ public class ThrowableView {
     private JPanel buttonPanel = new JPanel();
     private JButton copyToClipboard = new JButton();
 
-    ThrowableView() {
+    public ThrowableView() {
         jScrollPane.setPreferredSize(new Dimension(800, 300));
         exceptionArea.setEditable(false);
         panel.add(jScrollPane, BorderLayout.CENTER);

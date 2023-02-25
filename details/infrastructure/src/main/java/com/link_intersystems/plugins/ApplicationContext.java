@@ -27,14 +27,10 @@ public class ApplicationContext {
             }
 
             PluginState pluginState = pluginStates.get(serviceProvider);
-            if (pluginState == null) {
+            if (pluginState == null && !PluginState.INITIALIZING.equals(pluginState)) {
                 pluginStates.put(serviceProvider, PluginState.INITIALIZING);
                 serviceProvider.init(this);
                 pluginStates.put(serviceProvider, PluginState.INITIALIZED);
-            }
-
-            if (PluginState.INITIALIZING.equals(pluginState)) {
-                throw new RuntimeException("Circular service dependency: " + type.getName());
             }
 
             T service = serviceProvider.getService(type);
