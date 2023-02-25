@@ -1,6 +1,8 @@
-package com.link_intersystems.person.customer;
+package com.link_intersystems.carrental.customer;
 
 import com.link_intersystems.EntityFixture;
+import com.link_intersystems.carrental.customer.Customer;
+import com.link_intersystems.carrental.customer.CustomerId;
 import com.link_intersystems.time.ClockFactory;
 
 import java.util.List;

@@ -1,7 +1,7 @@
-package com.link_intersystems.carrental.offers.ui;
+package com.link_intersystems.carrental.booking;
 
+import com.link_intersystems.carrental.MessageDialog;
 import com.link_intersystems.carrental.offers.*;
-import com.link_intersystems.carrental.ui.MessageDialog;
 import com.link_intersystems.swing.action.AbstractWorkerAction;
 import com.link_intersystems.swing.action.BackgroundProgress;
 

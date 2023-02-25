@@ -2,7 +2,7 @@ package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.CarId;
 import com.link_intersystems.carrental.VIN;
-import com.link_intersystems.person.customer.CustomerId;
+import com.link_intersystems.carrental.customer.CustomerId;
 import com.link_intersystems.time.ClockProvider;
 import com.link_intersystems.time.Period;
 

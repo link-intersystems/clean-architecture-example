@@ -1,9 +1,6 @@
-package com.link_intersystems.carrental.offers.ui;
+package com.link_intersystems.carrental.booking;
 
-import com.link_intersystems.carrental.booking.CarBookingRequestModel;
-import com.link_intersystems.carrental.booking.CarBookingResponseModel;
-import com.link_intersystems.carrental.booking.CarBookingUseCase;
-import com.link_intersystems.carrental.ui.MessageDialog;
+import com.link_intersystems.carrental.MessageDialog;
 import com.link_intersystems.swing.action.AbstractWorkerAction;
 import com.link_intersystems.swing.action.ActionTrigger;
 import com.link_intersystems.swing.action.BackgroundProgress;

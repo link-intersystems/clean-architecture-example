@@ -1,4 +1,4 @@
-package com.link_intersystems.carrental.offers.ui;
+package com.link_intersystems.carrental.booking;
 
 import javax.swing.*;
 import java.awt.*;

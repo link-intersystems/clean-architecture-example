@@ -1,4 +1,4 @@
-package com.link_intersystems.person.customer;
+package com.link_intersystems.carrental.customer;
 
 public class Customer {
 

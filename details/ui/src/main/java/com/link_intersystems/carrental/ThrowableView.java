@@ -1,4 +1,4 @@
-package com.link_intersystems.carrental.ui;
+package com.link_intersystems.carrental;
 
 import javax.swing.*;
 import java.awt.*;

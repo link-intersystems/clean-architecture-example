@@ -1,10 +1,7 @@
-package com.link_intersystems.carrental.offers.ui;
+package com.link_intersystems.carrental.offers;
 
-import com.link_intersystems.carrental.booking.CarBookingConfig;
-import com.link_intersystems.carrental.booking.CarBookingUseCase;
-import com.link_intersystems.carrental.offers.CarOfferConfig;
-import com.link_intersystems.carrental.offers.CarOffersUseCase;
-import com.link_intersystems.carrental.ui.MessageDialog;
+import com.link_intersystems.carrental.booking.*;
+import com.link_intersystems.carrental.MessageDialog;
 import com.link_intersystems.plugins.ApplicationContext;
 
 public class CarOfferComponentConfig {

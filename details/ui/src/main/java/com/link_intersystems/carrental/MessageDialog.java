@@ -1,4 +1,4 @@
-package com.link_intersystems.carrental.ui;
+package com.link_intersystems.carrental;
 
 public interface MessageDialog {
     void showException(Throwable ex);

@@ -8,7 +8,7 @@ import com.link_intersystems.carrental.rental.RentalRate;
 import com.link_intersystems.dbunit.stream.producer.support.DefaultDataSetProducerSupport;
 import com.link_intersystems.dbunit.table.Row;
 import com.link_intersystems.money.Amount;
-import com.link_intersystems.person.customer.CustomerId;
+import com.link_intersystems.carrental.customer.CustomerId;
 import com.link_intersystems.time.Period;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.ITableMetaData;

@@ -9,7 +9,7 @@ import com.link_intersystems.carrental.booking.CarBookinsByCar;
 import com.link_intersystems.carrental.rental.RentalCar;
 import com.link_intersystems.carrental.rental.RentalRate;
 import com.link_intersystems.money.Amount;
-import com.link_intersystems.person.customer.CustomerId;
+import com.link_intersystems.carrental.customer.CustomerId;
 import com.link_intersystems.time.Period;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

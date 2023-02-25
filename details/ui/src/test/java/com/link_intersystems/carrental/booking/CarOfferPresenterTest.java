@@ -1,7 +1,6 @@
-package com.link_intersystems.carrental.offers.ui;
+package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.offers.CarOfferOutputModel;
-import com.link_intersystems.carrental.offers.CarOfferOutputModerBuilder;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

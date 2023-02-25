@@ -1,6 +1,6 @@
-package com.link_intersystems.carrental.ui;
+package com.link_intersystems.carrental;
 
-import com.link_intersystems.carrental.offers.ui.CarOfferView;
+import com.link_intersystems.carrental.booking.CarOfferView;
 import com.link_intersystems.swing.DimensionExt;
 
 import javax.swing.*;
