@@ -3,8 +3,8 @@ package com.link_intersystems.car;
 import com.link_intersystems.car.booking.CarBookingConfig;
 import com.link_intersystems.car.offers.CarOfferConfig;
 import com.link_intersystems.car.offers.ui.CarOfferComponentConfig;
-import com.link_intersystems.car.ui.MainFrame;
 import com.link_intersystems.car.ui.MainComponentConfig;
+import com.link_intersystems.car.ui.MainFrame;
 import com.link_intersystems.plugins.ApplicationContext;
 
 public class CarRentalApp {

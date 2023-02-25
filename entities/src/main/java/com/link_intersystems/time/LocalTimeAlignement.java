@@ -1,7 +1,6 @@
 package com.link_intersystems.time;
 
 import java.time.LocalTime;
-import java.util.Map;
 
 public class LocalTimeAlignement {
 

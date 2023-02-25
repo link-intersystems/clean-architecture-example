@@ -4,7 +4,7 @@ import com.link_intersystems.money.Amount;
 
 import java.time.temporal.ChronoUnit;
 
-import static java.util.Objects.requireNonNull;
+import static java.util.Objects.*;
 
 /**
  * A rental {@link Amount} for a specific period as defined by a ({@link ChronoUnit}).

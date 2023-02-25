@@ -3,7 +3,6 @@ package com.link_intersystems.person.customer;
 import com.link_intersystems.EntityFixture;
 import com.link_intersystems.time.ClockFactory;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class CustomerFixture extends EntityFixture<Customer> {

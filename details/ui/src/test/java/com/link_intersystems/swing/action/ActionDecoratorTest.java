@@ -2,7 +2,6 @@ package com.link_intersystems.swing.action;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,7 +11,6 @@ import java.util.Map;
 
 import static javax.swing.Action.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class ActionDecoratorTest {
 

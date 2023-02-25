@@ -2,7 +2,7 @@ package com.link_intersystems.time;
 
 import java.time.LocalDateTime;
 
-import static com.link_intersystems.time.LocalDateTimeUtils.dateTime;
+import static com.link_intersystems.time.LocalDateTimeUtils.*;
 
 public class PeriodBuilder {
 

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Clock;
 
-import static com.link_intersystems.time.PeriodBuilder.from;
+import static com.link_intersystems.time.PeriodBuilder.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @EnableFixedClock

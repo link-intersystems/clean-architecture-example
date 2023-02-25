@@ -7,7 +7,7 @@ import com.link_intersystems.time.FixedClock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.link_intersystems.time.LocalDateTimeUtils.dateTime;
+import static com.link_intersystems.time.LocalDateTimeUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @EnableFixedClock

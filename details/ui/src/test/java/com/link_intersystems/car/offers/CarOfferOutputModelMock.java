@@ -2,7 +2,7 @@ package com.link_intersystems.car.offers;
 
 import java.math.BigDecimal;
 
-public class CarOfferOutputModelMock extends CarOfferOutputModel{
+public class CarOfferOutputModelMock extends CarOfferOutputModel {
 
     @Override
     public void setId(String id) {

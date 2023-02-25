@@ -2,7 +2,7 @@ package com.link_intersystems.car;
 
 import java.util.Objects;
 
-import static java.util.Objects.requireNonNull;
+import static java.util.Objects.*;
 
 public class CarId {
 

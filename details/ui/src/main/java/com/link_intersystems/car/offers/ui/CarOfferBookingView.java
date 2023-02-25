@@ -8,7 +8,7 @@ public class CarOfferBookingView {
     private JPanel viewComponent = new JPanel();
     private JButton bookingButton = new JButton();
 
-    public CarOfferBookingView(){
+    public CarOfferBookingView() {
         viewComponent.setLayout(new BoxLayout(viewComponent, BoxLayout.PAGE_AXIS));
         viewComponent.add(bookingButton);
     }
@@ -17,7 +17,7 @@ public class CarOfferBookingView {
         bookingButton.setAction(action);
     }
 
-    public Component getViewComponent(){
+    public Component getViewComponent() {
         return viewComponent;
     }
 }

@@ -68,6 +68,7 @@ public class CarBookingController extends AbstractWorkerAction<CarBookingRespons
     @Override
     protected void done(CarBookingResponseModel result) {
         actionTrigger.performAction(carOfferController);
+        messageDialog.showInfo("Car successfully booked. Booking number: " + result.getBookingNumber());
     }
 
     @Override

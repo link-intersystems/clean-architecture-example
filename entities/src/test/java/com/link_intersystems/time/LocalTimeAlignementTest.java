@@ -1,6 +1,5 @@
 package com.link_intersystems.time;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;

@@ -7,7 +7,7 @@ import com.link_intersystems.time.Period;
 
 import java.util.List;
 
-import static com.link_intersystems.time.PeriodBuilder.from;
+import static com.link_intersystems.time.PeriodBuilder.*;
 
 public class CarBookingFixture extends EntityFixture<CarBooking> {
 

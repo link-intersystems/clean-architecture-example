@@ -3,7 +3,7 @@ package com.link_intersystems.car.rental;
 import com.link_intersystems.car.Car;
 import com.link_intersystems.car.CarId;
 
-import static java.util.Objects.requireNonNull;
+import static java.util.Objects.*;
 
 /**
  * A {@link RentalCar} is a {@link Car} that can be rented, because it has a {@link RentalRate}.

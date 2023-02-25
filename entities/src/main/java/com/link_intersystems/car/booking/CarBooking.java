@@ -6,7 +6,7 @@ import com.link_intersystems.time.Period;
 
 import java.time.LocalDateTime;
 
-import static java.util.Objects.requireNonNull;
+import static java.util.Objects.*;
 
 /**
  * A reservation of a {@link com.link_intersystems.car.rental.RentalCar} that a {@link com.link_intersystems.person.customer.Customer}

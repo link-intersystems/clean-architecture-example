@@ -2,8 +2,7 @@ package com.link_intersystems.car;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class VINTest {
 
@@ -14,7 +13,7 @@ class VINTest {
 
     @Test
     void wrongVin() {
-        assertThrows(IllegalArgumentException.class, () -> new VIN("WDDHF5GB7CA48263") );
+        assertThrows(IllegalArgumentException.class, () -> new VIN("WDDHF5GB7CA48263"));
     }
 
 }

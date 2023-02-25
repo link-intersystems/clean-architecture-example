@@ -1,6 +1,6 @@
 package com.link_intersystems.swing.binding;
 
-public class DefaultBindingValue<T> implements BindingValue<T>{
+public class DefaultBindingValue<T> implements BindingValue<T> {
 
     private T value;
 

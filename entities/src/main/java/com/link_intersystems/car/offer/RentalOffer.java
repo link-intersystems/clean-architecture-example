@@ -5,9 +5,7 @@ import com.link_intersystems.car.rental.RentalRate;
 import com.link_intersystems.money.Amount;
 import com.link_intersystems.time.Period;
 
-import java.util.Objects;
-
-import static java.util.Objects.requireNonNull;
+import static java.util.Objects.*;
 
 public class RentalOffer {
 
