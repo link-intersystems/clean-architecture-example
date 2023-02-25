@@ -15,8 +15,8 @@ public class CarOfferComponentConfig {
     }
 
     public CarOfferView getCarOfferView(ApplicationContext applicationContext, MessageDialog messageDialog) {
-        CarOffersUseCase carOffersUseCase = carOfferConfig.getCarOfferUseCase(applicationContext);
-        CarOfferController carOfferController = new CarOfferController(carOffersUseCase);
+        CarOfferUseCase carOfferUseCase = carOfferConfig.getCarOfferUseCase(applicationContext);
+        CarOfferController carOfferController = new CarOfferController(carOfferUseCase);
         carOfferController.setMessageDialog(messageDialog);
 
         CarBookingUseCase carBookingUseCase = carBookingConfig.getCarBookingUseCase(applicationContext);

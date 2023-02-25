@@ -10,18 +10,18 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class CarOffersInteractor implements CarOffersUseCase {
+class CarOfferInteractor implements CarOfferUseCase {
 
     private IntputOutputMapper intputOutputMapper = new IntputOutputMapper();
 
-    private final CarOffersRepository repository;
+    private final CarOfferRepository repository;
 
-    public CarOffersInteractor(CarOffersRepository repository) {
+    public CarOfferInteractor(CarOfferRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public CarOffersResponseModel makeOffers(CarOffersRequestModel request) {
+    public CarOfferResponseModel makeOffers(CarOfferRequestModel request) {
         List<RentalCar> rentalCars = findMatchingCars(request);
 
         LocalDateTime desiredPickUpDateTime = request.getPickUpDateTime();
@@ -42,7 +42,7 @@ class CarOffersInteractor implements CarOffersUseCase {
     }
 
 
-    private List<RentalCar> findMatchingCars(CarOffersRequestModel request) {
+    private List<RentalCar> findMatchingCars(CarOfferRequestModel request) {
         CarCriteria carCriteria = new CarCriteria();
 
         VehicleType vehicleType = VehicleType.valueOf(request.getVehicleType());
@@ -57,7 +57,7 @@ class CarOffersInteractor implements CarOffersUseCase {
                 .map(RentalCar::getCarId)
                 .collect(Collectors.toList());
 
-        CarBookinsByCar carBookins = repository.findCarBookins(carIds, desiredPeriod);
+        CarBookinsByCar carBookins = repository.findCarBookings(carIds, desiredPeriod);
 
         return rentalCars
                 .stream()

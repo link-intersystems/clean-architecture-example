@@ -15,13 +15,13 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class MockCarOffersRepository implements CarOffersRepository {
+public class MockCarOfferRepository implements CarOfferRepository {
 
     private RentalCarFixture rentalCarFixture;
     private final CarBookingFixture carBookingFixture;
     private CarFixture carFixture;
 
-    public MockCarOffersRepository(RentalCarFixture rentalCarFixture, CarBookingFixture carBookingFixture, CarFixture carFixture) {
+    public MockCarOfferRepository(RentalCarFixture rentalCarFixture, CarBookingFixture carBookingFixture, CarFixture carFixture) {
         this.rentalCarFixture = rentalCarFixture;
         this.carBookingFixture = carBookingFixture;
         this.carFixture = carFixture;
@@ -45,7 +45,7 @@ public class MockCarOffersRepository implements CarOffersRepository {
     }
 
     @Override
-    public CarBookinsByCar findCarBookins(List<CarId> carIds, Period desiredPeriod) {
+    public CarBookinsByCar findCarBookings(List<CarId> carIds, Period desiredPeriod) {
         List<CarBooking> carBookings = carBookingFixture.stream()
                 .filter(cr -> carIds.contains(cr.getCarId()))
                 .filter(cr -> cr.getBookingPeriod().overlaps(desiredPeriod))

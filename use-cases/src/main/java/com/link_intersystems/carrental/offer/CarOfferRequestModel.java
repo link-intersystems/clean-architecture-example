@@ -2,7 +2,7 @@ package com.link_intersystems.carrental.offer;
 
 import java.time.LocalDateTime;
 
-public class CarOffersRequestModel {
+public class CarOfferRequestModel {
 
     private String vehicleType;
     private LocalDateTime pickUpDateTime;

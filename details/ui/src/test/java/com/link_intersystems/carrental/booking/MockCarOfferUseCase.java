@@ -4,9 +4,9 @@ import com.link_intersystems.carrental.offer.*;
 
 import java.math.BigDecimal;
 
-public class MockCarOffersUseCase implements CarOffersUseCase {
+public class MockCarOfferUseCase implements CarOfferUseCase {
     @Override
-    public CarOffersResponseModel makeOffers(CarOffersRequestModel request) {
+    public CarOfferResponseModel makeOffers(CarOfferRequestModel request) {
         CarOfferResponseBuilder responseBuilder = new CarOfferResponseBuilder();
         CarOfferOutputModerBuilder carOfferOutputModerBuilder = new CarOfferOutputModerBuilder();
         responseBuilder.add( //
@@ -24,8 +24,8 @@ public class MockCarOffersUseCase implements CarOffersUseCase {
                         .setPerDayRentalRate(new BigDecimal("30.00")) //
                         .setTotalRentalRate(new BigDecimal("90.00")) //
                         .build());
-        CarOffersResponseModel carOffersResponseModel = responseBuilder.build();
+        CarOfferResponseModel carOfferResponseModel = responseBuilder.build();
 
-        return carOffersResponseModel;
+        return carOfferResponseModel;
     }
 }

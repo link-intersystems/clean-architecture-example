@@ -3,18 +3,18 @@ package com.link_intersystems.carrental.offer;
 
 public class CarOfferResponseBuilder {
 
-    private CarOffersResponseModel responseModel = new CarOffersResponseModel();
+    private CarOfferResponseModel responseModel = new CarOfferResponseModel();
     private CarOffersOutputModel carOffersOutputModel = new CarOffersOutputModel();
 
     public CarOfferResponseBuilder() {
         build();
     }
 
-    public CarOffersResponseModel build() {
+    public CarOfferResponseModel build() {
         responseModel.setCarOffersOutputModel(carOffersOutputModel);
-        CarOffersResponseModel returnModel = responseModel;
+        CarOfferResponseModel returnModel = responseModel;
 
-        responseModel = new CarOffersResponseModel();
+        responseModel = new CarOfferResponseModel();
         carOffersOutputModel = new CarOffersOutputModel();
         return returnModel;
     }

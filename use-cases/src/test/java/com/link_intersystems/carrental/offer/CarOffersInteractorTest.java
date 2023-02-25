@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CarOffersInteractorTest {
 
-    private CarOffersInteractor carOffersInteractor;
+    private CarOfferInteractor carOffersInteractor;
     private CarFixture carFixture;
 
     @BeforeEach
@@ -21,19 +21,19 @@ class CarOffersInteractorTest {
         carFixture = new CarFixture();
         RentalCarFixture rentalCarFixture = new RentalCarFixture(carFixture);
         CarBookingFixture carBookingFixture = new CarBookingFixture(carFixture);
-        CarOffersRepository repository = new MockCarOffersRepository(rentalCarFixture, carBookingFixture, carFixture);
+        CarOfferRepository repository = new MockCarOfferRepository(rentalCarFixture, carBookingFixture, carFixture);
 
-        carOffersInteractor = new CarOffersInteractor(repository);
+        carOffersInteractor = new CarOfferInteractor(repository);
     }
 
     @Test
     void rentalRate() {
-        CarOffersRequestModel requestModel = new CarOffersRequestModel();
+        CarOfferRequestModel requestModel = new CarOfferRequestModel();
         requestModel.setPickUpDateTime(dateTime("2023-01-17", "08:30:00"));
         requestModel.setReturnDateTime(dateTime("2023-01-18", "17:00:00"));
         requestModel.setVehicleType("MICRO");
 
-        CarOffersResponseModel responseModel = carOffersInteractor.makeOffers(requestModel);
+        CarOfferResponseModel responseModel = carOffersInteractor.makeOffers(requestModel);
 
         CarOffersOutputModel carOffersOutputModel = responseModel.getCarOffers();
         assertNotNull(carOffersOutputModel);
@@ -49,12 +49,12 @@ class CarOffersInteractorTest {
 
     @Test
     void fiat500CarSpec() {
-        CarOffersRequestModel requestModel = new CarOffersRequestModel();
+        CarOfferRequestModel requestModel = new CarOfferRequestModel();
         requestModel.setPickUpDateTime(dateTime("2023-01-17", "08:30:00"));
         requestModel.setReturnDateTime(dateTime("2023-01-17", "17:00:00"));
         requestModel.setVehicleType("MICRO");
 
-        CarOffersResponseModel responseModel = carOffersInteractor.makeOffers(requestModel);
+        CarOfferResponseModel responseModel = carOffersInteractor.makeOffers(requestModel);
 
         CarOffersOutputModel carOffersOutputModel = responseModel.getCarOffers();
         assertNotNull(carOffersOutputModel);
@@ -75,12 +75,12 @@ class CarOffersInteractorTest {
 
     @Test
     void oneCarAvailableOneIsNotAvailable() {
-        CarOffersRequestModel requestModel = new CarOffersRequestModel();
+        CarOfferRequestModel requestModel = new CarOfferRequestModel();
         requestModel.setPickUpDateTime(dateTime("2023-01-17", "08:30:00"));
         requestModel.setReturnDateTime(dateTime("2023-01-17", "17:00:00"));
         requestModel.setVehicleType("MICRO");
 
-        CarOffersResponseModel responseModel = carOffersInteractor.makeOffers(requestModel);
+        CarOfferResponseModel responseModel = carOffersInteractor.makeOffers(requestModel);
 
         CarOffersOutputModel carOffersOutputModel = responseModel.getCarOffers();
         assertNotNull(carOffersOutputModel);
@@ -90,12 +90,12 @@ class CarOffersInteractorTest {
 
     @Test
     void bothCarsAvailable() {
-        CarOffersRequestModel requestModel = new CarOffersRequestModel();
+        CarOfferRequestModel requestModel = new CarOfferRequestModel();
         requestModel.setPickUpDateTime(dateTime("2023-01-14", "08:30:00"));
         requestModel.setReturnDateTime(dateTime("2023-01-14", "17:00:00"));
         requestModel.setVehicleType("MICRO");
 
-        CarOffersResponseModel responseModel = carOffersInteractor.makeOffers(requestModel);
+        CarOfferResponseModel responseModel = carOffersInteractor.makeOffers(requestModel);
 
         CarOffersOutputModel carOffersOutputModel = responseModel.getCarOffers();
         assertNotNull(carOffersOutputModel);

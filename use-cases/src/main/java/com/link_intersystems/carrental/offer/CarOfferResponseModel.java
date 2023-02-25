@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental.offer;
 
-public class CarOffersResponseModel {
+public class CarOfferResponseModel {
 
     private CarOffersOutputModel carOffersOutputModel = new CarOffersOutputModel();
 

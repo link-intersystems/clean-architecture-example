@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.offer.CarOfferOutputModel;
-import com.link_intersystems.carrental.offer.CarOffersRequestModel;
+import com.link_intersystems.carrental.offer.CarOfferRequestModel;
 import com.link_intersystems.swing.binding.BindingValue;
 
 import java.math.BigDecimal;
@@ -28,8 +28,8 @@ public class CarOfferPresenter {
         return carOfferModel;
     }
 
-    public CarOffersRequestModel toRequestModel(CarSearchModel carSearchModel) {
-        CarOffersRequestModel requestModel = new CarOffersRequestModel();
+    public CarOfferRequestModel toRequestModel(CarSearchModel carSearchModel) {
+        CarOfferRequestModel requestModel = new CarOfferRequestModel();
         requestModel.setVehicleType(carSearchModel.getVehicleType().getValue());
 
         BindingValue<String> pickupDate = carSearchModel.getPickupDate();

@@ -1,8 +1,8 @@
 package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.offer.CarOfferResponseBuilder;
-import com.link_intersystems.carrental.offer.CarOffersRequestModel;
-import com.link_intersystems.carrental.offer.CarOffersResponseModel;
+import com.link_intersystems.carrental.offer.CarOfferRequestModel;
+import com.link_intersystems.carrental.offer.CarOfferResponseModel;
 import com.link_intersystems.swing.action.ActionTrigger;
 import com.link_intersystems.time.LocalDateTimeUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CarOfferControllerTest {
 
-    private CarOffersUseCaseMock carOffersUseCase;
+    private CarOfferUseCaseMock carOffersUseCase;
     private CarOfferController carOfferController;
     private CarSearchModel carSearchModel;
     private ListModel<CarOfferModel> carOfferListModel;
@@ -26,10 +26,10 @@ class CarOfferControllerTest {
     void setUp() {
         controllerDone = new Semaphore(0);
 
-        carOffersUseCase = new CarOffersUseCaseMock();
+        carOffersUseCase = new CarOfferUseCaseMock();
         carOfferController = new CarOfferController(carOffersUseCase) {
             @Override
-            protected void done(CarOffersResponseModel responseModel) {
+            protected void done(CarOfferResponseModel responseModel) {
                 super.done(responseModel);
                 controllerDone.release();
             }
@@ -40,7 +40,7 @@ class CarOfferControllerTest {
 
     @Test
     void searchCars() throws InterruptedException {
-        CarOffersRequestModel requestModel = new CarOffersRequestModel();
+        CarOfferRequestModel requestModel = new CarOfferRequestModel();
         requestModel.setVehicleType("MICRO");
         requestModel.setPickUpDateTime(LocalDateTimeUtils.dateTime("2023-01-15", "08:00:00"));
         requestModel.setReturnDateTime(LocalDateTimeUtils.dateTime("2023-01-17", "08:00:00"));
@@ -62,9 +62,9 @@ class CarOfferControllerTest {
                         .setPerDayRentalRate(new BigDecimal("30.00")) //
                         .setTotalRentalRate(new BigDecimal("90.00")) //
                         .build());
-        CarOffersResponseModel carOffersResponseModel = responseBuilder.build();
+        CarOfferResponseModel carOfferResponseModel = responseBuilder.build();
 
-        carOffersUseCase.setResponseModel(carOffersResponseModel);
+        carOffersUseCase.setResponseModel(carOfferResponseModel);
 
         carSearchModel.getVehicleType().setValue("MICRO");
         carSearchModel.getPickupDate().setValue("2023-01-15T08:00:00");

@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class DBUnitCarOfferRepository implements CarOffersRepository {
+public class DBUnitCarOfferRepository implements CarOfferRepository {
 
     private final DomainEntityDataSetConsumer domainEntityDataSetConsumer;
 
@@ -65,7 +65,7 @@ public class DBUnitCarOfferRepository implements CarOffersRepository {
     }
 
     @Override
-    public CarBookinsByCar findCarBookins(List<CarId> carIds, Period desiredPeriod) {
+    public CarBookinsByCar findCarBookings(List<CarId> carIds, Period desiredPeriod) {
         List<CarBooking> carBookingList = domainEntityDataSetConsumer.getDomainEntities("carbooking");
         List<CarBooking> carBookings = carBookingList.stream()
                 .filter(cr -> carIds.contains(cr.getCarId()))

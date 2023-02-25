@@ -11,8 +11,8 @@ import java.util.List;
 
 class IntputOutputMapper {
 
-    public CarOffersResponseModel toOutputModel(CarsById carsById, List<RentalOffer> rentalOffers) {
-        CarOffersResponseModel carOffersResponseModel = new CarOffersResponseModel();
+    public CarOfferResponseModel toOutputModel(CarsById carsById, List<RentalOffer> rentalOffers) {
+        CarOfferResponseModel carOfferResponseModel = new CarOfferResponseModel();
 
         CarOffersOutputModel carOfferOutputModels = new CarOffersOutputModel();
         for (RentalOffer rentalOffer : rentalOffers) {
@@ -20,8 +20,8 @@ class IntputOutputMapper {
             carOfferOutputModels.addCarOffer(carOfferOutputModel);
         }
 
-        carOffersResponseModel.setCarOffersOutputModel(carOfferOutputModels);
-        return carOffersResponseModel;
+        carOfferResponseModel.setCarOffersOutputModel(carOfferOutputModels);
+        return carOfferResponseModel;
     }
 
     private CarOfferOutputModel map(CarsById carsById, RentalOffer rentalOffer) {

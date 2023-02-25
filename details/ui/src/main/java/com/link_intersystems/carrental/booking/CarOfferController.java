@@ -9,9 +9,9 @@ import javax.swing.*;
 import java.time.LocalDateTime;
 import java.util.concurrent.ExecutionException;
 
-public class CarOfferController extends AbstractWorkerAction<CarOffersResponseModel, Void> {
+public class CarOfferController extends AbstractWorkerAction<CarOfferResponseModel, Void> {
 
-    private CarOffersUseCase carOffersUseCase;
+    private CarOfferUseCase carOfferUseCase;
 
     private DefaultListModel<CarOfferModel> carOfferListModel = new DefaultListModel<>();
 
@@ -19,8 +19,8 @@ public class CarOfferController extends AbstractWorkerAction<CarOffersResponseMo
     private CarOfferPresenter carOfferPresenter = new CarOfferPresenter();
     private MessageDialog messageDialog;
 
-    public CarOfferController(CarOffersUseCase carOffersUseCase) {
-        this.carOffersUseCase = carOffersUseCase;
+    public CarOfferController(CarOfferUseCase carOfferUseCase) {
+        this.carOfferUseCase = carOfferUseCase;
 
         putValue(Action.NAME, "Search");
 
@@ -42,13 +42,13 @@ public class CarOfferController extends AbstractWorkerAction<CarOffersResponseMo
     }
 
     @Override
-    protected CarOffersResponseModel doInBackground(BackgroundProgress<Void> backgroundProgress) throws Exception {
-        CarOffersRequestModel requestModel = carOfferPresenter.toRequestModel(carSearchModel);
-        return carOffersUseCase.makeOffers(requestModel);
+    protected CarOfferResponseModel doInBackground(BackgroundProgress<Void> backgroundProgress) throws Exception {
+        CarOfferRequestModel requestModel = carOfferPresenter.toRequestModel(carSearchModel);
+        return carOfferUseCase.makeOffers(requestModel);
     }
 
     @Override
-    protected void done(CarOffersResponseModel responseModel) {
+    protected void done(CarOfferResponseModel responseModel) {
         CarOffersOutputModel carOffers = responseModel.getCarOffers();
 
         carOfferListModel.clear();

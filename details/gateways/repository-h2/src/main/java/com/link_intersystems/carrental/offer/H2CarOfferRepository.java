@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class H2CarOfferRepository implements CarOffersRepository {
+public class H2CarOfferRepository implements CarOfferRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -77,7 +77,7 @@ public class H2CarOfferRepository implements CarOffersRepository {
     }
 
     @Override
-    public CarBookinsByCar findCarBookins(List<CarId> carIds, Period desiredPeriod) {
+    public CarBookinsByCar findCarBookings(List<CarId> carIds, Period desiredPeriod) {
         StringBuilder queryBuilder = new StringBuilder("select * from car_booking where carid in (");
         String[] chars = new String[carIds.size()];
         Arrays.fill(chars, "?");

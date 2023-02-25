@@ -12,11 +12,11 @@ public class H2OfferRepositoryServiceProvider extends AbstractServiceProvider {
     @Override
     protected void doInit(ApplicationContext applicationContext, BiConsumer<Class<?>, Object> registerService) {
         DataSource dataSource = applicationContext.getService(DataSource.class);
-        registerService.accept(CarOffersRepository.class, new H2CarOfferRepository(dataSource));
+        registerService.accept(CarOfferRepository.class, new H2CarOfferRepository(dataSource));
     }
 
     @Override
     protected void initProvidedServiceType(Set<Class<?>> providedServices) {
-        providedServices.add(CarOffersRepository.class);
+        providedServices.add(CarOfferRepository.class);
     }
 }
