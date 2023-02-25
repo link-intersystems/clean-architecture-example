@@ -44,8 +44,7 @@ public class CarOfferController extends AbstractWorkerAction<CarOffersResponseMo
     @Override
     protected CarOffersResponseModel doInBackground(BackgroundProgress<Void> backgroundProgress) throws Exception {
         CarOffersRequestModel requestModel = carOfferPresenter.toRequestModel(carSearchModel);
-        throw new Exception("Test");
-//        return carOffersUseCase.makeOffers(requestModel);
+        return carOffersUseCase.makeOffers(requestModel);
     }
 
     @Override
