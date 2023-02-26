@@ -48,7 +48,8 @@ public class CarBookingController extends AbstractWorkerAction<CarBookingRespons
     }
 
     private void updateEnablement() {
-        setEnabled(!carOfferSelection.isEmpty());
+        boolean enabled = !carOfferSelection.isEmpty();
+        setEnabled(enabled);
     }
 
     public SelectionListener<CarOfferModel> getSelectionListener() {
@@ -65,8 +66,7 @@ public class CarBookingController extends AbstractWorkerAction<CarBookingRespons
 
         requestModel.setPickUpDateTime(LocalDateTime.parse(carSearchModel.getPickupDate().getValue()));
         requestModel.setReturnDateTime(LocalDateTime.parse(carSearchModel.getReturnDate().getValue()));
-        CarBookingResponseModel carBookingResponseModel = carBookingUseCase.bookCar(requestModel);
-        return carBookingResponseModel;
+        return carBookingUseCase.bookCar(requestModel);
     }
 
     @Override
