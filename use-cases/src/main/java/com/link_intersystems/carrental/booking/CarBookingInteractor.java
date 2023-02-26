@@ -29,7 +29,6 @@ public class CarBookingInteractor implements CarBookingUseCase {
             throw new CarBookingException("customer does not exist");
         }
 
-
         CarBooking carBooking = new CarBooking(customerId, carId, bookingPeriod);
 
         repository.persist(carBooking);
