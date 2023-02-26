@@ -16,7 +16,7 @@
         <module>gateways</module>
         <module>ui</module>
         <module>app</module>
-        <module>infrastructure</module>
+        <module>app-context</module>
     </modules>
 
 

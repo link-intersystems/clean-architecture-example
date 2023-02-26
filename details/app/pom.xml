@@ -29,7 +29,7 @@
         </dependency>
         <dependency>
             <groupId>com.link-intersystems.architecture.clean-architecture</groupId>
-            <artifactId>infrastructure</artifactId>
+            <artifactId>app-context</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
