@@ -6,4 +6,6 @@ public interface BeanFactory {
     }
 
     <T> T getBean(Class<T> type, String name);
+
+    <T> LazyBeanSetter<T> getLazyBeanSetter(Class<T> type);
 }

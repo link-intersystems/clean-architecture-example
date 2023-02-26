@@ -14,6 +14,7 @@ public class ApplicationContext implements BeanFactory {
     List<BeanDefinition> simpleBeanDefinitions;
 
     private Map<BeanDefinition, Object> beansByBeanDefinition = new HashMap<>();
+    private Map<BeanDefinition, List<DefaultLazyBeanSetter>> lazyBeanSetters = new HashMap<>();
 
     private ThreadLocal<Stack<BeanRef>> callStackHolder = new ThreadLocal<>() {
         @Override
@@ -21,6 +22,20 @@ public class ApplicationContext implements BeanFactory {
             return new Stack<>();
         }
     };
+
+    @Override
+    public <T> LazyBeanSetter<T> getLazyBeanSetter(Class<T> type) {
+        BeanDefinition beanDefinition = findBeanDefinition(type, null);
+        DefaultLazyBeanSetter<T> lazyBeanSetter = new DefaultLazyBeanSetter<>();
+        Object bean = beansByBeanDefinition.get(beanDefinition);
+        if (bean == null) {
+            List<DefaultLazyBeanSetter> lazyBeanSettersList = lazyBeanSetters.computeIfAbsent(beanDefinition, bd -> new ArrayList<>());
+            lazyBeanSettersList.add(lazyBeanSetter);
+        } else {
+            lazyBeanSetter.setBean((T) bean);
+        }
+        return lazyBeanSetter;
+    }
 
     @Override
     public <T> T getBean(Class<T> type, String name) {
@@ -49,6 +64,27 @@ public class ApplicationContext implements BeanFactory {
 
 
     private <T> T tryGetBean(Class<T> type, String name) {
+        BeanDefinition matchingBeanDefinition = findBeanDefinition(type, name);
+
+        Object bean = beansByBeanDefinition.get(matchingBeanDefinition);
+        if (bean == null) {
+            bean = matchingBeanDefinition.getBean();
+            registerBean(matchingBeanDefinition, bean);
+        }
+
+        return (T) bean;
+    }
+
+    private void registerBean(BeanDefinition beanDefinition, Object bean) {
+        beansByBeanDefinition.put(beanDefinition, bean);
+
+        List<DefaultLazyBeanSetter> lazyBeanSettersList = lazyBeanSetters.remove(beanDefinition);
+        if (lazyBeanSettersList != null) {
+            lazyBeanSettersList.forEach(lbs -> lbs.setBean(bean));
+        }
+    }
+
+    private BeanDefinition findBeanDefinition(Class<?> type, String name) {
         List<BeanDefinition> beanDefinitions = getBeanDefinitions();
 
         List<BeanDefinition> matchingBeanDefinitions = new ArrayList<>();
@@ -66,22 +102,16 @@ public class ApplicationContext implements BeanFactory {
             matchingBeanDefinitions.add(beanDefinition);
         }
 
-
         if (matchingBeanDefinitions.isEmpty()) {
             throw new RuntimeException("Bean " + type.getName() + " is not available.");
         }
 
         if (matchingBeanDefinitions.size() == 1) {
             BeanDefinition beanDefinition = matchingBeanDefinitions.get(0);
-            Object bean = beansByBeanDefinition.get(beanDefinition);
-            if (bean == null) {
-                bean = beanDefinition.getBean();
-                beansByBeanDefinition.put(beanDefinition, bean);
-            }
-            return (T) bean;
+            return beanDefinition;
         }
 
-        throw new RuntimeException("Bean " + type.getName() + " is ambiguous. : " + beanDefinitions);
+        throw new RuntimeException("Bean " + type.getName() + " is ambiguous. : " + matchingBeanDefinitions);
     }
 
     private List<BeanDefinition> getBeanDefinitions() {

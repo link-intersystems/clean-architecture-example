@@ -59,13 +59,21 @@ abstract class AbstractBeanDefinition implements BeanDefinition {
         Object[] args = new Object[parameterTypes.length];
 
         for (int i = 0; i < parameterTypes.length; i++) {
-            if (Supplier.class.isAssignableFrom(parameterTypes[i])) {
+            Class<?> parameterType = parameterTypes[i];
+
+            if (Supplier.class.isAssignableFrom(parameterType)) {
                 Type[] genericParameterTypes = executable.getGenericParameterTypes();
                 ParameterizedType parameterizedType = (ParameterizedType) genericParameterTypes[i];
                 Class<?> actualTypeArgument = (Class<?>) parameterizedType.getActualTypeArguments()[0];
                 args[i] = (Supplier) () -> beanFactory.getBean(actualTypeArgument);
+            } else if (LazyBeanSetter.class.isAssignableFrom(parameterType)) {
+                Type[] genericParameterTypes = executable.getGenericParameterTypes();
+                ParameterizedType parameterizedType = (ParameterizedType) genericParameterTypes[i];
+                Class<?> actualTypeArgument = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+                LazyBeanSetter<Object> lazyBeanSetter = (LazyBeanSetter<Object>) beanFactory.getLazyBeanSetter(actualTypeArgument);
+                args[i] = lazyBeanSetter;
             } else {
-                Object bean = beanFactory.getBean(parameterTypes[i]);
+                Object bean = beanFactory.getBean(parameterType);
                 args[i] = bean;
             }
         }

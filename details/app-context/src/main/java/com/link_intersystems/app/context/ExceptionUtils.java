@@ -19,6 +19,10 @@ class ExceptionUtils {
 
         sb.append("\n\t NOTE: You might want to use a Supplier<");
         sb.append(beanRef.getType().getSimpleName());
+        sb.append("> or ");
+        sb.append(LazyBeanSetter.class.getSimpleName());
+        sb.append("<");
+        sb.append(beanRef.getType().getSimpleName());
         sb.append("> instead.\n");
         return sb;
     }
