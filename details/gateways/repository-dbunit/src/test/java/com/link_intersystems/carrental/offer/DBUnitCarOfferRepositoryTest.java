@@ -1,5 +1,6 @@
 package com.link_intersystems.carrental.offer;
 
+import com.link_intersystems.carrental.DataSetRegistry;
 import com.link_intersystems.carrental.rental.RentalCar;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,7 @@ class DBUnitCarOfferRepositoryTest {
 
     @Test
     void findRentalCars() {
-        DBUnitCarOfferRepository dbUnitCarOfferRepository = new DBUnitCarOfferRepository();
+        DBUnitCarOfferRepository dbUnitCarOfferRepository = new DBUnitCarOfferRepository(new DataSetRegistry());
         List<RentalCar> rentalCars = dbUnitCarOfferRepository.findRentalCars(new CarCriteria());
 
         assertEquals(5, rentalCars.size());

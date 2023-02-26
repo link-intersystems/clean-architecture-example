@@ -4,19 +4,13 @@ import com.link_intersystems.carrental.CarId;
 import com.link_intersystems.carrental.VIN;
 import com.link_intersystems.carrental.customer.Customer;
 import com.link_intersystems.carrental.customer.CustomerId;
-import com.link_intersystems.sql.io.InputStreamScriptResource;
-import com.link_intersystems.sql.io.SqlScript;
 import com.link_intersystems.time.Period;
-import org.h2.jdbcx.JdbcDataSource;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 import javax.sql.DataSource;
-import java.io.File;
-import java.io.InputStream;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -29,28 +23,6 @@ import java.util.stream.Collectors;
 public class H2CarBookingRepository implements CarBookingRepository {
 
     private final JdbcTemplate jdbcTemplate;
-
-    public H2CarBookingRepository() {
-        StringBuilder urlBuilder = new StringBuilder("jdbc:h2:file:./car-rental");
-        JdbcDataSource jdbcDataSource = new JdbcDataSource();
-        jdbcDataSource.setURL(urlBuilder.toString());
-        jdbcDataSource.setUser("");
-        jdbcDataSource.setPassword("");
-
-        if (!new File("./car-rental.mv.db").exists()) {
-
-
-            try (Connection connection = jdbcDataSource.getConnection()) {
-                InputStream resourceAsStream = H2CarBookingRepository.class.getResourceAsStream("init.sql");
-                SqlScript sqlScript = new SqlScript(new InputStreamScriptResource(resourceAsStream));
-                sqlScript.execute(connection);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        jdbcTemplate = new JdbcTemplate(jdbcDataSource);
-    }
 
     public H2CarBookingRepository(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);

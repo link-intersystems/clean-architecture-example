@@ -4,7 +4,6 @@ import com.link_intersystems.carrental.booking.CarBooking;
 import com.link_intersystems.carrental.booking.DBUnitCarBookingRepository;
 import com.link_intersystems.carrental.customer.Customer;
 import com.link_intersystems.carrental.customer.CustomerId;
-import com.link_intersystems.carrental.offer.DomainEntityDataSetConsumer;
 import com.link_intersystems.carrental.rental.RentalCar;
 import com.link_intersystems.carrental.rental.RentalRate;
 import com.link_intersystems.dbunit.stream.producer.support.DefaultDataSetProducerSupport;

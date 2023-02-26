@@ -1,3 +1,0 @@
-com.link_intersystems.carrental.booking.H2BookingRepositoryServiceProvider
-com.link_intersystems.carrental.offer.H2OfferRepositoryServiceProvider
-com.link_intersystems.carrental.H2DataSourceServiceProvider

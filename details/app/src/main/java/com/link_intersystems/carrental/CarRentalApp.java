@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental;
 
-import com.link_intersystems.plugins.ApplicationContext;
+import com.link_intersystems.app.context.ApplicationContext;
 
 public class CarRentalApp {
 
@@ -11,7 +11,7 @@ public class CarRentalApp {
 
     private void run() {
         ApplicationContext applicationContext = new ApplicationContext();
-        MainFrame mainFrame = applicationContext.getService(MainFrame.class);
+        MainFrame mainFrame = applicationContext.getBean(MainFrame.class);
         mainFrame.show();
     }
 }
