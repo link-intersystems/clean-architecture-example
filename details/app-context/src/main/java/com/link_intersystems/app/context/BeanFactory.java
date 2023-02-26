@@ -1,6 +1,6 @@
 package com.link_intersystems.app.context;
 
-interface BeanFactory {
+public interface BeanFactory {
     default <T> T getBean(Class<T> type) {
         return getBean(type, null);
     }

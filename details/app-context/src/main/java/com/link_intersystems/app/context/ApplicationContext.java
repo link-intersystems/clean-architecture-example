@@ -24,16 +24,15 @@ public class ApplicationContext implements BeanFactory {
 
     @Override
     public <T> T getBean(Class<T> type, String name) {
+        if (BeanFactory.class.equals(type)) {
+            return (T) this;
+        }
+
         BeanRef beanRef = new BeanRef(type, name);
         Stack<BeanRef> callStack = callStackHolder.get();
 
         if (callStack.contains(beanRef)) {
-            StringBuilder sb = new StringBuilder();
-            for (BeanRef ref : callStack) {
-                sb.append("\t ");
-                sb.append(ref);
-                sb.append("\n");
-            }
+            StringBuilder sb = ExceptionUtils.cyclicExceptionString(beanRef, callStack);
             throw new RuntimeException("Cyclic bean dependency " + beanRef + "\n" + sb);
         }
 
@@ -47,6 +46,7 @@ public class ApplicationContext implements BeanFactory {
             callStack.pop();
         }
     }
+
 
     private <T> T tryGetBean(Class<T> type, String name) {
         List<BeanDefinition> beanDefinitions = getBeanDefinitions();

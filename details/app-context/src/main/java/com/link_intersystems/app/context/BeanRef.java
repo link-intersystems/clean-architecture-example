@@ -35,9 +35,13 @@ class BeanRef {
 
     @Override
     public String toString() {
-        return "BeanRef{" +
-                "type=" + type +
-                ", name='" + name + '\'' +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append(type.getName());
+        if (name != null) {
+            sb.append(" (");
+            sb.append(name);
+            sb.append(")");
+        }
+        return sb.toString();
     }
 }

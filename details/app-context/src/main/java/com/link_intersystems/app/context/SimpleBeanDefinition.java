@@ -25,7 +25,7 @@ class SimpleBeanDefinition extends AbstractBeanDefinition {
 
                 @Override
                 public <T> T createBean() throws Exception {
-                    Object[] constructorArgs = resolveArgs(parameterTypes);
+                    Object[] constructorArgs = resolveArgs(constructor, parameterTypes);
                     return (T) constructor.newInstance(constructorArgs);
                 }
 

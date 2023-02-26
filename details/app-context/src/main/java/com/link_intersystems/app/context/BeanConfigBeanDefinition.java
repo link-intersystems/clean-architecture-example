@@ -27,11 +27,11 @@ class BeanConfigBeanDefinition extends AbstractBeanDefinition {
             @Override
             public <T> T createBean() throws Exception {
                 try {
-                    Object[] factoryArgs = resolveArgs(parameterTypes);
+                    Object[] factoryArgs = resolveArgs(beanFactoryMethod, parameterTypes);
                     Object beanFactoryBean = getBeanFactory().getBean(beanConfigBeanType, beanConfigBeanType.getName());
                     return (T) beanFactoryMethod.invoke(beanFactoryBean, factoryArgs);
                 } catch (Exception e) {
-                    throw new Exception("Can not create bean " + getType().getName() + "(" + Arrays.toString(parameterTypes) + ")", e);
+                    throw new Exception("Can not create bean " + beanFactoryMethod.getDeclaringClass().getName() + "." + beanFactoryMethod.getName() + "(" + Arrays.toString(parameterTypes) + ")", e);
                 }
             }
 
