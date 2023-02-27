@@ -1,17 +1,10 @@
 package com.link_intersystems.app.context;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.function.BiFunction;
+
+import static java.util.Objects.*;
 
 public class ApplicationContext implements BeanFactory {
-
-    List<BeanDefinition> simpleBeanDefinitions;
 
     private Map<BeanDefinition, Object> beansByBeanDefinition = new HashMap<>();
     private Map<BeanDefinition, List<DefaultLazyBeanSetter>> lazyBeanSetters = new HashMap<>();
@@ -22,19 +15,18 @@ public class ApplicationContext implements BeanFactory {
             return new Stack<>();
         }
     };
+    private BeanDefinitionRegitry beanDefinitionRegitry;
 
-    @Override
-    public <T> LazyBeanSetter<T> getLazyBeanSetter(Class<T> type) {
-        BeanDefinition beanDefinition = findBeanDefinition(type, null);
-        DefaultLazyBeanSetter<T> lazyBeanSetter = new DefaultLazyBeanSetter<>();
-        Object bean = beansByBeanDefinition.get(beanDefinition);
-        if (bean == null) {
-            List<DefaultLazyBeanSetter> lazyBeanSettersList = lazyBeanSetters.computeIfAbsent(beanDefinition, bd -> new ArrayList<>());
-            lazyBeanSettersList.add(lazyBeanSetter);
-        } else {
-            lazyBeanSetter.setBean((T) bean);
-        }
-        return lazyBeanSetter;
+    public ApplicationContext() {
+        this(new BeanDefinitionRegitry(new DefaultBeanDefinitionLocator()));
+    }
+
+    public ApplicationContext(BeanDefinitionRegitry beanDefinitionRegitry) {
+        this.beanDefinitionRegitry = requireNonNull(beanDefinitionRegitry);
+    }
+
+    public BeanDefinitionRegitry getBeanDefinitionRegitry() {
+        return beanDefinitionRegitry;
     }
 
     @Override
@@ -54,7 +46,7 @@ public class ApplicationContext implements BeanFactory {
         callStack.push(beanRef);
 
         try {
-            return tryGetBean(type, name);
+            return tryGetBean(beanRef);
         } catch (Exception e) {
             throw new RuntimeException("Unable to getBean(" + beanRef.getType().getName() + ", " + beanRef.getName() + ")", e);
         } finally {
@@ -63,12 +55,13 @@ public class ApplicationContext implements BeanFactory {
     }
 
 
-    private <T> T tryGetBean(Class<T> type, String name) {
-        BeanDefinition matchingBeanDefinition = findBeanDefinition(type, name);
+    private <T> T tryGetBean(BeanRef beanRef) {
+        BeanDefinition matchingBeanDefinition = getBeanDefinitionRegitry().getBeanDefinition(beanRef);
 
         Object bean = beansByBeanDefinition.get(matchingBeanDefinition);
+
         if (bean == null) {
-            bean = matchingBeanDefinition.getBean();
+            bean = matchingBeanDefinition.createBean(this);
             registerBean(matchingBeanDefinition, bean);
         }
 
@@ -84,118 +77,22 @@ public class ApplicationContext implements BeanFactory {
         }
     }
 
-    private BeanDefinition findBeanDefinition(Class<?> type, String name) {
-        List<BeanDefinition> beanDefinitions = getBeanDefinitions();
+    @Override
+    public <T> LazyBeanSetter<T> getLazyBeanSetter(Class<T> type) {
+        BeanRef beanRef = new BeanRef(type, null);
+        BeanDefinition beanDefinition = beanDefinitionRegitry.getBeanDefinition(beanRef);
 
-        List<BeanDefinition> matchingBeanDefinitions = new ArrayList<>();
+        DefaultLazyBeanSetter<T> lazyBeanSetter = new DefaultLazyBeanSetter<>();
+        Object bean = beansByBeanDefinition.get(beanDefinition);
 
-        for (BeanDefinition beanDefinition : beanDefinitions) {
-            if (!beanDefinition.isInstance(type)) {
-                continue;
-            }
-
-            if (name != null && !beanDefinition.isNamed(name)) {
-                continue;
-            }
-
-
-            matchingBeanDefinitions.add(beanDefinition);
+        if (bean == null) {
+            List<DefaultLazyBeanSetter> lazyBeanSettersList = lazyBeanSetters.computeIfAbsent(beanDefinition, bd -> new ArrayList<>());
+            lazyBeanSettersList.add(lazyBeanSetter);
+        } else {
+            lazyBeanSetter.setBean((T) bean);
         }
 
-        if (matchingBeanDefinitions.isEmpty()) {
-            throw new RuntimeException("Bean " + type.getName() + " is not available.");
-        }
-
-        if (matchingBeanDefinitions.size() == 1) {
-            BeanDefinition beanDefinition = matchingBeanDefinitions.get(0);
-            return beanDefinition;
-        }
-
-        throw new RuntimeException("Bean " + type.getName() + " is ambiguous. : " + matchingBeanDefinitions);
-    }
-
-    private List<BeanDefinition> getBeanDefinitions() {
-        if (simpleBeanDefinitions == null) {
-            try {
-                simpleBeanDefinitions = createBeanDefinitions();
-            } catch (IOException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return simpleBeanDefinitions;
-    }
-
-    private List<BeanDefinition> createBeanDefinitions() throws IOException, ClassNotFoundException {
-        List<BeanDefinition> beanDefinitions = new ArrayList<>();
-
-        List<BeanDefinition> simpleSimpleBeanDefinitions = readBeanDefinitions("META-INF/beans/com.link_intersystems.app.context.Bean", this::createSimpleBeanDefinition);
-        beanDefinitions.addAll(simpleSimpleBeanDefinitions);
-
-        List<BeanDefinition> beanConfigBeanDefinitions = readBeanDefinitions(BeanConfig.class, this::createBeanConfigBeanDefinitions);
-        beanDefinitions.addAll(beanConfigBeanDefinitions);
-
-        return beanDefinitions;
-    }
-
-    private List<BeanDefinition> createSimpleBeanDefinition(URL resource, Class<?> beanType) {
-        return Collections.singletonList(new SimpleBeanDefinition(resource, beanType, ApplicationContext.this));
-    }
-
-    private List<BeanDefinition> createBeanConfigBeanDefinitions(URL resource, Class<?> beanConfigType) {
-        List<BeanDefinition> beanDefinitions = new ArrayList<>();
-        beanDefinitions.addAll(createSimpleBeanDefinition(resource, beanConfigType));
-        List<BeanDefinition> beanConfigBeanDefinitions = new BeanConfig(resource, beanConfigType, beanConfigType, this).getBeanDefinitions();
-        beanDefinitions.addAll(beanConfigBeanDefinitions);
-
-        return beanDefinitions;
-    }
-
-    private List<BeanDefinition> readBeanDefinitions(Class<?> type, BiFunction<URL, Class<?>, List<BeanDefinition>> beanDefintionFactory) throws IOException, ClassNotFoundException {
-        return readBeanDefinitions("META-INF/beans/" + type.getName(), beanDefintionFactory);
-    }
-
-    private List<BeanDefinition> readBeanDefinitions(String resource, BiFunction<URL, Class<?>, List<BeanDefinition>> beanDefintionFactory) throws IOException, ClassNotFoundException {
-        List<BeanDefinition> beanDefinitions = new ArrayList<>();
-
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        Enumeration<URL> resources = classLoader.getResources(resource);
-
-        while (resources.hasMoreElements()) {
-            URL nextResource = resources.nextElement();
-            List<String> lines = readLines(nextResource);
-
-            for (String line : lines) {
-                Class<?> type = Class.forName(line);
-                List<BeanDefinition> providedBeanDefinitions = beanDefintionFactory.apply(nextResource, type);
-                beanDefinitions.addAll(providedBeanDefinitions);
-            }
-        }
-
-        return beanDefinitions;
-    }
-
-    private List<String> readLines(URL resource) throws IOException {
-        List<String> lines = new ArrayList<>();
-
-        try (InputStream inputStream = resource.openConnection().getInputStream()) {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-
-            String line = null;
-
-            while ((line = bufferedReader.readLine()) != null) {
-                int commentChar = line.indexOf("#");
-                if (commentChar > -1) {
-                    line = line.substring(0, commentChar);
-                }
-
-                line = line.trim();
-
-                lines.add(line);
-            }
-        }
-
-
-        return lines;
+        return lazyBeanSetter;
     }
 
 }

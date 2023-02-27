@@ -9,13 +9,11 @@ class BeanConfig {
     private URL resource;
     private final Class<?> type;
     private Class<?> beanConfigBeanType;
-    private final BeanFactory beanFactory;
 
-    public BeanConfig(URL resource, Class<?> type, Class<?> beanConfigBeanType, BeanFactory beanFactory) {
+    public BeanConfig(URL resource, Class<?> type, Class<?> beanConfigBeanType) {
         this.resource = resource;
         this.type = type;
         this.beanConfigBeanType = beanConfigBeanType;
-        this.beanFactory = beanFactory;
     }
 
     public List<BeanDefinition> getBeanDefinitions() {
@@ -32,7 +30,9 @@ class BeanConfig {
                 continue;
             }
 
-            BeanConfigBeanDefinition beanConfigBeanDefinition = new BeanConfigBeanDefinition(resource, returnType, beanConfigBeanType, beanFactory, method);
+            String beanName = method.getName();
+            BeanRef beanRef = new BeanRef(returnType, beanName);
+            BeanConfigBeanDefinition beanConfigBeanDefinition = new BeanConfigBeanDefinition(resource, beanRef, beanConfigBeanType, method);
             beanDefinitions.add(beanConfigBeanDefinition);
         }
 

@@ -1,9 +1,12 @@
 package com.link_intersystems.app.context;
 
-interface BeanDefinition {
-    boolean isInstance(Class<?> type);
+import java.net.URL;
 
-    boolean isNamed(String name);
+public interface BeanDefinition {
 
-    <T> T getBean();
+    URL getResource();
+
+    BeanRef getBeanRef();
+
+    <T> T createBean(BeanFactory beanFactory);
 }

@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="CarRentalApp - dbunit" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.link_intersystems.carrental.CarRentalApp" />
+    <module name="app" />
+    <option name="PROGRAM_PARAMETERS" value="-r dbunit" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.link_intersystems.carrental.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

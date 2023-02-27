@@ -8,7 +8,6 @@ import com.link_intersystems.carrental.booking.CarOfferView;
 
 public class MainConfig {
 
-
     private BeanFactory beanFactory;
 
     public MainConfig(BeanFactory beanFactory) {

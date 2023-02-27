@@ -10,8 +10,8 @@ class BeanConfigBeanDefinition extends AbstractBeanDefinition {
     private Class<?> beanConfigBeanType;
     private Method beanFactoryMethod;
 
-    public BeanConfigBeanDefinition(URL resource, Class<?> type, Class<?> beanConfigBeanType, BeanFactory beanFactory, Method beanFactoryMethod) {
-        super(resource, type, beanFactory);
+    public BeanConfigBeanDefinition(URL resource, BeanRef beanRef, Class<?> beanConfigBeanType, Method beanFactoryMethod) {
+        super(resource, beanRef);
         this.beanConfigBeanType = beanConfigBeanType;
         this.beanFactoryMethod = beanFactoryMethod;
     }
@@ -25,10 +25,10 @@ class BeanConfigBeanDefinition extends AbstractBeanDefinition {
             Class<?>[] parameterTypes = beanFactoryMethod.getParameterTypes();
 
             @Override
-            public <T> T createBean() throws Exception {
+            public <T> T createBean(BeanFactory beanFactory) throws Exception {
                 try {
-                    Object[] factoryArgs = resolveArgs(beanFactoryMethod, parameterTypes);
-                    Object beanFactoryBean = getBeanFactory().getBean(beanConfigBeanType, beanConfigBeanType.getName());
+                    Object[] factoryArgs = resolveArgs(beanFactory, beanFactoryMethod, parameterTypes);
+                    Object beanFactoryBean = beanFactory.getBean(beanConfigBeanType, beanConfigBeanType.getName());
                     return (T) beanFactoryMethod.invoke(beanFactoryBean, factoryArgs);
                 } catch (Exception e) {
                     throw new Exception("Can not create bean " + beanFactoryMethod.getDeclaringClass().getName() + "." + beanFactoryMethod.getName() + "(" + Arrays.toString(parameterTypes) + ")", e);

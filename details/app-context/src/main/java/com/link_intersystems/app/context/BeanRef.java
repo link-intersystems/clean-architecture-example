@@ -2,12 +2,12 @@ package com.link_intersystems.app.context;
 
 import java.util.Objects;
 
-class BeanRef {
+public class BeanRef {
     private Class<?> type;
     private String name;
 
 
-    public BeanRef(Class<?> type, String name) {
+    BeanRef(Class<?> type, String name) {
         this.type = type;
         this.name = name;
     }
@@ -44,4 +44,6 @@ class BeanRef {
         }
         return sb.toString();
     }
+
+
 }

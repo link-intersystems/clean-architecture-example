@@ -8,13 +8,15 @@ import java.util.List;
 
 class SimpleBeanDefinition extends AbstractBeanDefinition {
 
-    public SimpleBeanDefinition(URL resource, Class<?> type, BeanFactory beanFactory) {
-        super(resource, type, beanFactory);
+    public SimpleBeanDefinition(URL resource, BeanRef beanRef) {
+        super(resource, beanRef);
     }
 
     @Override
     protected BeanConstructor getBeanConstructor() {
-        Constructor[] constructors = getType().getDeclaredConstructors();
+        BeanRef beanRef = getBeanRef();
+        Class<?> beanType = beanRef.getType();
+        Constructor[] constructors = beanType.getDeclaredConstructors();
 
         if (constructors.length > 0) {
             Constructor constructor = constructors[0];
@@ -24,8 +26,8 @@ class SimpleBeanDefinition extends AbstractBeanDefinition {
                 Class<?>[] parameterTypes = constructor.getParameterTypes();
 
                 @Override
-                public <T> T createBean() throws Exception {
-                    Object[] constructorArgs = resolveArgs(constructor, parameterTypes);
+                public <T> T createBean(BeanFactory beanFactory) throws Exception {
+                    Object[] constructorArgs = resolveArgs(beanFactory, constructor, parameterTypes);
                     return (T) constructor.newInstance(constructorArgs);
                 }
 

@@ -9,53 +9,41 @@ import java.util.function.Supplier;
 
 abstract class AbstractBeanDefinition implements BeanDefinition {
     private URL resource;
-    private Class<?> type;
-    private BeanFactory beanFactory;
+    private BeanRef beanRef;
 
-    public AbstractBeanDefinition(URL resource, Class<?> type, BeanFactory beanFactory) {
+    public AbstractBeanDefinition(URL resource, BeanRef beanRef) {
         this.resource = resource;
-        this.type = Objects.requireNonNull(type);
-        this.beanFactory = Objects.requireNonNull(beanFactory);
-    }
-
-    public Class<?> getType() {
-        return type;
-    }
-
-    protected BeanFactory getBeanFactory() {
-        return beanFactory;
-    }
-
-    public boolean isNamed(String name) {
-        if (type.getName().equals(name)) {
-            return true;
-        }
-
-        return type.getSimpleName().equals(name);
+        this.beanRef = Objects.requireNonNull(beanRef);
     }
 
     @Override
-    public boolean isInstance(Class<?> type) {
-        return type.isAssignableFrom(this.type);
+    public URL getResource() {
+        return resource;
     }
 
     @Override
-    public <T> T getBean() {
+    public BeanRef getBeanRef() {
+        return beanRef;
+    }
+
+    @Override
+    public <T> T createBean(BeanFactory beanFactory) {
         BeanConstructor constructor = getBeanConstructor();
+
         if (constructor != null) {
             try {
-                return constructor.createBean();
+                return constructor.createBean(beanFactory);
             } catch (Exception e) {
                 throw new RuntimeException(constructor.toString(), e);
             }
         }
 
-        throw new RuntimeException("No constructor found for bean " + type.getName());
+        throw new RuntimeException("No constructor found for bean " + getBeanRef().getName());
     }
 
     protected abstract BeanConstructor getBeanConstructor();
 
-    protected Object[] resolveArgs(Executable executable, Class<?>[] parameterTypes) {
+    protected Object[] resolveArgs(BeanFactory beanFactory, Executable executable, Class<?>[] parameterTypes) {
         Object[] args = new Object[parameterTypes.length];
 
         for (int i = 0; i < parameterTypes.length; i++) {
@@ -83,6 +71,6 @@ abstract class AbstractBeanDefinition implements BeanDefinition {
 
     @Override
     public String toString() {
-        return getBeanConstructor().toString() + " defined in " + resource;
+        return getBeanConstructor().toString() + " '" + resource + "'";
     }
 }

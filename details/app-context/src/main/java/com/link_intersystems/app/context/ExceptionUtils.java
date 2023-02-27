@@ -1,5 +1,6 @@
 package com.link_intersystems.app.context;
 
+import java.util.List;
 import java.util.Stack;
 
 class ExceptionUtils {
@@ -34,5 +35,25 @@ class ExceptionUtils {
         sb.append(" > ");
         sb.append(ref);
         sb.append("\n");
+    }
+
+    public static String ambiguousBean(BeanRef beanRef, List<BeanDefinition> matchingBeanDefinitions) {
+        StringBuilder sb = new StringBuilder("Bean ");
+        sb.append(beanRef.getType().getName());
+        sb.append(" is ambiguous. :\n");
+
+        for (BeanDefinition beanDefinition : matchingBeanDefinitions) {
+            appendBeanRef(sb, beanDefinition.getBeanRef(), 1);
+        }
+
+        sb.append("\n\t NOTE: You might want to use a Supplier<");
+        sb.append(beanRef.getType().getSimpleName());
+        sb.append("> or ");
+        sb.append(LazyBeanSetter.class.getSimpleName());
+        sb.append("<");
+        sb.append(beanRef.getType().getSimpleName());
+        sb.append("> instead.\n");
+
+        return sb.toString();
     }
 }
