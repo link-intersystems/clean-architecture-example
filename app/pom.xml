@@ -15,7 +15,7 @@
 
     <modules>
         <module>app-context</module>
-        <module>main</module>
+        <module>car-rental-app</module>
     </modules>
 
 </project>
