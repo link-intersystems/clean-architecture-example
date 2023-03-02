@@ -11,16 +11,14 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>car-management</artifactId>
     <groupId>com.acme.car-rental.management</groupId>
+    <artifactId>car-management</artifactId>
     <packaging>pom</packaging>
 
     <modules>
         <module>entities</module>
         <module>use-cases</module>
         <module>details</module>
-        <module>details/repository-h2</module>
-        <module>details/ui</module>
     </modules>
 
 </project>

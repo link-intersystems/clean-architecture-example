@@ -11,6 +11,6 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>car-offer-use-cases</artifactId>
+    <artifactId>car-management-use-cases</artifactId>
 
 </project>

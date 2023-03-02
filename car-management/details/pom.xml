@@ -10,7 +10,11 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>car-offer-details</artifactId>
+    <artifactId>car-management-details</artifactId>
     <packaging>pom</packaging>
 
+    <modules>
+        <module>repository-h2</module>
+        <module>ui</module>
+    </modules>
 </project>

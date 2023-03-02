@@ -10,11 +10,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>entities</module>
-        <module>use-cases</module>
-        <module>details</module>
-        <module>car-management</module>
         <module>car-booking</module>
+        <module>car-management</module>
+        <module>app</module>
     </modules>
 
     <properties>

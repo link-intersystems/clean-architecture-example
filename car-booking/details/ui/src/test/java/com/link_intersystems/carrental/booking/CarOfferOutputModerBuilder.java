@@ -2,11 +2,9 @@ package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.offer.CarOfferOutputModel;
 import com.link_intersystems.carrental.offer.CarOfferOutputModelMock;
-import com.link_intersystems.carrental.offer.CarSpecModel;
+import com.link_intersystems.carrental.offer.CarSpecModelMock;
 
 import java.math.BigDecimal;
-
-import static org.mockito.Mockito.*;
 
 public class CarOfferOutputModerBuilder {
 
@@ -36,11 +34,12 @@ public class CarOfferOutputModerBuilder {
     }
 
     public CarOfferOutputModerBuilder withSpecModel(int seats, int doors, String energyType, double consumption) {
-        CarSpecModel carSpecModel = mock(CarSpecModel.class);
-        when(carSpecModel.getSeats()).thenReturn(seats);
-        when(carSpecModel.getDoors()).thenReturn(doors);
-        when(carSpecModel.getEnergyType()).thenReturn(energyType);
-        when(carSpecModel.getConsumption()).thenReturn(consumption);
+        CarSpecModelMock carSpecModel = new CarSpecModelMock();
+
+        carSpecModel.setSeats(seats);
+        carSpecModel.setDoors(doors);
+        carSpecModel.setEnergyType(energyType);
+        carSpecModel.setConsumption(consumption);
 
         carOfferOutputModel.setCarSpecModel(carSpecModel);
         return this;
