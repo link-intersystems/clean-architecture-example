@@ -26,7 +26,7 @@ public class BeanDefinitionRegitry {
         this.beanDefinitionFilter = beanDefinitionFilter == null ? bd -> true : beanDefinitionFilter;
     }
 
-    public BeanDefinition getBeanDefinition(BeanRef beanRef) {
+    public BeanDefinition getBeanDefinition(BeanDeclaration beanDeclaration) {
         List<BeanDefinition> beanDefinitions = getBeanDefinitions();
 
         List<BeanDefinition> matchingBeanDefinitions = new ArrayList<>();
@@ -36,9 +36,9 @@ public class BeanDefinitionRegitry {
                 continue;
             }
 
-            BeanRef actualBeanRef = beanDefinition.getBeanRef();
+            BeanDeclaration actualBeanDeclaration = beanDefinition.getBeanRef();
 
-            if (!matches(beanRef, actualBeanRef)) {
+            if (!matches(beanDeclaration, actualBeanDeclaration)) {
                 continue;
             }
 
@@ -47,7 +47,7 @@ public class BeanDefinitionRegitry {
         }
 
         if (matchingBeanDefinitions.isEmpty()) {
-            throw new RuntimeException("Bean " + beanRef.getType().getName() + " is not available.");
+            throw new RuntimeException("Bean " + beanDeclaration.getType().getName() + " is not available.");
         }
 
         if (matchingBeanDefinitions.size() == 1) {
@@ -56,29 +56,29 @@ public class BeanDefinitionRegitry {
         }
 
 
-        throw new RuntimeException(ExceptionUtils.ambiguousBean(beanRef, matchingBeanDefinitions));
+        throw new RuntimeException(ExceptionUtils.ambiguousBean(beanDeclaration, matchingBeanDefinitions));
     }
 
-    protected boolean matches(BeanRef actBeanRef, BeanRef otherBeanRef) {
-        if (isInstance(actBeanRef, otherBeanRef)) {
+    protected boolean matches(BeanDeclaration actBeanDeclaration, BeanDeclaration otherBeanDeclaration) {
+        if (isInstance(actBeanDeclaration, otherBeanDeclaration)) {
             return true;
         }
 
-        return isNamed(actBeanRef, otherBeanRef.getName());
+        return isNamed(actBeanDeclaration, otherBeanDeclaration.getName());
     }
 
-    private boolean isInstance(BeanRef actBeanRef, BeanRef otherBeanRef) {
-        return actBeanRef.getType().isAssignableFrom(otherBeanRef.getType());
+    private boolean isInstance(BeanDeclaration actBeanDeclaration, BeanDeclaration otherBeanDeclaration) {
+        return actBeanDeclaration.getType().isAssignableFrom(otherBeanDeclaration.getType());
     }
 
 
-    private boolean isNamed(BeanRef actBeanRef, String name) {
-        String actualName = actBeanRef.getName();
+    private boolean isNamed(BeanDeclaration actBeanDeclaration, String name) {
+        String actualName = actBeanDeclaration.getName();
         if (actualName != null && actualName.equals(name)) {
             return true;
         }
 
-        return actBeanRef.getType().getSimpleName().equals(name);
+        return actBeanDeclaration.getType().getSimpleName().equals(name);
     }
 
     private List<BeanDefinition> getBeanDefinitions() {

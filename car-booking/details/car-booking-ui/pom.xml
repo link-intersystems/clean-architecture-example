@@ -5,11 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.link-intersystems.arch.ca.car-rental</groupId>
-        <artifactId>details</artifactId>
+        <groupId>com.link-intersystems.arch.ca.car-rental.booking</groupId>
+        <artifactId>car-booking-details</artifactId>
         <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>app-context</artifactId>
+    <artifactId>car-booking-ui</artifactId>
 
 </project>

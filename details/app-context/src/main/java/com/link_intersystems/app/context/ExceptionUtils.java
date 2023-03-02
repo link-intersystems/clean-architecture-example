@@ -5,30 +5,30 @@ import java.util.Stack;
 
 class ExceptionUtils {
 
-    static StringBuilder cyclicExceptionString(BeanRef beanRef, Stack<BeanRef> callStack) {
+    static StringBuilder cyclicExceptionString(BeanDeclaration beanDeclaration, Stack<BeanDeclaration> callStack) {
         StringBuilder sb = new StringBuilder("Cyclic bean dependency ");
-        BeanRef requestingBeanRef = callStack.get(callStack.size() - 1);
-        sb.append(requestingBeanRef.getType().getName());
+        BeanDeclaration requestingBeanDeclaration = callStack.get(callStack.size() - 1);
+        sb.append(requestingBeanDeclaration.getType().getName());
         sb.append("\n");
 
-        for (BeanRef ref : callStack) {
+        for (BeanDeclaration ref : callStack) {
             int index = callStack.indexOf(ref);
             appendBeanRef(sb, ref, index);
         }
 
-        appendBeanRef(sb, beanRef, callStack.size());
+        appendBeanRef(sb, beanDeclaration, callStack.size());
 
         sb.append("\n\t NOTE: You might want to use a Supplier<");
-        sb.append(beanRef.getType().getSimpleName());
+        sb.append(beanDeclaration.getType().getSimpleName());
         sb.append("> or ");
         sb.append(LazyBeanSetter.class.getSimpleName());
         sb.append("<");
-        sb.append(beanRef.getType().getSimpleName());
+        sb.append(beanDeclaration.getType().getSimpleName());
         sb.append("> instead.\n");
         return sb;
     }
 
-    private static void appendBeanRef(StringBuilder sb, BeanRef ref, int indentation) {
+    private static void appendBeanRef(StringBuilder sb, BeanDeclaration ref, int indentation) {
         while (indentation-- > 0) {
             sb.append("\t");
         }
@@ -37,9 +37,9 @@ class ExceptionUtils {
         sb.append("\n");
     }
 
-    public static String ambiguousBean(BeanRef beanRef, List<BeanDefinition> matchingBeanDefinitions) {
+    public static String ambiguousBean(BeanDeclaration beanDeclaration, List<BeanDefinition> matchingBeanDefinitions) {
         StringBuilder sb = new StringBuilder("Bean ");
-        sb.append(beanRef.getType().getName());
+        sb.append(beanDeclaration.getType().getName());
         sb.append(" is ambiguous. :\n");
 
         for (BeanDefinition beanDefinition : matchingBeanDefinitions) {
@@ -47,11 +47,11 @@ class ExceptionUtils {
         }
 
         sb.append("\n\t NOTE: You might want to use a Supplier<");
-        sb.append(beanRef.getType().getSimpleName());
+        sb.append(beanDeclaration.getType().getSimpleName());
         sb.append("> or ");
         sb.append(LazyBeanSetter.class.getSimpleName());
         sb.append("<");
-        sb.append(beanRef.getType().getSimpleName());
+        sb.append(beanDeclaration.getType().getSimpleName());
         sb.append("> instead.\n");
 
         return sb.toString();

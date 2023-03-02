@@ -10,8 +10,8 @@ class BeanConfigBeanDefinition extends AbstractBeanDefinition {
     private Class<?> beanConfigBeanType;
     private Method beanFactoryMethod;
 
-    public BeanConfigBeanDefinition(URL resource, BeanRef beanRef, Class<?> beanConfigBeanType, Method beanFactoryMethod) {
-        super(resource, beanRef);
+    public BeanConfigBeanDefinition(URL resource, BeanDeclaration beanDeclaration, Class<?> beanConfigBeanType, Method beanFactoryMethod) {
+        super(resource, beanDeclaration);
         this.beanConfigBeanType = beanConfigBeanType;
         this.beanFactoryMethod = beanFactoryMethod;
     }

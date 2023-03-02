@@ -2,12 +2,12 @@ package com.link_intersystems.app.context;
 
 import java.util.Objects;
 
-public class BeanRef {
+public class BeanDeclaration {
     private Class<?> type;
     private String name;
 
 
-    BeanRef(Class<?> type, String name) {
+    BeanDeclaration(Class<?> type, String name) {
         this.type = type;
         this.name = name;
     }
@@ -24,8 +24,8 @@ public class BeanRef {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BeanRef beanRef = (BeanRef) o;
-        return Objects.equals(type, beanRef.type) && Objects.equals(name, beanRef.name);
+        BeanDeclaration beanDeclaration = (BeanDeclaration) o;
+        return Objects.equals(type, beanDeclaration.type) && Objects.equals(name, beanDeclaration.name);
     }
 
     @Override

@@ -9,9 +9,9 @@ public class ApplicationContext implements BeanFactory {
     private Map<BeanDefinition, Object> beansByBeanDefinition = new HashMap<>();
     private Map<BeanDefinition, List<DefaultLazyBeanSetter>> lazyBeanSetters = new HashMap<>();
 
-    private ThreadLocal<Stack<BeanRef>> callStackHolder = new ThreadLocal<>() {
+    private ThreadLocal<Stack<BeanDeclaration>> callStackHolder = new ThreadLocal<>() {
         @Override
-        protected Stack<BeanRef> initialValue() {
+        protected Stack<BeanDeclaration> initialValue() {
             return new Stack<>();
         }
     };
@@ -35,28 +35,28 @@ public class ApplicationContext implements BeanFactory {
             return (T) this;
         }
 
-        BeanRef beanRef = new BeanRef(type, name);
-        Stack<BeanRef> callStack = callStackHolder.get();
+        BeanDeclaration beanDeclaration = new BeanDeclaration(type, name);
+        Stack<BeanDeclaration> callStack = callStackHolder.get();
 
-        if (callStack.contains(beanRef)) {
-            StringBuilder sb = ExceptionUtils.cyclicExceptionString(beanRef, callStack);
-            throw new RuntimeException("Cyclic bean dependency " + beanRef + "\n" + sb);
+        if (callStack.contains(beanDeclaration)) {
+            StringBuilder sb = ExceptionUtils.cyclicExceptionString(beanDeclaration, callStack);
+            throw new RuntimeException("Cyclic bean dependency " + beanDeclaration + "\n" + sb);
         }
 
-        callStack.push(beanRef);
+        callStack.push(beanDeclaration);
 
         try {
-            return tryGetBean(beanRef);
+            return tryGetBean(beanDeclaration);
         } catch (Exception e) {
-            throw new RuntimeException("Unable to getBean(" + beanRef.getType().getName() + ", " + beanRef.getName() + ")", e);
+            throw new RuntimeException("Unable to getBean(" + beanDeclaration.getType().getName() + ", " + beanDeclaration.getName() + ")", e);
         } finally {
             callStack.pop();
         }
     }
 
 
-    private <T> T tryGetBean(BeanRef beanRef) {
-        BeanDefinition matchingBeanDefinition = getBeanDefinitionRegitry().getBeanDefinition(beanRef);
+    private <T> T tryGetBean(BeanDeclaration beanDeclaration) {
+        BeanDefinition matchingBeanDefinition = getBeanDefinitionRegitry().getBeanDefinition(beanDeclaration);
 
         Object bean = beansByBeanDefinition.get(matchingBeanDefinition);
 
@@ -79,8 +79,8 @@ public class ApplicationContext implements BeanFactory {
 
     @Override
     public <T> LazyBeanSetter<T> getLazyBeanSetter(Class<T> type) {
-        BeanRef beanRef = new BeanRef(type, null);
-        BeanDefinition beanDefinition = beanDefinitionRegitry.getBeanDefinition(beanRef);
+        BeanDeclaration beanDeclaration = new BeanDeclaration(type, null);
+        BeanDefinition beanDefinition = beanDefinitionRegitry.getBeanDefinition(beanDeclaration);
 
         DefaultLazyBeanSetter<T> lazyBeanSetter = new DefaultLazyBeanSetter<>();
         Object bean = beansByBeanDefinition.get(beanDefinition);

@@ -9,11 +9,11 @@ import java.util.function.Supplier;
 
 abstract class AbstractBeanDefinition implements BeanDefinition {
     private URL resource;
-    private BeanRef beanRef;
+    private BeanDeclaration beanDeclaration;
 
-    public AbstractBeanDefinition(URL resource, BeanRef beanRef) {
+    public AbstractBeanDefinition(URL resource, BeanDeclaration beanDeclaration) {
         this.resource = resource;
-        this.beanRef = Objects.requireNonNull(beanRef);
+        this.beanDeclaration = Objects.requireNonNull(beanDeclaration);
     }
 
     @Override
@@ -22,8 +22,8 @@ abstract class AbstractBeanDefinition implements BeanDefinition {
     }
 
     @Override
-    public BeanRef getBeanRef() {
-        return beanRef;
+    public BeanDeclaration getBeanRef() {
+        return beanDeclaration;
     }
 
     @Override

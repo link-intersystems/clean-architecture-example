@@ -8,14 +8,14 @@ import java.util.List;
 
 class SimpleBeanDefinition extends AbstractBeanDefinition {
 
-    public SimpleBeanDefinition(URL resource, BeanRef beanRef) {
-        super(resource, beanRef);
+    public SimpleBeanDefinition(URL resource, BeanDeclaration beanDeclaration) {
+        super(resource, beanDeclaration);
     }
 
     @Override
     protected BeanConstructor getBeanConstructor() {
-        BeanRef beanRef = getBeanRef();
-        Class<?> beanType = beanRef.getType();
+        BeanDeclaration beanDeclaration = getBeanRef();
+        Class<?> beanType = beanDeclaration.getType();
         Constructor[] constructors = beanType.getDeclaredConstructors();
 
         if (constructors.length > 0) {

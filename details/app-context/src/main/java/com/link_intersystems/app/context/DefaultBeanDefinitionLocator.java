@@ -27,8 +27,8 @@ public class DefaultBeanDefinitionLocator implements BeanDefinitionLocator {
     }
 
     private List<BeanDefinition> createSimpleBeanDefinition(URL resource, Class<?> beanType) {
-        BeanRef beanRef = new BeanRef(beanType, beanType.getName());
-        return Collections.singletonList(new SimpleBeanDefinition(resource, beanRef));
+        BeanDeclaration beanDeclaration = new BeanDeclaration(beanType, beanType.getName());
+        return Collections.singletonList(new SimpleBeanDefinition(resource, beanDeclaration));
     }
 
     private List<BeanDefinition> createBeanConfigBeanDefinitions(URL resource, Class<?> beanConfigType) {

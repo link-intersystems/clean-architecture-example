@@ -31,8 +31,8 @@ class BeanConfig {
             }
 
             String beanName = method.getName();
-            BeanRef beanRef = new BeanRef(returnType, beanName);
-            BeanConfigBeanDefinition beanConfigBeanDefinition = new BeanConfigBeanDefinition(resource, beanRef, beanConfigBeanType, method);
+            BeanDeclaration beanDeclaration = new BeanDeclaration(returnType, beanName);
+            BeanConfigBeanDefinition beanConfigBeanDefinition = new BeanConfigBeanDefinition(resource, beanDeclaration, beanConfigBeanType, method);
             beanDefinitions.add(beanConfigBeanDefinition);
         }
 
