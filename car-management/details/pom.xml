@@ -5,11 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.link-intersystems.arch.ca.car-rental.offer</groupId>
-        <artifactId>car-offer</artifactId>
+        <groupId>com.acme.car-rental.management</groupId>
+        <artifactId>car-management</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>car-offer-entities</artifactId>
+    <artifactId>car-offer-details</artifactId>
+    <packaging>pom</packaging>
 
 </project>

@@ -5,13 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.link-intersystems.arch.ca.car-rental</groupId>
+        <groupId>com.acme.car-rental</groupId>
         <artifactId>car-rental</artifactId>
         <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>car-offer</artifactId>
-    <groupId>com.link-intersystems.arch.ca.car-rental.offer</groupId>
+    <artifactId>car-management</artifactId>
+    <groupId>com.acme.car-rental.management</groupId>
     <packaging>pom</packaging>
 
     <modules>
