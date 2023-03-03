@@ -1,6 +1,6 @@
 com.link_intersystems.carrental.booking.CarBookingConfig
 com.link_intersystems.carrental.offer.CarOfferConfig
 com.link_intersystems.carrental.ui.MainConfig
-com.link_intersystems.carrental.db.H2DataSourceConfig
+com.link_intersystems.db.H2DataSourceConfig
 com.link_intersystems.carmanagement.CarManagementConfig
 com.link_intersystems.carmanagement.booking.CarBookingConfig
