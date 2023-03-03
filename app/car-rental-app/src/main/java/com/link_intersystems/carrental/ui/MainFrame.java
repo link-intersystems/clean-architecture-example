@@ -1,5 +1,6 @@
 package com.link_intersystems.carrental.ui;
 
+import com.link_intersystems.carrental.management.CarManagementView;
 import com.link_intersystems.carrental.offer.CarOfferView;
 import com.link_intersystems.swing.DimensionExt;
 
@@ -11,6 +12,7 @@ import static javax.swing.WindowConstants.*;
 public class MainFrame {
 
     public static final String CAR_OFFERS_TAB_TITLE = "Car offers";
+    public static final String CAR_MANAGEMENT_TAB_TITLE = "Car Management";
 
     private JFrame mainFrame = new JFrame();
     private JTabbedPane tabbedPane = new JTabbedPane();
@@ -23,6 +25,13 @@ public class MainFrame {
         Point centeredFrameLocation = new DimensionExt(mainFrame.getSize()).centerOn(screenSize);
         mainFrame.setLocation(centeredFrameLocation);
         mainFrame.add(tabbedPane, BorderLayout.CENTER);
+    }
+
+    public void setCarManagementView(CarManagementView carManagementView) {
+        removeTab(CAR_MANAGEMENT_TAB_TITLE);
+
+        Component viewComponent = carManagementView.getViewComponent();
+        tabbedPane.addTab(CAR_MANAGEMENT_TAB_TITLE, viewComponent);
     }
 
     public void setCarOfferView(CarOfferView carOfferView) {

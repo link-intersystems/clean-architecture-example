@@ -2,9 +2,10 @@ package com.link_intersystems.carrental.ui;
 
 import com.link_intersystems.app.context.BeanFactory;
 import com.link_intersystems.app.context.LazyBeanSetter;
+import com.link_intersystems.carrental.management.CarManagementView;
 import com.link_intersystems.carrental.offer.CarOfferView;
-import com.link_intersystems.swing.notification.OptionPaneMessageDialog;
 import com.link_intersystems.swing.notification.MessageDialog;
+import com.link_intersystems.swing.notification.OptionPaneMessageDialog;
 
 public class MainConfig {
 
@@ -14,10 +15,12 @@ public class MainConfig {
         this.beanFactory = beanFactory;
     }
 
-    public MainFrame getMainFrame(CarOfferView carOfferView) {
+    public MainFrame getMainFrame(CarOfferView carOfferView, CarManagementView carManagementView) {
         MainFrame mainFrame = new MainFrame();
 
         mainFrame.setCarOfferView(carOfferView);
+        mainFrame.setCarManagementView(carManagementView);
+
         return mainFrame;
     }
 
