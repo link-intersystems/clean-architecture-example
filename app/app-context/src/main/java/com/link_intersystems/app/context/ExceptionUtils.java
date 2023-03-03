@@ -46,11 +46,7 @@ class ExceptionUtils {
             appendBeanRef(sb, beanDefinition.getBeanRef(), 1);
         }
 
-        sb.append("\n\t NOTE: You might want to use a Supplier<");
-        sb.append(beanDeclaration.getType().getSimpleName());
-        sb.append("> or ");
-        sb.append(LazyBeanSetter.class.getSimpleName());
-        sb.append("<");
+        sb.append("\n\t NOTE: You might want to use a BeanSelector<");
         sb.append(beanDeclaration.getType().getSimpleName());
         sb.append("> instead.\n");
 

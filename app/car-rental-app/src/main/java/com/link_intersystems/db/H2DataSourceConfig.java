@@ -1,5 +1,6 @@
 package com.link_intersystems.db;
 
+import com.link_intersystems.app.context.BeanSelector;
 import com.link_intersystems.sql.io.SqlScript;
 import com.link_intersystems.sql.io.StatementCallback;
 import com.link_intersystems.sql.io.URLScriptResource;
@@ -11,10 +12,25 @@ import java.io.File;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Map;
 
 public class H2DataSourceConfig {
 
-    public DataSource getDataSource() {
+    public DataSource getCarRentalDataSource() {
+        StringBuilder urlBuilder = new StringBuilder("jdbc:h2:file:./car-rental;USER=sa;PASSWORD=123");
+        JdbcDataSource jdbcDataSource = new JdbcDataSource();
+        jdbcDataSource.setURL(urlBuilder.toString());
+        jdbcDataSource.setUser("sa");
+        jdbcDataSource.setPassword("123");
+
+        if (!new File("./car-rental.mv.db").exists()) {
+            executeScript(jdbcDataSource, "/com/link_intersystems/carrental/init.sql");
+            executeScript(jdbcDataSource, "/com/link_intersystems/carrental/management/management.sql");
+        }
+        return jdbcDataSource;
+    }
+
+    public DataSource getManagementDataSource() {
         StringBuilder urlBuilder = new StringBuilder("jdbc:h2:file:./car-rental;USER=sa;PASSWORD=123");
         JdbcDataSource jdbcDataSource = new JdbcDataSource();
         jdbcDataSource.setURL(urlBuilder.toString());
@@ -44,7 +60,11 @@ public class H2DataSourceConfig {
         }
     }
 
-    public JdbcTemplate getJdbcTemplate(DataSource dataSource) {
-        return new JdbcTemplate(dataSource);
+    public JdbcTemplate getCarRentalJdbcTemplate(BeanSelector<DataSource> dataSources) {
+        return new JdbcTemplate(dataSources.select("getCarRentalDataSource"));
+    }
+
+    public JdbcTemplate getManagementJdbcTemplate(BeanSelector<DataSource> dataSources) {
+        return new JdbcTemplate(dataSources.select("getManagementDataSource"));
     }
 }

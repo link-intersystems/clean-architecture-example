@@ -58,11 +58,15 @@ public class ApplicationContext implements BeanFactory {
     private <T> T tryGetBean(BeanDeclaration beanDeclaration) {
         BeanDefinition matchingBeanDefinition = getBeanDefinitionRegitry().getBeanDefinition(beanDeclaration);
 
-        Object bean = beansByBeanDefinition.get(matchingBeanDefinition);
+        return getBean(matchingBeanDefinition);
+    }
+
+    private <T> T getBean(BeanDefinition beanDefinition) {
+        Object bean = beansByBeanDefinition.get(beanDefinition);
 
         if (bean == null) {
-            bean = matchingBeanDefinition.createBean(this);
-            registerBean(matchingBeanDefinition, bean);
+            bean = beanDefinition.createBean(this);
+            registerBean(beanDefinition, bean);
         }
 
         return (T) bean;
@@ -95,5 +99,45 @@ public class ApplicationContext implements BeanFactory {
         return lazyBeanSetter;
     }
 
+    @Override
+    public <T> BeanSelector<T> getBeanSelector(Class<T> type) {
+        BeanDeclaration beanDeclaration = new BeanDeclaration(type, null);
+        return new BeanSelector<T>() {
+
+            @Override
+            public T select(String beanName) {
+                try {
+                    BeanDefinition beanDefinition = beanDefinitionRegitry.getBeanDefinition(beanDeclaration);
+                    return (T) beansByBeanDefinition.get(beanDefinition);
+                } catch (AmbiguousBeanException e) {
+                    List<BeanDefinition> options = e.getOptions();
+                    for (BeanDefinition option : options) {
+                        BeanDeclaration optionBeanDeclaration = option.getBeanRef();
+                        String optionName = optionBeanDeclaration.getName();
+                        if (beanName.equals(optionName)) {
+                            BeanDefinition beanDefinition = beanDefinitionRegitry.getBeanDefinition(optionBeanDeclaration);
+                            return getBean(beanDefinition);
+                        }
+                    }
+                    StringBuilder sb = new StringBuilder("No bean ");
+                    sb.append(type.getName());
+                    sb.append(" named ");
+                    sb.append(beanName);
+                    sb.append(" available. Available beans are:\n");
+
+                    Iterator<BeanDefinition> iterator = options.iterator();
+                    while (iterator.hasNext()) {
+                        BeanDefinition option = iterator.next();
+                        sb.append("\t o ");
+                        sb.append(option);
+                        if (iterator.hasNext()) {
+                            sb.append("\n");
+                        }
+                    }
+                    throw new RuntimeException(sb.toString());
+                }
+            }
+        };
+    }
 }
 

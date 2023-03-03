@@ -26,7 +26,7 @@ public class BeanDefinitionRegitry {
         this.beanDefinitionFilter = beanDefinitionFilter == null ? bd -> true : beanDefinitionFilter;
     }
 
-    public BeanDefinition getBeanDefinition(BeanDeclaration beanDeclaration) {
+    public BeanDefinition getBeanDefinition(BeanDeclaration beanDeclaration) throws AmbiguousBeanException {
         List<BeanDefinition> beanDefinitions = getBeanDefinitions();
 
         List<BeanDefinition> matchingBeanDefinitions = new ArrayList<>();
@@ -36,10 +36,16 @@ public class BeanDefinitionRegitry {
                 continue;
             }
 
-            BeanDeclaration actualBeanDeclaration = beanDefinition.getBeanRef();
+            BeanDeclaration actualBeanDefinition = beanDefinition.getBeanRef();
 
-            if (!matches(beanDeclaration, actualBeanDeclaration)) {
+            if (!isInstance(beanDeclaration, actualBeanDefinition)) {
                 continue;
+            }
+
+            if (beanDeclaration.getName() != null) {
+                if (!isNamed(actualBeanDefinition, beanDeclaration.getName())) {
+                    continue;
+                }
             }
 
 
@@ -56,7 +62,7 @@ public class BeanDefinitionRegitry {
         }
 
 
-        throw new RuntimeException(ExceptionUtils.ambiguousBean(beanDeclaration, matchingBeanDefinitions));
+        throw new AmbiguousBeanException(ExceptionUtils.ambiguousBean(beanDeclaration, matchingBeanDefinitions), matchingBeanDefinitions);
     }
 
     protected boolean matches(BeanDeclaration actBeanDeclaration, BeanDeclaration otherBeanDeclaration) {

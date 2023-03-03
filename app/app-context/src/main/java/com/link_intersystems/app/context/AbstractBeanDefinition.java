@@ -4,6 +4,7 @@ import java.lang.reflect.Executable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.net.URL;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -60,6 +61,12 @@ abstract class AbstractBeanDefinition implements BeanDefinition {
                 Class<?> actualTypeArgument = (Class<?>) parameterizedType.getActualTypeArguments()[0];
                 LazyBeanSetter<Object> lazyBeanSetter = (LazyBeanSetter<Object>) beanFactory.getLazyBeanSetter(actualTypeArgument);
                 args[i] = lazyBeanSetter;
+            } else if (BeanSelector.class.isAssignableFrom(parameterType)) {
+                Type[] genericParameterTypes = executable.getGenericParameterTypes();
+                ParameterizedType parameterizedType = (ParameterizedType) genericParameterTypes[i];
+                Class<?> actualTypeArgument = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+                BeanSelector<Object> beanSelector = (BeanSelector<Object>) beanFactory.getBeanSelector(actualTypeArgument);
+                args[i] = beanSelector;
             } else {
                 Object bean = beanFactory.getBean(parameterType);
                 args[i] = bean;

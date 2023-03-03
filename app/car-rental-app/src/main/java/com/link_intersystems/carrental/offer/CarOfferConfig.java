@@ -1,11 +1,17 @@
 package com.link_intersystems.carrental.offer;
 
+import com.link_intersystems.app.context.BeanSelector;
 import com.link_intersystems.swing.notification.MessageDialog;
 import com.link_intersystems.carrental.booking.*;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.time.LocalDateTime;
 
 public class CarOfferConfig {
+
+    public CarOfferRepository getCarOfferRepository(BeanSelector<JdbcTemplate> beanSelector) {
+        return new H2CarOfferRepository(beanSelector.select("getCarRentalJdbcTemplate"));
+    }
 
     public CarOfferUseCase getCarOfferUseCase(CarOfferRepository carOfferRepository) {
         return new CarOfferInteractor(carOfferRepository);
