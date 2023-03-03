@@ -8,6 +8,7 @@ import com.link_intersystems.carrental.customer.CustomerId;
 import com.link_intersystems.time.Period;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -22,7 +23,7 @@ class H2CarBookingRepositoryTest {
 
     @BeforeEach
     void setUp(Connection connection) {
-        h2CarBookingRepository = new H2CarBookingRepository(new AbstractDataSource() {
+        h2CarBookingRepository = new H2CarBookingRepository(new JdbcTemplate(new AbstractDataSource() {
             @Override
             public Connection getConnection() throws SQLException {
                 return connection;
@@ -32,7 +33,7 @@ class H2CarBookingRepositoryTest {
             public Connection getConnection(String username, String password) throws SQLException {
                 return connection;
             }
-        });
+        }));
     }
 
     @Test

@@ -15,6 +15,7 @@
 
     <modules>
         <module>ui</module>
+        <module>entities</module>
     </modules>
 
 </project>

@@ -10,6 +10,6 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>shared-ui</artifactId>
+    <artifactId>car-rental-shared-ui</artifactId>
 
 </project>
