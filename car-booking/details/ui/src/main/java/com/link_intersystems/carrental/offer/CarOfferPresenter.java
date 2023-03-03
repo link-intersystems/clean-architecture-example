@@ -1,7 +1,5 @@
-package com.link_intersystems.carrental.booking;
+package com.link_intersystems.carrental.offer;
 
-import com.link_intersystems.carrental.offer.CarOfferOutputModel;
-import com.link_intersystems.carrental.offer.CarOfferRequestModel;
 import com.link_intersystems.swing.binding.BindingValue;
 
 import java.math.BigDecimal;

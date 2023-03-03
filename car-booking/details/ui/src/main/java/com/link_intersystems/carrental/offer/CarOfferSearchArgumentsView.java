@@ -1,4 +1,4 @@
-package com.link_intersystems.carrental.booking;
+package com.link_intersystems.carrental.offer;
 
 import com.link_intersystems.swing.binding.BindingValue;
 import com.link_intersystems.swing.binding.text.JTextComponentBinding;

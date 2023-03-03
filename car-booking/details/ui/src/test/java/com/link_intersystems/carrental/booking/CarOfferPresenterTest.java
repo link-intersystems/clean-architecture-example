@@ -1,6 +1,8 @@
 package com.link_intersystems.carrental.booking;
 
+import com.link_intersystems.carrental.offer.CarOfferModel;
 import com.link_intersystems.carrental.offer.CarOfferOutputModel;
+import com.link_intersystems.carrental.offer.CarOfferPresenter;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
