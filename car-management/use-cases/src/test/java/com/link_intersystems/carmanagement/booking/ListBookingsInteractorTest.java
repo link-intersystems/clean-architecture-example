@@ -3,6 +3,8 @@ package com.link_intersystems.carmanagement.booking;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ListBookingsInteractorTest {
@@ -23,5 +25,8 @@ class ListBookingsInteractorTest {
         ListBookingsResponseModel responseModel = interactor.listBookings(requestModel);
 
         assertNotNull(responseModel);
+
+        List<CarBookingResponseModel> carBookings = responseModel.getCarBookings();
+        assertEquals(2, carBookings.size());
     }
 }

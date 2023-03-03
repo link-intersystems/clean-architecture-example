@@ -7,6 +7,9 @@ import java.util.List;
 public class ListBookingsRepositoryMock implements ListBookingsRepository {
     @Override
     public List<CarBooking> findBookings(LocalDateTime from, LocalDateTime to) {
-        return new ArrayList<>();
+        ArrayList<CarBooking> carBookings = new ArrayList<>();
+        carBookings.add(new CarBooking());
+        carBookings.add(new CarBooking());
+        return carBookings;
     }
 }

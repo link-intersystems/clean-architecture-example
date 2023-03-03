@@ -1,6 +1,7 @@
 package com.link_intersystems.carmanagement.booking;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,10 +24,19 @@ public class ListBookingsInteractor implements ListBookingsUseCase {
     }
 
     private ListBookingsResponseModel toResponseModel(List<CarBooking> carBookings) {
-        ListBookingsResponseModel listBookingsResponseModel = new ListBookingsResponseModel();
+        ListBookingsResponseModel responseModel = new ListBookingsResponseModel();
 
+        ArrayList<CarBookingResponseModel> carBookingsResponseModels = new ArrayList<>();
+        for (CarBooking carBooking : carBookings) {
+            CarBookingResponseModel carBookingResponseModel = toResponseModel(carBooking);
+            carBookingsResponseModels.add(carBookingResponseModel);
+        }
+        responseModel.setCarBookings(carBookingsResponseModels);
 
+        return responseModel;
+    }
 
-        return listBookingsResponseModel;
+    private CarBookingResponseModel toResponseModel(CarBooking carBooking) {
+        return new CarBookingResponseModel();
     }
 }
