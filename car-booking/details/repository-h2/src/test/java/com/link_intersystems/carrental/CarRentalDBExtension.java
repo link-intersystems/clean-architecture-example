@@ -31,7 +31,7 @@ public @interface CarRentalDBExtension {
 
         @Override
         public void setupDdl(Connection connection) throws SQLException {
-            InputStream resourceAsStream = CarRentalDBSetup.class.getResourceAsStream("/com/link_intersystems/carrental/db/init.sql");
+            InputStream resourceAsStream = CarRentalDBSetup.class.getResourceAsStream("/com/link_intersystems/carrental/init.sql");
             SqlScript sqlScript = new SqlScript(new InputStreamScriptResource(resourceAsStream));
             sqlScript.execute(connection);
         }
