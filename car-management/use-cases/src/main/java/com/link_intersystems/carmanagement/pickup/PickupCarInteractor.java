@@ -1,4 +1,4 @@
-package com.link_intersystems.carrental.pickupcar;
+package com.link_intersystems.carmanagement.pickup;
 
 class PickupCarInteractor implements PickupCarUseCase {
 
