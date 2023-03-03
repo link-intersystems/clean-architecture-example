@@ -28,5 +28,11 @@ class ListBookingsInteractorTest {
 
         List<CarBookingResponseModel> carBookings = responseModel.getCarBookings();
         assertEquals(2, carBookings.size());
+
+        CarBookingResponseModel firstBooking = carBookings.get(0);
+        assertEquals(1, firstBooking.getBookingNumber());
+
+        CarBookingResponseModel secondBooking = carBookings.get(1);
+        assertEquals(2, secondBooking.getBookingNumber());
     }
 }

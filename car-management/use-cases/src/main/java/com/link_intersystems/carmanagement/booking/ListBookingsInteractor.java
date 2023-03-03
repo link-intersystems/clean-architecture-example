@@ -37,6 +37,8 @@ public class ListBookingsInteractor implements ListBookingsUseCase {
     }
 
     private CarBookingResponseModel toResponseModel(CarBooking carBooking) {
-        return new CarBookingResponseModel();
+        CarBookingResponseModel carBookingResponseModel = new CarBookingResponseModel();
+        carBookingResponseModel.setBookingNumber(carBooking.getBookingNumber());
+        return carBookingResponseModel;
     }
 }
