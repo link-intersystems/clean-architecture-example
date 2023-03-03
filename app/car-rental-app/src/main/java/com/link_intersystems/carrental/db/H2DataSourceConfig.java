@@ -1,8 +1,9 @@
-package com.link_intersystems.carrental;
+package com.link_intersystems.carrental.db;
 
 import com.link_intersystems.sql.io.InputStreamScriptResource;
 import com.link_intersystems.sql.io.SqlScript;
 import org.h2.jdbcx.JdbcDataSource;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 import java.io.File;
@@ -31,4 +32,7 @@ public class H2DataSourceConfig {
         return jdbcDataSource;
     }
 
+    public JdbcTemplate getJdbcTemplate(DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
+    }
 }

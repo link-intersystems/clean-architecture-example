@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
-import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -24,8 +23,8 @@ public class H2CarBookingRepository implements CarBookingRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public H2CarBookingRepository(DataSource dataSource) {
-        jdbcTemplate = new JdbcTemplate(dataSource);
+    public H2CarBookingRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override

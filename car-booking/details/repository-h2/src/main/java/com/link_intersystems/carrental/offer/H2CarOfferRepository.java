@@ -6,15 +6,14 @@ import com.link_intersystems.carrental.VIN;
 import com.link_intersystems.carrental.VehicleType;
 import com.link_intersystems.carrental.booking.CarBooking;
 import com.link_intersystems.carrental.booking.CarBookinsByCar;
+import com.link_intersystems.carrental.customer.CustomerId;
 import com.link_intersystems.carrental.rental.RentalCar;
 import com.link_intersystems.carrental.rental.RentalRate;
 import com.link_intersystems.money.Amount;
-import com.link_intersystems.carrental.customer.CustomerId;
 import com.link_intersystems.time.Period;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -27,8 +26,8 @@ public class H2CarOfferRepository implements CarOfferRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public H2CarOfferRepository(DataSource dataSource) {
-        jdbcTemplate = new JdbcTemplate(dataSource);
+    public H2CarOfferRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
