@@ -12,36 +12,36 @@ import java.io.File;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Map;
 
 public class H2DataSourceConfig {
 
     public DataSource getCarRentalDataSource() {
-        StringBuilder urlBuilder = new StringBuilder("jdbc:h2:file:./car-rental;USER=sa;PASSWORD=123");
-        JdbcDataSource jdbcDataSource = new JdbcDataSource();
-        jdbcDataSource.setURL(urlBuilder.toString());
-        jdbcDataSource.setUser("sa");
-        jdbcDataSource.setPassword("123");
+        ensureDatabaseInitialized();
 
+        return createDataSource("jdbc:h2:file:./car-rental;USER=sa;PASSWORD=123;SCHEMA=RENTAL");
+    }
+
+    private void ensureDatabaseInitialized() {
         if (!new File("./car-rental.mv.db").exists()) {
+            JdbcDataSource jdbcDataSource = createDataSource("jdbc:h2:file:./car-rental;USER=sa;PASSWORD=123");
+
             executeScript(jdbcDataSource, "/com/link_intersystems/carrental/init.sql");
             executeScript(jdbcDataSource, "/com/link_intersystems/carrental/management/management.sql");
         }
+    }
+
+    private static JdbcDataSource createDataSource(String jdbcUrl) {
+        JdbcDataSource jdbcDataSource = new JdbcDataSource();
+        jdbcDataSource.setURL(jdbcUrl);
+        jdbcDataSource.setUser("sa");
+        jdbcDataSource.setPassword("123");
         return jdbcDataSource;
     }
 
     public DataSource getManagementDataSource() {
-        StringBuilder urlBuilder = new StringBuilder("jdbc:h2:file:./car-rental;USER=sa;PASSWORD=123");
-        JdbcDataSource jdbcDataSource = new JdbcDataSource();
-        jdbcDataSource.setURL(urlBuilder.toString());
-        jdbcDataSource.setUser("sa");
-        jdbcDataSource.setPassword("123");
+        ensureDatabaseInitialized();
 
-        if (!new File("./car-rental.mv.db").exists()) {
-            executeScript(jdbcDataSource, "/com/link_intersystems/carrental/init.sql");
-            executeScript(jdbcDataSource, "/com/link_intersystems/carrental/management/management.sql");
-        }
-        return jdbcDataSource;
+        return createDataSource("jdbc:h2:file:./car-rental;USER=sa;PASSWORD=123;SCHEMA=MANAGEMENT");
     }
 
     private void executeScript(JdbcDataSource jdbcDataSource, String scriptResource) {
