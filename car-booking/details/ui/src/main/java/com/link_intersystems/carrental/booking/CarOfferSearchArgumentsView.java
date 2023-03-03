@@ -10,8 +10,8 @@ class CarOfferSearchArgumentsView {
     private JPanel searchPanel = new JPanel();
     private ComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>(new String[]{"MICRO", "SEDAN", "SUV"});
     private JComboBox<String> vehicleType = new JComboBox<>();
-    private JTextField pickUpDate = new JTextField();
-    private JTextComponentBinding pickupDateBinding = new JTextComponentBinding(pickUpDate);
+    private JTextField pickupDate = new JTextField();
+    private JTextComponentBinding pickupDateBinding = new JTextComponentBinding(pickupDate);
     private JTextField returnDate = new JTextField();
     private JTextComponentBinding returnDateBinding = new JTextComponentBinding(returnDate);
     private JButton searchButton = new JButton();
@@ -39,7 +39,7 @@ class CarOfferSearchArgumentsView {
         searchPanel.add(new JLabel("Pick-up date:"), constraints);
         constraints.gridx = 1;
         constraints.gridy = 1;
-        searchPanel.add(pickUpDate, constraints);
+        searchPanel.add(pickupDate, constraints);
 
         constraints.gridx = 0;
         constraints.gridy = 2;

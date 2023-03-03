@@ -4,12 +4,12 @@ import java.time.LocalDateTime;
 
 public class CarNotAvailableException extends CarBookingException {
     private final String carId;
-    private final LocalDateTime pickUpDateTime;
+    private final LocalDateTime pickupDateTime;
     private final LocalDateTime returnDateTime;
 
-    public CarNotAvailableException(String carId, LocalDateTime pickUpDateTime, LocalDateTime returnDateTime) {
+    public CarNotAvailableException(String carId, LocalDateTime pickupDateTime, LocalDateTime returnDateTime) {
         this.carId = carId;
-        this.pickUpDateTime = pickUpDateTime;
+        this.pickupDateTime = pickupDateTime;
         this.returnDateTime = returnDateTime;
     }
 
@@ -18,7 +18,7 @@ public class CarNotAvailableException extends CarBookingException {
     }
 
     public LocalDateTime getPickUpDateTime() {
-        return pickUpDateTime;
+        return pickupDateTime;
     }
 
     public LocalDateTime getReturnDateTime() {

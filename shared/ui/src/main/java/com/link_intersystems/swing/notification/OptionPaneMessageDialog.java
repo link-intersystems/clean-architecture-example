@@ -1,12 +1,11 @@
-package com.link_intersystems.carrental.ui;
+package com.link_intersystems.swing.notification;
 
-import com.link_intersystems.carrental.MessageDialog;
-import com.link_intersystems.carrental.ThrowableView;
+import com.link_intersystems.swing.exception.ThrowableView;
 
 import javax.swing.*;
 import java.awt.*;
 
-class DefaultMessageDialog implements MessageDialog {
+public class OptionPaneMessageDialog implements MessageDialog {
 
     private Component parentComponent;
 

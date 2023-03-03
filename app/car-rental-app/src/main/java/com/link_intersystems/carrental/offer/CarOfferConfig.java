@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental.offer;
 
-import com.link_intersystems.carrental.MessageDialog;
+import com.link_intersystems.swing.notification.MessageDialog;
 import com.link_intersystems.carrental.booking.*;
 
 import java.time.LocalDateTime;

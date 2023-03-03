@@ -43,16 +43,16 @@ public class CarBookingInteractor implements CarBookingUseCase {
         CarBooking carBooking = repository.findBooking(carId, bookingPeriod);
 
         if (carBooking != null) {
-            LocalDateTime pickUpDateTime = bookingPeriod.getBegin();
+            LocalDateTime pickupDateTime = bookingPeriod.getBegin();
             LocalDateTime returnDateTime = bookingPeriod.getEnd();
-            throw new CarNotAvailableException(carId.getValue(), pickUpDateTime, returnDateTime);
+            throw new CarNotAvailableException(carId.getValue(), pickupDateTime, returnDateTime);
         }
     }
 
     private Period getBookingPeriod(CarBookingRequestModel request) throws CarBookingException {
-        LocalDateTime pickUpDateTime = request.getPickUpDateTime();
+        LocalDateTime pickupDateTime = request.getPickUpDateTime();
         LocalDateTime returnDateTime = request.getReturnDateTime();
-        Period bookingPeriod = new Period(pickUpDateTime, returnDateTime);
+        Period bookingPeriod = new Period(pickupDateTime, returnDateTime);
 
         Clock clock = ClockProvider.getClock();
         if (bookingPeriod.isPast(clock)) {

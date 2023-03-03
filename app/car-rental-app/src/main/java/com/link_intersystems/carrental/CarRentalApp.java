@@ -3,6 +3,7 @@ package com.link_intersystems.carrental;
 import com.link_intersystems.app.context.ApplicationContext;
 import com.link_intersystems.app.context.BeanDefinition;
 import com.link_intersystems.app.context.BeanDefinitionRegitry;
+import com.link_intersystems.carrental.ui.MainFrame;
 
 import java.net.URL;
 import java.util.function.Predicate;

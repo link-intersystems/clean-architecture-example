@@ -1,4 +1,4 @@
-package com.link_intersystems.carrental;
+package com.link_intersystems.swing.exception;
 
 import javax.swing.*;
 import java.awt.*;

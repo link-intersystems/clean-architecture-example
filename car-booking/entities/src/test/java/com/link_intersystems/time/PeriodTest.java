@@ -33,7 +33,7 @@ class PeriodTest {
      * </pre>
      */
     @Test
-    void pickUpDateOverlaps() {
+    void pickupDateOverlaps() {
         Period period1 = from("2023-01-15", "08:00:00").to("2023-01-17", "17:00:00");
         Period period2 = from("2023-01-15", "09:00:00").to("2023-01-18", "17:00:00");
 
@@ -48,7 +48,7 @@ class PeriodTest {
      * </pre>
      */
     @Test
-    void pickUpAndReturnDateDateOverlaps() {
+    void pickupAndReturnDateDateOverlaps() {
         Period period1 = from("2023-01-15", "08:00:00").to("2023-01-17", "17:00:00");
         Period period2 = from("2023-01-15", "09:00:00").to("2023-01-17", "16:00:00");
 

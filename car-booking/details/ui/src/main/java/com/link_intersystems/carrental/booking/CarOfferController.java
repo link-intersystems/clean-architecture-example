@@ -1,12 +1,11 @@
 package com.link_intersystems.carrental.booking;
 
-import com.link_intersystems.carrental.MessageDialog;
+import com.link_intersystems.swing.notification.MessageDialog;
 import com.link_intersystems.carrental.offer.*;
 import com.link_intersystems.swing.action.AbstractWorkerAction;
 import com.link_intersystems.swing.action.BackgroundProgress;
 
 import javax.swing.*;
-import java.time.LocalDateTime;
 import java.util.concurrent.ExecutionException;
 
 public class CarOfferController extends AbstractWorkerAction<CarOfferResponseModel, Void> {

@@ -6,7 +6,7 @@ public class CarBookingRequestModel {
     private int customerId;
     private String carId;
     private int stationId;
-    private LocalDateTime pickUpDateTime;
+    private LocalDateTime pickupDateTime;
     private LocalDateTime returnDateTime;
 
     public int getCustomerId() {
@@ -34,11 +34,11 @@ public class CarBookingRequestModel {
     }
 
     public LocalDateTime getPickUpDateTime() {
-        return pickUpDateTime;
+        return pickupDateTime;
     }
 
-    public void setPickUpDateTime(LocalDateTime pickUpDateTime) {
-        this.pickUpDateTime = pickUpDateTime;
+    public void setPickUpDateTime(LocalDateTime pickupDateTime) {
+        this.pickupDateTime = pickupDateTime;
     }
 
     public LocalDateTime getReturnDateTime() {

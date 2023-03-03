@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class CarOfferRequestModel {
 
     private String vehicleType;
-    private LocalDateTime pickUpDateTime;
+    private LocalDateTime pickupDateTime;
     private LocalDateTime returnDateTime;
 
     public void setVehicleType(String category) {
@@ -16,12 +16,12 @@ public class CarOfferRequestModel {
         return vehicleType;
     }
 
-    public void setPickUpDateTime(LocalDateTime pickUpDateTime) {
-        this.pickUpDateTime = pickUpDateTime;
+    public void setPickUpDateTime(LocalDateTime pickupDateTime) {
+        this.pickupDateTime = pickupDateTime;
     }
 
     LocalDateTime getPickUpDateTime() {
-        return pickUpDateTime;
+        return pickupDateTime;
     }
 
     public void setReturnDateTime(LocalDateTime returnDateTime) {

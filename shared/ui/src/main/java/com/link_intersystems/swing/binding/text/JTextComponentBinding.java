@@ -55,11 +55,11 @@ public class JTextComponentBinding implements DocumentListener {
 
     @Override
     public void changedUpdate(DocumentEvent e) {
-        viewToBinding();
+        viewToValue();
 
     }
 
-    private void viewToBinding() {
+    private void viewToValue() {
         if (bindingValue != null) {
             Document document = textComponent.getDocument();
             try {
