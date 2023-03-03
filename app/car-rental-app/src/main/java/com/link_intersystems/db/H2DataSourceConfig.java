@@ -2,7 +2,6 @@ package com.link_intersystems.db;
 
 import com.link_intersystems.app.context.BeanSelector;
 import com.link_intersystems.sql.io.SqlScript;
-import com.link_intersystems.sql.io.StatementCallback;
 import com.link_intersystems.sql.io.URLScriptResource;
 import org.h2.jdbcx.JdbcDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -48,12 +47,7 @@ public class H2DataSourceConfig {
         try (Connection connection = jdbcDataSource.getConnection()) {
             URL scriptResourceURL = H2DataSourceConfig.class.getResource(scriptResource);
             SqlScript sqlScript = new SqlScript(new URLScriptResource(scriptResourceURL));
-            sqlScript.execute(new StatementCallback() {
-                @Override
-                public void doWithStatement(String sqlStatement) throws SQLException {
-                    System.out.println(sqlStatement);
-                }
-            });
+//            sqlScript.execute(System.out::println);
             sqlScript.execute(connection);
         } catch (SQLException e) {
             throw new RuntimeException(e);
