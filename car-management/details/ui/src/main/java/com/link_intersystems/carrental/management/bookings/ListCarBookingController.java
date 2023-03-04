@@ -1,9 +1,9 @@
 package com.link_intersystems.carrental.management.bookings;
 
-import com.link_intersystems.carmanagement.booking.list.CarBookingResponseModel;
-import com.link_intersystems.carmanagement.booking.list.ListBookingsRequestModel;
-import com.link_intersystems.carmanagement.booking.list.ListBookingsResponseModel;
-import com.link_intersystems.carmanagement.booking.list.ListBookingsUseCase;
+import com.link_intersystems.carrental.management.booking.list.CarBookingResponseModel;
+import com.link_intersystems.carrental.management.booking.list.ListBookingsRequestModel;
+import com.link_intersystems.carrental.management.booking.list.ListBookingsResponseModel;
+import com.link_intersystems.carrental.management.booking.list.ListBookingsUseCase;
 import com.link_intersystems.swing.action.AbstractWorkerAction;
 import com.link_intersystems.swing.action.BackgroundProgress;
 

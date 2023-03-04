@@ -17,6 +17,7 @@
 
     <modules>
         <module>entities</module>
+        <module>events</module>
         <module>details</module>
         <module>use-cases</module>
     </modules>

@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental.management.bookings;
 
-import com.link_intersystems.carmanagement.booking.list.CarBookingResponseModel;
+import com.link_intersystems.carrental.management.booking.list.CarBookingResponseModel;
 
 import java.util.List;
 import java.util.stream.Collectors;
