@@ -14,18 +14,20 @@ import java.sql.SQLException;
 
 public class H2DataSourceConfig {
 
+    public static final String DEFAULT_JDBC_URL = "jdbc:h2:file:./carrental;USER=sa;PASSWORD=123";
+
     public DataSource getCarRentalDataSource() {
         ensureDatabaseInitialized();
 
-        return createDataSource("jdbc:h2:file:./car-rental;USER=sa;PASSWORD=123;SCHEMA=RENTAL");
+        return createDataSource(DEFAULT_JDBC_URL + ";SCHEMA=BOOKING");
     }
 
     private void ensureDatabaseInitialized() {
-        if (!new File("./car-rental.mv.db").exists()) {
-            JdbcDataSource jdbcDataSource = createDataSource("jdbc:h2:file:./car-rental;USER=sa;PASSWORD=123");
+        if (!new File("./carrental.mv.db").exists()) {
+            JdbcDataSource jdbcDataSource = createDataSource(DEFAULT_JDBC_URL);
 
             executeScript(jdbcDataSource, "/com/link_intersystems/carrental/init.sql");
-            executeScript(jdbcDataSource, "/com/link_intersystems/carrental/carmanagement/init.sql");
+            executeScript(jdbcDataSource, "/com/link_intersystems/carrental/management/init.sql");
         }
     }
 
@@ -40,7 +42,7 @@ public class H2DataSourceConfig {
     public DataSource getManagementDataSource() {
         ensureDatabaseInitialized();
 
-        return createDataSource("jdbc:h2:file:./car-rental;USER=sa;PASSWORD=123;SCHEMA=MANAGEMENT");
+        return createDataSource(DEFAULT_JDBC_URL + ";SCHEMA=MANAGEMENT");
     }
 
     private void executeScript(JdbcDataSource jdbcDataSource, String scriptResource) {
