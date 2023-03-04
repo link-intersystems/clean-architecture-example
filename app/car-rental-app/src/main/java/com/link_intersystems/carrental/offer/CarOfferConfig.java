@@ -10,7 +10,8 @@ import java.time.LocalDateTime;
 public class CarOfferConfig {
 
     public CarOfferRepository getCarOfferRepository(BeanSelector<JdbcTemplate> beanSelector) {
-        return new H2CarOfferRepository(beanSelector.select("getCarRentalJdbcTemplate"));
+        JdbcTemplate carRentalJdbcTemplate = beanSelector.select("getCarRentalJdbcTemplate");
+        return new H2CarOfferRepository(carRentalJdbcTemplate);
     }
 
     public CarOfferUseCase getCarOfferUseCase(CarOfferRepository carOfferRepository) {

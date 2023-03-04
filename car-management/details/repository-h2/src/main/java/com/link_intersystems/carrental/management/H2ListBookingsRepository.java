@@ -4,6 +4,8 @@ import com.link_intersystems.carmanagement.booking.CarBooking;
 import com.link_intersystems.carmanagement.booking.ListBookingsRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,6 +20,13 @@ public class H2ListBookingsRepository implements ListBookingsRepository {
 
     @Override
     public List<CarBooking> findBookings(LocalDateTime from, LocalDateTime to) {
-        return null;
+        return jdbcTemplate.query("SELECT * FROM CAR_BOOKING", this::mapCarBookingRow);
+    }
+
+    private CarBooking mapCarBookingRow(ResultSet rs, int rowNum) throws SQLException {
+        int bookingNumber = rs.getInt("BOOKING_NUMBER");
+        String vin = rs.getString("VIN");
+        CarBooking carBooking = new CarBooking(bookingNumber, vin);
+        return carBooking;
     }
 }

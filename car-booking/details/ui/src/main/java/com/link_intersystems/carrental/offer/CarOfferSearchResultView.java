@@ -5,7 +5,7 @@ import com.link_intersystems.swing.selection.ListSelection;
 import com.link_intersystems.swing.selection.SelectionProvider;
 import com.link_intersystems.swing.selection.SelectionProviderSupport;
 import com.link_intersystems.swing.table.DefaultListTableModel;
-import com.link_intersystems.swing.table.beans.BeanTableElementSupport;
+import com.link_intersystems.swing.table.beans.BeanListTableDescriptorModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,9 +45,8 @@ class CarOfferSearchResultView {
 
     private void onCarOfferListModelChange(ListModel<CarOfferModel> carOfferListModel) {
         carOfferModelListTableModel.setListModel(carOfferListModel);
-        BeanTableElementSupport<CarOfferModel> beanTableElementSupport = BeanTableElementSupport.of(CarOfferModel.class);
-        carOfferModelListTableModel.setTableElementMetaData(beanTableElementSupport);
-        carOfferModelListTableModel.setTableElementCell(beanTableElementSupport);
+        BeanListTableDescriptorModel<CarOfferModel> beanTableElementSupport = BeanListTableDescriptorModel.of(CarOfferModel.class);
+        carOfferModelListTableModel.setListTableDescriptorModel(beanTableElementSupport);
         listModelSelection.setListModel(carOfferListModel);
         carOfferTable.setModel(carOfferModelListTableModel);
         carOfferModelListTableModel.fireTableStructureChanged();

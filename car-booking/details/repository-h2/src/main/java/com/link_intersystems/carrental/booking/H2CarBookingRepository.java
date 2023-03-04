@@ -8,15 +8,13 @@ import com.link_intersystems.time.Period;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class H2CarBookingRepository implements CarBookingRepository {
@@ -58,20 +56,24 @@ public class H2CarBookingRepository implements CarBookingRepository {
 
     @Override
     public void persist(CarBooking carBooking) {
+        Integer nextId = jdbcTemplate.queryForObject("VALUES NEXT VALUE FOR CAR_BOOKING_SEQ", Integer.class);
+
         CarId carId = carBooking.getCarId();
         CustomerId customerId = carBooking.getCustomerId();
         Period bookingPeriod = carBooking.getBookingPeriod();
 
-        SimpleJdbcInsert carBookingInsert = new SimpleJdbcInsert(jdbcTemplate.getDataSource()).withTableName("CAR_BOOKING").usingGeneratedKeyColumns("BOOKING_NUMBER");
-        Map<String, Object> parameters = new HashMap<>(1);
-        parameters.put("CARID", carId.getValue());
-        parameters.put("CUSTOMER_ID", customerId.getValue());
-        parameters.put("PICKUP_DATETIME", bookingPeriod.getBegin());
-        parameters.put("RETURN_DATETIME", bookingPeriod.getEnd());
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO CAR_BOOKING(BOOKING_NUMBER, CARID, CUSTOMER_ID, PICKUP_DATETIME, RETURN_DATETIME) VALUES (?, ?, ? , ?, ?)");
+            ps.setObject(1, nextId);
+            ps.setObject(2, carId.getValue());
+            ps.setObject(3, customerId.getValue());
+            ps.setObject(4, bookingPeriod.getBegin());
+            ps.setObject(5, bookingPeriod.getEnd());
+            return ps;
+        });
 
-        Number newId = carBookingInsert.executeAndReturnKey(parameters);
 
-        carBooking.setBookingNumber(new BookingNumber(newId.intValue()));
+        carBooking.setBookingNumber(new BookingNumber(nextId));
     }
 
     @Override

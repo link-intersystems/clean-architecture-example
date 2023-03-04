@@ -25,7 +25,7 @@ public class H2DataSourceConfig {
             JdbcDataSource jdbcDataSource = createDataSource("jdbc:h2:file:./car-rental;USER=sa;PASSWORD=123");
 
             executeScript(jdbcDataSource, "/com/link_intersystems/carrental/init.sql");
-            executeScript(jdbcDataSource, "/com/link_intersystems/carrental/management/management.sql");
+            executeScript(jdbcDataSource, "/com/link_intersystems/carrental/management/init.sql");
         }
     }
 
@@ -55,10 +55,12 @@ public class H2DataSourceConfig {
     }
 
     public JdbcTemplate getCarRentalJdbcTemplate(BeanSelector<DataSource> dataSources) {
-        return new JdbcTemplate(dataSources.select("getCarRentalDataSource"));
+        DataSource carRentalDataSource = dataSources.select("getCarRentalDataSource");
+        return new JdbcTemplate(carRentalDataSource);
     }
 
     public JdbcTemplate getManagementJdbcTemplate(BeanSelector<DataSource> dataSources) {
-        return new JdbcTemplate(dataSources.select("getManagementDataSource"));
+        DataSource managementDataSource = dataSources.select("getManagementDataSource");
+        return new JdbcTemplate(managementDataSource);
     }
 }

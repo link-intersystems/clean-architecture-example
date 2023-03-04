@@ -2,6 +2,8 @@ package com.link_intersystems.carmanagement.booking;
 
 import com.link_intersystems.app.context.BeanSelector;
 import com.link_intersystems.carrental.management.H2ListBookingsRepository;
+import com.link_intersystems.carrental.management.bookings.ListCarBookingController;
+import com.link_intersystems.carrental.management.bookings.ListCarBookingView;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class CarBookingConfig {
@@ -12,5 +14,16 @@ public class CarBookingConfig {
 
     public ListBookingsUseCase getListCarBookingsUseCase(ListBookingsRepository listBookingsRepository) {
         return new ListBookingsInteractor(listBookingsRepository);
+    }
+
+    public ListCarBookingController getListCarBookingController(ListBookingsUseCase listBookingsUseCase) {
+        return new ListCarBookingController(listBookingsUseCase);
+    }
+
+    public ListCarBookingView getListCarBookingView(ListCarBookingController listCarBookingController) {
+        ListCarBookingView listCarBookingView = new ListCarBookingView();
+        listCarBookingView.setListCarBookingsAction(listCarBookingController);
+        listCarBookingView.setListCarBookingModel(listCarBookingController.getCarBookingListModel());
+        return listCarBookingView;
     }
 }
