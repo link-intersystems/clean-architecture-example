@@ -4,8 +4,8 @@ import com.link_intersystems.carrental.CarId;
 import com.link_intersystems.carrental.DomainEventBus;
 import com.link_intersystems.carrental.VIN;
 import com.link_intersystems.carrental.customer.CustomerId;
-import com.link_intersystems.time.ClockProvider;
-import com.link_intersystems.time.Period;
+import com.link_intersystems.carrental.time.ClockProvider;
+import com.link_intersystems.carrental.time.Period;
 
 import java.time.Clock;
 import java.time.LocalDateTime;

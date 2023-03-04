@@ -7,7 +7,7 @@ import com.link_intersystems.carrental.VehicleType;
 import com.link_intersystems.carrental.booking.CarBooking;
 import com.link_intersystems.carrental.booking.CarBookinsByCar;
 import com.link_intersystems.carrental.rental.RentalCar;
-import com.link_intersystems.time.Period;
+import com.link_intersystems.carrental.time.Period;
 
 import java.util.List;
 import java.util.Objects;

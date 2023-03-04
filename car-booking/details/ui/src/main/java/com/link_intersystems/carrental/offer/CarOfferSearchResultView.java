@@ -4,8 +4,8 @@ import com.link_intersystems.swing.list.ListModelSelection;
 import com.link_intersystems.swing.selection.ListSelection;
 import com.link_intersystems.swing.selection.SelectionProvider;
 import com.link_intersystems.swing.selection.SelectionProviderSupport;
-import com.link_intersystems.swing.table.DefaultListTableModel;
-import com.link_intersystems.swing.table.beans.BeanListTableDescriptorModel;
+import com.link_intersystems.carrental.swing.table.DefaultListTableModel;
+import com.link_intersystems.carrental.swing.table.beans.BeanListTableDescriptorModel;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.offer;
 
-import com.link_intersystems.swing.binding.BindingValue;
-import com.link_intersystems.swing.binding.DefaultBindingValue;
+import com.link_intersystems.carrental.swing.binding.BindingValue;
+import com.link_intersystems.carrental.swing.binding.DefaultBindingValue;
 
 public class CarSearchModel {
     private BindingValue<String> vehicleType = new DefaultBindingValue<>();

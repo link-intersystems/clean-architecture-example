@@ -9,7 +9,7 @@ import com.link_intersystems.carrental.booking.CarBookingFixture;
 import com.link_intersystems.carrental.booking.CarBookinsByCar;
 import com.link_intersystems.carrental.rental.RentalCar;
 import com.link_intersystems.carrental.rental.RentalCarFixture;
-import com.link_intersystems.time.Period;
+import com.link_intersystems.carrental.time.Period;
 
 import java.util.List;
 import java.util.function.Predicate;

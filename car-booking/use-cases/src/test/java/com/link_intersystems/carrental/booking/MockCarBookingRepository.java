@@ -4,7 +4,7 @@ import com.link_intersystems.carrental.CarFixture;
 import com.link_intersystems.carrental.CarId;
 import com.link_intersystems.carrental.customer.CustomerFixture;
 import com.link_intersystems.carrental.customer.CustomerId;
-import com.link_intersystems.time.Period;
+import com.link_intersystems.carrental.time.Period;
 
 import java.util.Optional;
 

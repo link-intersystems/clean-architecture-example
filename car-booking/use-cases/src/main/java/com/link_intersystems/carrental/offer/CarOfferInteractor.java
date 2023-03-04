@@ -4,7 +4,7 @@ import com.link_intersystems.carrental.CarId;
 import com.link_intersystems.carrental.VehicleType;
 import com.link_intersystems.carrental.booking.CarBookinsByCar;
 import com.link_intersystems.carrental.rental.RentalCar;
-import com.link_intersystems.time.Period;
+import com.link_intersystems.carrental.time.Period;
 
 import java.time.LocalDateTime;
 import java.util.List;

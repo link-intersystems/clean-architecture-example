@@ -1,8 +1,7 @@
 package com.link_intersystems.carrental.management.bookings;
 
-import com.link_intersystems.swing.table.DefaultListTableDescriptorModel;
-import com.link_intersystems.swing.table.DefaultListTableModel;
-import com.link_intersystems.swing.table.ListTableDescriptorModel;
+import com.link_intersystems.carrental.swing.table.DefaultListTableDescriptorModel;
+import com.link_intersystems.carrental.swing.table.DefaultListTableModel;
 
 import javax.swing.*;
 import java.awt.*;

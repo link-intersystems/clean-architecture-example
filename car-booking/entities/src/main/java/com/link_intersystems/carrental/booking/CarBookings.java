@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental.booking;
 
-import com.link_intersystems.time.Period;
+import com.link_intersystems.carrental.time.Period;
 
 import java.util.AbstractList;
 import java.util.ArrayList;

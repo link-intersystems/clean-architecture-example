@@ -4,8 +4,8 @@ import com.link_intersystems.app.context.BeanFactory;
 import com.link_intersystems.app.context.LazyBeanSetter;
 import com.link_intersystems.carrental.management.CarManagementView;
 import com.link_intersystems.carrental.offer.CarOfferView;
-import com.link_intersystems.swing.notification.MessageDialog;
-import com.link_intersystems.swing.notification.OptionPaneMessageDialog;
+import com.link_intersystems.carrental.swing.notification.MessageDialog;
+import com.link_intersystems.carrental.swing.notification.OptionPaneMessageDialog;
 
 public class MainConfig {
 

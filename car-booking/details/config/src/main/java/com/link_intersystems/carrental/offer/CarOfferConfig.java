@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.offer;
 
 import com.link_intersystems.app.context.BeanSelector;
-import com.link_intersystems.swing.notification.MessageDialog;
+import com.link_intersystems.carrental.swing.notification.MessageDialog;
 import com.link_intersystems.carrental.booking.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 

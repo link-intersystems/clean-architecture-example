@@ -2,7 +2,7 @@ package com.link_intersystems.carrental.rental;
 
 import com.link_intersystems.EntityFixture;
 import com.link_intersystems.carrental.CarFixture;
-import com.link_intersystems.money.Amount;
+import com.link_intersystems.carrental.money.Amount;
 
 import java.util.List;
 

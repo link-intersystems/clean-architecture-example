@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static com.link_intersystems.time.LocalDateTimeUtils.*;
+import static com.link_intersystems.carrental.time.LocalDateTimeUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CarOffersInteractorTest {

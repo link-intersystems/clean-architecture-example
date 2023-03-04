@@ -2,12 +2,12 @@ package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.CarFixture;
 import com.link_intersystems.carrental.customer.CustomerFixture;
-import com.link_intersystems.time.EnableFixedClock;
-import com.link_intersystems.time.FixedClock;
+import com.link_intersystems.carrental.time.EnableFixedClock;
+import com.link_intersystems.carrental.time.FixedClock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.link_intersystems.time.LocalDateTimeUtils.*;
+import static com.link_intersystems.carrental.time.LocalDateTimeUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @EnableFixedClock

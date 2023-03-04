@@ -5,7 +5,7 @@ import com.link_intersystems.carrental.CarId;
 import com.link_intersystems.carrental.Specs;
 import com.link_intersystems.carrental.rental.RentalCar;
 import com.link_intersystems.carrental.rental.RentalRate;
-import com.link_intersystems.money.Amount;
+import com.link_intersystems.carrental.money.Amount;
 
 import java.util.List;
 

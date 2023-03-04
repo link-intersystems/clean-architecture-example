@@ -2,7 +2,7 @@ package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.offer.*;
 import com.link_intersystems.swing.action.ActionTrigger;
-import com.link_intersystems.time.LocalDateTimeUtils;
+import com.link_intersystems.carrental.time.LocalDateTimeUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

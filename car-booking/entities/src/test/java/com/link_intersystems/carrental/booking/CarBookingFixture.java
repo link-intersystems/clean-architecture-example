@@ -3,11 +3,11 @@ package com.link_intersystems.carrental.booking;
 import com.link_intersystems.EntityFixture;
 import com.link_intersystems.carrental.CarFixture;
 import com.link_intersystems.carrental.customer.CustomerId;
-import com.link_intersystems.time.Period;
+import com.link_intersystems.carrental.time.Period;
 
 import java.util.List;
 
-import static com.link_intersystems.time.PeriodBuilder.*;
+import static com.link_intersystems.carrental.time.PeriodBuilder.*;
 
 public class CarBookingFixture extends EntityFixture<CarBooking> {
 

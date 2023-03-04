@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.offer;
 
-import com.link_intersystems.swing.binding.BindingValue;
-import com.link_intersystems.swing.binding.text.JTextComponentBinding;
+import com.link_intersystems.carrental.swing.binding.BindingValue;
+import com.link_intersystems.carrental.swing.binding.text.JTextComponentBinding;
 
 import javax.swing.*;
 import java.awt.*;

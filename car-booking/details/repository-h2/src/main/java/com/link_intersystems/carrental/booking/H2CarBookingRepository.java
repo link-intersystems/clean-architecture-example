@@ -4,7 +4,7 @@ import com.link_intersystems.carrental.CarId;
 import com.link_intersystems.carrental.VIN;
 import com.link_intersystems.carrental.customer.Customer;
 import com.link_intersystems.carrental.customer.CustomerId;
-import com.link_intersystems.time.Period;
+import com.link_intersystems.carrental.time.Period;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

@@ -4,7 +4,7 @@ import com.link_intersystems.carrental.CarId;
 import com.link_intersystems.carrental.DataSetRegistry;
 import com.link_intersystems.carrental.customer.Customer;
 import com.link_intersystems.carrental.customer.CustomerId;
-import com.link_intersystems.time.Period;
+import com.link_intersystems.carrental.time.Period;
 
 import java.util.List;
 import java.util.Objects;

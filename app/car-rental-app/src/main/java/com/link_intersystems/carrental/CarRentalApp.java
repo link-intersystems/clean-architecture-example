@@ -15,7 +15,7 @@ public class CarRentalApp {
         carRentalApp.run(args);
     }
 
-    private void run(String[] args) {
+    void run(String[] args) {
         BeanDefinitionRegitry beanDefinitionRegitry = new BeanDefinitionRegitry();
 
         Predicate<BeanDefinition> excludeBeanDefinitions = getBeanDefinitionPredicate(args);
@@ -24,6 +24,10 @@ public class CarRentalApp {
         beanDefinitionRegitry.setBeanDefinitionFilter(excludeBeanDefinitions);
         ApplicationContext applicationContext = new ApplicationContext(beanDefinitionRegitry);
         MainFrame mainFrame = applicationContext.getBean(MainFrame.class);
+        openFrame(mainFrame);
+    }
+
+    protected void openFrame(MainFrame mainFrame) {
         mainFrame.show();
     }
 
