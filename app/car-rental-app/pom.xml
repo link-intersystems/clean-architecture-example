@@ -19,6 +19,11 @@
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
+            <groupId>com.acme.car-rental.shared</groupId>
+            <artifactId>car-rental-events</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>com.acme.car-rental.booking</groupId>
             <artifactId>car-booking-ui</artifactId>
             <version>1.0.0-SNAPSHOT</version>

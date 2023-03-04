@@ -1,4 +1,4 @@
-package com.link_intersystems.carmanagement.booking;
+package com.link_intersystems.carmanagement.booking.list;
 
 import java.time.LocalDateTime;
 

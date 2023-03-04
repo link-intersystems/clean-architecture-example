@@ -1,7 +1,6 @@
-package com.link_intersystems.carrental.management;
+package com.link_intersystems.carmanagement.booking.list;
 
 import com.link_intersystems.carmanagement.booking.CarBooking;
-import com.link_intersystems.carmanagement.booking.ListBookingsRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.sql.ResultSet;

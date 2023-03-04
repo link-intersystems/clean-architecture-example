@@ -1,7 +1,6 @@
-package com.link_intersystems.carmanagement.booking;
+package com.link_intersystems.carmanagement.booking.list;
 
 import com.link_intersystems.app.context.BeanSelector;
-import com.link_intersystems.carrental.management.H2ListBookingsRepository;
 import com.link_intersystems.carrental.management.bookings.ListCarBookingController;
 import com.link_intersystems.carrental.management.bookings.ListCarBookingView;
 import org.springframework.jdbc.core.JdbcTemplate;

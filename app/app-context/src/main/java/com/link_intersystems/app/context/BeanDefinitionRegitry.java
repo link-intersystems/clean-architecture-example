@@ -27,6 +27,22 @@ public class BeanDefinitionRegitry {
     }
 
     public BeanDefinition getBeanDefinition(BeanDeclaration beanDeclaration) throws AmbiguousBeanException {
+        List<BeanDefinition> matchingBeanDefinitions = getBeanDefinitions(beanDeclaration);
+
+        if (matchingBeanDefinitions.isEmpty()) {
+            throw new RuntimeException("Bean " + beanDeclaration.getType().getName() + " is not available.");
+        }
+
+        if (matchingBeanDefinitions.size() == 1) {
+            BeanDefinition beanDefinition = matchingBeanDefinitions.get(0);
+            return beanDefinition;
+        }
+
+
+        throw new AmbiguousBeanException(ExceptionUtils.ambiguousBean(beanDeclaration, matchingBeanDefinitions), matchingBeanDefinitions);
+    }
+
+    public List<BeanDefinition> getBeanDefinitions(BeanDeclaration beanDeclaration) {
         List<BeanDefinition> beanDefinitions = getBeanDefinitions();
 
         List<BeanDefinition> matchingBeanDefinitions = new ArrayList<>();
@@ -51,26 +67,7 @@ public class BeanDefinitionRegitry {
 
             matchingBeanDefinitions.add(beanDefinition);
         }
-
-        if (matchingBeanDefinitions.isEmpty()) {
-            throw new RuntimeException("Bean " + beanDeclaration.getType().getName() + " is not available.");
-        }
-
-        if (matchingBeanDefinitions.size() == 1) {
-            BeanDefinition beanDefinition = matchingBeanDefinitions.get(0);
-            return beanDefinition;
-        }
-
-
-        throw new AmbiguousBeanException(ExceptionUtils.ambiguousBean(beanDeclaration, matchingBeanDefinitions), matchingBeanDefinitions);
-    }
-
-    protected boolean matches(BeanDeclaration actBeanDeclaration, BeanDeclaration otherBeanDeclaration) {
-        if (isInstance(actBeanDeclaration, otherBeanDeclaration)) {
-            return true;
-        }
-
-        return isNamed(actBeanDeclaration, otherBeanDeclaration.getName());
+        return matchingBeanDefinitions;
     }
 
     private boolean isInstance(BeanDeclaration actBeanDeclaration, BeanDeclaration otherBeanDeclaration) {

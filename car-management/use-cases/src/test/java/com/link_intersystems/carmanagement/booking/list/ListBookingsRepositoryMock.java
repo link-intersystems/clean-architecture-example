@@ -1,4 +1,7 @@
-package com.link_intersystems.carmanagement.booking;
+package com.link_intersystems.carmanagement.booking.list;
+
+import com.link_intersystems.carmanagement.booking.CarBooking;
+import com.link_intersystems.carmanagement.booking.list.ListBookingsRepository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

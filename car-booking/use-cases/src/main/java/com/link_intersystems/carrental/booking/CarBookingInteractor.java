@@ -1,6 +1,7 @@
 package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.CarId;
+import com.link_intersystems.carrental.DomainEventBus;
 import com.link_intersystems.carrental.VIN;
 import com.link_intersystems.carrental.customer.CustomerId;
 import com.link_intersystems.time.ClockProvider;
@@ -35,6 +36,8 @@ public class CarBookingInteractor implements CarBookingUseCase {
 
         CarBookingResponseModel responseModel = new CarBookingResponseModel();
         responseModel.setBookingNumber(Integer.toString(carBooking.getBookingNumber().getValue()));
+
+        DomainEventBus.publish(new CarBookedEvent(carBooking.getBookingNumber().getValue(), carBooking.getCarId().getValue()));
         return responseModel;
     }
 

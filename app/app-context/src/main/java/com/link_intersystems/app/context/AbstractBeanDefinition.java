@@ -4,6 +4,7 @@ import java.lang.reflect.Executable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -49,8 +50,12 @@ abstract class AbstractBeanDefinition implements BeanDefinition {
 
         for (int i = 0; i < parameterTypes.length; i++) {
             Class<?> parameterType = parameterTypes[i];
-
-            if (Supplier.class.isAssignableFrom(parameterType)) {
+            if (List.class.isAssignableFrom(parameterType)) {
+                Type[] genericParameterTypes = executable.getGenericParameterTypes();
+                ParameterizedType parameterizedType = (ParameterizedType) genericParameterTypes[i];
+                Class<?> actualTypeArgument = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+                args[i] = beanFactory.getBeans(actualTypeArgument);
+            } else if (Supplier.class.isAssignableFrom(parameterType)) {
                 Type[] genericParameterTypes = executable.getGenericParameterTypes();
                 ParameterizedType parameterizedType = (ParameterizedType) genericParameterTypes[i];
                 Class<?> actualTypeArgument = (Class<?>) parameterizedType.getActualTypeArguments()[0];

@@ -25,7 +25,7 @@ public class H2DataSourceConfig {
             JdbcDataSource jdbcDataSource = createDataSource("jdbc:h2:file:./car-rental;USER=sa;PASSWORD=123");
 
             executeScript(jdbcDataSource, "/com/link_intersystems/carrental/init.sql");
-            executeScript(jdbcDataSource, "/com/link_intersystems/carrental/management/init.sql");
+            executeScript(jdbcDataSource, "/com/link_intersystems/carrental/carmanagement/init.sql");
         }
     }
 

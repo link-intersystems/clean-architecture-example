@@ -1,11 +1,15 @@
-package com.link_intersystems.carmanagement.booking;
+package com.link_intersystems.carmanagement.booking.list;
+
+import com.link_intersystems.carmanagement.booking.CarBooking;
+import com.link_intersystems.carrental.DomainEventSubscriber;
+import com.link_intersystems.carrental.booking.CarBookedEvent;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ListBookingsInteractor implements ListBookingsUseCase {
+class ListBookingsInteractor implements ListBookingsUseCase, DomainEventSubscriber {
 
     private ListBookingsRepository listBookingsRepository;
 
@@ -41,5 +45,16 @@ public class ListBookingsInteractor implements ListBookingsUseCase {
         carBookingResponseModel.setBookingNumber(carBooking.getBookingNumber());
         carBookingResponseModel.setVin(carBooking.getVin());
         return carBookingResponseModel;
+    }
+
+    @Override
+    public boolean subscribedTo(Class<?> domainEventType) {
+        return CarBookedEvent.class.isAssignableFrom(domainEventType);
+    }
+
+    @Override
+    public void handleEvent(Object domainEvent) {
+        CarBookedEvent carBookedEvent = (CarBookedEvent) domainEvent;
+        System.out.println(carBookedEvent);
     }
 }

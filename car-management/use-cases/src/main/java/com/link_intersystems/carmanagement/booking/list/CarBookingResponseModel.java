@@ -1,4 +1,4 @@
-package com.link_intersystems.carmanagement.booking;
+package com.link_intersystems.carmanagement.booking.list;
 
 public class CarBookingResponseModel {
     private Integer bookingNumber;

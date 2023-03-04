@@ -54,6 +54,20 @@ public class ApplicationContext implements BeanFactory {
         }
     }
 
+    @Override
+    public <T> List<T> getBeans(Class<T> type) {
+        List<T> beans = new ArrayList<>();
+        BeanDeclaration beanDeclaration = new BeanDeclaration(type, null);
+        List<BeanDefinition> beanDefinitions = getBeanDefinitionRegitry().getBeanDefinitions(beanDeclaration);
+
+        for (BeanDefinition beanDefinition : beanDefinitions) {
+            BeanDeclaration actBeanDeclaration = beanDefinition.getBeanRef();
+            Object bean = tryGetBean(actBeanDeclaration);
+            beans.add((T) bean);
+        }
+
+        return beans;
+    }
 
     private <T> T tryGetBean(BeanDeclaration beanDeclaration) {
         BeanDefinition matchingBeanDefinition = getBeanDefinitionRegitry().getBeanDefinition(beanDeclaration);

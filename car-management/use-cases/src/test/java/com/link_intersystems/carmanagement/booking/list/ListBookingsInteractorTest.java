@@ -1,4 +1,4 @@
-package com.link_intersystems.carmanagement.booking;
+package com.link_intersystems.carmanagement.booking.list;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

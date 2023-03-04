@@ -1,5 +1,7 @@
 package com.link_intersystems.app.context;
 
+import java.util.List;
+
 public interface BeanFactory {
     default <T> T getBean(Class<T> type) {
         return getBean(type, null);
@@ -10,4 +12,6 @@ public interface BeanFactory {
     <T> LazyBeanSetter<T> getLazyBeanSetter(Class<T> type);
 
     <T> BeanSelector<T> getBeanSelector(Class<T> type);
+
+    <T> List<T> getBeans(Class<T> type);
 }
