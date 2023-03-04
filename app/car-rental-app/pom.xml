@@ -19,23 +19,18 @@
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.acme.car-rental.shared</groupId>
-            <artifactId>car-rental-events</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>com.acme.car-rental.booking</groupId>
-            <artifactId>car-booking-ui</artifactId>
+            <artifactId>car-booking-config</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.acme.car-rental.management</groupId>
-            <artifactId>car-management-ui</artifactId>
+            <artifactId>car-management-config</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.acme.car-rental.shared</groupId>
-            <artifactId>car-rental-shared-ui</artifactId>
+            <artifactId>car-rental-events</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
