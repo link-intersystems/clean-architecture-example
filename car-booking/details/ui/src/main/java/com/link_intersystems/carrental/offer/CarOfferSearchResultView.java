@@ -1,11 +1,11 @@
 package com.link_intersystems.carrental.offer;
 
+import com.link_intersystems.swing.table.DefaultListTableModel;
+import com.link_intersystems.swing.table.beans.BeanListTableDescriptorModel;
 import com.link_intersystems.swing.list.ListModelSelection;
-import com.link_intersystems.swing.selection.ListSelection;
+import com.link_intersystems.swing.selection.Selection;
 import com.link_intersystems.swing.selection.SelectionProvider;
 import com.link_intersystems.swing.selection.SelectionProviderSupport;
-import com.link_intersystems.carrental.swing.table.DefaultListTableModel;
-import com.link_intersystems.carrental.swing.table.beans.BeanListTableDescriptorModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,25 +15,26 @@ class CarOfferSearchResultView {
     private ListModel<CarOfferModel> carOfferListModel;
 
     private DefaultListTableModel<CarOfferModel> carOfferModelListTableModel = new DefaultListTableModel<>();
-    private JTable carOfferTable = new JTable(carOfferModelListTableModel);
+    private JTable carOfferTable = new JTable();
     private ListSelectionModel listSelectionModel = new DefaultListSelectionModel();
-    private ListModelSelection<CarOfferModel> listModelSelection = new ListModelSelection<>();
     private JScrollPane carOfferTableScrollPane = new JScrollPane(carOfferTable);
 
     private SelectionProviderSupport<CarOfferModel> carOfferModelSelectionProvider = new SelectionProviderSupport<>(this);
 
     CarOfferSearchResultView() {
+        BeanListTableDescriptorModel<CarOfferModel> beanTableElementSupport = BeanListTableDescriptorModel.of(CarOfferModel.class);
+        carOfferModelListTableModel.setListTableDescriptorModel(beanTableElementSupport);
+        carOfferTable.setModel(carOfferModelListTableModel);
+
         listSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         carOfferTable.setSelectionModel(listSelectionModel);
-        listModelSelection.setSelectionModel(listSelectionModel);
 
         listSelectionModel.addListSelectionListener(e -> {
             if (e.getValueIsAdjusting()) {
                 return;
             }
 
-            ListSelection<CarOfferModel> newSelection = new ListSelection<>();
-            newSelection.addAll(listModelSelection.toList());
+            Selection<CarOfferModel> newSelection = new ListModelSelection<>(carOfferListModel, listSelectionModel);
             carOfferModelSelectionProvider.setSelection(newSelection);
         });
     }
@@ -45,10 +46,6 @@ class CarOfferSearchResultView {
 
     private void onCarOfferListModelChange(ListModel<CarOfferModel> carOfferListModel) {
         carOfferModelListTableModel.setListModel(carOfferListModel);
-        BeanListTableDescriptorModel<CarOfferModel> beanTableElementSupport = BeanListTableDescriptorModel.of(CarOfferModel.class);
-        carOfferModelListTableModel.setListTableDescriptorModel(beanTableElementSupport);
-        listModelSelection.setListModel(carOfferListModel);
-        carOfferTable.setModel(carOfferModelListTableModel);
         carOfferModelListTableModel.fireTableStructureChanged();
     }
 

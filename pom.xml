@@ -21,7 +21,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit-jupiter.version>5.5.2</junit-jupiter.version>
-        <lis-commons.verions>1.8.6</lis-commons.verions>
+        <lis-commons.verions>1.8.7</lis-commons.verions>
     </properties>
 
     <dependencyManagement>

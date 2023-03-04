@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.management.bookings;
 
-import com.link_intersystems.carrental.swing.table.DefaultListTableDescriptorModel;
-import com.link_intersystems.carrental.swing.table.DefaultListTableModel;
+import com.link_intersystems.swing.table.DefaultListTableDescriptorModel;
+import com.link_intersystems.swing.table.DefaultListTableModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +13,7 @@ public class ListCarBookingView {
 
     private DefaultListTableDescriptorModel<CarBookingModel> tableDescriptorModel = new DefaultListTableDescriptorModel<>();
     private DefaultListTableModel<CarBookingModel> carBookingTableModel = new DefaultListTableModel<>();
-    private JTable bookingsTable = new JTable(carBookingTableModel);
+    private JTable bookingsTable = new JTable();
     private JScrollPane bookingsTableScrollPane = new JScrollPane((bookingsTable));
 
     private JButton listCarBookingsButton = new JButton();
@@ -23,6 +23,8 @@ public class ListCarBookingView {
         tableDescriptorModel.addColumnDescriptor("Booking Number", CarBookingModel::getBookingNumber);
         tableDescriptorModel.addColumnDescriptor("VIN", CarBookingModel::getVin);
         carBookingTableModel.setListTableDescriptorModel(tableDescriptorModel);
+
+        bookingsTable.setModel(carBookingTableModel);
 
         panel.add(actionPanel, BorderLayout.EAST);
         panel.add(bookingsTableScrollPane, BorderLayout.CENTER);

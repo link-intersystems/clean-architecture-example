@@ -27,7 +27,7 @@ public class CarBookingController extends AbstractWorkerAction<CarBookingRespons
     private Optional<ActionListener> onDoneActionListener = Optional.empty();
 
     private SelectionListener<CarOfferModel> carOfferModelSelectionListener = event -> {
-        Selection<CarOfferModel> selection = event.getSelection();
+        Selection<CarOfferModel> selection = event.getNewSelection();
         setCarOfferSelection(selection);
     };
 
