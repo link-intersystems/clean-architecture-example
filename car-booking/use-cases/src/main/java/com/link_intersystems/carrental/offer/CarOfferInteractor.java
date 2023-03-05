@@ -26,15 +26,15 @@ class CarOfferInteractor implements CarOfferUseCase {
 
         LocalDateTime desiredPickUpDateTime = request.getPickUpDateTime();
         LocalDateTime desiredReturnDateTime = request.getReturnDateTime();
-        Period desiredPeriod = new Period(desiredPickUpDateTime, desiredReturnDateTime);
+        Period bookingPeriod = new Period(desiredPickUpDateTime, desiredReturnDateTime);
 
-        List<RentalCar> availableCars = filterAvailableCars(desiredPeriod, rentalCars);
+        List<RentalCar> availableCars = filterAvailableCars(bookingPeriod, rentalCars);
 
-        List<RentalOffer> rentalOffers = makeOffer(availableCars, desiredPeriod);
+        List<RentalOffer> rentalOffers = makeOffer(availableCars, bookingPeriod);
 
         List<CarId> carIds = rentalOffers.stream().map(RentalOffer::getRentalCar).map(RentalCar::getCarId).collect(Collectors.toList());
         CarsById carsById = repository.findCars(carIds);
-        return intputOutputMapper.toOutputModel(carsById, rentalOffers);
+        return intputOutputMapper.toOutputModel(carsById, rentalOffers, bookingPeriod);
     }
 
     private List<RentalOffer> makeOffer(List<RentalCar> rentalCars, Period desiredPeriod) {

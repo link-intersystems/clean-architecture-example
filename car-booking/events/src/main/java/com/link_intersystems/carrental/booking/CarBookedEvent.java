@@ -2,29 +2,14 @@ package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.DomainEvent;
 
-import java.time.LocalDateTime;
+public class CarBookedEvent extends DomainEvent {
 
-public class CarBookedEvent implements DomainEvent {
-
-    private LocalDateTime occuredOn = LocalDateTime.now();
     private Integer bookingNumber;
     private String vin;
 
     public CarBookedEvent(int bookingNumber, String vin) {
         this.bookingNumber = bookingNumber;
         this.vin = vin;
-    }
-
-    @Override
-    public LocalDateTime occuredOn() {
-        return occuredOn;
-    }
-
-    @Override
-    public String toString() {
-        return "CarBookedEvent{" +
-                "occuredOn=" + occuredOn +
-                '}';
     }
 
     public Integer getBookingNumber() {
@@ -35,4 +20,11 @@ public class CarBookedEvent implements DomainEvent {
         return vin;
     }
 
+    @Override
+    public String toString() {
+        return "CarBookedEvent{" +
+                "bookingNumber=" + bookingNumber +
+                ", vin='" + vin + '\'' +
+                "} " + super.toString();
+    }
 }

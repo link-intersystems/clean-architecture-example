@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental.management.pickup;
 
-import com.link_intersystems.carrental.management.pickupcar.FuelLevel;
+import com.link_intersystems.carrental.management.pickup.ui.FuelLevel;
 
 import java.time.LocalDateTime;
 import java.util.List;

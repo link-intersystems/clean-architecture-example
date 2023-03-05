@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental.management.pickup;
 
-import com.link_intersystems.carrental.management.pickupcar.FuelLevel;
+import com.link_intersystems.carrental.management.pickup.ui.FuelLevel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,8 +1,9 @@
 package com.link_intersystems.carrental.offer;
 
 import com.link_intersystems.app.context.BeanSelector;
+import com.link_intersystems.carrental.booking.CarBookingController;
+import com.link_intersystems.carrental.booking.CarBookingUseCase;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
-import com.link_intersystems.carrental.booking.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.time.LocalDateTime;
@@ -38,8 +39,8 @@ public class CarOfferConfig {
         return carOfferView;
     }
 
-    public CarBookingController getCarBookingController(CarSearchModel carSearchModel, MessageDialog messageDialog, CarBookingUseCase carBookingUseCase, CarOfferController carOfferController) {
-        CarBookingController carBookingController = new CarBookingController(carBookingUseCase, carSearchModel, messageDialog);
+    public CarBookingController getCarBookingController(MessageDialog messageDialog, CarBookingUseCase carBookingUseCase, CarOfferController carOfferController) {
+        CarBookingController carBookingController = new CarBookingController(carBookingUseCase, messageDialog);
         carBookingController.setOnDoneActionListener(carOfferController);
         return carBookingController;
     }

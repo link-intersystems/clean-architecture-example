@@ -1,7 +1,6 @@
 package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.offer.CarOfferModel;
-import com.link_intersystems.carrental.offer.CarSearchModel;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
 import com.link_intersystems.swing.action.AbstractWorkerAction;
 import com.link_intersystems.swing.action.ActionTrigger;
@@ -10,15 +9,14 @@ import com.link_intersystems.swing.selection.Selection;
 import com.link_intersystems.swing.selection.SelectionListener;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 public class CarBookingController extends AbstractWorkerAction<CarBookingResponseModel, Void> {
 
     private CarBookingUseCase carBookingUseCase;
-    private CarSearchModel carSearchModel;
     private MessageDialog messageDialog;
 
     private Selection<CarOfferModel> carOfferSelection = Selection.empty();
@@ -31,13 +29,19 @@ public class CarBookingController extends AbstractWorkerAction<CarBookingRespons
         setCarOfferSelection(selection);
     };
 
-    public CarBookingController(CarBookingUseCase carBookingUseCase, CarSearchModel carSearchModel, MessageDialog messageDialog) {
+    public CarBookingController(CarBookingUseCase carBookingUseCase, MessageDialog messageDialog) {
         this.carBookingUseCase = carBookingUseCase;
-        this.carSearchModel = carSearchModel;
         this.messageDialog = messageDialog;
 
         putValue(Action.NAME, "Book");
         updateEnablement();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (isEnabled()) {
+            super.actionPerformed(e);
+        }
     }
 
     public void setOnDoneActionListener(ActionListener onDoneActionListener) {
@@ -66,8 +70,8 @@ public class CarBookingController extends AbstractWorkerAction<CarBookingRespons
         requestModel.setCarId(carToBook.getId());
 
 
-        requestModel.setPickUpDateTime(LocalDateTime.parse(carSearchModel.getPickupDate().getValue()));
-        requestModel.setReturnDateTime(LocalDateTime.parse(carSearchModel.getReturnDate().getValue()));
+        requestModel.setPickUpDateTime(carToBook.getPickupDateTime());
+        requestModel.setReturnDateTime(carToBook.getReturnDateTime());
         return carBookingUseCase.bookCar(requestModel);
     }
 
@@ -75,10 +79,12 @@ public class CarBookingController extends AbstractWorkerAction<CarBookingRespons
     protected void done(CarBookingResponseModel result) {
         onDoneActionListener.ifPresent(actionTrigger::performAction);
         messageDialog.showInfo("Car successfully booked. Booking number: " + result.getBookingNumber());
+        updateEnablement();
     }
 
     @Override
     protected void failed(ExecutionException e) {
         messageDialog.showException(e.getCause());
+        updateEnablement();
     }
 }

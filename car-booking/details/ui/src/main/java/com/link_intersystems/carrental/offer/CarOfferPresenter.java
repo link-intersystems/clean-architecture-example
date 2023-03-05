@@ -12,7 +12,6 @@ public class CarOfferPresenter {
         CarOfferModel carOfferModel = new CarOfferModel();
 
         carOfferModel.setId(carOfferOutputModel.getId());
-
         carOfferModel.setName(carOfferOutputModel.getName());
 
         BigDecimal totalRentalRate = carOfferOutputModel.getTotalRentalRate();
@@ -22,6 +21,9 @@ public class CarOfferPresenter {
         carOfferModel.setPerDayRentalRate(perDayRentalRate.setScale(2, RoundingMode.HALF_UP).toString());
 
         carOfferModel.setVehicleType(carOfferOutputModel.getVehicleType());
+
+        carOfferModel.setPickupDateTime(carOfferOutputModel.getPickupDateTime());
+        carOfferModel.setReturnDateTime(carOfferOutputModel.getReturnDateTime());
 
         return carOfferModel;
     }

@@ -17,6 +17,7 @@
     <modules>
         <module>ui</module>
         <module>entities</module>
+        <module>events</module>
     </modules>
 
 </project>

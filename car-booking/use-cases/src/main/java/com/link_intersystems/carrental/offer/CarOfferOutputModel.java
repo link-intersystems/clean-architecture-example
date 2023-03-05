@@ -1,6 +1,7 @@
 package com.link_intersystems.carrental.offer;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public class CarOfferOutputModel {
 
@@ -10,6 +11,8 @@ public class CarOfferOutputModel {
     private BigDecimal totalRentalRate;
     private BigDecimal perDayRentalRate;
     private CarSpecModel carSpecModel;
+    private LocalDateTime pickupDateTime;
+    private LocalDateTime returnDateTime;
 
     void setId(String id) {
         this.id = id;
@@ -57,5 +60,21 @@ public class CarOfferOutputModel {
 
     public String getName() {
         return name;
+    }
+
+    public LocalDateTime getPickupDateTime() {
+        return pickupDateTime;
+    }
+
+    public void setPickupDateTime(LocalDateTime pickupDateTime) {
+        this.pickupDateTime = pickupDateTime;
+    }
+
+    public LocalDateTime getReturnDateTime() {
+        return returnDateTime;
+    }
+
+    public void setReturnDateTime(LocalDateTime returnDateTime) {
+        this.returnDateTime = returnDateTime;
     }
 }

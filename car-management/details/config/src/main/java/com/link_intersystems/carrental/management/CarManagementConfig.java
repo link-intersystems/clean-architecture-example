@@ -1,7 +1,6 @@
 package com.link_intersystems.carrental.management;
 
-import com.link_intersystems.carrental.management.CarManagementView;
-import com.link_intersystems.carrental.management.bookings.ListCarBookingView;
+import com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingView;
 
 public class CarManagementConfig {
 

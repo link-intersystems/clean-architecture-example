@@ -1,4 +1,4 @@
-package com.link_intersystems.carrental.management.bookings;
+package com.link_intersystems.carrental.management.booking.list.ui;
 
 public class CarBookingModel {
 

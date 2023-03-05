@@ -1,7 +1,6 @@
 package com.link_intersystems.carrental;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class DomainEventBus {
 
@@ -28,6 +27,14 @@ public class DomainEventBus {
 
     private List<DomainEventSubscriber> subscribers = new ArrayList<>();
 
+    private ThreadLocal<Map<DomainEventSubscriber, Set<Object>>> publishedEventsHolder = new ThreadLocal<>() {
+        @Override
+        protected Map<DomainEventSubscriber, Set<Object>> initialValue() {
+            return new IdentityHashMap<>();
+        }
+    };
+
+
     private boolean publishing = false;
 
     public DomainEventBus(List<DomainEventSubscriber> subscribers) {
@@ -35,24 +42,26 @@ public class DomainEventBus {
     }
 
     private <T> void publishEvent(T domainEvent) {
-        if (publishing) {
-            return;
-        }
-
         try {
-            publishing = true;
-
             Class<?> domainEventType = domainEvent.getClass();
 
             for (DomainEventSubscriber subscriber : subscribers) {
-                if (subscriber.subscribedTo(domainEventType)) {
-                    subscriber.handleEvent(domainEvent);
-                }
+                    if (subscriber.subscribedTo(domainEventType)) {
+                        Set<Object> events = getPublishedEvents(subscriber);
+                        if (events.add(domainEvent)) {
+                            subscriber.handleEvent(domainEvent);
+                        }
+                    }
             }
 
         } finally {
-            publishing = false;
+            publishedEventsHolder.remove();
         }
+    }
+
+    private Set<Object> getPublishedEvents(DomainEventSubscriber subscriber) {
+        Map<DomainEventSubscriber, Set<Object>> publishedEvents = publishedEventsHolder.get();
+        return publishedEvents.computeIfAbsent(subscriber, s -> new HashSet<>());
     }
 
 }
