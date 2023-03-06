@@ -5,7 +5,7 @@ import com.link_intersystems.carrental.swing.exception.ThrowableView;
 import javax.swing.*;
 import java.awt.*;
 
-public class OptionPaneMessageDialog implements MessageDialog {
+public class DefaultMessageDialog implements MessageDialog {
 
     private Component parentComponent;
 
@@ -23,5 +23,10 @@ public class OptionPaneMessageDialog implements MessageDialog {
     @Override
     public void showInfo(String info) {
         JOptionPane.showMessageDialog(parentComponent, info, "Info", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
+    public int showDialog(String title, Component content) {
+        return JOptionPane.showConfirmDialog(parentComponent, content, title, JOptionPane.OK_CANCEL_OPTION);
     }
 }

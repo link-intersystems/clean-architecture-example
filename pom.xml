@@ -39,6 +39,11 @@
             </dependency>
             <dependency>
                 <groupId>com.link-intersystems.commons</groupId>
+                <artifactId>lis-commons-beans</artifactId>
+                <version>${lis-commons.verions}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.link-intersystems.commons</groupId>
                 <artifactId>lis-commons-events</artifactId>
                 <version>${lis-commons.verions}</version>
             </dependency>

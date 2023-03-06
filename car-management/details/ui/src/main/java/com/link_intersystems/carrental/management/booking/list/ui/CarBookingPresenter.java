@@ -7,14 +7,14 @@ import java.util.stream.Collectors;
 
 public class CarBookingPresenter {
 
-    public List<CarBookingModel> toCarBookingModels(List<CarBookingResponseModel> carBooking) {
+    public List<ListCarBookingModel> toCarBookingModels(List<CarBookingResponseModel> carBooking) {
         return carBooking.stream().map(this::toCarBookingModel).collect(Collectors.toList());
     }
 
-    public CarBookingModel toCarBookingModel(CarBookingResponseModel carBooking) {
-        CarBookingModel carBookingModel = new CarBookingModel();
-        carBookingModel.setVin(carBooking.getVIN());
-        carBookingModel.setBookingNumber(String.valueOf(carBooking.getBookingNumber()));
-        return carBookingModel;
+    public ListCarBookingModel toCarBookingModel(CarBookingResponseModel carBooking) {
+        ListCarBookingModel listCarBookingModel = new ListCarBookingModel();
+        listCarBookingModel.setVin(carBooking.getVIN());
+        listCarBookingModel.setBookingNumber(String.valueOf(carBooking.getBookingNumber()));
+        return listCarBookingModel;
     }
 }

@@ -1,6 +1,6 @@
-package com.link_intersystems.carrental.management.booking.list.ui;
+package com.link_intersystems.carrental.management.pickup.ui;
 
-public class CarBookingModel {
+public class CarPickupModel {
 
     private String vin;
     private String bookingNumber;

@@ -1,47 +1,69 @@
 package com.link_intersystems.carrental.management.booking.list.ui;
 
+import com.link_intersystems.carrental.swing.action.JActionToolBar;
+import com.link_intersystems.swing.list.ListModelSelection;
+import com.link_intersystems.swing.selection.SelectionListener;
+import com.link_intersystems.swing.selection.SelectionProviderSupport;
 import com.link_intersystems.swing.table.DefaultListTableDescriptorModel;
 import com.link_intersystems.swing.table.DefaultListTableModel;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
 
 public class ListCarBookingView {
 
-    private JPanel panel = new JPanel(new BorderLayout());
-    private JPanel actionPanel = new JPanel();
 
-    private DefaultListTableDescriptorModel<CarBookingModel> tableDescriptorModel = new DefaultListTableDescriptorModel<>();
-    private DefaultListTableModel<CarBookingModel> carBookingTableModel = new DefaultListTableModel<>();
+    private JPanel panel = new JPanel(new BorderLayout());
+
+    private JActionToolBar actionToolBar = new JActionToolBar();
+    private DefaultListModel<Action> toolbarActions = new DefaultListModel<>();
+
+    private DefaultListTableDescriptorModel<ListCarBookingModel> tableDescriptorModel = new DefaultListTableDescriptorModel<>();
+    private DefaultListTableModel<ListCarBookingModel> carBookingTableModel = new DefaultListTableModel<>();
+    private ListSelectionModel listSelectionModel = new DefaultListSelectionModel();
     private JTable bookingsTable = new JTable();
     private JScrollPane bookingsTableScrollPane = new JScrollPane((bookingsTable));
 
-    private JButton listCarBookingsButton = new JButton();
+    private SelectionProviderSupport<ListCarBookingModel> listCarBookingModelSelectionProvider = new SelectionProviderSupport<>(this);
+
 
     public ListCarBookingView() {
+        listSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        listSelectionModel.addListSelectionListener(this::onSelectionChanged);
 
-        tableDescriptorModel.addColumnDescriptor("Booking Number", CarBookingModel::getBookingNumber);
-        tableDescriptorModel.addColumnDescriptor("VIN", CarBookingModel::getVin);
+        bookingsTable.setSelectionModel(listSelectionModel);
+
+        actionToolBar.setModel(toolbarActions);
+        tableDescriptorModel.addColumnDescriptor("Booking Number", ListCarBookingModel::getBookingNumber);
+        tableDescriptorModel.addColumnDescriptor("VIN", ListCarBookingModel::getVin);
         carBookingTableModel.setListTableDescriptorModel(tableDescriptorModel);
 
         bookingsTable.setModel(carBookingTableModel);
 
-        panel.add(actionPanel, BorderLayout.EAST);
+        panel.add(actionToolBar, BorderLayout.NORTH);
         panel.add(bookingsTableScrollPane, BorderLayout.CENTER);
-
-        listCarBookingsButton.setVisible(false);
-
-        actionPanel.add(listCarBookingsButton);
-
     }
 
-    public void setListCarBookingModel(ListModel<CarBookingModel> carBookingListModel) {
+    private void onSelectionChanged(ListSelectionEvent e) {
+        ListModelSelection<ListCarBookingModel> newSelection = new ListModelSelection<>(carBookingTableModel.getListModel(), listSelectionModel);
+        listCarBookingModelSelectionProvider.setSelection(newSelection);
+    }
+
+    public void addSelectionChangedListener(SelectionListener<ListCarBookingModel> listener) {
+        listCarBookingModelSelectionProvider.addSelectionChangedListener(listener);
+    }
+
+    public void removeSelectionChangedListener(SelectionListener<ListCarBookingModel> listener) {
+        listCarBookingModelSelectionProvider.removeSelectionChangedListener(listener);
+    }
+
+    public void setListCarBookingModel(ListModel<ListCarBookingModel> carBookingListModel) {
         carBookingTableModel.setListModel(carBookingListModel);
     }
 
-    public void setListCarBookingsAction(Action listCarBookingsAction) {
-        listCarBookingsButton.setAction(listCarBookingsAction);
-        listCarBookingsButton.setVisible(listCarBookingsAction != null);
+    public void addListCarAction(Action action) {
+        toolbarActions.addElement(action);
     }
 
     public Component getViewComponent() {

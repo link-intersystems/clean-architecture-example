@@ -5,7 +5,7 @@ import com.link_intersystems.app.context.LazyBeanSetter;
 import com.link_intersystems.carrental.management.CarManagementView;
 import com.link_intersystems.carrental.offer.CarOfferView;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
-import com.link_intersystems.carrental.swing.notification.OptionPaneMessageDialog;
+import com.link_intersystems.carrental.swing.notification.DefaultMessageDialog;
 
 public class MainConfig {
 
@@ -25,9 +25,9 @@ public class MainConfig {
     }
 
     public MessageDialog getMessageDialog(LazyBeanSetter<MainFrame> lazyMainFrameSetter) {
-        OptionPaneMessageDialog optionPaneMessageDialog = new OptionPaneMessageDialog();
-        lazyMainFrameSetter.setBean(mf -> optionPaneMessageDialog.setParentComponent(mf.getComponent()));
-        return optionPaneMessageDialog;
+        DefaultMessageDialog defaultMessageDialog = new DefaultMessageDialog();
+        lazyMainFrameSetter.setBean(mf -> defaultMessageDialog.setParentComponent(mf.getComponent()));
+        return defaultMessageDialog;
     }
 
 }

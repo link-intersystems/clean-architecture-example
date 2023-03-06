@@ -3,6 +3,7 @@ package com.link_intersystems.carrental.management.booking.list;
 import com.link_intersystems.app.context.BeanSelector;
 import com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingController;
 import com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingView;
+import com.link_intersystems.carrental.management.pickup.ui.PreparePickupCarController;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class ListCarBookingConfig {
@@ -19,9 +20,11 @@ public class ListCarBookingConfig {
         return new ListCarBookingController(listBookingsUseCase);
     }
 
-    public ListCarBookingView getListCarBookingView(ListCarBookingController listCarBookingController) {
+    public ListCarBookingView getListCarBookingView(ListCarBookingController listCarBookingController, PreparePickupCarController preparePickupCarController) {
         ListCarBookingView listCarBookingView = new ListCarBookingView();
-        listCarBookingView.setListCarBookingsAction(listCarBookingController);
+        listCarBookingView.addListCarAction(listCarBookingController);
+        listCarBookingView.addListCarAction(preparePickupCarController);
+        listCarBookingView.addSelectionChangedListener(preparePickupCarController);
         listCarBookingView.setListCarBookingModel(listCarBookingController.getCarBookingListModel());
         return listCarBookingView;
     }

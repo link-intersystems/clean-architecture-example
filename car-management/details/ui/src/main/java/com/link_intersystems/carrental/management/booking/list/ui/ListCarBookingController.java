@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutionException;
 
 public class ListCarBookingController extends AbstractWorkerAction<ListBookingsResponseModel, Void> {
 
-    private DefaultListModel<CarBookingModel> carBookingListModel = new DefaultListModel<>();
+    private DefaultListModel<ListCarBookingModel> carBookingListModel = new DefaultListModel<>();
     private CarBookingPresenter carBookingPresenter = new CarBookingPresenter();
 
     private ListBookingsUseCase listBookingsUseCase;
@@ -24,7 +24,7 @@ public class ListCarBookingController extends AbstractWorkerAction<ListBookingsR
         putValue(Action.NAME, "List Car Bookings");
     }
 
-    public ListModel<CarBookingModel> getCarBookingListModel() {
+    public ListModel<ListCarBookingModel> getCarBookingListModel() {
         return carBookingListModel;
     }
 
@@ -39,8 +39,8 @@ public class ListCarBookingController extends AbstractWorkerAction<ListBookingsR
         carBookingListModel.clear();
 
         List<CarBookingResponseModel> carBookings = result.getCarBookings();
-        List<CarBookingModel> carBookingModels = carBookingPresenter.toCarBookingModels(carBookings);
-        carBookingListModel.addAll(carBookingModels);
+        List<ListCarBookingModel> listCarBookingModels = carBookingPresenter.toCarBookingModels(carBookings);
+        carBookingListModel.addAll(listCarBookingModels);
     }
 
     @Override
