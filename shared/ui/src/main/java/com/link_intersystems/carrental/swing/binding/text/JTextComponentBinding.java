@@ -13,8 +13,15 @@ public class JTextComponentBinding implements DocumentListener {
     private JTextComponent textComponent;
     private BindingValue<String> bindingValue;
 
+    public JTextComponentBinding() {
+    }
+
     public JTextComponentBinding(JTextComponent textComponent) {
         setTextComponent(textComponent);
+    }
+
+    public JTextComponent getTextComponent() {
+        return textComponent;
     }
 
     public void setBindingValue(BindingValue<String> bindingValue) {
@@ -24,8 +31,13 @@ public class JTextComponentBinding implements DocumentListener {
         }
     }
 
+    public BindingValue<String> getBindingValue() {
+        return bindingValue;
+    }
+
     private void valueToView(BindingValue<String> bindingValue, JTextComponent textComponent) {
-        textComponent.setText(bindingValue.getValue());
+        String value = bindingValue.getValue();
+        textComponent.setText(value);
     }
 
     public void setTextComponent(JTextComponent textComponent) {
@@ -60,7 +72,7 @@ public class JTextComponentBinding implements DocumentListener {
     }
 
     private void viewToValue() {
-        if (bindingValue != null) {
+        if (bindingValue != null && textComponent != null) {
             Document document = textComponent.getDocument();
             try {
                 String text = document.getText(0, document.getLength());
