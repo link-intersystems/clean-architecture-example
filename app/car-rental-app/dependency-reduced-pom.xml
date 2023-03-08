@@ -21,7 +21,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>com.link_intersystems.carrental.CarRentalApp</mainClass>
+                  <mainClass>com.link_intersystems.carrental.CarRentalDBUnitApp</mainClass>
                 </transformer>
               </transformers>
             </configuration>

@@ -19,9 +19,7 @@ public class CarRentalApp {
         BeanDefinitionRegitry beanDefinitionRegitry = new BeanDefinitionRegitry();
 
         Predicate<BeanDefinition> excludeBeanDefinitions = getBeanDefinitionPredicate(args);
-
-
-        beanDefinitionRegitry.setBeanDefinitionFilter(excludeBeanDefinitions);
+        beanDefinitionRegitry.setBeanDefinitionExcludeFilter(excludeBeanDefinitions);
         ApplicationContext applicationContext = new ApplicationContext(beanDefinitionRegitry);
         MainFrame mainFrame = applicationContext.getBean(MainFrame.class);
         openFrame(mainFrame);
@@ -39,10 +37,10 @@ public class CarRentalApp {
             String path = resource.getPath();
 
             if (path.contains("/repository")) {
-                return path.contains("/repository-" + repository);
+                return !path.contains("/repository-" + repository);
             }
 
-            return true;
+            return false;
         };
         return excludeBeanDefinitions;
     }

@@ -9,10 +9,11 @@ import static java.util.Objects.*;
 
 public class BeanDefinitionRegitry {
 
+    public static final Predicate<BeanDefinition> DEFAULT_BEAN_DEFINITION_EXCLUDE_FILTER = bd -> false;
     private BeanDefinitionLocator beanDefinitionLocator;
     private List<BeanDefinition> beanDefinitions;
 
-    private Predicate<BeanDefinition> beanDefinitionFilter = bd -> true;
+    private Predicate<BeanDefinition> beanDefinitionExcludeFilter = DEFAULT_BEAN_DEFINITION_EXCLUDE_FILTER;
 
     public BeanDefinitionRegitry() {
         this(new MetaInfBeanDefinitionLocator());
@@ -22,8 +23,8 @@ public class BeanDefinitionRegitry {
         this.beanDefinitionLocator = requireNonNull(beanDefinitionLocator);
     }
 
-    public void setBeanDefinitionFilter(Predicate<BeanDefinition> beanDefinitionFilter) {
-        this.beanDefinitionFilter = beanDefinitionFilter == null ? bd -> true : beanDefinitionFilter;
+    public void setBeanDefinitionExcludeFilter(Predicate<BeanDefinition> beanDefinitionExcludeFilter) {
+        this.beanDefinitionExcludeFilter = beanDefinitionExcludeFilter == null ? DEFAULT_BEAN_DEFINITION_EXCLUDE_FILTER : beanDefinitionExcludeFilter;
     }
 
     public BeanDefinition getBeanDefinition(BeanDeclaration beanDeclaration) throws AmbiguousBeanException {
@@ -48,7 +49,7 @@ public class BeanDefinitionRegitry {
         List<BeanDefinition> matchingBeanDefinitions = new ArrayList<>();
 
         for (BeanDefinition beanDefinition : beanDefinitions) {
-            if (!beanDefinitionFilter.test(beanDefinition)) {
+            if (beanDefinitionExcludeFilter.test(beanDefinition)) {
                 continue;
             }
 

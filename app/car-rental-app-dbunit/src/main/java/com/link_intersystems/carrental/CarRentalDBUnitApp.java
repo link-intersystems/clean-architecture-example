@@ -2,24 +2,24 @@ package com.link_intersystems.carrental;
 
 import com.link_intersystems.app.context.ApplicationContext;
 import com.link_intersystems.app.context.BeanDefinitionRegitry;
-import com.link_intersystems.carrental.ui.MainFrame;
+import com.link_intersystems.carrental.ui.DBUnitMainFrame;
 
-public class CarRentalApp {
+public class CarRentalDBUnitApp {
 
     public static void main(String[] args) {
-        CarRentalApp carRentalApp = new CarRentalApp();
-        carRentalApp.run(args);
+        CarRentalDBUnitApp carRentalDBUnitApp = new CarRentalDBUnitApp();
+        carRentalDBUnitApp.run(args);
     }
 
     void run(String[] args) {
         BeanDefinitionRegitry beanDefinitionRegitry = new BeanDefinitionRegitry();
         ApplicationContext applicationContext = new ApplicationContext(beanDefinitionRegitry);
-        MainFrame mainFrame = applicationContext.getBean(MainFrame.class);
-        openFrame(mainFrame);
+        DBUnitMainFrame DBUnitMainFrame = applicationContext.getBean(DBUnitMainFrame.class);
+        openFrame(DBUnitMainFrame);
     }
 
-    protected void openFrame(MainFrame mainFrame) {
-        mainFrame.show();
+    protected void openFrame(DBUnitMainFrame DBUnitMainFrame) {
+        DBUnitMainFrame.show();
     }
 
 }

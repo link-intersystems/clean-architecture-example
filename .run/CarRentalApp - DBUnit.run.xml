@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="CarRentalApp - DBUnit" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="com.link_intersystems.carrental.CarRentalApp" />
+    <option name="MAIN_CLASS_NAME" value="com.link_intersystems.carrental.CarRentalDBUnitApp" />
     <module name="car-rental-app-dbunit" />
     <extension name="coverage">
       <pattern>

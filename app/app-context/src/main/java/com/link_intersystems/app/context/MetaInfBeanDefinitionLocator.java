@@ -6,10 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.List;
+import java.util.*;
 import java.util.function.BiFunction;
 
 public class MetaInfBeanDefinitionLocator implements BeanDefinitionLocator {
@@ -37,24 +34,27 @@ public class MetaInfBeanDefinitionLocator implements BeanDefinitionLocator {
         return beanDefinitions;
     }
 
-    private List<BeanDefinition> readBeanDefinitions(Class<?> type, BiFunction<URL, Class<?>, List<BeanDefinition>> beanDefintionFactory) throws IOException, ClassNotFoundException {
-        return readBeanDefinitions("META-INF/beans/" + type.getName(), beanDefintionFactory);
-    }
-
     private List<BeanDefinition> readBeanDefinitions(String resource, BiFunction<URL, Class<?>, List<BeanDefinition>> beanDefintionFactory) throws IOException, ClassNotFoundException {
         List<BeanDefinition> beanDefinitions = new ArrayList<>();
+        HashSet<Object> unique = new HashSet<>();
 
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         Enumeration<URL> resources = classLoader.getResources(resource);
 
         while (resources.hasMoreElements()) {
             URL nextResource = resources.nextElement();
-            List<String> lines = readLines(nextResource);
 
+            List<String> lines = readLines(nextResource);
             for (String line : lines) {
+
                 Class<?> type = Class.forName(line);
                 List<BeanDefinition> providedBeanDefinitions = beanDefintionFactory.apply(nextResource, type);
-                beanDefinitions.addAll(providedBeanDefinitions);
+                for (BeanDefinition providedBeanDefinition : providedBeanDefinitions) {
+                    if (unique.add(providedBeanDefinition.getBeanDeclaration())) {
+                        beanDefinitions.add(providedBeanDefinition);
+                    }
+                }
+
             }
         }
 

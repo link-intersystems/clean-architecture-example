@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="CarRentalApp" type="Application" factoryName="Application" nameIsGenerated="true">
+  <configuration default="false" name="CarRentalApp" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="com.link_intersystems.carrental.CarRentalApp" />
     <module name="car-rental-app" />
     <extension name="coverage">

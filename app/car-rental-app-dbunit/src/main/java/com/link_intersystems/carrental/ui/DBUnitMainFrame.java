@@ -8,14 +8,14 @@ import java.awt.*;
 
 import static javax.swing.WindowConstants.*;
 
-public class MainFrame {
+public class DBUnitMainFrame {
 
     public static final String CAR_OFFERS_TAB_TITLE = "Car offers";
 
     private JFrame mainFrame = new JFrame();
     private JTabbedPane tabbedPane = new JTabbedPane();
 
-    public MainFrame() {
+    public DBUnitMainFrame() {
         mainFrame.setSize(800, 600);
         mainFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
