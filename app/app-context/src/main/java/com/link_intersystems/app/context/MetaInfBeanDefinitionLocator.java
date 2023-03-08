@@ -12,15 +12,12 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.function.BiFunction;
 
-public class DefaultBeanDefinitionLocator implements BeanDefinitionLocator {
+public class MetaInfBeanDefinitionLocator implements BeanDefinitionLocator {
     @Override
     public List<BeanDefinition> getBeanDefinitions() throws IOException, ClassNotFoundException {
         List<BeanDefinition> beanDefinitions = new ArrayList<>();
 
-        List<BeanDefinition> simpleSimpleBeanDefinitions = readBeanDefinitions("META-INF/beans/com.link_intersystems.app.context.Bean", this::createSimpleBeanDefinition);
-        beanDefinitions.addAll(simpleSimpleBeanDefinitions);
-
-        List<BeanDefinition> beanConfigBeanDefinitions = readBeanDefinitions(BeanConfig.class, this::createBeanConfigBeanDefinitions);
+        List<BeanDefinition> beanConfigBeanDefinitions = readBeanDefinitions("META-INF/bean.configs", this::createBeanConfigBeanDefinitions);
         beanDefinitions.addAll(beanConfigBeanDefinitions);
 
         return beanDefinitions;

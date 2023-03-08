@@ -16,6 +16,7 @@
     <modules>
         <module>app-context</module>
         <module>car-rental-app</module>
+        <module>car-rental-app-dbunit</module>
     </modules>
 
 </project>

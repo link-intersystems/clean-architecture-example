@@ -43,7 +43,7 @@ class ExceptionUtils {
         sb.append(" is ambiguous. :\n");
 
         for (BeanDefinition beanDefinition : matchingBeanDefinitions) {
-            appendBeanRef(sb, beanDefinition.getBeanRef(), 1);
+            appendBeanRef(sb, beanDefinition.getBeanDeclaration(), 1);
         }
 
         sb.append("\n\t NOTE: You might want to use a BeanSelector<");

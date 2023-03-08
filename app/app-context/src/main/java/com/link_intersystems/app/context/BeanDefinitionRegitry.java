@@ -15,7 +15,7 @@ public class BeanDefinitionRegitry {
     private Predicate<BeanDefinition> beanDefinitionFilter = bd -> true;
 
     public BeanDefinitionRegitry() {
-        this(new DefaultBeanDefinitionLocator());
+        this(new MetaInfBeanDefinitionLocator());
     }
 
     public BeanDefinitionRegitry(BeanDefinitionLocator beanDefinitionLocator) {
@@ -52,7 +52,7 @@ public class BeanDefinitionRegitry {
                 continue;
             }
 
-            BeanDeclaration actualBeanDefinition = beanDefinition.getBeanRef();
+            BeanDeclaration actualBeanDefinition = beanDefinition.getBeanDeclaration();
 
             if (!isInstance(beanDeclaration, actualBeanDefinition)) {
                 continue;

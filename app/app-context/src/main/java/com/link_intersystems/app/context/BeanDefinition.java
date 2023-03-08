@@ -6,7 +6,7 @@ public interface BeanDefinition {
 
     URL getResource();
 
-    BeanDeclaration getBeanRef();
+    BeanDeclaration getBeanDeclaration();
 
     <T> T createBean(BeanFactory beanFactory);
 }

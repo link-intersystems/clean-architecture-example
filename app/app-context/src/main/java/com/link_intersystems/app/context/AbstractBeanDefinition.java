@@ -5,7 +5,6 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -24,7 +23,7 @@ abstract class AbstractBeanDefinition implements BeanDefinition {
     }
 
     @Override
-    public BeanDeclaration getBeanRef() {
+    public BeanDeclaration getBeanDeclaration() {
         return beanDeclaration;
     }
 
@@ -40,7 +39,7 @@ abstract class AbstractBeanDefinition implements BeanDefinition {
             }
         }
 
-        throw new RuntimeException("No constructor found for bean " + getBeanRef().getName());
+        throw new RuntimeException("No constructor found for bean " + getBeanDeclaration().getName());
     }
 
     protected abstract BeanConstructor getBeanConstructor();

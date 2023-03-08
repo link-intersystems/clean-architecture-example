@@ -21,11 +21,6 @@
         </dependency>
         <dependency>
             <groupId>com.acme.car-rental.booking</groupId>
-            <artifactId>car-booking-repository-h2</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.acme.car-rental.booking</groupId>
             <artifactId>car-booking-ui</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>

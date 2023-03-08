@@ -1,11 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="CarRentalApp - dbunit" type="Application" factoryName="Application">
+  <configuration default="false" name="CarRentalApp - DBUnit" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="com.link_intersystems.carrental.CarRentalApp" />
-    <module name="car-rental-app" />
-    <option name="PROGRAM_PARAMETERS" value="-r dbunit" />
+    <module name="car-rental-app-dbunit" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="com.link_intersystems.swing.exception.*" />
+        <option name="PATTERN" value="com.link_intersystems.carrental.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

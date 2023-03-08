@@ -3,9 +3,9 @@ package com.link_intersystems.app.context;
 import java.util.Objects;
 
 public class BeanDeclaration {
+
     private Class<?> type;
     private String name;
-
 
     BeanDeclaration(Class<?> type, String name) {
         this.type = type;

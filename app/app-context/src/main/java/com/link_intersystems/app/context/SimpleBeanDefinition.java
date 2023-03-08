@@ -14,7 +14,7 @@ class SimpleBeanDefinition extends AbstractBeanDefinition {
 
     @Override
     protected BeanConstructor getBeanConstructor() {
-        BeanDeclaration beanDeclaration = getBeanRef();
+        BeanDeclaration beanDeclaration = getBeanDeclaration();
         Class<?> beanType = beanDeclaration.getType();
         Constructor[] constructors = beanType.getDeclaredConstructors();
 

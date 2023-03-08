@@ -18,7 +18,7 @@ public class ApplicationContext implements BeanFactory {
     private BeanDefinitionRegitry beanDefinitionRegitry;
 
     public ApplicationContext() {
-        this(new BeanDefinitionRegitry(new DefaultBeanDefinitionLocator()));
+        this(new BeanDefinitionRegitry(new MetaInfBeanDefinitionLocator()));
     }
 
     public ApplicationContext(BeanDefinitionRegitry beanDefinitionRegitry) {
@@ -61,7 +61,7 @@ public class ApplicationContext implements BeanFactory {
         List<BeanDefinition> beanDefinitions = getBeanDefinitionRegitry().getBeanDefinitions(beanDeclaration);
 
         for (BeanDefinition beanDefinition : beanDefinitions) {
-            BeanDeclaration actBeanDeclaration = beanDefinition.getBeanRef();
+            BeanDeclaration actBeanDeclaration = beanDefinition.getBeanDeclaration();
             Object bean = tryGetBean(actBeanDeclaration);
             beans.add((T) bean);
         }
@@ -126,7 +126,7 @@ public class ApplicationContext implements BeanFactory {
                 } catch (AmbiguousBeanException e) {
                     List<BeanDefinition> options = e.getOptions();
                     for (BeanDefinition option : options) {
-                        BeanDeclaration optionBeanDeclaration = option.getBeanRef();
+                        BeanDeclaration optionBeanDeclaration = option.getBeanDeclaration();
                         String optionName = optionBeanDeclaration.getName();
                         if (beanName.equals(optionName)) {
                             BeanDefinition beanDefinition = beanDefinitionRegitry.getBeanDefinition(optionBeanDeclaration);

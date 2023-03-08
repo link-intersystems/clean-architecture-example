@@ -14,8 +14,4 @@ public class CreateCarBookingConfig {
         return new CreateCarBookingInteractor(createCarBookingRepository);
     }
 
-    public CreateCarBookingRepository getCreateCarBookingRepository(BeanSelector<JdbcTemplate> beanSelector) {
-        return new H2CreateCarBookingRepository(beanSelector.select("getManagementJdbcTemplate"));
-    }
-
 }
