@@ -1,15 +1,2 @@
-com.link_intersystems.carrental.booking.CarBookingUseCaseConfig
-com.link_intersystems.carrental.offer.CarOfferUseCaseConfig
-com.link_intersystems.carrental.offer.CarOfferUIConfig
 com.link_intersystems.carrental.ui.MainConfig
 com.link_intersystems.carrental.db.H2DataSourceConfig
-com.link_intersystems.carrental.management.CarManagementUIConfig
-com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingUIConfig
-com.link_intersystems.carrental.management.booking.list.ListCarBookingUseCaseConfig
-com.link_intersystems.carrental.management.booking.create.CreateCarBookingUseCaseConfig
-com.link_intersystems.carrental.management.booking.create.CreateCarBookingEventSubscriberConfig
-com.link_intersystems.carrental.management.booking.create.H2CreateCarBookingRepositoryConfig
-com.link_intersystems.carrental.management.booking.list.H2ListBookingRepositoryConfig
-com.link_intersystems.carrental.management.pickup.PickupRepositoryConfig
-com.link_intersystems.carrental.management.pickup.ui.PickupUIConfig
-com.link_intersystems.carrental.management.pickup.PickupUseCaseConfig

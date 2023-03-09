@@ -17,5 +17,6 @@
     <modules>
         <module>repository-h2</module>
         <module>ui</module>
+        <module>event-subscriber</module>
     </modules>
 </project>

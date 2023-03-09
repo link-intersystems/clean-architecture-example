@@ -1,0 +1,3 @@
+com.link_intersystems.carrental.management.booking.create.H2CreateCarBookingRepositoryConfig
+com.link_intersystems.carrental.management.booking.list.H2ListBookingRepositoryConfig
+com.link_intersystems.carrental.management.pickup.H2PickupCarRepositoryConfig
