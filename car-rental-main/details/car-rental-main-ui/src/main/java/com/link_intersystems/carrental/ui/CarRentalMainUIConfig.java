@@ -1,19 +1,12 @@
 package com.link_intersystems.carrental.ui;
 
-import com.link_intersystems.app.context.BeanFactory;
 import com.link_intersystems.app.context.LazyBeanSetter;
 import com.link_intersystems.carrental.management.CarManagementView;
 import com.link_intersystems.carrental.offer.CarOfferView;
-import com.link_intersystems.carrental.swing.notification.MessageDialog;
 import com.link_intersystems.carrental.swing.notification.DefaultMessageDialog;
+import com.link_intersystems.carrental.swing.notification.MessageDialog;
 
 public class CarRentalMainUIConfig {
-
-    private BeanFactory beanFactory;
-
-    public CarRentalMainUIConfig(BeanFactory beanFactory) {
-        this.beanFactory = beanFactory;
-    }
 
     public CarRentalMainFrame getMainFrame(CarOfferView carOfferView, CarManagementView carManagementView) {
         CarRentalMainFrame carRentalMainFrame = new CarRentalMainFrame();
