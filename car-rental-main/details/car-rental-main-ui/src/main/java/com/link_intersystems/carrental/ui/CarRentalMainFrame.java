@@ -9,7 +9,7 @@ import java.awt.*;
 
 import static javax.swing.WindowConstants.*;
 
-public class MainFrame {
+public class CarRentalMainFrame {
 
     public static final String CAR_OFFERS_TAB_TITLE = "Car offers";
     public static final String CAR_MANAGEMENT_TAB_TITLE = "Car Management";
@@ -17,7 +17,7 @@ public class MainFrame {
     private JFrame mainFrame = new JFrame();
     private JTabbedPane tabbedPane = new JTabbedPane();
 
-    public MainFrame() {
+    public CarRentalMainFrame() {
         mainFrame.setSize(800, 600);
         mainFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 

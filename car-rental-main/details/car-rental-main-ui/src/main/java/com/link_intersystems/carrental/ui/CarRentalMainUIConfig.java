@@ -7,24 +7,24 @@ import com.link_intersystems.carrental.offer.CarOfferView;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
 import com.link_intersystems.carrental.swing.notification.DefaultMessageDialog;
 
-public class MainConfig {
+public class CarRentalMainUIConfig {
 
     private BeanFactory beanFactory;
 
-    public MainConfig(BeanFactory beanFactory) {
+    public CarRentalMainUIConfig(BeanFactory beanFactory) {
         this.beanFactory = beanFactory;
     }
 
-    public MainFrame getMainFrame(CarOfferView carOfferView, CarManagementView carManagementView) {
-        MainFrame mainFrame = new MainFrame();
+    public CarRentalMainFrame getMainFrame(CarOfferView carOfferView, CarManagementView carManagementView) {
+        CarRentalMainFrame carRentalMainFrame = new CarRentalMainFrame();
 
-        mainFrame.setCarOfferView(carOfferView);
-        mainFrame.setCarManagementView(carManagementView);
+        carRentalMainFrame.setCarOfferView(carOfferView);
+        carRentalMainFrame.setCarManagementView(carManagementView);
 
-        return mainFrame;
+        return carRentalMainFrame;
     }
 
-    public MessageDialog getMessageDialog(LazyBeanSetter<MainFrame> lazyMainFrameSetter) {
+    public MessageDialog getMessageDialog(LazyBeanSetter<CarRentalMainFrame> lazyMainFrameSetter) {
         DefaultMessageDialog defaultMessageDialog = new DefaultMessageDialog();
         lazyMainFrameSetter.setBean(mf -> defaultMessageDialog.setParentComponent(mf.getComponent()));
         return defaultMessageDialog;

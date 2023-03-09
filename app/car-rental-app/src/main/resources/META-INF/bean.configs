@@ -1,2 +1,1 @@
-com.link_intersystems.carrental.ui.MainConfig
 com.link_intersystems.carrental.db.H2DataSourceConfig

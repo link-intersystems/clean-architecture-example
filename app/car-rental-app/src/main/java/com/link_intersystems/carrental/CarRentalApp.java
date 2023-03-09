@@ -3,7 +3,7 @@ package com.link_intersystems.carrental;
 import com.link_intersystems.app.context.ApplicationContext;
 import com.link_intersystems.app.context.BeanDefinition;
 import com.link_intersystems.app.context.BeanDefinitionRegitry;
-import com.link_intersystems.carrental.ui.MainFrame;
+import com.link_intersystems.carrental.ui.CarRentalMainFrame;
 
 import java.net.URL;
 import java.util.function.Predicate;
@@ -21,11 +21,11 @@ public class CarRentalApp {
         Predicate<BeanDefinition> excludeBeanDefinitions = getBeanDefinitionPredicate(args);
         beanDefinitionRegitry.setBeanDefinitionExcludeFilter(excludeBeanDefinitions);
         ApplicationContext applicationContext = new ApplicationContext(beanDefinitionRegitry);
-        MainFrame mainFrame = applicationContext.getBean(MainFrame.class);
+        CarRentalMainFrame mainFrame = applicationContext.getBean(CarRentalMainFrame.class);
         openFrame(mainFrame);
     }
 
-    protected void openFrame(MainFrame mainFrame) {
+    protected void openFrame(CarRentalMainFrame mainFrame) {
         mainFrame.show();
     }
 

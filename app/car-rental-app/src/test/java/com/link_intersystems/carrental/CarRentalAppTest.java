@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental;
 
-import com.link_intersystems.carrental.ui.MainFrame;
+import com.link_intersystems.carrental.ui.CarRentalMainFrame;
 import org.junit.jupiter.api.Test;
 
 class CarRentalAppTest {
@@ -9,7 +9,7 @@ class CarRentalAppTest {
     void applicationContext() {
         CarRentalApp carRentalApp = new CarRentalApp() {
             @Override
-            protected void openFrame(MainFrame mainFrame) {
+            protected void openFrame(CarRentalMainFrame mainFrame) {
             }
         };
 
