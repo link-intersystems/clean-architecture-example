@@ -2,16 +2,16 @@ package com.link_intersystems.carrental;
 
 import com.link_intersystems.carrental.ui.CarRentalMainFrame;
 
-public class CarRentalManualConfigApp {
+public class CarRentalNoIoCApp {
 
     public static void main(String[] args) {
-        CarRentalManualConfigApp carRentalApp = new CarRentalManualConfigApp();
+        CarRentalNoIoCApp carRentalApp = new CarRentalNoIoCApp();
         carRentalApp.run(args);
     }
 
     void run(String[] args) {
-        CarRentalManualConfig carRentalManualConfig = new CarRentalManualConfig();
-        CarRentalMainFrame mainFrame = carRentalManualConfig.createMainFrame();
+        CarRentalMain carRentalMain = new CarRentalMain();
+        CarRentalMainFrame mainFrame = carRentalMain.createMainFrame();
         openFrame(mainFrame);
     }
 

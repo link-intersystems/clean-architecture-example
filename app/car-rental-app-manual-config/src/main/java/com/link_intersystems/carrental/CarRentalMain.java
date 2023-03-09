@@ -2,41 +2,43 @@ package com.link_intersystems.carrental;
 
 import com.link_intersystems.carrental.booking.CarBookingController;
 import com.link_intersystems.carrental.booking.CarBookingUseCase;
-import com.link_intersystems.carrental.booking.CarBookingUseCaseManualConfig;
+import com.link_intersystems.carrental.booking.CarBookingUseCaseMain;
 import com.link_intersystems.carrental.management.CarManagementUIConfig;
 import com.link_intersystems.carrental.management.CarManagementView;
-import com.link_intersystems.carrental.management.booking.create.CreateCarBookingManualConfig;
+import com.link_intersystems.carrental.management.booking.create.CreateCarBookingMain;
 import com.link_intersystems.carrental.management.booking.list.ListBookingsUseCase;
-import com.link_intersystems.carrental.management.booking.list.ListCarBookingManualConfig;
+import com.link_intersystems.carrental.management.booking.list.ListCarBookingMain;
 import com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingController;
-import com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingModel;
 import com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingUIConfig;
 import com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingView;
 import com.link_intersystems.carrental.management.pickup.PickupCarUseCase;
-import com.link_intersystems.carrental.management.pickup.PickupCarUseCaseManualConfig;
+import com.link_intersystems.carrental.management.pickup.PickupCarUseCaseMain;
 import com.link_intersystems.carrental.management.pickup.ui.PickupCarController;
 import com.link_intersystems.carrental.management.pickup.ui.PickupUIConfig;
 import com.link_intersystems.carrental.offer.*;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
 import com.link_intersystems.carrental.ui.CarRentalMainFrame;
 import com.link_intersystems.carrental.ui.CarRentalMainUIConfig;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
-import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
-public class CarRentalManualConfig {
+public class CarRentalMain {
 
     private H2DataSourceConfig h2DataSourceConfig = new H2DataSourceConfig();
     private Consumer<CarRentalMainFrame> mainFrameSetter;
+    private List<DomainEventSubscriber> domainEventSubscriberList = new ArrayList<>();
 
     public CarRentalMainFrame createMainFrame() {
 
         CarRentalMainUIConfig carRentalMainUIConfig = new CarRentalMainUIConfig();
         MessageDialog messageDialog = carRentalMainUIConfig.getMessageDialog(s -> mainFrameSetter = s);
 
-        CarOfferView carOfferView = createCarOfferView(messageDialog);
         CarManagementView carManagementView = createCarManagementView(messageDialog);
+        CarOfferView carOfferView = createCarOfferView(messageDialog);
 
         CarRentalMainFrame mainFrame = carRentalMainUIConfig.getMainFrame(carOfferView, carManagementView);
         mainFrameSetter.accept(mainFrame);
@@ -45,12 +47,13 @@ public class CarRentalManualConfig {
 
     private CarOfferView createCarOfferView(MessageDialog messageDialog) {
         DataSource rentalDataSource = h2DataSourceConfig.getCarRentalDataSource();
+        JdbcTemplate rentalJdbcTemplate = h2DataSourceConfig.getCarRentalJdbcTemplate(n -> rentalDataSource);
 
-        CarBookingUseCaseManualConfig carBookingUseCaseManualConfig = new CarBookingUseCaseManualConfig();
-        CarBookingUseCase carBookingUseCase = carBookingUseCaseManualConfig.getCarBookingUseCase(rentalDataSource);
+        CarBookingUseCaseMain carBookingUseCaseMain = new CarBookingUseCaseMain();
+        CarBookingUseCase carBookingUseCase = carBookingUseCaseMain.createCarBookingUseCase(rentalJdbcTemplate, domainEventSubscriberList);
 
-        CarOfferUseCaseManualConfig carOfferUseCaseManualConfig = new CarOfferUseCaseManualConfig();
-        CarOfferUseCase carOfferUseCase = carOfferUseCaseManualConfig.getCarOfferUseCase(rentalDataSource);
+        CarOfferUseCaseMain carOfferUseCaseMain = new CarOfferUseCaseMain();
+        CarOfferUseCase carOfferUseCase = carOfferUseCaseMain.createCarOfferUseCase(rentalJdbcTemplate);
 
         CarOfferUIConfig carOfferUIConfig = new CarOfferUIConfig(messageDialog);
 
@@ -62,16 +65,17 @@ public class CarRentalManualConfig {
 
     private CarManagementView createCarManagementView(MessageDialog messageDialog) {
         DataSource managementDataSource = h2DataSourceConfig.getManagementDataSource();
+        JdbcTemplate managementJdbcTemplate = h2DataSourceConfig.getManagementJdbcTemplate(n -> managementDataSource);
 
-        CreateCarBookingManualConfig carBookingManualConfig = new CreateCarBookingManualConfig();
-        carBookingManualConfig.getDomainEventSubscriber(managementDataSource);
+        CreateCarBookingMain carBookingMain = new CreateCarBookingMain();
+        DomainEventSubscriber domainEventSubscriber = carBookingMain.createDomainEventSubscriber(managementJdbcTemplate);
+        domainEventSubscriberList.add(domainEventSubscriber);
 
-        ListCarBookingManualConfig listCarBookingManualConfig = new ListCarBookingManualConfig();
-        ListBookingsUseCase listBookingUseCase = listCarBookingManualConfig.getListBookingUseCase(managementDataSource);
+        ListCarBookingMain listCarBookingMain = new ListCarBookingMain();
+        ListBookingsUseCase listBookingUseCase = listCarBookingMain.createListBookingUseCase(managementJdbcTemplate);
 
-
-        PickupCarUseCaseManualConfig pickupCarUseCaseManualConfig = new PickupCarUseCaseManualConfig();
-        PickupCarUseCase pickupCarUseCase = pickupCarUseCaseManualConfig.getPickupCarUseCase(managementDataSource);
+        PickupCarUseCaseMain pickupCarUseCaseMain = new PickupCarUseCaseMain();
+        PickupCarUseCase pickupCarUseCase = pickupCarUseCaseMain.createPickupCarUseCase(managementJdbcTemplate);
 
         ListCarBookingUIConfig listCarBookingUIConfig = new ListCarBookingUIConfig();
         ListCarBookingController listCarBookingController = listCarBookingUIConfig.getListCarBookingController(listBookingUseCase);
@@ -83,15 +87,4 @@ public class CarRentalManualConfig {
         return carManagementUIConfig.getCarManagementView(listCarBookingView);
     }
 
-    private ListCarBookingView createListCarBookingView(ListBookingsUseCase listBookingsUseCase, PickupCarUseCase pickupCarUseCase, MessageDialog messageDialog) {
-        ListCarBookingController listCarBookingController = new ListCarBookingController(listBookingsUseCase);
-        PickupCarController pickupCarController = new PickupCarController(pickupCarUseCase, messageDialog);
-
-        ListCarBookingView listCarBoookingView = new ListCarBookingView();
-        ListModel<ListCarBookingModel> listCarBookingModel = listCarBookingController.getCarBookingListModel();
-        listCarBoookingView.setListCarBookingModel(listCarBookingModel);
-        listCarBoookingView.addListCarAction(listCarBookingController);
-        listCarBoookingView.addListCarAction(pickupCarController);
-        return listCarBoookingView;
-    }
 }
