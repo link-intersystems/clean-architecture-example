@@ -25,14 +25,14 @@ class CarOfferControllerTest {
         controllerDone = new Semaphore(0);
 
         carOffersUseCase = new CarOfferUseCaseMock();
-        carSearchModel = new CarSearchModel();
-        carOfferController = new CarOfferController(carOffersUseCase, carSearchModel) {
+        carOfferController = new CarOfferController(carOffersUseCase) {
             @Override
             protected void done(CarOfferResponseModel responseModel) {
                 super.done(responseModel);
                 controllerDone.release();
             }
         };
+        carSearchModel = carOfferController.getCarSearchModel();
         carOfferListModel = carOfferController.getCarOfferListModel();
     }
 

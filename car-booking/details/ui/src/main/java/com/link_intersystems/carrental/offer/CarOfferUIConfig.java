@@ -6,20 +6,13 @@ import com.link_intersystems.carrental.swing.notification.MessageDialog;
 
 import java.time.LocalDateTime;
 
-public class CarOfferConfig {
+public class CarOfferUIConfig {
 
-    public CarOfferUseCase getCarOfferUseCase(CarOfferRepository carOfferRepository) {
-        return new CarOfferInteractor(carOfferRepository);
-    }
+    private MessageDialog messageDialog;
 
-    public CarSearchModel getCarSearchModel() {
-        CarSearchModel carSearchModel = new CarSearchModel();
+    public CarOfferUIConfig(MessageDialog messageDialog) {
 
-        carSearchModel.getVehicleType().setValue("MICRO");
-        carSearchModel.getPickupDate().setValue(LocalDateTime.now().plusDays(1).toString());
-        carSearchModel.getReturnDate().setValue(LocalDateTime.now().plusDays(2).toString());
-
-        return carSearchModel;
+        this.messageDialog = messageDialog;
     }
 
     public CarOfferView getCarOfferView(CarOfferController carOfferController, CarBookingController carBookingController) {
@@ -32,16 +25,25 @@ public class CarOfferConfig {
         return carOfferView;
     }
 
-    public CarBookingController getCarBookingController(MessageDialog messageDialog, CarBookingUseCase carBookingUseCase, CarOfferController carOfferController) {
+    public CarBookingController getCarBookingController(CarBookingUseCase carBookingUseCase, CarOfferController carOfferController) {
         CarBookingController carBookingController = new CarBookingController(carBookingUseCase, messageDialog);
         carBookingController.setOnDoneActionListener(carOfferController);
         return carBookingController;
     }
 
-    public CarOfferController getCarOfferController(CarSearchModel carSearchModel, CarOfferUseCase carOfferUseCase, MessageDialog messageDialog) {
-        CarOfferController carOfferController = new CarOfferController(carOfferUseCase, carSearchModel);
+    public CarOfferController getCarOfferController(CarOfferUseCase carOfferUseCase, MessageDialog messageDialog) {
+        CarOfferController carOfferController = new CarOfferController(carOfferUseCase);
+        CarSearchModel carSearchModel = carOfferController.getCarSearchModel();
+        initCarSearchModel(carSearchModel);
         carOfferController.setMessageDialog(messageDialog);
         return carOfferController;
+    }
+
+
+    private void initCarSearchModel(CarSearchModel carSearchModel) {
+        carSearchModel.getVehicleType().setValue("MICRO");
+        carSearchModel.getPickupDate().setValue(LocalDateTime.now().plusDays(1).toString());
+        carSearchModel.getReturnDate().setValue(LocalDateTime.now().plusDays(2).toString());
     }
 
 }

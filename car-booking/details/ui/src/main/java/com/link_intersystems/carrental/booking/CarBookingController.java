@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
+import static java.util.Objects.*;
+
 public class CarBookingController extends AbstractWorkerAction<CarBookingResponseModel, Void> {
 
     private CarBookingUseCase carBookingUseCase;
@@ -30,8 +32,8 @@ public class CarBookingController extends AbstractWorkerAction<CarBookingRespons
     };
 
     public CarBookingController(CarBookingUseCase carBookingUseCase, MessageDialog messageDialog) {
-        this.carBookingUseCase = carBookingUseCase;
-        this.messageDialog = messageDialog;
+        this.carBookingUseCase = requireNonNull(carBookingUseCase);
+        this.messageDialog = requireNonNull(messageDialog);
 
         putValue(Action.NAME, "Book");
         updateEnablement();

@@ -1,14 +1,9 @@
-package com.link_intersystems.carrental.management.booking.list;
+package com.link_intersystems.carrental.management.booking.list.ui;
 
-import com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingController;
-import com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingView;
+import com.link_intersystems.carrental.management.booking.list.ListBookingsUseCase;
 import com.link_intersystems.carrental.management.pickup.ui.PickupCarController;
 
-public class ListCarBookingConfig {
-
-    public ListBookingsUseCase getListCarBookingsUseCase(ListBookingsRepository listBookingsRepository) {
-        return new ListBookingsInteractor(listBookingsRepository);
-    }
+public class ListCarBookingUIConfig {
 
     public ListCarBookingController getListCarBookingController(ListBookingsUseCase listBookingsUseCase) {
         return new ListCarBookingController(listBookingsUseCase);

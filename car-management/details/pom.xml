@@ -17,6 +17,5 @@
     <modules>
         <module>repository-h2</module>
         <module>ui</module>
-        <module>config</module>
     </modules>
 </project>

@@ -13,13 +13,12 @@ public class CarOfferController extends AbstractWorkerAction<CarOfferResponseMod
 
     private DefaultListModel<CarOfferModel> carOfferListModel = new DefaultListModel<>();
 
-    private CarSearchModel carSearchModel;
+    private CarSearchModel carSearchModel = new CarSearchModel();
     private CarOfferPresenter carOfferPresenter = new CarOfferPresenter();
     private MessageDialog messageDialog;
 
-    public CarOfferController(CarOfferUseCase carOfferUseCase, CarSearchModel carSearchModel) {
+    public CarOfferController(CarOfferUseCase carOfferUseCase) {
         this.carOfferUseCase = carOfferUseCase;
-        this.carSearchModel = carSearchModel;
 
         putValue(Action.NAME, "Search");
     }

@@ -5,7 +5,7 @@ import com.link_intersystems.carrental.DomainEventSubscriber;
 
 import java.util.List;
 
-public class CarBookingConfig {
+public class CarBookingUseCaseConfig {
 
     public CarBookingUseCase getCarBookingUseCase(CarBookingRepository carBookingRepository, List<DomainEventSubscriber> subscibers) {
         CarBookingInteractor carBookingInteractor = new CarBookingInteractor(carBookingRepository);
