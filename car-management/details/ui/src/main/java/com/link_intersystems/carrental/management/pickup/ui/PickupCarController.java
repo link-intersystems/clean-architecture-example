@@ -10,7 +10,6 @@ import com.link_intersystems.swing.selection.SelectionListener;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.time.LocalDateTime;
 
 import static com.link_intersystems.carrental.swing.action.ActionConstants.*;
 import static javax.swing.JOptionPane.*;
@@ -43,12 +42,10 @@ public class PickupCarController extends AbstractAction implements SelectionList
             return;
         }
 
-        PickupCarModel pickupCarModel = new PickupCarModel();
+        PickupCarModelPresenter presenter = new PickupCarModelPresenter();
+        ListCarBookingModel firstElement = listCarBookingModelSelection.getFirstElement();
+        PickupCarModel pickupCarModel = presenter.toPickupCarModel(firstElement);
 
-        ListCarBookingModel listCarBookingModel = listCarBookingModelSelection.getFirstElement();
-        pickupCarModel.setVin(listCarBookingModel.getVin());
-        pickupCarModel.setBookingNumber(listCarBookingModel.getBookingNumber());
-        pickupCarModel.setPickupDate(LocalDateTime.now());
 
         PickupCarForm<PickupCarModel> pickupCarForm = new PickupCarForm<>();
         pickupCarForm.setModel(pickupCarModel);
@@ -56,14 +53,9 @@ public class PickupCarController extends AbstractAction implements SelectionList
         int pickupCar = messageDialog.showDialog("Pickup Car", pickupCarForm.getComponent());
         if (pickupCar == OK_OPTION) {
 
+            PickupCarRequestModel requestModel = presenter.toRequestModel(pickupCarModel);
 
-            PickupCarRequestModel pickupCarRequestModel = new PickupCarRequestModel();
-            pickupCarRequestModel.setCarId(listCarBookingModel.getVin());
-            pickupCarRequestModel.setPickupDataTime(pickupCarModel.getPickupDate());
-            int value = pickupCarModel.getFuelLevel().getValue();
-            pickupCarRequestModel.setFuelLevel(FuelLevel.ofPercentage(value));
-
-            pickupCarUseCase.pickupCar(pickupCarRequestModel);
+            pickupCarUseCase.pickupCar(requestModel);
         }
     }
 }

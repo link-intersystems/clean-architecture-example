@@ -18,7 +18,7 @@ public class MessageDialogMock implements MessageDialog {
     }
 
     @Override
-    public void showException(Throwable ex) {
+    public void showException(String title, Throwable ex) {
         exception = ex;
     }
 

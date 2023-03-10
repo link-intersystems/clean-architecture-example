@@ -20,6 +20,12 @@ public class CarRentalMainUIConfig {
     public MessageDialog getMessageDialog(LazyBeanSetter<CarRentalMainFrame> lazyMainFrameSetter) {
         DefaultMessageDialog defaultMessageDialog = new DefaultMessageDialog();
         lazyMainFrameSetter.setBean(mf -> defaultMessageDialog.setParentComponent(mf.getComponent()));
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread t, Throwable e) {
+                defaultMessageDialog.showException(e);
+            }
+        });
         return defaultMessageDialog;
     }
 

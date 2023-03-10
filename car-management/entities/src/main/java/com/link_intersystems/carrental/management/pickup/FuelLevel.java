@@ -1,7 +1,7 @@
-package com.link_intersystems.carrental.management.pickup.ui;
+package com.link_intersystems.carrental.management.pickup;
 
 public enum FuelLevel {
-    EMPTY, ONE_QUARTER, HALF, THREE_QUARTER, FULL;
+    EMPTY(0), ONE_QUARTER(25), HALF(50), THREE_QUARTER(75), FULL(100);
 
     public static FuelLevel ofPercentage(int percentage) {
         if (percentage >= 0 && percentage <= 12) {
@@ -16,5 +16,15 @@ public enum FuelLevel {
             return FULL;
         }
         throw new IllegalArgumentException("Not a percentage value between 0 - 100: " + percentage);
+    }
+
+    private int percent;
+
+    FuelLevel(int percent) {
+        this.percent = percent;
+    }
+
+    public int getPercent() {
+        return percent;
     }
 }

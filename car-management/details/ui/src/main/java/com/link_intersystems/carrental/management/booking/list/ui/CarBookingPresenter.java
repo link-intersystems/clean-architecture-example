@@ -14,7 +14,7 @@ public class CarBookingPresenter {
     public ListCarBookingModel toCarBookingModel(CarBookingResponseModel carBooking) {
         ListCarBookingModel listCarBookingModel = new ListCarBookingModel();
         listCarBookingModel.setVin(carBooking.getVIN());
-        listCarBookingModel.setBookingNumber(String.valueOf(carBooking.getBookingNumber()));
+        listCarBookingModel.setBookingNumber(Integer.toString(carBooking.getBookingNumber()));
         return listCarBookingModel;
     }
 }

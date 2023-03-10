@@ -3,7 +3,12 @@ package com.link_intersystems.carrental.swing.notification;
 import java.awt.*;
 
 public interface MessageDialog {
-    void showException(Throwable ex);
+
+    default public void showException(Throwable ex) {
+        showException(ex.getClass().getSimpleName(), ex);
+    }
+
+    void showException(String title, Throwable ex);
 
     void showInfo(String info);
 

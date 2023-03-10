@@ -5,6 +5,8 @@ import com.link_intersystems.carrental.swing.exception.ThrowableView;
 import javax.swing.*;
 import java.awt.*;
 
+import static javax.swing.JOptionPane.*;
+
 public class DefaultMessageDialog implements MessageDialog {
 
     private Component parentComponent;
@@ -14,15 +16,15 @@ public class DefaultMessageDialog implements MessageDialog {
     }
 
     @Override
-    public void showException(Throwable ex) {
+    public void showException(String title, Throwable ex) {
         ThrowableView throwableView = new ThrowableView();
         throwableView.setException(ex);
-        JOptionPane.showMessageDialog(parentComponent, throwableView.getViewComponent());
+        JOptionPane.showMessageDialog(parentComponent, throwableView.getViewComponent(), title, ERROR_MESSAGE);
     }
 
     @Override
     public void showInfo(String info) {
-        JOptionPane.showMessageDialog(parentComponent, info, "Info", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(parentComponent, info, "Info", INFORMATION_MESSAGE);
     }
 
     @Override

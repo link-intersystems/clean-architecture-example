@@ -1,25 +1,25 @@
 package com.link_intersystems.carrental.management.pickup;
 
-import com.link_intersystems.carrental.management.pickup.ui.FuelLevel;
-
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class PickupCarRequestModel {
-    private String carId;
-    private LocalDateTime pickupDataTime;
+    private int bookingNumber;
+    private LocalDateTime pickupDateTime;
     private FuelLevel fuelLevel;
     private Integer odometer;
 
-    private MainDriverRequestModel mainDriver;
-    private List<DriverRequestModel> additionalDrivers;
+    private DriverRequestModel driver;
 
-    public void setAdditionalDrivers(List<DriverRequestModel> additionalDrivers) {
-        this.additionalDrivers = additionalDrivers;
+    public void setBookingNumber(int bookingNumber) {
+        this.bookingNumber = bookingNumber;
     }
 
-    public void setMainDriver(MainDriverRequestModel mainDriver) {
-        this.mainDriver = mainDriver;
+    public int getBookingNumber() {
+        return bookingNumber;
+    }
+
+    public void setDriver(DriverRequestModel driver) {
+        this.driver = driver;
     }
 
     public void setFuelLevel(FuelLevel fuelLevel) {
@@ -30,11 +30,24 @@ public class PickupCarRequestModel {
         this.odometer = odometer;
     }
 
-    public void setPickupDataTime(LocalDateTime pickupDataTime) {
-        this.pickupDataTime = pickupDataTime;
+    public void setPickupDateTime(LocalDateTime pickupDateTime) {
+        this.pickupDateTime = pickupDateTime;
     }
 
-    public void setCarId(String carId) {
-        this.carId = carId;
+    public DriverRequestModel getDriver() {
+        return driver;
     }
+
+    public FuelLevel getFuelLevel() {
+        return fuelLevel;
+    }
+
+    public Integer getOdometer() {
+        return odometer;
+    }
+
+    public LocalDateTime getPickupDateTime() {
+        return pickupDateTime;
+    }
+
 }
