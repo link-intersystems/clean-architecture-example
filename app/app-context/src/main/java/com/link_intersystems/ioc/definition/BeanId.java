@@ -1,4 +1,4 @@
-package com.link_intersystems.ioc;
+package com.link_intersystems.ioc.definition;
 
 import java.util.Objects;
 
@@ -7,7 +7,7 @@ public class BeanId {
     private Class<?> type;
     private String name;
 
-    BeanId(Class<?> type, String name) {
+    public BeanId(Class<?> type, String name) {
         this.type = type;
         this.name = name;
     }

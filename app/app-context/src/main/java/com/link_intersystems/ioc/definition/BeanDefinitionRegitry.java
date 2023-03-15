@@ -1,4 +1,6 @@
-package com.link_intersystems.ioc;
+package com.link_intersystems.ioc.definition;
+
+import com.link_intersystems.ioc.context.AmbiguousBeanException;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.link_intersystems.ioc;
+package com.link_intersystems.ioc.api;
 
 import java.util.function.Consumer;
 

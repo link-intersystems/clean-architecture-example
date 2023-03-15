@@ -1,4 +1,4 @@
-package com.link_intersystems.ioc;
+package com.link_intersystems.ioc.definition;
 
 import java.io.IOException;
 import java.util.List;

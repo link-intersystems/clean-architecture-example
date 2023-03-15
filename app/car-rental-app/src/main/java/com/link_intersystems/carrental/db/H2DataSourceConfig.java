@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental.db;
 
-import com.link_intersystems.ioc.BeanSelector;
+import com.link_intersystems.ioc.api.BeanSelector;
 import com.link_intersystems.sql.io.SqlScript;
 import com.link_intersystems.sql.io.URLScriptResource;
 import org.h2.jdbcx.JdbcDataSource;

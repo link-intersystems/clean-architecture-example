@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental;
 
-import com.link_intersystems.ioc.ApplicationContext;
-import com.link_intersystems.ioc.BeanDefinitionRegitry;
+import com.link_intersystems.ioc.context.ApplicationContext;
+import com.link_intersystems.ioc.definition.BeanDefinitionRegitry;
 import com.link_intersystems.carrental.ui.DBUnitMainFrame;
 
 public class CarRentalDBUnitApp {

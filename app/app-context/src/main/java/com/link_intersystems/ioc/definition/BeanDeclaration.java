@@ -1,4 +1,4 @@
-package com.link_intersystems.ioc;
+package com.link_intersystems.ioc.definition;
 
 import java.net.URL;
 import java.util.Objects;
@@ -8,7 +8,7 @@ public class BeanDeclaration {
     private URL resource;
     private BeanId beanId;
 
-    BeanDeclaration(URL resource, BeanId beanId) {
+    public BeanDeclaration(URL resource, BeanId beanId) {
         this.resource = resource;
         this.beanId = beanId;
     }

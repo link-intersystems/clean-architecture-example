@@ -1,4 +1,8 @@
-package com.link_intersystems.ioc;
+package com.link_intersystems.ioc.context;
+
+import com.link_intersystems.ioc.definition.BeanDefinition;
+import com.link_intersystems.ioc.definition.BeanId;
+import com.link_intersystems.ioc.api.LazyBeanSetter;
 
 import java.util.List;
 import java.util.Stack;

@@ -1,4 +1,4 @@
-package com.link_intersystems.ioc;
+package com.link_intersystems.ioc.definition;
 
 import java.lang.reflect.Executable;
 
