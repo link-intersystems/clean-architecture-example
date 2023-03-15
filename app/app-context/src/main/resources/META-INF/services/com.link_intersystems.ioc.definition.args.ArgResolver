@@ -1,0 +1,4 @@
+com.link_intersystems.ioc.definition.args.BeansArgResolver
+com.link_intersystems.ioc.definition.args.BeanSupplierArgResolver
+com.link_intersystems.ioc.definition.args.LazySetterArgResolver
+com.link_intersystems.ioc.definition.args.BeanSelectorArgResolver

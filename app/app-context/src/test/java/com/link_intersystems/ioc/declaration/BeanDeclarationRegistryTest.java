@@ -1,5 +1,6 @@
 package com.link_intersystems.ioc.declaration;
 
+import com.link_intersystems.ioc.declaration.location.UnknownBeanDeclarationLocation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

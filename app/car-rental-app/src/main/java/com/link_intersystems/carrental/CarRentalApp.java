@@ -3,6 +3,9 @@ package com.link_intersystems.carrental;
 import com.link_intersystems.carrental.ui.CarRentalMainFrame;
 import com.link_intersystems.ioc.context.ApplicationContext;
 import com.link_intersystems.ioc.declaration.*;
+import com.link_intersystems.ioc.declaration.BeanDeclarationLocation;
+import com.link_intersystems.ioc.declaration.location.ResourceBeanDeclarationLocation;
+import com.link_intersystems.ioc.declaration.locator.BeanConfigSupportBeanDeclarationLocator;
 
 import java.net.URL;
 import java.util.function.Predicate;

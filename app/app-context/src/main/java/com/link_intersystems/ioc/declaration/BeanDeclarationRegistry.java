@@ -1,6 +1,7 @@
 package com.link_intersystems.ioc.declaration;
 
 import com.link_intersystems.ioc.context.AmbiguousBeanException;
+import com.link_intersystems.ioc.declaration.locator.BeanConfigSupportBeanDeclarationLocator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class BeanDeclarationRegistry {
                 return true;
             }
             return bd.getBeanName().equals(name);
-        }).findFirst().orElseThrow(() -> new IllegalStateException("No bean declaration of " + type + "{" + name + "} found."));
+        }).findFirst().orElseThrow(() -> new IllegalStateException("No bean declaration of " + type + " (" + name + ") found."));
     }
 
     public BeanDeclaration getExactBeanDeclaration(Class<?> type) {

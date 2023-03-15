@@ -4,13 +4,11 @@ import com.link_intersystems.ioc.api.BeanSelector;
 import com.link_intersystems.ioc.api.LazyBeanSetter;
 import com.link_intersystems.ioc.declaration.BeanDeclaration;
 import com.link_intersystems.ioc.declaration.BeanDeclarationRegistry;
-import com.link_intersystems.ioc.declaration.BeanFactoryMethodBeanDeclaration;
-import com.link_intersystems.ioc.definition.BeanConstructor;
-import com.link_intersystems.ioc.definition.BeanId;
-import com.link_intersystems.ioc.definition.DefaultBeanConstructor;
-import com.link_intersystems.ioc.definition.FactoryMethodBeanConstructor;
+import com.link_intersystems.ioc.definition.BeanDefinition;
+import com.link_intersystems.ioc.definition.constructor.DefaultBeanConstructorFactory;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.*;
 
@@ -19,13 +17,11 @@ public class ApplicationContext implements BeanFactory {
     private Map<BeanDeclaration, Object> beansByDeclaration = new HashMap<>();
     private Map<BeanDeclaration, List<DefaultLazyBeanSetter>> lazyBeanSetters = new HashMap<>();
 
-    private ThreadLocal<Stack<BeanId>> callStackHolder = new ThreadLocal<>() {
-        @Override
-        protected Stack<BeanId> initialValue() {
-            return new Stack<>();
-        }
-    };
+    private ThreadLocal<Stack<BeanDeclaration>> callStackHolder = ThreadLocal.withInitial(() -> new Stack<>());
     private BeanDeclarationRegistry beanDeclarationRegistry;
+
+    private ConstructorArgsResolver constructorArgsResolver = new DefaultConstructorArgsResolver(this);
+    private BeanConstructorFactory beanConstructorFactory = new DefaultBeanConstructorFactory();
 
     public ApplicationContext() {
         this(new BeanDeclarationRegistry());
@@ -45,23 +41,21 @@ public class ApplicationContext implements BeanFactory {
             return (T) this;
         }
 
-        BeanId beanId = new BeanId(type, name);
-        Stack<BeanId> callStack = callStackHolder.get();
+        BeanDeclaration beanDeclaration = beanDeclarationRegistry.getBeanDeclaration(type, name);
 
-        if (callStack.contains(beanId)) {
-            StringBuilder sb = ExceptionUtils.cyclicExceptionString(beanId, callStack);
-            throw new RuntimeException("Cyclic bean dependency " + beanId + "\n" + sb);
+        Stack<BeanDeclaration> callStack = callStackHolder.get();
+
+        if (callStack.contains(beanDeclaration)) {
+            StringBuilder sb = ExceptionUtils.cyclicExceptionString(beanDeclaration, callStack);
+            throw new RuntimeException("Cyclic bean dependency " + beanDeclaration + "\n" + sb);
         }
 
-        callStack.push(beanId);
+        callStack.push(beanDeclaration);
 
-        Class<?> beanType = beanId.getType();
-        String beanName = beanId.getName();
         try {
-            BeanDeclaration beanDeclaration = beanDeclarationRegistry.getBeanDeclaration(beanType, beanName);
             return tryGetBean(beanDeclaration);
         } catch (Exception e) {
-            throw new RuntimeException("Unable to getBean(" + beanType.getName() + ", " + beanName + ")", e);
+            throw new RuntimeException("Unable to getBean(" + type.getName() + ", " + name + ")", e);
         } finally {
             callStack.pop();
         }
@@ -69,20 +63,9 @@ public class ApplicationContext implements BeanFactory {
 
     @Override
     public <T> List<T> getBeans(Class<T> type) {
-        List<T> beans = new ArrayList<>();
-        BeanId beanId = new BeanId(type, null);
-        List<BeanDeclaration> beanDeclarations = getBeanDeclarationRegistry().getBeanDeclaration(beanId.getType());
+        List<BeanDefinition<T>> beanDefinitions = getBeanDefinitions(type);
 
-        try {
-            for (BeanDeclaration beanDeclaration : beanDeclarations) {
-                T bean = tryGetBean(beanDeclaration);
-                beans.add(bean);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        return beans;
+        return beanDefinitions.stream().map(BeanDefinition::getBean).collect(Collectors.toList());
     }
 
     private <T> T tryGetBean(BeanDeclaration beanDeclaration) throws Exception {
@@ -105,18 +88,10 @@ public class ApplicationContext implements BeanFactory {
     }
 
     private Object createBean(BeanDeclaration beanDeclaration) throws Exception {
-        BeanConstructor beanConstructor = resolveBeanConstructor(beanDeclaration);
+        BeanConstructor beanConstructor = beanConstructorFactory.createBeanConstructor(beanDeclaration, constructorArgsResolver);
         return beanConstructor.createBean(this);
     }
 
-    private BeanConstructor resolveBeanConstructor(BeanDeclaration beanDeclaration) {
-        if (beanDeclaration instanceof BeanFactoryMethodBeanDeclaration) {
-            BeanFactoryMethodBeanDeclaration beanFactoryMethodBeanDeclaration = (BeanFactoryMethodBeanDeclaration) beanDeclaration;
-            return new FactoryMethodBeanConstructor(beanFactoryMethodBeanDeclaration);
-        }
-
-        return new DefaultBeanConstructor(beanDeclaration);
-    }
 
     @Override
     public <T> LazyBeanSetter<T> getLazyBeanSetter(Class<T> type) {
@@ -137,44 +112,25 @@ public class ApplicationContext implements BeanFactory {
 
     @Override
     public <T> BeanSelector<T> getBeanSelector(Class<T> type) {
-        return new BeanSelector<T>() {
+        List<BeanDefinition<T>> beanDefinitions = getBeanDefinitions(type);
+        return new DefaultBeanSelector<>(type, beanDefinitions);
+    }
 
-            @Override
-            public T select(String beanName) {
-                try {
-                    BeanDeclaration beanDefinition = beanDeclarationRegistry.getExactBeanDeclaration(type);
-                    return (T) beansByDeclaration.get(beanDefinition);
-                } catch (AmbiguousBeanException e) {
-                    List<BeanDeclaration> options = e.getOptions();
-                    for (BeanDeclaration option : options) {
-                        String optionName = option.getBeanName();
-                        if (beanName.equals(optionName)) {
-                            try {
-                                return tryGetBean(option);
-                            } catch (Exception ex) {
-                                throw new RuntimeException(ex);
-                            }
-                        }
-                    }
-                    StringBuilder sb = new StringBuilder("No bean ");
-                    sb.append(type.getName());
-                    sb.append(" named ");
-                    sb.append(beanName);
-                    sb.append(" available. Available beans are:\n");
+    public <T> List<BeanDefinition<T>> getBeanDefinitions(Class<T> type) {
+        List<BeanDeclaration> beanDeclarations = getBeanDeclarationRegistry().getBeanDeclaration(type);
 
-                    Iterator<BeanDeclaration> iterator = options.iterator();
-                    while (iterator.hasNext()) {
-                        BeanDeclaration option = iterator.next();
-                        sb.append("\t o ");
-                        sb.append(option);
-                        if (iterator.hasNext()) {
-                            sb.append("\n");
-                        }
-                    }
-                    throw new RuntimeException(sb.toString());
-                }
+        List<BeanDefinition<T>> beanDefinitions = new ArrayList<>();
+        try {
+            for (BeanDeclaration beanDeclaration : beanDeclarations) {
+                T bean = tryGetBean(beanDeclaration);
+                BeanDefinition<T> beanDefinition = new BeanDefinition<>(bean, beanDeclaration);
+                beanDefinitions.add(beanDefinition);
             }
-        };
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return beanDefinitions;
     }
 }
 
