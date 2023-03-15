@@ -1,11 +1,6 @@
-package com.link_intersystems.app.context;
+package com.link_intersystems.ioc;
 
-import java.lang.reflect.Executable;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.List;
 import java.util.Objects;
-import java.util.function.Supplier;
 
 abstract class AbstractBeanDefinition implements BeanDefinition {
     private BeanDeclaration beanDeclaration;

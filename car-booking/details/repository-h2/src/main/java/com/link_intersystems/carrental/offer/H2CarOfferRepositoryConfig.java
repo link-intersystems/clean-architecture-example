@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental.offer;
 
-import com.link_intersystems.app.context.BeanSelector;
+import com.link_intersystems.ioc.BeanSelector;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class H2CarOfferRepositoryConfig {

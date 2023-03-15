@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.ui;
 
-import com.link_intersystems.app.context.BeanFactory;
-import com.link_intersystems.app.context.LazyBeanSetter;
+import com.link_intersystems.ioc.BeanFactory;
+import com.link_intersystems.ioc.LazyBeanSetter;
 import com.link_intersystems.carrental.offer.CarOfferView;
 import com.link_intersystems.carrental.swing.notification.DefaultMessageDialog;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;

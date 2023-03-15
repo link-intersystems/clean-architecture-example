@@ -1,4 +1,4 @@
-package com.link_intersystems.app.context;
+package com.link_intersystems.ioc;
 
 import java.io.BufferedReader;
 import java.io.IOException;

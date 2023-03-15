@@ -1,9 +1,9 @@
 package com.link_intersystems.carrental;
 
-import com.link_intersystems.app.context.ApplicationContext;
-import com.link_intersystems.app.context.BeanDeclaration;
-import com.link_intersystems.app.context.BeanDefinition;
-import com.link_intersystems.app.context.BeanDefinitionRegitry;
+import com.link_intersystems.ioc.ApplicationContext;
+import com.link_intersystems.ioc.BeanDeclaration;
+import com.link_intersystems.ioc.BeanDefinition;
+import com.link_intersystems.ioc.BeanDefinitionRegitry;
 import com.link_intersystems.carrental.ui.CarRentalMainFrame;
 
 import java.net.URL;

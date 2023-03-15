@@ -1,11 +1,7 @@
 package com.link_intersystems.carrental.booking;
 
-import com.link_intersystems.app.context.BeanSelector;
-import com.link_intersystems.carrental.DomainEventBusTemplate;
-import com.link_intersystems.carrental.DomainEventSubscriber;
+import com.link_intersystems.ioc.BeanSelector;
 import org.springframework.jdbc.core.JdbcTemplate;
-
-import java.util.List;
 
 public class H2CarBookingRepositoryConfig {
 

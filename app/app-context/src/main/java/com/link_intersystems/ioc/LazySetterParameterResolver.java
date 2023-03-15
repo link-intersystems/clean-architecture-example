@@ -1,4 +1,4 @@
-package com.link_intersystems.app.context;
+package com.link_intersystems.ioc;
 
 public class LazySetterParameterResolver extends GenericParameterResolver {
     public LazySetterParameterResolver(BeanFactory beanFactory) {
