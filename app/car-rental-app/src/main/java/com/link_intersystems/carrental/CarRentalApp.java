@@ -15,7 +15,7 @@ public class CarRentalApp {
     }
 
     void run(String[] args) {
-        BeanConfigSupportBeanDeclarationLocator beanDeclarationLocator = new BeanConfigSupportBeanDeclarationLocator(bd -> true);
+        BeanConfigSupportBeanDeclarationLocator beanDeclarationLocator = new BeanConfigSupportBeanDeclarationLocator();
         BeanDeclarationRegistry beanDeclarationRegistry = new BeanDeclarationRegistry(beanDeclarationLocator);
 
         Predicate<BeanDeclaration> excludeBeanDefinitions = getBeanDefinitionPredicate(args);

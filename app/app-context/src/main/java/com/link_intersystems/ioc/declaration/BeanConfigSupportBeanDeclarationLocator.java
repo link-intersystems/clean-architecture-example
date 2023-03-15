@@ -13,7 +13,11 @@ public class BeanConfigSupportBeanDeclarationLocator implements BeanDeclarationL
     private List<BeanDeclaration> beanDeclarations;
 
     public BeanConfigSupportBeanDeclarationLocator() {
-        this(new MetaInfBeanDeclarationLocator(), new AnnotationBeanConfigDetector());
+        this(new MetaInfBeanDeclarationLocator(), defaultBeanConfigDetector());
+    }
+
+    private static BeanConfigDetector defaultBeanConfigDetector() {
+        return new CompositeBeanConfigDetector(new AnnotationBeanConfigDetector(), new NamePatternBeanConfigDetector());
     }
 
     public BeanConfigSupportBeanDeclarationLocator(BeanConfigDetector beanConfigDetector) {
@@ -22,7 +26,7 @@ public class BeanConfigSupportBeanDeclarationLocator implements BeanDeclarationL
     }
 
     public BeanConfigSupportBeanDeclarationLocator(BeanDeclarationLocator sourceLocator) {
-        this(sourceLocator, new AnnotationBeanConfigDetector());
+        this(sourceLocator, defaultBeanConfigDetector());
 
     }
 
