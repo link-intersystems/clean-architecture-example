@@ -1,6 +1,7 @@
 package com.link_intersystems.carrental;
 
 import com.link_intersystems.app.context.ApplicationContext;
+import com.link_intersystems.app.context.BeanDeclaration;
 import com.link_intersystems.app.context.BeanDefinition;
 import com.link_intersystems.app.context.BeanDefinitionRegitry;
 import com.link_intersystems.carrental.ui.CarRentalMainFrame;
@@ -33,7 +34,8 @@ public class CarRentalApp {
         String repository = getRepository(args);
 
         Predicate<BeanDefinition> excludeBeanDefinitions = bd -> {
-            URL resource = bd.getResource();
+            BeanDeclaration beanDeclaration = bd.getBeanDeclaration();
+            URL resource = beanDeclaration.getResource();
             String path = resource.getPath();
 
             if (path.contains("/repository")) {

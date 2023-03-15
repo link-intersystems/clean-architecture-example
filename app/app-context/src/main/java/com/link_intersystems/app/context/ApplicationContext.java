@@ -9,9 +9,9 @@ public class ApplicationContext implements BeanFactory {
     private Map<BeanDefinition, Object> beansByBeanDefinition = new HashMap<>();
     private Map<BeanDefinition, List<DefaultLazyBeanSetter>> lazyBeanSetters = new HashMap<>();
 
-    private ThreadLocal<Stack<BeanDeclaration>> callStackHolder = new ThreadLocal<>() {
+    private ThreadLocal<Stack<BeanId>> callStackHolder = new ThreadLocal<>() {
         @Override
-        protected Stack<BeanDeclaration> initialValue() {
+        protected Stack<BeanId> initialValue() {
             return new Stack<>();
         }
     };
@@ -35,20 +35,20 @@ public class ApplicationContext implements BeanFactory {
             return (T) this;
         }
 
-        BeanDeclaration beanDeclaration = new BeanDeclaration(type, name);
-        Stack<BeanDeclaration> callStack = callStackHolder.get();
+        BeanId beanId = new BeanId(type, name);
+        Stack<BeanId> callStack = callStackHolder.get();
 
-        if (callStack.contains(beanDeclaration)) {
-            StringBuilder sb = ExceptionUtils.cyclicExceptionString(beanDeclaration, callStack);
-            throw new RuntimeException("Cyclic bean dependency " + beanDeclaration + "\n" + sb);
+        if (callStack.contains(beanId)) {
+            StringBuilder sb = ExceptionUtils.cyclicExceptionString(beanId, callStack);
+            throw new RuntimeException("Cyclic bean dependency " + beanId + "\n" + sb);
         }
 
-        callStack.push(beanDeclaration);
+        callStack.push(beanId);
 
         try {
-            return tryGetBean(beanDeclaration);
+            return tryGetBean(beanId);
         } catch (Exception e) {
-            throw new RuntimeException("Unable to getBean(" + beanDeclaration.getType().getName() + ", " + beanDeclaration.getName() + ")", e);
+            throw new RuntimeException("Unable to getBean(" + beanId.getType().getName() + ", " + beanId.getName() + ")", e);
         } finally {
             callStack.pop();
         }
@@ -57,20 +57,21 @@ public class ApplicationContext implements BeanFactory {
     @Override
     public <T> List<T> getBeans(Class<T> type) {
         List<T> beans = new ArrayList<>();
-        BeanDeclaration beanDeclaration = new BeanDeclaration(type, null);
-        List<BeanDefinition> beanDefinitions = getBeanDefinitionRegitry().getBeanDefinitions(beanDeclaration);
+        BeanId beanId = new BeanId(type, null);
+        List<BeanDefinition> beanDefinitions = getBeanDefinitionRegitry().getBeanDefinitions(beanId);
 
         for (BeanDefinition beanDefinition : beanDefinitions) {
             BeanDeclaration actBeanDeclaration = beanDefinition.getBeanDeclaration();
-            Object bean = tryGetBean(actBeanDeclaration);
+            BeanId id = actBeanDeclaration.getId();
+            Object bean = tryGetBean(id);
             beans.add((T) bean);
         }
 
         return beans;
     }
 
-    private <T> T tryGetBean(BeanDeclaration beanDeclaration) {
-        BeanDefinition matchingBeanDefinition = getBeanDefinitionRegitry().getBeanDefinition(beanDeclaration);
+    private <T> T tryGetBean(BeanId beanId) {
+        BeanDefinition matchingBeanDefinition = getBeanDefinitionRegitry().getBeanDefinition(beanId);
 
         return getBean(matchingBeanDefinition);
     }
@@ -97,8 +98,8 @@ public class ApplicationContext implements BeanFactory {
 
     @Override
     public <T> LazyBeanSetter<T> getLazyBeanSetter(Class<T> type) {
-        BeanDeclaration beanDeclaration = new BeanDeclaration(type, null);
-        BeanDefinition beanDefinition = beanDefinitionRegitry.getBeanDefinition(beanDeclaration);
+        BeanId beanId = new BeanId(type, null);
+        BeanDefinition beanDefinition = beanDefinitionRegitry.getBeanDefinition(beanId);
 
         DefaultLazyBeanSetter<T> lazyBeanSetter = new DefaultLazyBeanSetter<>();
         Object bean = beansByBeanDefinition.get(beanDefinition);
@@ -115,21 +116,22 @@ public class ApplicationContext implements BeanFactory {
 
     @Override
     public <T> BeanSelector<T> getBeanSelector(Class<T> type) {
-        BeanDeclaration beanDeclaration = new BeanDeclaration(type, null);
+        BeanId beanId = new BeanId(type, null);
         return new BeanSelector<T>() {
 
             @Override
             public T select(String beanName) {
                 try {
-                    BeanDefinition beanDefinition = beanDefinitionRegitry.getBeanDefinition(beanDeclaration);
+                    BeanDefinition beanDefinition = beanDefinitionRegitry.getBeanDefinition(beanId);
                     return (T) beansByBeanDefinition.get(beanDefinition);
                 } catch (AmbiguousBeanException e) {
                     List<BeanDefinition> options = e.getOptions();
                     for (BeanDefinition option : options) {
                         BeanDeclaration optionBeanDeclaration = option.getBeanDeclaration();
-                        String optionName = optionBeanDeclaration.getName();
+                        BeanId optionBeanId = optionBeanDeclaration.getId();
+                        String optionName = optionBeanId.getName();
                         if (beanName.equals(optionName)) {
-                            BeanDefinition beanDefinition = beanDefinitionRegitry.getBeanDefinition(optionBeanDeclaration);
+                            BeanDefinition beanDefinition = beanDefinitionRegitry.getBeanDefinition(optionBeanId);
                             return getBean(beanDefinition);
                         }
                     }

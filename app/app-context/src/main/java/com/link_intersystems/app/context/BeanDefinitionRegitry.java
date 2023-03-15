@@ -27,11 +27,11 @@ public class BeanDefinitionRegitry {
         this.beanDefinitionExcludeFilter = beanDefinitionExcludeFilter == null ? DEFAULT_BEAN_DEFINITION_EXCLUDE_FILTER : beanDefinitionExcludeFilter;
     }
 
-    public BeanDefinition getBeanDefinition(BeanDeclaration beanDeclaration) throws AmbiguousBeanException {
-        List<BeanDefinition> matchingBeanDefinitions = getBeanDefinitions(beanDeclaration);
+    public BeanDefinition getBeanDefinition(BeanId beanId) throws AmbiguousBeanException {
+        List<BeanDefinition> matchingBeanDefinitions = getBeanDefinitions(beanId);
 
         if (matchingBeanDefinitions.isEmpty()) {
-            throw new RuntimeException("Bean " + beanDeclaration.getType().getName() + " is not available.");
+            throw new RuntimeException("Bean " + beanId.getType().getName() + " is not available.");
         }
 
         if (matchingBeanDefinitions.size() == 1) {
@@ -40,10 +40,10 @@ public class BeanDefinitionRegitry {
         }
 
 
-        throw new AmbiguousBeanException(ExceptionUtils.ambiguousBean(beanDeclaration, matchingBeanDefinitions), matchingBeanDefinitions);
+        throw new AmbiguousBeanException(ExceptionUtils.ambiguousBean(beanId, matchingBeanDefinitions), matchingBeanDefinitions);
     }
 
-    public List<BeanDefinition> getBeanDefinitions(BeanDeclaration beanDeclaration) {
+    public List<BeanDefinition> getBeanDefinitions(BeanId beanId) {
         List<BeanDefinition> beanDefinitions = getBeanDefinitions();
 
         List<BeanDefinition> matchingBeanDefinitions = new ArrayList<>();
@@ -55,12 +55,12 @@ public class BeanDefinitionRegitry {
 
             BeanDeclaration actualBeanDefinition = beanDefinition.getBeanDeclaration();
 
-            if (!isInstance(beanDeclaration, actualBeanDefinition)) {
+            if (!isInstance(beanId, actualBeanDefinition.getId())) {
                 continue;
             }
 
-            if (beanDeclaration.getName() != null) {
-                if (!isNamed(actualBeanDefinition, beanDeclaration.getName())) {
+            if (beanId.getName() != null) {
+                if (!isNamed(actualBeanDefinition.getId(), beanId.getName())) {
                     continue;
                 }
             }
@@ -71,12 +71,12 @@ public class BeanDefinitionRegitry {
         return matchingBeanDefinitions;
     }
 
-    private boolean isInstance(BeanDeclaration actBeanDeclaration, BeanDeclaration otherBeanDeclaration) {
-        return actBeanDeclaration.getType().isAssignableFrom(otherBeanDeclaration.getType());
+    private boolean isInstance(BeanId actBeanId, BeanId otherBeanDeclaration) {
+        return actBeanId.getType().isAssignableFrom(otherBeanDeclaration.getType());
     }
 
 
-    private boolean isNamed(BeanDeclaration actBeanDeclaration, String name) {
+    private boolean isNamed(BeanId actBeanDeclaration, String name) {
         String actualName = actBeanDeclaration.getName();
         if (actualName != null && actualName.equals(name)) {
             return true;

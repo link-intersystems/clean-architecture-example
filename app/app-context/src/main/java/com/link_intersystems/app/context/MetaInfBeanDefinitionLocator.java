@@ -21,8 +21,9 @@ public class MetaInfBeanDefinitionLocator implements BeanDefinitionLocator {
     }
 
     private List<BeanDefinition> createSimpleBeanDefinition(URL resource, Class<?> beanType) {
-        BeanDeclaration beanDeclaration = new BeanDeclaration(beanType, beanType.getName());
-        return Collections.singletonList(new SimpleBeanDefinition(resource, beanDeclaration));
+        BeanId beanId = new BeanId(beanType, beanType.getName());
+        BeanDeclaration beanDeclaration = new BeanDeclaration(resource, beanId);
+        return Collections.singletonList(new ConstructorBeanDefinition(beanDeclaration));
     }
 
     private List<BeanDefinition> createBeanConfigBeanDefinitions(URL resource, Class<?> beanConfigType) {
@@ -50,7 +51,7 @@ public class MetaInfBeanDefinitionLocator implements BeanDefinitionLocator {
                 Class<?> type = Class.forName(line);
                 List<BeanDefinition> providedBeanDefinitions = beanDefintionFactory.apply(nextResource, type);
                 for (BeanDefinition providedBeanDefinition : providedBeanDefinitions) {
-                    if (unique.add(providedBeanDefinition.getBeanDeclaration())) {
+                    if (unique.add(providedBeanDefinition.getBeanDeclaration().getId())) {
                         beanDefinitions.add(providedBeanDefinition);
                     }
                 }

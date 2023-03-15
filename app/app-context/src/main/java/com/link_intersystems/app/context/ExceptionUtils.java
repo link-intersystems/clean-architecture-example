@@ -5,49 +5,49 @@ import java.util.Stack;
 
 class ExceptionUtils {
 
-    static StringBuilder cyclicExceptionString(BeanDeclaration beanDeclaration, Stack<BeanDeclaration> callStack) {
+    static StringBuilder cyclicExceptionString(BeanId beanId, Stack<BeanId> callStack) {
         StringBuilder sb = new StringBuilder("Cyclic bean dependency ");
-        BeanDeclaration requestingBeanDeclaration = callStack.get(callStack.size() - 1);
-        sb.append(requestingBeanDeclaration.getType().getName());
+        BeanId requestingBeanId = callStack.get(callStack.size() - 1);
+        sb.append(requestingBeanId.getType().getName());
         sb.append("\n");
 
-        for (BeanDeclaration ref : callStack) {
-            int index = callStack.indexOf(ref);
-            appendBeanRef(sb, ref, index);
+        for (BeanId actId : callStack) {
+            int index = callStack.indexOf(actId);
+            appendBeanRef(sb, actId, index);
         }
 
-        appendBeanRef(sb, beanDeclaration, callStack.size());
+        appendBeanRef(sb, beanId, callStack.size());
 
         sb.append("\n\t NOTE: You might want to use a Supplier<");
-        sb.append(beanDeclaration.getType().getSimpleName());
+        sb.append(beanId.getType().getSimpleName());
         sb.append("> or ");
         sb.append(LazyBeanSetter.class.getSimpleName());
         sb.append("<");
-        sb.append(beanDeclaration.getType().getSimpleName());
+        sb.append(beanId.getType().getSimpleName());
         sb.append("> instead.\n");
         return sb;
     }
 
-    private static void appendBeanRef(StringBuilder sb, BeanDeclaration ref, int indentation) {
+    private static void appendBeanRef(StringBuilder sb, BeanId beanId, int indentation) {
         while (indentation-- > 0) {
             sb.append("\t");
         }
         sb.append(" > ");
-        sb.append(ref);
+        sb.append(beanId);
         sb.append("\n");
     }
 
-    public static String ambiguousBean(BeanDeclaration beanDeclaration, List<BeanDefinition> matchingBeanDefinitions) {
+    public static String ambiguousBean(BeanId beanId, List<BeanDefinition> matchingBeanDefinitions) {
         StringBuilder sb = new StringBuilder("Bean ");
-        sb.append(beanDeclaration.getType().getName());
+        sb.append(beanId.getType().getName());
         sb.append(" is ambiguous. :\n");
 
         for (BeanDefinition beanDefinition : matchingBeanDefinitions) {
-            appendBeanRef(sb, beanDefinition.getBeanDeclaration(), 1);
+            appendBeanRef(sb, beanDefinition.getBeanDeclaration().getId(), 1);
         }
 
         sb.append("\n\t NOTE: You might want to use a BeanSelector<");
-        sb.append(beanDeclaration.getType().getSimpleName());
+        sb.append(beanId.getType().getSimpleName());
         sb.append("> instead.\n");
 
         return sb.toString();
