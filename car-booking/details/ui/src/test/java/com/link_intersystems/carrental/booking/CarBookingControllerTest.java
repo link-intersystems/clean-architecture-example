@@ -19,7 +19,6 @@ class CarBookingControllerTest {
 
     private CarBookingUseCaseMock carBookingUseCaseMock;
     private MessageDialogMock messageDialogMock;
-    private CarSearchModel carSearchModel;
     private CarBookingController carBookingController;
     private Runnable performAction;
 
