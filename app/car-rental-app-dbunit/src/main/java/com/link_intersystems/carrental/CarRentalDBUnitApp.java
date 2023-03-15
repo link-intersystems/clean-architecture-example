@@ -1,8 +1,7 @@
 package com.link_intersystems.carrental;
 
-import com.link_intersystems.ioc.context.ApplicationContext;
-import com.link_intersystems.ioc.definition.BeanDefinitionRegitry;
 import com.link_intersystems.carrental.ui.DBUnitMainFrame;
+import com.link_intersystems.ioc.context.ApplicationContext;
 
 public class CarRentalDBUnitApp {
 
@@ -12,8 +11,7 @@ public class CarRentalDBUnitApp {
     }
 
     void run(String[] args) {
-        BeanDefinitionRegitry beanDefinitionRegitry = new BeanDefinitionRegitry();
-        ApplicationContext applicationContext = new ApplicationContext(beanDefinitionRegitry);
+        ApplicationContext applicationContext = new ApplicationContext();
         DBUnitMainFrame DBUnitMainFrame = applicationContext.getBean(DBUnitMainFrame.class);
         openFrame(DBUnitMainFrame);
     }

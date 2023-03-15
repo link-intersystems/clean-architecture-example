@@ -16,4 +16,8 @@ public class ResourceBeanDeclarationLocation implements BeanDeclarationLocation 
     public String toString() {
         return resource.getPath();
     }
+
+    public URL getUrl() {
+        return resource;
+    }
 }

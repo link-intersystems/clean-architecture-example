@@ -1,5 +1,7 @@
 package com.link_intersystems.ioc.declaration;
 
+import com.link_intersystems.ioc.context.AmbiguousBeanException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -10,12 +12,12 @@ public class BeanDeclarationRegistry {
 
     public static final Predicate<BeanDeclaration> DEFAULT_BEAN_DEFINITION_EXCLUDE_FILTER = bd -> false;
     private BeanDeclarationLocator beanDeclarationLocator;
-    private List<BeanDeclaration> beanDefinitions;
+    private List<BeanDeclaration> beanDeclarations;
 
     private Predicate<BeanDeclaration> beanDeclarationExcludeFilter = DEFAULT_BEAN_DEFINITION_EXCLUDE_FILTER;
 
     public BeanDeclarationRegistry() {
-        this(new MetaInfBeanDeclarationLocator());
+        this(new BeanConfigSupportBeanDeclarationLocator());
     }
 
     public BeanDeclarationRegistry(BeanDeclarationLocator beanDeclarationLocator) {
@@ -24,6 +26,29 @@ public class BeanDeclarationRegistry {
 
     public void setBeanDeclarationExcludeFilter(Predicate<BeanDeclaration> beanDeclarationExcludeFilter) {
         this.beanDeclarationExcludeFilter = beanDeclarationExcludeFilter == null ? DEFAULT_BEAN_DEFINITION_EXCLUDE_FILTER : beanDeclarationExcludeFilter;
+    }
+
+    public BeanDeclaration getBeanDeclaration(Class<?> type, String name) {
+        List<BeanDeclaration> beanDeclarations = getBeanDeclaration(type);
+        return beanDeclarations.stream().filter(bd -> {
+            if (name == null) {
+                return true;
+            }
+            return bd.getBeanName().equals(name);
+        }).findFirst().orElseThrow(() -> new IllegalStateException("No bean declaration of " + type + "{" + name + "} found."));
+    }
+
+    public BeanDeclaration getExactBeanDeclaration(Class<?> type) {
+        List<BeanDeclaration> beanDeclarations = getBeanDeclaration(type);
+
+        switch (beanDeclarations.size()) {
+            case 0:
+                return null;
+            case 1:
+                return beanDeclarations.get(0);
+            default:
+                throw new AmbiguousBeanException("Multiple matching beans of " + type, beanDeclarations);
+        }
     }
 
     public List<BeanDeclaration> getBeanDeclaration(Class<?> type) {
@@ -45,9 +70,11 @@ public class BeanDeclarationRegistry {
 
 
     private List<BeanDeclaration> getBeanDeclarations() {
-        if (beanDefinitions == null) {
-            beanDefinitions = beanDeclarationLocator.getBeanDeclarations();
+        if (beanDeclarations == null) {
+            beanDeclarations = beanDeclarationLocator.getBeanDeclarations();
         }
-        return beanDefinitions;
+        return beanDeclarations;
     }
+
+
 }

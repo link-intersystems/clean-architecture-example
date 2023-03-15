@@ -1,23 +1,28 @@
 package com.link_intersystems.ioc.definition;
 
 import com.link_intersystems.ioc.context.BeanFactory;
+import com.link_intersystems.ioc.declaration.BeanConfigBeanDeclarationLocation;
+import com.link_intersystems.ioc.declaration.BeanConfigDetector;
 import com.link_intersystems.ioc.declaration.BeanDeclaration;
+import com.link_intersystems.ioc.declaration.BeanFactoryMethodBeanDeclaration;
 
 import java.lang.reflect.Executable;
 import java.lang.reflect.Method;
 
-class FactoryMethodBeanDefinition extends AbstractBeanDefinition {
-    private Class<?> beanConfigBeanType;
-    private Method beanFactoryMethod;
+public class FactoryMethodBeanConstructor extends AbstractBeanDefinition implements BeanConstructor {
+    private BeanFactoryMethodBeanDeclaration beanFactoryMethodBeanDeclaration;
 
-    public FactoryMethodBeanDefinition(BeanDeclaration beanDeclaration, Class<?> beanConfigBeanType, Method beanFactoryMethod) {
-        super(beanDeclaration);
-        this.beanConfigBeanType = beanConfigBeanType;
-        this.beanFactoryMethod = beanFactoryMethod;
+    public FactoryMethodBeanConstructor(BeanFactoryMethodBeanDeclaration beanFactoryMethodBeanDeclaration) {
+        super(beanFactoryMethodBeanDeclaration);
+        this.beanFactoryMethodBeanDeclaration = beanFactoryMethodBeanDeclaration;
     }
 
     @Override
     protected BeanConstructor getBeanConstructor() {
+        Method beanFactoryMethod = beanFactoryMethodBeanDeclaration.getBeanFactoryMethod();
+        BeanConfigBeanDeclarationLocation location = beanFactoryMethodBeanDeclaration.getLocation();
+        BeanDeclaration beanDeclaration = location.getBeanDeclaration();
+        Class<?> beanConfigType = beanDeclaration.getBeanType();
 
         return new AbstractBeanConstructor() {
 
@@ -25,7 +30,8 @@ class FactoryMethodBeanDefinition extends AbstractBeanDefinition {
 
             @Override
             protected <T> T createBean(BeanFactory beanFactory, Object[] args) throws Exception {
-                Object beanFactoryBean = beanFactory.getBean(beanConfigBeanType, beanConfigBeanType.getName());
+
+                Object beanFactoryBean = beanFactory.getBean(beanConfigType, beanDeclaration.getBeanName());
                 return (T) beanFactoryMethod.invoke(beanFactoryBean, args);
             }
 
@@ -42,7 +48,7 @@ class FactoryMethodBeanDefinition extends AbstractBeanDefinition {
             @Override
             public String toString() {
                 StringBuilder sb = new StringBuilder();
-                sb.append(beanConfigBeanType.getName());
+                sb.append(beanConfigType.getName());
                 sb.append(".");
                 sb.append(beanFactoryMethod.getName());
                 sb.append("(");
@@ -53,4 +59,3 @@ class FactoryMethodBeanDefinition extends AbstractBeanDefinition {
         };
     }
 }
-

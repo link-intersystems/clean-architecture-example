@@ -1,10 +1,8 @@
 package com.link_intersystems.ioc.context;
 
-import com.link_intersystems.ioc.definition.BeanDefinition;
-import com.link_intersystems.ioc.definition.BeanId;
 import com.link_intersystems.ioc.api.LazyBeanSetter;
+import com.link_intersystems.ioc.definition.BeanId;
 
-import java.util.List;
 import java.util.Stack;
 
 class ExceptionUtils {
@@ -41,19 +39,4 @@ class ExceptionUtils {
         sb.append("\n");
     }
 
-    public static String ambiguousBean(BeanId beanId, List<BeanDefinition> matchingBeanDefinitions) {
-        StringBuilder sb = new StringBuilder("Bean ");
-        sb.append(beanId.getType().getName());
-        sb.append(" is ambiguous. :\n");
-
-        for (BeanDefinition beanDefinition : matchingBeanDefinitions) {
-            appendBeanRef(sb, beanDefinition.getBeanDeclaration().getId(), 1);
-        }
-
-        sb.append("\n\t NOTE: You might want to use a BeanSelector<");
-        sb.append(beanId.getType().getSimpleName());
-        sb.append("> instead.\n");
-
-        return sb.toString();
-    }
 }

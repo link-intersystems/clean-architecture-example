@@ -1,10 +1,8 @@
 package com.link_intersystems.carrental;
 
-import com.link_intersystems.ioc.context.ApplicationContext;
-import com.link_intersystems.ioc.definition.BeanDeclaration;
-import com.link_intersystems.ioc.definition.BeanDefinition;
-import com.link_intersystems.ioc.definition.BeanDefinitionRegitry;
 import com.link_intersystems.carrental.ui.CarRentalMainFrame;
+import com.link_intersystems.ioc.context.ApplicationContext;
+import com.link_intersystems.ioc.declaration.*;
 
 import java.net.URL;
 import java.util.function.Predicate;
@@ -17,11 +15,12 @@ public class CarRentalApp {
     }
 
     void run(String[] args) {
-        BeanDefinitionRegitry beanDefinitionRegitry = new BeanDefinitionRegitry();
+        BeanConfigSupportBeanDeclarationLocator beanDeclarationLocator = new BeanConfigSupportBeanDeclarationLocator(bd -> true);
+        BeanDeclarationRegistry beanDeclarationRegistry = new BeanDeclarationRegistry(beanDeclarationLocator);
 
-        Predicate<BeanDefinition> excludeBeanDefinitions = getBeanDefinitionPredicate(args);
-        beanDefinitionRegitry.setBeanDefinitionExcludeFilter(excludeBeanDefinitions);
-        ApplicationContext applicationContext = new ApplicationContext(beanDefinitionRegitry);
+        Predicate<BeanDeclaration> excludeBeanDefinitions = getBeanDefinitionPredicate(args);
+        beanDeclarationRegistry.setBeanDeclarationExcludeFilter(excludeBeanDefinitions);
+        ApplicationContext applicationContext = new ApplicationContext(beanDeclarationRegistry);
         CarRentalMainFrame mainFrame = applicationContext.getBean(CarRentalMainFrame.class);
         openFrame(mainFrame);
     }
@@ -30,16 +29,19 @@ public class CarRentalApp {
         mainFrame.show();
     }
 
-    private Predicate<BeanDefinition> getBeanDefinitionPredicate(String[] args) {
+    private Predicate<BeanDeclaration> getBeanDefinitionPredicate(String[] args) {
         String repository = getRepository(args);
 
-        Predicate<BeanDefinition> excludeBeanDefinitions = bd -> {
-            BeanDeclaration beanDeclaration = bd.getBeanDeclaration();
-            URL resource = beanDeclaration.getResource();
-            String path = resource.getPath();
+        Predicate<BeanDeclaration> excludeBeanDefinitions = bd -> {
+            BeanDeclarationLocation declarationLocation = bd.getLocation();
+            if (declarationLocation instanceof ResourceBeanDeclarationLocation) {
+                ResourceBeanDeclarationLocation resourceBeanDeclarationLocation = (ResourceBeanDeclarationLocation) declarationLocation;
+                URL resource = resourceBeanDeclarationLocation.getUrl();
+                String path = resource.getPath();
 
-            if (path.contains("/repository")) {
-                return !path.contains("/repository-" + repository);
+                if (path.contains("/repository")) {
+                    return !path.contains("/repository-" + repository);
+                }
             }
 
             return false;

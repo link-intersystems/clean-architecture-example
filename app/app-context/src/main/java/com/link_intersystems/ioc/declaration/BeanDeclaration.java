@@ -16,6 +16,10 @@ public class BeanDeclaration {
         return beanType;
     }
 
+    public String getBeanName() {
+        return getBeanType().getName();
+    }
+
     public BeanDeclarationLocation getLocation() {
         return location;
     }

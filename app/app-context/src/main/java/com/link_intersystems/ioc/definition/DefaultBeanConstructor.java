@@ -6,10 +6,10 @@ import com.link_intersystems.ioc.declaration.BeanDeclaration;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Executable;
 
-class ConstructorBeanDefinition extends AbstractBeanDefinition {
+public class DefaultBeanConstructor extends AbstractBeanDefinition implements BeanConstructor {
 
 
-    public ConstructorBeanDefinition(BeanDeclaration beanDeclaration) {
+    public DefaultBeanConstructor(BeanDeclaration beanDeclaration) {
         super(beanDeclaration);
     }
 
