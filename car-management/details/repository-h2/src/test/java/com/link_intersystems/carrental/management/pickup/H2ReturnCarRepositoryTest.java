@@ -12,7 +12,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class H2PickupCarRepositoryTest extends AbstractManagementRepositoryTest {
+class H2ReturnCarRepositoryTest extends AbstractManagementRepositoryTest {
     private H2PickupCarRepository repository;
 
     @BeforeEach

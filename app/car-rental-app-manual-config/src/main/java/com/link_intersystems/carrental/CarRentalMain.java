@@ -13,8 +13,25 @@ import com.link_intersystems.carrental.management.booking.list.ui.ListCarBooking
 import com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingView;
 import com.link_intersystems.carrental.management.pickup.PickupCarUseCase;
 import com.link_intersystems.carrental.management.pickup.PickupCarUseCaseMain;
+import com.link_intersystems.carrental.management.pickup.get.GetPickupCarRepository;
+import com.link_intersystems.carrental.management.pickup.get.GetPickupCarUseCase;
+import com.link_intersystems.carrental.management.pickup.get.GetPickupUseCaseConfig;
+import com.link_intersystems.carrental.management.pickup.get.H2GetPickupCarRepositoryConfig;
+import com.link_intersystems.carrental.management.pickup.list.H2ListPickupCarRepositoryConfig;
+import com.link_intersystems.carrental.management.pickup.list.ListPickupCarRepository;
+import com.link_intersystems.carrental.management.pickup.list.ListPickupCarUseCase;
+import com.link_intersystems.carrental.management.pickup.list.ListPickupUseCaseConfig;
+import com.link_intersystems.carrental.management.pickup.list.ui.ListPickupCarController;
+import com.link_intersystems.carrental.management.pickup.list.ui.ListPickupCarUIConfig;
+import com.link_intersystems.carrental.management.pickup.list.ui.ListPickupCarView;
 import com.link_intersystems.carrental.management.pickup.ui.PickupCarController;
 import com.link_intersystems.carrental.management.pickup.ui.PickupUIConfig;
+import com.link_intersystems.carrental.management.returnCar.H2ReturnCarRepositoryConfig;
+import com.link_intersystems.carrental.management.returnCar.ReturnCarRepository;
+import com.link_intersystems.carrental.management.returnCar.ReturnCarUseCase;
+import com.link_intersystems.carrental.management.returnCar.ReturnUseCaseConfig;
+import com.link_intersystems.carrental.management.returnCar.ui.ReturnCarFormController;
+import com.link_intersystems.carrental.management.returnCar.ui.ReturnCarUIConfig;
 import com.link_intersystems.carrental.offer.*;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
 import com.link_intersystems.carrental.ui.CarRentalMainFrame;
@@ -83,8 +100,28 @@ public class CarRentalMain {
         PickupCarController pickupCarController = pickupUIConfig.getPickupCarController(messageDialog, pickupCarUseCase);
         ListCarBookingView listCarBookingView = listCarBookingUIConfig.getListCarBookingView(listCarBookingController, pickupCarController);
 
+        ListPickupCarUIConfig listPickupCarUIConfig = new ListPickupCarUIConfig();
+        H2ListPickupCarRepositoryConfig h2ListPickupCarRepositoryConfig = new H2ListPickupCarRepositoryConfig();
+        ListPickupCarRepository listPickupCarRepository = h2ListPickupCarRepositoryConfig.getListPickupCarRepository(bs -> managementJdbcTemplate);
+        ListPickupUseCaseConfig listPickupUseCaseConfig = new ListPickupUseCaseConfig();
+        ListPickupCarUseCase listPickupCarUseCase = listPickupUseCaseConfig.getListPickupCarUseCase(listPickupCarRepository);
+        ListPickupCarController listPickupCarController = listPickupCarUIConfig.getPickupCarListController(messageDialog, listPickupCarUseCase);
+
+        ReturnUseCaseConfig returnUseCaseConfig = new ReturnUseCaseConfig();
+        H2ReturnCarRepositoryConfig h2ReturnCarRepositoryConfig = new H2ReturnCarRepositoryConfig();
+        ReturnCarRepository returnCarUseCaseRepository = h2ReturnCarRepositoryConfig.getReturnCarRepository(bs -> managementJdbcTemplate);
+        ReturnCarUseCase returnCarUseCase = returnUseCaseConfig.getReturnCarUseCase(returnCarUseCaseRepository);
+        ReturnCarUIConfig returnCarUIConfig = new ReturnCarUIConfig();
+        GetPickupUseCaseConfig getPickupUseCaseConfig = new GetPickupUseCaseConfig();
+
+        H2GetPickupCarRepositoryConfig h2GetPickupCarRepositoryConfig = new H2GetPickupCarRepositoryConfig();
+        GetPickupCarRepository getPickupCarRepository = h2GetPickupCarRepositoryConfig.getGetPickupCarRepository(bs -> managementJdbcTemplate);
+        GetPickupCarUseCase getPickupCarUseCase = getPickupUseCaseConfig.getGetPickupCarUseCase(getPickupCarRepository);
+        ReturnCarFormController returnCarFormController = returnCarUIConfig.getReturnCarController(getPickupCarUseCase, messageDialog, listPickupCarController);
+
+        ListPickupCarView listPickupCarView = listPickupCarUIConfig.getListPickupCarView(listPickupCarController, returnCarFormController);
         CarManagementUIConfig carManagementUIConfig = new CarManagementUIConfig();
-        return carManagementUIConfig.getCarManagementView(listCarBookingView);
+        return carManagementUIConfig.getCarManagementView(listCarBookingView, listPickupCarView);
     }
 
 }

@@ -8,8 +8,8 @@ public class CarState {
     private Odometer odometer;
 
     public CarState(FuelLevel fuelLevel, Odometer odometer) {
-        this.fuelLevel = requireNonNull(fuelLevel);
-        this.odometer = requireNonNull(odometer);
+        this.fuelLevel = requireNonNull(fuelLevel, "fuel level must not be null");
+        this.odometer = requireNonNull(odometer, "odometer must not be null");
     }
 
     public FuelLevel getFuelLevel() {

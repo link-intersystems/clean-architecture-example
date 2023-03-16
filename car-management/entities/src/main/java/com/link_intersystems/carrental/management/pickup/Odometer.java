@@ -1,6 +1,12 @@
 package com.link_intersystems.carrental.management.pickup;
 
+import static java.util.Objects.*;
+
 public class Odometer {
+
+    public static Odometer of(Integer value) {
+        return new Odometer(requireNonNull(value, "odometer must not be null").intValue());
+    }
 
     private int value;
 

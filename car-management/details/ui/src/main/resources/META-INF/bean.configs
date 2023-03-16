@@ -1,3 +1,5 @@
 com.link_intersystems.carrental.management.CarManagementUIConfig
 com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingUIConfig
 com.link_intersystems.carrental.management.pickup.ui.PickupUIConfig
+com.link_intersystems.carrental.management.pickup.list.ui.ListPickupCarUIConfig
+com.link_intersystems.carrental.management.returnCar.ui.ReturnCarUIConfig

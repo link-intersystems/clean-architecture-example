@@ -29,7 +29,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.link_intersystems.carrental.management.pickup.ui;
+package com.link_intersystems.carrental.swing;
 
 import javax.swing.*;
 import javax.swing.SpringLayout;

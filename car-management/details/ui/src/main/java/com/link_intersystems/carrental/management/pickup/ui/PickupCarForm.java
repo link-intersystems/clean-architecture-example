@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
-import static com.link_intersystems.carrental.management.pickup.ui.SpringUtilities.*;
+import static com.link_intersystems.carrental.swing.SpringUtilities.*;
 import static com.link_intersystems.events.swing.DocumentEventMethod.*;
 
 public class PickupCarForm<T> {
