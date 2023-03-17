@@ -1,5 +1,6 @@
 package com.link_intersystems.carrental.management.accounting;
 
+import com.link_intersystems.carrental.management.rental.CarRental;
 import com.link_intersystems.carrental.money.Amount;
 import com.link_intersystems.carrental.time.Period;
 

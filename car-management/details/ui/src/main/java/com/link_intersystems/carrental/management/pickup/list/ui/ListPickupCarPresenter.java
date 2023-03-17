@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.management.pickup.list.ui;
 
 import com.link_intersystems.carrental.management.booking.ui.BookingNumberModel;
-import com.link_intersystems.carrental.management.pickup.list.PickupCarResponseModel;
+import com.link_intersystems.carrental.management.rental.pickup.list.PickupCarResponseModel;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

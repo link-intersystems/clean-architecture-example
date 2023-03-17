@@ -1,8 +1,8 @@
 package com.link_intersystems.carrental.management.pickup.list.ui;
 
 import com.link_intersystems.carrental.management.booking.ui.BookingNumberModel;
-import com.link_intersystems.carrental.management.pickup.list.ListPickupCarResponseModel;
-import com.link_intersystems.carrental.management.pickup.list.ListPickupCarUseCase;
+import com.link_intersystems.carrental.management.rental.pickup.list.ListPickupCarResponseModel;
+import com.link_intersystems.carrental.management.rental.pickup.list.ListPickupCarUseCase;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
 import com.link_intersystems.swing.action.AbstractWorkerAction;
 import com.link_intersystems.swing.action.BackgroundProgress;
@@ -15,10 +15,7 @@ public class ListPickupCarController extends AbstractWorkerAction<ListPickupCarR
 
     private DefaultListModel<ListPickupCarModel> pickupCarListModel = new DefaultListModel<>();
     private ListPickupCarPresenter listPickupCarPresenter = new ListPickupCarPresenter();
-    private SelectionProviderSupport<ListPickupCarModel> selectionProviderSupport = new SelectionProviderSupport<>(this);
     private SelectionProviderSupport<BookingNumberModel> selectedBookingNumberSupport = new SelectionProviderSupport<>(this);
-
-
     private ListPickupCarUseCase listPickupCarUseCase;
     private MessageDialog messageDialog;
 
@@ -36,9 +33,13 @@ public class ListPickupCarController extends AbstractWorkerAction<ListPickupCarR
     @Override
     public void selectionChanged(SelectionChangeEvent<ListPickupCarModel> event) {
         Selection<ListPickupCarModel> newSelection = event.getNewSelection();
-        ListPickupCarModel listPickupCarModel = newSelection.getFirstElement();
-        BookingNumberModel bookingNumber = listPickupCarPresenter.parseBookingNumber(listPickupCarModel.getBookingNumber());
-        selectedBookingNumberSupport.setSelection(new DefaultSelection<>(bookingNumber));
+        if (newSelection.isEmpty()) {
+            selectedBookingNumberSupport.setSelection(Selection.empty());
+        } else {
+            ListPickupCarModel listPickupCarModel = newSelection.getFirstElement();
+            BookingNumberModel bookingNumber = listPickupCarPresenter.parseBookingNumber(listPickupCarModel.getBookingNumber());
+            selectedBookingNumberSupport.setSelection(new DefaultSelection<>(bookingNumber));
+        }
     }
 
     public void addBookingNumberSelectionListener(SelectionListener<BookingNumberModel> listener) {

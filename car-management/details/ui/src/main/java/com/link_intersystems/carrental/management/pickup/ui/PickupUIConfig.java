@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental.management.pickup.ui;
 
-import com.link_intersystems.carrental.management.pickup.PickupCarUseCase;
+import com.link_intersystems.carrental.management.rental.pickup.PickupCarUseCase;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
 
 public class PickupUIConfig {

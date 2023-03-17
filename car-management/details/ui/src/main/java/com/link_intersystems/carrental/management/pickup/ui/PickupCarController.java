@@ -1,17 +1,20 @@
 package com.link_intersystems.carrental.management.pickup.ui;
 
 import com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingModel;
-import com.link_intersystems.carrental.management.pickup.PickupCarRequestModel;
-import com.link_intersystems.carrental.management.pickup.PickupCarUseCase;
+import com.link_intersystems.carrental.management.rental.pickup.PickupCarRequestModel;
+import com.link_intersystems.carrental.management.rental.pickup.PickupCarUseCase;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
+import com.link_intersystems.swing.action.ActionTrigger;
 import com.link_intersystems.swing.selection.Selection;
 import com.link_intersystems.swing.selection.SelectionChangeEvent;
 import com.link_intersystems.swing.selection.SelectionListener;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import static com.link_intersystems.carrental.swing.action.ActionConstants.*;
+import static java.util.Objects.*;
 import static javax.swing.JOptionPane.*;
 
 public class PickupCarController extends AbstractAction implements SelectionListener<ListCarBookingModel> {
@@ -19,6 +22,9 @@ public class PickupCarController extends AbstractAction implements SelectionList
     private PickupCarUseCase pickupCarUseCase;
     private MessageDialog messageDialog;
     private Selection<ListCarBookingModel> listCarBookingModelSelection;
+    private ActionTrigger actionTrigger = new ActionTrigger(this);
+    private ActionListener afterPickupActionListener = a -> {
+    };
 
     public PickupCarController(PickupCarUseCase pickupCarUseCase, MessageDialog messageDialog) {
         this.pickupCarUseCase = pickupCarUseCase;
@@ -34,6 +40,10 @@ public class PickupCarController extends AbstractAction implements SelectionList
     public void selectionChanged(SelectionChangeEvent<ListCarBookingModel> event) {
         listCarBookingModelSelection = event.getNewSelection();
         setEnabled(!listCarBookingModelSelection.isEmpty());
+    }
+
+    public void setAfterPickupActionListener(ActionListener afterPickupActionListener) {
+        this.afterPickupActionListener = requireNonNull(afterPickupActionListener);
     }
 
     @Override
@@ -56,6 +66,8 @@ public class PickupCarController extends AbstractAction implements SelectionList
             PickupCarRequestModel requestModel = presenter.toRequestModel(pickupCarModel);
 
             pickupCarUseCase.pickupCar(requestModel);
+
+            actionTrigger.performAction(afterPickupActionListener);
         }
     }
 }

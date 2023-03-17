@@ -1,9 +1,9 @@
 package com.link_intersystems.carrental.management.returnCar.ui;
 
 import com.link_intersystems.carrental.management.booking.ui.BookingNumberModel;
-import com.link_intersystems.carrental.management.pickup.FuelLevel;
+import com.link_intersystems.carrental.management.rental.FuelLevel;
 import com.link_intersystems.carrental.management.pickup.list.ui.ListPickupCarModel;
-import com.link_intersystems.carrental.management.returnCar.ReturnCarRequestModel;
+import com.link_intersystems.carrental.management.rental.returnCar.ReturnCarRequestModel;
 
 import javax.swing.*;
 import java.time.LocalDateTime;

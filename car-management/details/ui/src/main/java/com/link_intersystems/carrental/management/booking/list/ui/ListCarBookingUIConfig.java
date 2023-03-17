@@ -11,10 +11,13 @@ public class ListCarBookingUIConfig {
 
     public ListCarBookingView getListCarBookingView(ListCarBookingController listCarBookingController, PickupCarController pickupCarController) {
         ListCarBookingView listCarBookingView = new ListCarBookingView();
+
         listCarBookingView.addListCarAction(listCarBookingController);
         listCarBookingView.addListCarAction(pickupCarController);
         listCarBookingView.addSelectionChangedListener(pickupCarController);
         listCarBookingView.setListCarBookingModel(listCarBookingController.getCarBookingListModel());
+        pickupCarController.setAfterPickupActionListener(listCarBookingController);
+
         return listCarBookingView;
     }
 }

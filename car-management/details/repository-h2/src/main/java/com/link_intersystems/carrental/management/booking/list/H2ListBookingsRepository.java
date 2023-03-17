@@ -19,7 +19,7 @@ public class H2ListBookingsRepository implements ListBookingsRepository {
 
     @Override
     public List<CarBooking> findBookings(LocalDateTime from, LocalDateTime to) {
-        return jdbcTemplate.query("SELECT * FROM CAR_BOOKING", this::mapCarBookingRow);
+        return jdbcTemplate.query("SELECT * FROM CAR_BOOKING WHERE RENTAL_STATE IS NULL", this::mapCarBookingRow);
     }
 
     private CarBooking mapCarBookingRow(ResultSet rs, int rowNum) throws SQLException {

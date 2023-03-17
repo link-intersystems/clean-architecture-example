@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental.management.pickup.list.ui;
 
-import com.link_intersystems.carrental.management.pickup.list.ListPickupCarUseCase;
+import com.link_intersystems.carrental.management.rental.pickup.list.ListPickupCarUseCase;
 import com.link_intersystems.carrental.management.returnCar.ui.ReturnCarFormController;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
 

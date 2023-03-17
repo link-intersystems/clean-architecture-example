@@ -1,6 +1,6 @@
 com.link_intersystems.carrental.management.booking.list.ListCarBookingUseCaseConfig
 com.link_intersystems.carrental.management.booking.create.CreateCarBookingUseCaseConfig
-com.link_intersystems.carrental.management.pickup.PickupUseCaseConfig
-com.link_intersystems.carrental.management.pickup.list.ListPickupUseCaseConfig
-com.link_intersystems.carrental.management.returnCar.ReturnUseCaseConfig
-com.link_intersystems.carrental.management.pickup.get.GetPickupUseCaseConfig
+com.link_intersystems.carrental.management.rental.pickup.PickupUseCaseConfig
+com.link_intersystems.carrental.management.rental.pickup.list.ListPickupUseCaseConfig
+com.link_intersystems.carrental.management.rental.pickup.get.GetPickupUseCaseConfig
+com.link_intersystems.carrental.management.rental.returnCar.ReturnUseCaseConfig

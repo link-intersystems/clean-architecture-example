@@ -1,5 +1,9 @@
 package com.link_intersystems.carrental.management.pickup;
 
+import com.link_intersystems.carrental.management.rental.pickup.H2PickupCarRepositoryConfig;
+import com.link_intersystems.carrental.management.rental.pickup.PickupCarRepository;
+import com.link_intersystems.carrental.management.rental.pickup.PickupCarUseCase;
+import com.link_intersystems.carrental.management.rental.pickup.PickupUseCaseConfig;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class PickupCarUseCaseMain {
