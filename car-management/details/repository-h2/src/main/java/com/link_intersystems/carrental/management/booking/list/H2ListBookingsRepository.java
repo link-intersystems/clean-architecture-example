@@ -8,12 +8,12 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class H2ListBookingsRepository implements ListBookingsRepository {
+class H2ListBookingsRepository implements ListBookingsRepository {
 
     private JdbcTemplate jdbcTemplate;
 
-    public H2ListBookingsRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public H2ListBookingsRepository(JdbcTemplate managementJdbcTemplate) {
+        this.jdbcTemplate = managementJdbcTemplate;
     }
 
 

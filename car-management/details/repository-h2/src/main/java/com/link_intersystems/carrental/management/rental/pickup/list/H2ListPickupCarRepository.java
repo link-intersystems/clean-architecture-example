@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class H2ListPickupCarRepository implements ListPickupCarRepository {
+class H2ListPickupCarRepository implements ListPickupCarRepository {
 
     private JdbcTemplate jdbcTemplate;
 
-    public H2ListPickupCarRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public H2ListPickupCarRepository(JdbcTemplate managementJdbcTemplate) {
+        this.jdbcTemplate = managementJdbcTemplate;
     }
 
     @Override

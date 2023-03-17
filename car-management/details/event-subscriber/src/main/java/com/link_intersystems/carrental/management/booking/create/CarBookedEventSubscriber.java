@@ -3,7 +3,7 @@ package com.link_intersystems.carrental.management.booking.create;
 import com.link_intersystems.carrental.DomainEventSubscriber;
 import com.link_intersystems.carrental.booking.CarBookedEvent;
 
-class CarBookedEventSubscriber implements DomainEventSubscriber {
+public class CarBookedEventSubscriber implements DomainEventSubscriber {
 
     private CreateCarBookingUseCase createCarBookingUseCase;
 

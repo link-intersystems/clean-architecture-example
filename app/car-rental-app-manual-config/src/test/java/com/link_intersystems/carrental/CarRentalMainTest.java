@@ -9,14 +9,15 @@ import java.io.File;
 class CarRentalNoIoCAppTest {
 
     @Test
-    void run(@TempDir File tempDir) {
-        CarRentalNoIoCApp carRentalApp = new CarRentalNoIoCApp() {
+    void applicationContext(@TempDir File tempDir) {
+        CarRentalNoIoCApp app = new CarRentalNoIoCApp() {
+
             @Override
             protected void openFrame(CarRentalMainFrame mainFrame) {
             }
         };
 
 
-        carRentalApp.run(new String[]{"-db", tempDir.getAbsolutePath()});
+        app.run(new String[]{"-db", tempDir.getAbsolutePath()});
     }
 }

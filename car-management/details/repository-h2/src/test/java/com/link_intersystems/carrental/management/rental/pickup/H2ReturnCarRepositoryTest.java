@@ -1,9 +1,8 @@
-package com.link_intersystems.carrental.management.pickup;
+package com.link_intersystems.carrental.management.rental.pickup;
 
 import com.link_intersystems.carrental.booking.BookingNumber;
 import com.link_intersystems.carrental.management.AbstractManagementRepositoryTest;
 import com.link_intersystems.carrental.management.rental.*;
-import com.link_intersystems.carrental.management.rental.pickup.H2PickupCarRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

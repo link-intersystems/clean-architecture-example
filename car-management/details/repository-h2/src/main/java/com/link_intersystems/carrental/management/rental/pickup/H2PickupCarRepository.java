@@ -10,12 +10,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class H2PickupCarRepository implements PickupCarRepository {
+class H2PickupCarRepository implements PickupCarRepository {
 
     private JdbcTemplate jdbcTemplate;
 
-    public H2PickupCarRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public H2PickupCarRepository(JdbcTemplate managementJdbcTemplate) {
+        this.jdbcTemplate = managementJdbcTemplate;
     }
 
     @Override

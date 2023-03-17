@@ -7,12 +7,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.Map;
 
-public class H2GetPickupCarRepository implements GetPickupCarRepository {
+class H2GetPickupCarRepository implements GetPickupCarRepository {
 
     private JdbcTemplate jdbcTemplate;
 
-    public H2GetPickupCarRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public H2GetPickupCarRepository(JdbcTemplate managementJdbcTemplate) {
+        this.jdbcTemplate = managementJdbcTemplate;
     }
 
     @Override

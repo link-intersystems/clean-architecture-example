@@ -38,6 +38,9 @@ class DefaultBeanConstructor implements BeanConstructor {
             throw new IllegalStateException("Unable to find a constructor for " + beanDeclaration);
         }
         Object[] args = constructorArgsResolver.resolveArgs(constructor);
+        if (!constructor.canAccess(null)) {
+            constructor.setAccessible(true);
+        }
         return (T) constructor.newInstance(args);
     }
 }

@@ -1,6 +1,6 @@
-com.link_intersystems.carrental.management.booking.create.H2CreateCarBookingRepositoryConfig
-com.link_intersystems.carrental.management.booking.list.H2ListBookingsRepositoryConfig
-com.link_intersystems.carrental.management.rental.pickup.H2PickupCarRepositoryConfig
-com.link_intersystems.carrental.management.rental.pickup.list.H2ListPickupCarRepositoryConfig
-com.link_intersystems.carrental.management.rental.pickup.get.H2GetPickupCarRepositoryConfig
-com.link_intersystems.carrental.management.rental.returnCar.H2ReturnCarRepositoryConfig
+com.link_intersystems.carrental.management.booking.create.H2CreateCarBookingRepository
+com.link_intersystems.carrental.management.booking.list.H2ListBookingsRepository
+com.link_intersystems.carrental.management.rental.pickup.H2PickupCarRepository
+com.link_intersystems.carrental.management.rental.pickup.list.H2ListPickupCarRepository
+com.link_intersystems.carrental.management.rental.pickup.get.H2GetPickupCarRepository
+com.link_intersystems.carrental.management.rental.returnCar.H2ReturnCarRepository
