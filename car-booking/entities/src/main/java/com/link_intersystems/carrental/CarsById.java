@@ -1,4 +1,4 @@
-package com.link_intersystems.carrental.offer;
+package com.link_intersystems.carrental;
 
 import com.link_intersystems.carrental.Car;
 import com.link_intersystems.carrental.CarId;

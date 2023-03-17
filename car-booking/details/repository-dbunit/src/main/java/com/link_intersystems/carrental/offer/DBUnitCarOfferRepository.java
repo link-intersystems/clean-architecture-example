@@ -1,9 +1,6 @@
 package com.link_intersystems.carrental.offer;
 
-import com.link_intersystems.carrental.Car;
-import com.link_intersystems.carrental.CarId;
-import com.link_intersystems.carrental.DataSetRegistry;
-import com.link_intersystems.carrental.VehicleType;
+import com.link_intersystems.carrental.*;
 import com.link_intersystems.carrental.booking.CarBooking;
 import com.link_intersystems.carrental.booking.CarBookinsByCar;
 import com.link_intersystems.carrental.rental.RentalCar;

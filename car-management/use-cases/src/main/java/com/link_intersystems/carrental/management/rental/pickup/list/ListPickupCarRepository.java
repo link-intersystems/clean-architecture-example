@@ -4,6 +4,6 @@ import com.link_intersystems.carrental.management.rental.CarRental;
 
 import java.util.List;
 
-public interface ListPickupCarRepository {
+interface ListPickupCarRepository {
     List<CarRental> findAll();
 }

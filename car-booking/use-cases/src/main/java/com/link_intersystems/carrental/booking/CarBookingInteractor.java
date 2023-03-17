@@ -10,7 +10,7 @@ import com.link_intersystems.carrental.time.Period;
 import java.time.Clock;
 import java.time.LocalDateTime;
 
-public class CarBookingInteractor implements CarBookingUseCase {
+class CarBookingInteractor implements CarBookingUseCase {
 
     private CarBookingRepository repository;
 
