@@ -1,6 +1,4 @@
-package com.link_intersystems.ioc.context;
-
-import com.link_intersystems.ioc.declaration.BeanDeclaration;
+package com.link_intersystems.ioc.declaration;
 
 import java.util.List;
 

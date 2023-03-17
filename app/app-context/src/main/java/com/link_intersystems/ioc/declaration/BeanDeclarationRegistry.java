@@ -1,21 +1,23 @@
 package com.link_intersystems.ioc.declaration;
 
-import com.link_intersystems.ioc.context.AmbiguousBeanException;
 import com.link_intersystems.ioc.declaration.locator.BeanConfigSupportBeanDeclarationLocator;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.*;
 
 public class BeanDeclarationRegistry {
 
     public static final Predicate<BeanDeclaration> DEFAULT_BEAN_DEFINITION_EXCLUDE_FILTER = bd -> false;
+    public static final BeanAmbiguityResolver DEFAULT_BEAN_AMBIGUITY_RESOLVER = (t, n, o) -> null;
     private BeanDeclarationLocator beanDeclarationLocator;
     private List<BeanDeclaration> beanDeclarations;
 
     private Predicate<BeanDeclaration> beanDeclarationExcludeFilter = DEFAULT_BEAN_DEFINITION_EXCLUDE_FILTER;
+    private BeanAmbiguityResolver beanAmbiguityResolver = DEFAULT_BEAN_AMBIGUITY_RESOLVER;
 
     public BeanDeclarationRegistry() {
         this(new BeanConfigSupportBeanDeclarationLocator());
@@ -29,27 +31,47 @@ public class BeanDeclarationRegistry {
         this.beanDeclarationExcludeFilter = beanDeclarationExcludeFilter == null ? DEFAULT_BEAN_DEFINITION_EXCLUDE_FILTER : beanDeclarationExcludeFilter;
     }
 
-    public BeanDeclaration getBeanDeclaration(Class<?> type, String name) {
+    public void setBeanAmbiguityResolver(BeanAmbiguityResolver beanAmbiguityResolver) {
+        this.beanAmbiguityResolver = beanAmbiguityResolver == null ? DEFAULT_BEAN_AMBIGUITY_RESOLVER : beanAmbiguityResolver;
+    }
+
+    public BeanDeclaration getBeanDeclaration(Class<?> type, String name) throws AmbiguousBeanException {
         List<BeanDeclaration> beanDeclarations = getBeanDeclaration(type);
-        return beanDeclarations.stream().filter(bd -> {
+
+        List<BeanDeclaration> matchingBeanDeclarations = beanDeclarations.stream().filter(bd -> {
             if (name == null) {
                 return true;
             }
             return bd.getBeanName().equals(name);
-        }).findFirst().orElseThrow(() -> new IllegalStateException("No bean declaration of " + type + " (" + name + ") found."));
+        }).collect(Collectors.toList());
+
+        return selectBean(type, name, matchingBeanDeclarations);
     }
 
-    public BeanDeclaration getExactBeanDeclaration(Class<?> type) {
-        List<BeanDeclaration> beanDeclarations = getBeanDeclaration(type);
-
-        switch (beanDeclarations.size()) {
+    private BeanDeclaration selectBean(Class<?> type, String name, List<BeanDeclaration> matchingBeanDeclarations) {
+        switch (matchingBeanDeclarations.size()) {
             case 0:
-                return null;
+                throw new IllegalStateException("No bean declaration of " + type + " (" + name + ") found.");
             case 1:
-                return beanDeclarations.get(0);
+                return matchingBeanDeclarations.get(0);
             default:
-                throw new AmbiguousBeanException("Multiple matching beans of " + type, beanDeclarations);
+                return handleBeanAmbiguity(type, name, matchingBeanDeclarations);
         }
+    }
+
+    private BeanDeclaration handleBeanAmbiguity(Class<?> requestedType, String requestedName, List<BeanDeclaration> matchingBeanDeclarations) throws AmbiguousBeanException {
+        BeanDeclaration selectedBeanDeclaration = beanAmbiguityResolver.selectBean(requestedType, requestedName, matchingBeanDeclarations);
+
+        if (selectedBeanDeclaration == null) {
+            throw new AmbiguousBeanException("Ambiguous beans of " + requestedType + " (" + requestedName + ") found.", matchingBeanDeclarations);
+        }
+
+        return selectedBeanDeclaration;
+    }
+
+    public BeanDeclaration getExactBeanDeclaration(Class<?> type) throws AmbiguousBeanException {
+        List<BeanDeclaration> beanDeclarations = getBeanDeclaration(type);
+        return selectBean(type, null, beanDeclarations);
     }
 
     public List<BeanDeclaration> getBeanDeclaration(Class<?> type) {

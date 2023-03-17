@@ -23,4 +23,9 @@ public class BeanDeclaration {
     public BeanDeclarationLocation getLocation() {
         return location;
     }
+
+    @Override
+    public String toString() {
+        return beanType.getName() + " [" + location + ']';
+    }
 }

@@ -18,14 +18,19 @@ public class CarRentalApp {
     }
 
     void run(String[] args) {
-        BeanConfigSupportBeanDeclarationLocator beanDeclarationLocator = new BeanConfigSupportBeanDeclarationLocator();
-        BeanDeclarationRegistry beanDeclarationRegistry = new BeanDeclarationRegistry(beanDeclarationLocator);
+        BeanDeclarationRegistry beanDeclarationRegistry = getBeanDeclarationRegistry();
 
         Predicate<BeanDeclaration> excludeBeanDefinitions = getBeanDefinitionPredicate(args);
         beanDeclarationRegistry.setBeanDeclarationExcludeFilter(excludeBeanDefinitions);
         ApplicationContext applicationContext = new ApplicationContext(beanDeclarationRegistry);
         CarRentalMainFrame mainFrame = applicationContext.getBean(CarRentalMainFrame.class);
         openFrame(mainFrame);
+    }
+
+    BeanDeclarationRegistry getBeanDeclarationRegistry() {
+        BeanConfigSupportBeanDeclarationLocator beanDeclarationLocator = new BeanConfigSupportBeanDeclarationLocator();
+        BeanDeclarationRegistry beanDeclarationRegistry = new BeanDeclarationRegistry(beanDeclarationLocator);
+        return beanDeclarationRegistry;
     }
 
     protected void openFrame(CarRentalMainFrame mainFrame) {
