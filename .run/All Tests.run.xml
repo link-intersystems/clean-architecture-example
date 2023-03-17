@@ -10,7 +10,7 @@
       <value defaultName="wholeProject" />
     </option>
     <patterns>
-      <pattern testClass="^.*Test$" />
+      <pattern testClass="^.*(?&lt;!\.dbunit)Test$" />
     </patterns>
     <method v="2">
       <option name="Make" enabled="true" />

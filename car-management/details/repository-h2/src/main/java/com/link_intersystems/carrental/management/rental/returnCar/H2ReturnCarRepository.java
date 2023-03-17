@@ -12,8 +12,8 @@ class H2ReturnCarRepository implements ReturnCarRepository {
 
     private JdbcTemplate jdbcTemplate;
 
-    public H2ReturnCarRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public H2ReturnCarRepository(JdbcTemplate managementJdbcTemplate) {
+        this.jdbcTemplate = managementJdbcTemplate;
     }
 
     @Override

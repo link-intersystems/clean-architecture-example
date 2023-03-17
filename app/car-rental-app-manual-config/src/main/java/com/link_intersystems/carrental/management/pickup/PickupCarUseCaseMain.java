@@ -10,7 +10,7 @@ public class PickupCarUseCaseMain {
 
     public PickupCarUseCase createPickupCarUseCase(JdbcTemplate jdbcTemplate) {
         H2PickupCarRepositoryConfig repositoryConfig = new H2PickupCarRepositoryConfig();
-        PickupCarRepository repository = repositoryConfig.getPickupCarRepository(n -> jdbcTemplate);
+        PickupCarRepository repository = repositoryConfig.getPickupCarRepository(jdbcTemplate);
         PickupUseCaseConfig pickupUseCaseConfig = new PickupUseCaseConfig();
         return pickupUseCaseConfig.getPickupCarUseCase(repository);
     }

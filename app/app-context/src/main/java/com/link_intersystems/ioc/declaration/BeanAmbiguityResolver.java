@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface BeanAmbiguityResolver {
 
-    BeanDeclaration selectBean(Class<?> requestedType, String requestedName, List<BeanDeclaration> options);
+    BeanDeclaration selectBean(Class<?> requestedType, List<BeanDeclaration> options);
 }

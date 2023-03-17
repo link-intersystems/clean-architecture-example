@@ -1,25 +1,31 @@
 package com.link_intersystems.ioc.declaration;
 
-import com.link_intersystems.ioc.declaration.locator.BeanConfigSupportBeanDeclarationLocator;
+import com.link_intersystems.ioc.declaration.config.AnnotationBeanConfigDetector;
+import com.link_intersystems.ioc.declaration.config.CompositeBeanConfigDetector;
+import com.link_intersystems.ioc.declaration.config.NamePatternBeanConfigDetector;
+import com.link_intersystems.ioc.declaration.locator.BeanConfigBeanDeclarationLocator;
+import com.link_intersystems.ioc.declaration.locator.MetaInfBeanDeclarationLocator;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.*;
 
 public class BeanDeclarationRegistry {
 
     public static final Predicate<BeanDeclaration> DEFAULT_BEAN_DEFINITION_EXCLUDE_FILTER = bd -> false;
-    public static final BeanAmbiguityResolver DEFAULT_BEAN_AMBIGUITY_RESOLVER = (t, n, o) -> null;
+    public static final BeanAmbiguityResolver DEFAULT_BEAN_AMBIGUITY_RESOLVER = (t, o) -> null;
     private BeanDeclarationLocator beanDeclarationLocator;
     private List<BeanDeclaration> beanDeclarations;
 
     private Predicate<BeanDeclaration> beanDeclarationExcludeFilter = DEFAULT_BEAN_DEFINITION_EXCLUDE_FILTER;
     private BeanAmbiguityResolver beanAmbiguityResolver;
+    private BeanConfigDetector beanConfigDetector = new CompositeBeanConfigDetector(new AnnotationBeanConfigDetector(), new NamePatternBeanConfigDetector());
 
     public BeanDeclarationRegistry() {
-        this(new BeanConfigSupportBeanDeclarationLocator());
+        this(new MetaInfBeanDeclarationLocator());
     }
 
     public BeanDeclarationRegistry(BeanDeclarationLocator beanDeclarationLocator) {
@@ -58,7 +64,7 @@ public class BeanDeclarationRegistry {
     private BeanDeclaration handleAmbiguousBeanDeclaration(Class<?> requestedType, String requestedName, List<BeanDeclaration> matchingBeanDeclarations) {
         BeanAmbiguityResolver beanAmbiguityResolver = getBeanAmbiguityResolver(requestedName);
 
-        BeanDeclaration selectedBeanDeclaration = beanAmbiguityResolver.selectBean(requestedType, requestedName, matchingBeanDeclarations);
+        BeanDeclaration selectedBeanDeclaration = beanAmbiguityResolver.selectBean(requestedType, matchingBeanDeclarations);
 
         if (selectedBeanDeclaration == null) {
             throw new AmbiguousBeanException("Ambiguous beans of " + requestedType + " (" + requestedName + ") found.", matchingBeanDeclarations);
@@ -89,9 +95,7 @@ public class BeanDeclarationRegistry {
         List<BeanDeclaration> beanDeclarations = new ArrayList<>();
 
         for (BeanDeclaration beanDeclaration : getBeanDeclarations()) {
-            if (beanDeclarationExcludeFilter.test(beanDeclaration)) {
-                continue;
-            }
+
 
             Class<?> beanType = beanDeclaration.getBeanType();
             if (type.isAssignableFrom(beanType)) {
@@ -105,7 +109,18 @@ public class BeanDeclarationRegistry {
 
     private List<BeanDeclaration> getBeanDeclarations() {
         if (beanDeclarations == null) {
-            beanDeclarations = beanDeclarationLocator.getBeanDeclarations();
+            beanDeclarations = beanDeclarationLocator.getBeanDeclarations()
+                    .stream()
+                    .filter(beanDeclarationExcludeFilter.negate())
+                    .collect(Collectors.toList());
+
+            for (BeanDeclaration beanDeclaration : new ArrayList<>(beanDeclarations)) {
+                if (beanConfigDetector.isBeanConfig(beanDeclaration)) {
+                    BeanDeclarationLocator beanConfigBeanDeclarationLocator = new BeanConfigBeanDeclarationLocator(beanDeclaration);
+                    List<BeanDeclaration> beanConfigBeanDeclarations = beanConfigBeanDeclarationLocator.getBeanDeclarations();
+                    beanDeclarations.addAll(beanConfigBeanDeclarations);
+                }
+            }
         }
         return beanDeclarations;
     }

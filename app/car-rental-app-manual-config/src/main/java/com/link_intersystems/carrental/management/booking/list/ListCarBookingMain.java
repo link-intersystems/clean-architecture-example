@@ -7,7 +7,7 @@ public class ListCarBookingMain {
     private H2ListBookingsRepositoryConfig repositoryConfig = new H2ListBookingsRepositoryConfig();
 
     public ListBookingsUseCase createListBookingUseCase(JdbcTemplate jdbcTemplate) {
-        ListBookingsRepository repository = repositoryConfig.getListBookingsRepository(name -> jdbcTemplate);
+        ListBookingsRepository repository = repositoryConfig.getListBookingsRepository(jdbcTemplate);
         ListCarBookingUseCaseConfig listCarBookingUseCaseConfig = new ListCarBookingUseCaseConfig();
         return listCarBookingUseCaseConfig.getListCarBookingsUseCase(repository);
     }

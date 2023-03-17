@@ -16,7 +16,7 @@ public class CreateCarBookingMain {
     }
 
     private CreateCarBookingUseCase createListBookingUseCase(JdbcTemplate jdbcTemplate) {
-        CreateCarBookingRepository repository = repositoryConfig.getCreateCarBookingRepository(name -> jdbcTemplate);
+        CreateCarBookingRepository repository = repositoryConfig.getCreateCarBookingRepository(jdbcTemplate);
         return new CreateCarBookingInteractor(repository);
     }
 }

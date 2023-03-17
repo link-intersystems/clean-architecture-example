@@ -11,7 +11,7 @@ public class QualifierBeanAmbiguityResolver implements BeanAmbiguityResolver {
     }
 
     @Override
-    public BeanDeclaration selectBean(Class<?> requestedType, String requestedName, List<BeanDeclaration> options) {
+    public BeanDeclaration selectBean(Class<?> requestedType, List<BeanDeclaration> options) {
         if (qualifier == null) {
             return null;
         }

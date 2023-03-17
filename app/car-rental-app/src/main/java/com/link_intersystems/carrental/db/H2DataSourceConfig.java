@@ -61,7 +61,7 @@ public class H2DataSourceConfig {
         return new JdbcTemplate(carRentalDataSource);
     }
 
-    public JdbcTemplate getManagementJdbcTemplate(BeanSelector<DataSource> dataSources) {
+    public JdbcTemplate managementJdbcTemplate(BeanSelector<DataSource> dataSources) {
         DataSource managementDataSource = dataSources.select("getManagementDataSource");
         return new JdbcTemplate(managementDataSource);
     }

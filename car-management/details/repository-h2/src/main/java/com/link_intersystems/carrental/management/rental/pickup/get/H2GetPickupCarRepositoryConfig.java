@@ -5,7 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 public class H2GetPickupCarRepositoryConfig {
 
-    public GetPickupCarRepository getGetPickupCarRepository(BeanSelector<JdbcTemplate> jdbcTemplateBeanSelector) {
-        return new H2GetPickupCarRepository(jdbcTemplateBeanSelector.select("getManagementJdbcTemplate"));
+    public GetPickupCarRepository getGetPickupCarRepository(JdbcTemplate managementJdbcTemplate) {
+        return new H2GetPickupCarRepository(managementJdbcTemplate);
     }
 }

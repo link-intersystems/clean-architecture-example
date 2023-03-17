@@ -19,9 +19,9 @@ public class BeanAmbiguityResolverChain implements BeanAmbiguityResolver {
     }
 
     @Override
-    public BeanDeclaration selectBean(Class<?> requestedType, String requestedName, List<BeanDeclaration> options) {
+    public BeanDeclaration selectBean(Class<?> requestedType, List<BeanDeclaration> options) {
         for (BeanAmbiguityResolver beanAmbiguityResolver : beanAmbiguityResolvers) {
-            BeanDeclaration selectedBeanDeclaration = beanAmbiguityResolver.selectBean(requestedType, requestedName, options);
+            BeanDeclaration selectedBeanDeclaration = beanAmbiguityResolver.selectBean(requestedType, options);
             if (selectedBeanDeclaration != null) {
                 return selectedBeanDeclaration;
             }

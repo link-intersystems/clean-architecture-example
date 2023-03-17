@@ -16,9 +16,7 @@ class CarRentalAppTest {
             @Override
             BeanDeclarationRegistry getBeanDeclarationRegistry() {
                 BeanDeclarationRegistry beanDeclarationRegistry = super.getBeanDeclarationRegistry();
-                beanDeclarationRegistry.setBeanAmbiguityResolver((clazz, name, options) -> {
-                    return options.stream().filter(bd -> !bd.getBeanType().getName().toLowerCase().contains("dbunit")).findFirst().orElse(null);
-                });
+                beanDeclarationRegistry.setBeanDeclarationExcludeFilter(bd -> bd.getBeanType().getSimpleName().startsWith("DBUnit"));
                 return beanDeclarationRegistry;
             }
 

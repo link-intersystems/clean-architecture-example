@@ -112,8 +112,8 @@ public class ApplicationContext implements BeanFactory {
 
     @Override
     public <T> BeanSelector<T> getBeanSelector(Class<T> type) {
-        List<BeanDefinition<T>> beanDefinitions = getBeanDefinitions(type);
-        return new DefaultBeanSelector<>(type, beanDefinitions);
+        List<BeanDeclaration> beanDeclarations = getBeanDeclarationRegistry().getBeanDeclaration(type);
+        return new DefaultBeanSelector<>(type, beanDeclarations, this::getBeanDefinition);
     }
 
     public <T> List<BeanDefinition<T>> getBeanDefinitions(Class<T> type) {
@@ -131,6 +131,17 @@ public class ApplicationContext implements BeanFactory {
         }
 
         return beanDefinitions;
+    }
+
+    public <T> BeanDefinition<T> getBeanDefinition(BeanDeclaration beanDeclaration) {
+
+        try {
+            T bean = tryGetBean(beanDeclaration);
+            return new BeanDefinition<>(bean, beanDeclaration);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
 

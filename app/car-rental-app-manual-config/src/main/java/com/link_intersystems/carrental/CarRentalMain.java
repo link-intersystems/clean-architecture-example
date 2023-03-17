@@ -102,20 +102,20 @@ public class CarRentalMain {
 
         ListPickupCarUIConfig listPickupCarUIConfig = new ListPickupCarUIConfig();
         H2ListPickupCarRepositoryConfig h2ListPickupCarRepositoryConfig = new H2ListPickupCarRepositoryConfig();
-        ListPickupCarRepository listPickupCarRepository = h2ListPickupCarRepositoryConfig.getListPickupCarRepository(bs -> managementJdbcTemplate);
+        ListPickupCarRepository listPickupCarRepository = h2ListPickupCarRepositoryConfig.getListPickupCarRepository(managementJdbcTemplate);
         ListPickupUseCaseConfig listPickupUseCaseConfig = new ListPickupUseCaseConfig();
         ListPickupCarUseCase listPickupCarUseCase = listPickupUseCaseConfig.getListPickupCarUseCase(listPickupCarRepository);
         ListPickupCarController listPickupCarController = listPickupCarUIConfig.getPickupCarListController(messageDialog, listPickupCarUseCase);
 
         ReturnUseCaseConfig returnUseCaseConfig = new ReturnUseCaseConfig();
         H2ReturnCarRepositoryConfig h2ReturnCarRepositoryConfig = new H2ReturnCarRepositoryConfig();
-        ReturnCarRepository returnCarUseCaseRepository = h2ReturnCarRepositoryConfig.getReturnCarRepository(bs -> managementJdbcTemplate);
+        ReturnCarRepository returnCarUseCaseRepository = h2ReturnCarRepositoryConfig.getReturnCarRepository(managementJdbcTemplate);
         ReturnCarUseCase returnCarUseCase = returnUseCaseConfig.getReturnCarUseCase(returnCarUseCaseRepository);
         ReturnCarUIConfig returnCarUIConfig = new ReturnCarUIConfig();
         GetPickupUseCaseConfig getPickupUseCaseConfig = new GetPickupUseCaseConfig();
 
         H2GetPickupCarRepositoryConfig h2GetPickupCarRepositoryConfig = new H2GetPickupCarRepositoryConfig();
-        GetPickupCarRepository getPickupCarRepository = h2GetPickupCarRepositoryConfig.getGetPickupCarRepository(bs -> managementJdbcTemplate);
+        GetPickupCarRepository getPickupCarRepository = h2GetPickupCarRepositoryConfig.getGetPickupCarRepository(managementJdbcTemplate);
         GetPickupCarUseCase getPickupCarUseCase = getPickupUseCaseConfig.getGetPickupCarUseCase(getPickupCarRepository);
         ReturnCarFormController returnCarFormController = returnCarUIConfig.getReturnCarController(getPickupCarUseCase, messageDialog, listPickupCarController, returnCarUseCase);
 
