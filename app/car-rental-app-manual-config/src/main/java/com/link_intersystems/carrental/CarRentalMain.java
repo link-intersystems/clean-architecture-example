@@ -1,8 +1,8 @@
 package com.link_intersystems.carrental;
 
+import com.link_intersystems.carrental.booking.CarBookingComponent;
 import com.link_intersystems.carrental.booking.CarBookingController;
 import com.link_intersystems.carrental.booking.CarBookingUseCase;
-import com.link_intersystems.carrental.booking.CarBookingUseCaseMain;
 import com.link_intersystems.carrental.management.CarManagementUIConfig;
 import com.link_intersystems.carrental.management.CarManagementView;
 import com.link_intersystems.carrental.management.booking.create.CarBookedEventSubscriber;
@@ -62,11 +62,11 @@ public class CarRentalMain {
         DataSource rentalDataSource = h2DataSourceConfig.getCarRentalDataSource();
         JdbcTemplate rentalJdbcTemplate = h2DataSourceConfig.getCarRentalJdbcTemplate(n -> rentalDataSource);
 
-        CarBookingUseCaseMain carBookingUseCaseMain = new CarBookingUseCaseMain();
-        CarBookingUseCase carBookingUseCase = carBookingUseCaseMain.createCarBookingUseCase(rentalJdbcTemplate, domainEventSubscriberList);
+        CarBookingComponent carBookingComponent = new CarBookingComponent();
+        CarBookingUseCase carBookingUseCase = carBookingComponent.getCarBookingUseCase(rentalJdbcTemplate, domainEventSubscriberList);
 
-        CarOfferUseCaseMain carOfferUseCaseMain = new CarOfferUseCaseMain();
-        CarOfferUseCase carOfferUseCase = carOfferUseCaseMain.createCarOfferUseCase(rentalJdbcTemplate);
+        CarOfferComponent carOfferComponent = new CarOfferComponent();
+        CarOfferUseCase carOfferUseCase = carOfferComponent.createCarOfferUseCase(rentalJdbcTemplate);
 
         CarOfferUIConfig carOfferUIConfig = new CarOfferUIConfig(messageDialog);
 

@@ -56,7 +56,7 @@ public class H2DataSourceConfig {
         }
     }
 
-    public JdbcTemplate getCarRentalJdbcTemplate(BeanSelector<DataSource> dataSources) {
+    public JdbcTemplate carRentalJdbcTemplate(BeanSelector<DataSource> dataSources) {
         DataSource carRentalDataSource = dataSources.select("getCarRentalDataSource");
         return new JdbcTemplate(carRentalDataSource);
     }

@@ -17,12 +17,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class H2CarBookingRepository implements CarBookingRepository {
+class H2CarBookingRepository implements CarBookingRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public H2CarBookingRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public H2CarBookingRepository(JdbcTemplate carRentalJdbcTemplate) {
+        this.jdbcTemplate = carRentalJdbcTemplate;
     }
 
     @Override

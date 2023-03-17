@@ -22,12 +22,12 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class H2CarOfferRepository implements CarOfferRepository {
+class H2CarOfferRepository implements CarOfferRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public H2CarOfferRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public H2CarOfferRepository(JdbcTemplate carRentalJdbcTemplate) {
+        this.jdbcTemplate = carRentalJdbcTemplate;
     }
 
     @Override
