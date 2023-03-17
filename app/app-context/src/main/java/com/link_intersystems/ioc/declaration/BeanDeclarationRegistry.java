@@ -5,7 +5,6 @@ import com.link_intersystems.ioc.declaration.locator.BeanConfigSupportBeanDeclar
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import static java.util.Objects.*;
 
@@ -17,7 +16,7 @@ public class BeanDeclarationRegistry {
     private List<BeanDeclaration> beanDeclarations;
 
     private Predicate<BeanDeclaration> beanDeclarationExcludeFilter = DEFAULT_BEAN_DEFINITION_EXCLUDE_FILTER;
-    private BeanAmbiguityResolver beanAmbiguityResolver = DEFAULT_BEAN_AMBIGUITY_RESOLVER;
+    private BeanAmbiguityResolver beanAmbiguityResolver;
 
     public BeanDeclarationRegistry() {
         this(new BeanConfigSupportBeanDeclarationLocator());
@@ -32,34 +31,33 @@ public class BeanDeclarationRegistry {
     }
 
     public void setBeanAmbiguityResolver(BeanAmbiguityResolver beanAmbiguityResolver) {
-        this.beanAmbiguityResolver = beanAmbiguityResolver == null ? DEFAULT_BEAN_AMBIGUITY_RESOLVER : beanAmbiguityResolver;
+        this.beanAmbiguityResolver = beanAmbiguityResolver;
     }
 
     public BeanDeclaration getBeanDeclaration(Class<?> type, String name) throws AmbiguousBeanException {
-        List<BeanDeclaration> beanDeclarations = getBeanDeclaration(type);
-
-        List<BeanDeclaration> matchingBeanDeclarations = beanDeclarations.stream().filter(bd -> {
-            if (name == null) {
-                return true;
-            }
-            return bd.getBeanName().equals(name);
-        }).collect(Collectors.toList());
-
+        List<BeanDeclaration> matchingBeanDeclarations = getBeanDeclaration(type);
         return selectBean(type, name, matchingBeanDeclarations);
     }
 
-    private BeanDeclaration selectBean(Class<?> type, String name, List<BeanDeclaration> matchingBeanDeclarations) {
+    private BeanDeclaration selectBean(Class<?> requestedType, String requestedName, List<BeanDeclaration> matchingBeanDeclarations) {
+        BeanDeclaration selectedBeanDeclaration;
+
         switch (matchingBeanDeclarations.size()) {
             case 0:
-                throw new IllegalStateException("No bean declaration of " + type + " (" + name + ") found.");
+                throw new IllegalStateException("No bean declaration of " + requestedType + " (" + requestedName + ") found.");
             case 1:
-                return matchingBeanDeclarations.get(0);
+                selectedBeanDeclaration = matchingBeanDeclarations.get(0);
+                break;
             default:
-                return handleBeanAmbiguity(type, name, matchingBeanDeclarations);
+                selectedBeanDeclaration = handleAmbiguousBeanDeclaration(requestedType, requestedName, matchingBeanDeclarations);
         }
+
+        return selectedBeanDeclaration;
     }
 
-    private BeanDeclaration handleBeanAmbiguity(Class<?> requestedType, String requestedName, List<BeanDeclaration> matchingBeanDeclarations) throws AmbiguousBeanException {
+    private BeanDeclaration handleAmbiguousBeanDeclaration(Class<?> requestedType, String requestedName, List<BeanDeclaration> matchingBeanDeclarations) {
+        BeanAmbiguityResolver beanAmbiguityResolver = getBeanAmbiguityResolver(requestedName);
+
         BeanDeclaration selectedBeanDeclaration = beanAmbiguityResolver.selectBean(requestedType, requestedName, matchingBeanDeclarations);
 
         if (selectedBeanDeclaration == null) {
@@ -68,6 +66,19 @@ public class BeanDeclarationRegistry {
 
         return selectedBeanDeclaration;
     }
+
+    private BeanAmbiguityResolverChain getBeanAmbiguityResolver(String requestedName) {
+        List<BeanAmbiguityResolver> beanAmbiguityResolvers = new ArrayList<>();
+
+        beanAmbiguityResolvers.add(new QualifierBeanAmbiguityResolver(requestedName));
+
+        if (beanAmbiguityResolver != null) {
+            beanAmbiguityResolvers.add(beanAmbiguityResolver);
+        }
+
+        return new BeanAmbiguityResolverChain(beanAmbiguityResolvers);
+    }
+
 
     public BeanDeclaration getExactBeanDeclaration(Class<?> type) throws AmbiguousBeanException {
         List<BeanDeclaration> beanDeclarations = getBeanDeclaration(type);
