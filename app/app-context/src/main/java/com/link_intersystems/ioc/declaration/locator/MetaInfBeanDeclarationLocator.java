@@ -87,7 +87,7 @@ public class MetaInfBeanDeclarationLocator implements BeanDeclarationLocator {
                 }
 
                 if (!line.isBlank()) {
-                    lines.add(line);
+                    lines.add(line.trim());
                 }
             }
         }
