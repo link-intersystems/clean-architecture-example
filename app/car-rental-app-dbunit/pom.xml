@@ -45,7 +45,7 @@
         </dependency>
         <dependency>
             <groupId>com.acme.car-rental.app</groupId>
-            <artifactId>app-context</artifactId>
+            <artifactId>car-rental-shared-ioc</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
