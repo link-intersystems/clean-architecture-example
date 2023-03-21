@@ -28,10 +28,6 @@
             <groupId>com.link-intersystems.commons</groupId>
             <artifactId>lis-commons-swing</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.link-intersystems.commons</groupId>
-            <artifactId>lis-commons-beans</artifactId>
-        </dependency>
     </dependencies>
 
 </project>
