@@ -1,10 +1,10 @@
 package com.link_intersystems.carrental.db;
 
 import com.link_intersystems.ioc.api.BeanSelector;
+import com.link_intersystems.jdbc.JdbcTemplate;
 import com.link_intersystems.sql.io.SqlScript;
 import com.link_intersystems.sql.io.URLScriptResource;
 import org.h2.jdbcx.JdbcDataSource;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 import java.io.File;

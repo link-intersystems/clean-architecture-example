@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental.management.booking.list;
 
-import org.springframework.jdbc.core.JdbcTemplate;
+import com.link_intersystems.jdbc.JdbcTemplate;
 
 public class H2ListBookingsRepositoryConfig {
 

@@ -32,7 +32,7 @@ import com.link_intersystems.carrental.offer.*;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
 import com.link_intersystems.carrental.ui.CarRentalMainFrame;
 import com.link_intersystems.carrental.ui.CarRentalMainUIConfig;
-import org.springframework.jdbc.core.JdbcTemplate;
+import com.link_intersystems.jdbc.JdbcTemplate;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;

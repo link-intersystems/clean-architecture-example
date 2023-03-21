@@ -1,8 +1,8 @@
 package com.link_intersystems.carrental.management;
 
+import com.link_intersystems.jdbc.JdbcTemplate;
 import com.link_intersystems.sql.AbstractDataSource;
 import org.junit.jupiter.api.BeforeEach;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.sql.Connection;
 import java.sql.SQLException;

@@ -3,13 +3,9 @@ package com.link_intersystems.carrental.management.booking.create;
 import com.link_intersystems.carrental.management.AbstractManagementRepositoryTest;
 import com.link_intersystems.carrental.management.CarManagementDBExtension;
 import com.link_intersystems.carrental.management.booking.CarBooking;
-import com.link_intersystems.sql.AbstractDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;

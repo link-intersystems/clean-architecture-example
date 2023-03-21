@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.management.booking.create;
 
 import com.link_intersystems.carrental.management.booking.CarBooking;
-import org.springframework.jdbc.core.JdbcTemplate;
+import com.link_intersystems.jdbc.JdbcTemplate;
 
 class H2CreateCarBookingRepository implements CreateCarBookingRepository {
 

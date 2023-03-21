@@ -20,9 +20,9 @@
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>5.3.25</version>
+            <groupId>com.acme.car-rental.shared</groupId>
+            <artifactId>car-rental-shared-jdbc</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.acme.car-rental.app</groupId>

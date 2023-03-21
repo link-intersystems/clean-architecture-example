@@ -4,12 +4,12 @@ import com.link_intersystems.carrental.*;
 import com.link_intersystems.carrental.booking.CarBooking;
 import com.link_intersystems.carrental.booking.CarBookinsByCar;
 import com.link_intersystems.carrental.customer.CustomerId;
+import com.link_intersystems.carrental.money.Amount;
 import com.link_intersystems.carrental.rental.RentalCar;
 import com.link_intersystems.carrental.rental.RentalRate;
-import com.link_intersystems.carrental.money.Amount;
 import com.link_intersystems.carrental.time.Period;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import com.link_intersystems.jdbc.JdbcTemplate;
+import com.link_intersystems.jdbc.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,15 +39,15 @@ class H2CarOfferRepository implements CarOfferRepository {
         queryBuilder.append(String.join(", ", chars));
         queryBuilder.append(")");
 
-        return jdbcTemplate.query(queryBuilder.toString(), new RowMapper<RentalCar>() {
+        return jdbcTemplate.query(queryBuilder.toString(), filteredVins.toArray(), new RowMapper<RentalCar>() {
             @Override
-            public RentalCar mapRow(ResultSet rs, int rowNum) throws SQLException {
+            public RentalCar mapRow(ResultSet rs) throws SQLException {
                 String carid = rs.getString("CARID");
 
                 RentalRate rentalRate = new RentalRate(new Amount(rs.getBigDecimal("RATE_PER_DAY")));
                 return new RentalCar(new CarId(new VIN(carid)), rentalRate);
             }
-        }, filteredVins.toArray());
+        });
     }
 
     private List<Car> applyCriteria(List<Car> cars, CarCriteria carCriteria) {
@@ -63,7 +63,7 @@ class H2CarOfferRepository implements CarOfferRepository {
     private List<Car> findCars() {
         return jdbcTemplate.query("select * from car", new RowMapper<Car>() {
             @Override
-            public Car mapRow(ResultSet rs, int rowNum) throws SQLException {
+            public Car mapRow(ResultSet rs) throws SQLException {
                 CarId id = new CarId(new VIN(rs.getString("VIN")));
                 String name = rs.getString("NAME");
                 VehicleType vehicleType = VehicleType.valueOf(rs.getString("VEHICLE_TYPE"));
@@ -80,9 +80,9 @@ class H2CarOfferRepository implements CarOfferRepository {
         queryBuilder.append(String.join(", ", chars));
         queryBuilder.append(")");
 
-        List<CarBooking> carBookings = jdbcTemplate.query(queryBuilder.toString(), new RowMapper<CarBooking>() {
+        List<CarBooking> carBookings = jdbcTemplate.query(queryBuilder.toString(), carIds.stream().map(CarId::getValue).toArray(), new RowMapper<CarBooking>() {
             @Override
-            public CarBooking mapRow(ResultSet rs, int rowNum) throws SQLException {
+            public CarBooking mapRow(ResultSet rs) throws SQLException {
                 CustomerId customerId = new CustomerId(rs.getInt("CUSTOMER_ID"));
                 CarId carId = new CarId(new VIN(rs.getString("CARID")));
 
@@ -92,7 +92,7 @@ class H2CarOfferRepository implements CarOfferRepository {
                 Period bookingPeriod = new Period(pickupDateTime.toLocalDateTime(), returnDateTime.toLocalDateTime());
                 return new CarBooking(customerId, carId, bookingPeriod);
             }
-        }, carIds.stream().map(CarId::getValue).toArray());
+        });
 
 
         return new CarBookinsByCar(carBookings.stream().filter(cb -> cb.getBookingPeriod().overlaps(desiredPeriod)).collect(Collectors.toList()));

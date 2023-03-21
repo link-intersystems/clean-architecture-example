@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.management.booking.list;
 
 import com.link_intersystems.carrental.management.booking.CarBooking;
-import org.springframework.jdbc.core.JdbcTemplate;
+import com.link_intersystems.jdbc.JdbcTemplate;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,7 +22,7 @@ class H2ListBookingsRepository implements ListBookingsRepository {
         return jdbcTemplate.query("SELECT * FROM CAR_BOOKING WHERE RENTAL_STATE IS NULL", this::mapCarBookingRow);
     }
 
-    private CarBooking mapCarBookingRow(ResultSet rs, int rowNum) throws SQLException {
+    private CarBooking mapCarBookingRow(ResultSet rs) throws SQLException {
         int bookingNumber = rs.getInt("BOOKING_NUMBER");
         String vin = rs.getString("VIN");
         CarBooking carBooking = new CarBooking(bookingNumber, vin);

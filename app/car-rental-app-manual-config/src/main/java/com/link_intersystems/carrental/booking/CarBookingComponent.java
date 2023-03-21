@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.DomainEventSubscriber;
-import org.springframework.jdbc.core.JdbcTemplate;
+import com.link_intersystems.jdbc.JdbcTemplate;
 
 import java.util.List;
 

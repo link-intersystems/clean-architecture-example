@@ -5,9 +5,8 @@ import com.link_intersystems.carrental.VIN;
 import com.link_intersystems.carrental.customer.Customer;
 import com.link_intersystems.carrental.customer.CustomerId;
 import com.link_intersystems.carrental.time.Period;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import com.link_intersystems.jdbc.JdbcTemplate;
+import com.link_intersystems.jdbc.RowMapper;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,36 +26,32 @@ class H2CarBookingRepository implements CarBookingRepository {
 
     @Override
     public CarBooking findBooking(CarId carId, Period bookingPeriod) {
-        try {
-            String sql = "select * from car_booking where carid = ? " + " AND ((CAR_BOOKING.PICKUP_DATETIME >= ? OR CAR_BOOKING.PICKUP_DATETIME <= ?)" + " OR (CAR_BOOKING.RETURN_DATETIME >= ? OR CAR_BOOKING.RETURN_DATETIME <= ?))";
-            LocalDateTime begin = bookingPeriod.getBegin();
-            LocalDateTime end = bookingPeriod.getEnd();
-            List<CarBooking> carBookings = jdbcTemplate.query(sql, new Object[]{carId.getValue(), begin, end, begin, end}, new RowMapper<CarBooking>() {
-                @Override
-                public CarBooking mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    CustomerId customerId = new CustomerId(rs.getInt("CUSTOMER_ID"));
-                    CarId carId = new CarId(new VIN(rs.getString("CARID")));
+        String sql = "select * from car_booking where carid = ? " + " AND ((CAR_BOOKING.PICKUP_DATETIME >= ? OR CAR_BOOKING.PICKUP_DATETIME <= ?)" + " OR (CAR_BOOKING.RETURN_DATETIME >= ? OR CAR_BOOKING.RETURN_DATETIME <= ?))";
+        LocalDateTime begin = bookingPeriod.getBegin();
+        LocalDateTime end = bookingPeriod.getEnd();
+        List<CarBooking> carBookings = jdbcTemplate.query(sql, new Object[]{carId.getValue(), begin, end, begin, end}, new RowMapper<CarBooking>() {
+            @Override
+            public CarBooking mapRow(ResultSet rs) throws SQLException {
+                CustomerId customerId = new CustomerId(rs.getInt("CUSTOMER_ID"));
+                CarId carId = new CarId(new VIN(rs.getString("CARID")));
 
-                    Timestamp pickupDateTime = rs.getTimestamp("PICKUP_DATETIME");
-                    Timestamp returnDateTime = rs.getTimestamp("RETURN_DATETIME");
+                Timestamp pickupDateTime = rs.getTimestamp("PICKUP_DATETIME");
+                Timestamp returnDateTime = rs.getTimestamp("RETURN_DATETIME");
 
-                    Period bookingPeriod = new Period(pickupDateTime.toLocalDateTime(), returnDateTime.toLocalDateTime());
-                    CarBooking carBooking = new CarBooking(customerId, carId, bookingPeriod);
-                    carBooking.setBookingNumber(new BookingNumber(rs.getInt("BOOKING_NUMBER")));
-                    return carBooking;
-                }
-            });
+                Period bookingPeriod = new Period(pickupDateTime.toLocalDateTime(), returnDateTime.toLocalDateTime());
+                CarBooking carBooking = new CarBooking(customerId, carId, bookingPeriod);
+                carBooking.setBookingNumber(new BookingNumber(rs.getInt("BOOKING_NUMBER")));
+                return carBooking;
+            }
+        });
 
-            List<CarBooking> overlappingCarBookings = carBookings.stream().filter(cb -> bookingPeriod.overlaps(cb.getBookingPeriod())).collect(Collectors.toList());
-            return overlappingCarBookings.isEmpty() ? null : overlappingCarBookings.get(0);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
+        List<CarBooking> overlappingCarBookings = carBookings.stream().filter(cb -> bookingPeriod.overlaps(cb.getBookingPeriod())).collect(Collectors.toList());
+        return overlappingCarBookings.isEmpty() ? null : overlappingCarBookings.get(0);
     }
 
     @Override
     public void persist(CarBooking carBooking) {
-        Integer nextId = jdbcTemplate.queryForObject("VALUES NEXT VALUE FOR CAR_BOOKING_SEQ", Integer.class);
+        Integer nextId = jdbcTemplate.queryForObject("VALUES NEXT VALUE FOR CAR_BOOKING_SEQ", rs -> rs.getInt(1));
 
         CarId carId = carBooking.getCarId();
         CustomerId customerId = carBooking.getCustomerId();
@@ -69,7 +64,7 @@ class H2CarBookingRepository implements CarBookingRepository {
             ps.setObject(3, customerId.getValue());
             ps.setObject(4, bookingPeriod.getBegin());
             ps.setObject(5, bookingPeriod.getEnd());
-            return ps;
+            return ps.executeUpdate();
         });
 
 
@@ -78,21 +73,17 @@ class H2CarBookingRepository implements CarBookingRepository {
 
     @Override
     public boolean isCustomerExistent(CustomerId customerId) {
-        try {
-            Customer customer = jdbcTemplate.queryForObject("select * from customer where id = ?", new Object[]{customerId.getValue()}, new RowMapper<Customer>() {
-                @Override
-                public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    CustomerId customerId = new CustomerId(rs.getInt("ID"));
+        Customer customer = jdbcTemplate.queryForObject("select * from customer where id = ?", new Object[]{customerId.getValue()}, new RowMapper<Customer>() {
+            @Override
+            public Customer mapRow(ResultSet rs) throws SQLException {
+                CustomerId customerId = new CustomerId(rs.getInt("ID"));
 
-                    String firstname = rs.getString("firstname");
-                    String lastname = rs.getString("lastname");
+                String firstname = rs.getString("firstname");
+                String lastname = rs.getString("lastname");
 
-                    return new Customer(customerId, firstname, lastname);
-                }
-            });
-            return customer != null;
-        } catch (EmptyResultDataAccessException e) {
-            return false;
-        }
+                return new Customer(customerId, firstname, lastname);
+            }
+        });
+        return customer != null;
     }
 }

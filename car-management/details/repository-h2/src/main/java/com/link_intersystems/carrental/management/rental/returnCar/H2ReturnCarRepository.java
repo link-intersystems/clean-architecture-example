@@ -3,7 +3,7 @@ package com.link_intersystems.carrental.management.rental.returnCar;
 import com.link_intersystems.carrental.booking.BookingNumber;
 import com.link_intersystems.carrental.management.accounting.RentalCar;
 import com.link_intersystems.carrental.management.rental.*;
-import org.springframework.jdbc.core.JdbcTemplate;
+import com.link_intersystems.jdbc.JdbcTemplate;
 
 import java.time.LocalDateTime;
 import java.util.Map;

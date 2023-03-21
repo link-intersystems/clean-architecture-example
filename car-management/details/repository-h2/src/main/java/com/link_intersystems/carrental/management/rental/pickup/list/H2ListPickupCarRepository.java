@@ -2,8 +2,7 @@ package com.link_intersystems.carrental.management.rental.pickup.list;
 
 import com.link_intersystems.carrental.booking.BookingNumber;
 import com.link_intersystems.carrental.management.rental.*;
-import com.link_intersystems.carrental.management.rental.pickup.list.ListPickupCarRepository;
-import org.springframework.jdbc.core.JdbcTemplate;
+import com.link_intersystems.jdbc.JdbcTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
