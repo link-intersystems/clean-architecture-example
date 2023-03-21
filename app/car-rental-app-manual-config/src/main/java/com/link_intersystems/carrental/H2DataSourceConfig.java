@@ -1,6 +1,5 @@
 package com.link_intersystems.carrental;
 
-import com.link_intersystems.ioc.api.BeanSelector;
 import com.link_intersystems.jdbc.JdbcTemplate;
 import com.link_intersystems.sql.io.SqlScript;
 import com.link_intersystems.sql.io.URLScriptResource;
@@ -56,13 +55,11 @@ public class H2DataSourceConfig {
         }
     }
 
-    public JdbcTemplate getCarRentalJdbcTemplate(BeanSelector<DataSource> dataSources) {
-        DataSource carRentalDataSource = dataSources.select("getCarRentalDataSource");
+    public JdbcTemplate getCarRentalJdbcTemplate(DataSource carRentalDataSource) {
         return new JdbcTemplate(carRentalDataSource);
     }
 
-    public JdbcTemplate getManagementJdbcTemplate(BeanSelector<DataSource> dataSources) {
-        DataSource managementDataSource = dataSources.select("getManagementDataSource");
+    public JdbcTemplate getManagementJdbcTemplate(DataSource managementDataSource) {
         return new JdbcTemplate(managementDataSource);
     }
 }

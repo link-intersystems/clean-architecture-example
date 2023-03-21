@@ -29,6 +29,7 @@ import com.link_intersystems.carrental.management.rental.returnCar.ReturnCarUseC
 import com.link_intersystems.carrental.management.returnCar.ui.ReturnCarFormController;
 import com.link_intersystems.carrental.management.returnCar.ui.ReturnCarUIConfig;
 import com.link_intersystems.carrental.offer.*;
+import com.link_intersystems.carrental.swing.notification.DefaultMessageDialog;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
 import com.link_intersystems.carrental.ui.CarRentalMainFrame;
 import com.link_intersystems.carrental.ui.CarRentalMainUIConfig;
@@ -37,30 +38,28 @@ import com.link_intersystems.jdbc.JdbcTemplate;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 public class CarRentalMain {
 
     private H2DataSourceConfig h2DataSourceConfig = new H2DataSourceConfig();
-    private Consumer<CarRentalMainFrame> mainFrameSetter;
     private List<DomainEventSubscriber> domainEventSubscriberList = new ArrayList<>();
 
     public CarRentalMainFrame createMainFrame() {
 
         CarRentalMainUIConfig carRentalMainUIConfig = new CarRentalMainUIConfig();
-        MessageDialog messageDialog = carRentalMainUIConfig.getMessageDialog(s -> mainFrameSetter = s);
+        DefaultMessageDialog messageDialog = carRentalMainUIConfig.getMessageDialog();
 
         CarManagementView carManagementView = createCarManagementView(messageDialog);
         CarOfferView carOfferView = createCarOfferView(messageDialog);
 
         CarRentalMainFrame mainFrame = carRentalMainUIConfig.getMainFrame(carOfferView, carManagementView);
-        mainFrameSetter.accept(mainFrame);
+        messageDialog.setParentComponent(mainFrame.getComponent());
         return mainFrame;
     }
 
     private CarOfferView createCarOfferView(MessageDialog messageDialog) {
         DataSource rentalDataSource = h2DataSourceConfig.getCarRentalDataSource();
-        JdbcTemplate rentalJdbcTemplate = h2DataSourceConfig.getCarRentalJdbcTemplate(n -> rentalDataSource);
+        JdbcTemplate rentalJdbcTemplate = h2DataSourceConfig.getCarRentalJdbcTemplate(rentalDataSource);
 
         CarBookingComponent carBookingComponent = new CarBookingComponent();
         CarBookingUseCase carBookingUseCase = carBookingComponent.getCarBookingUseCase(rentalJdbcTemplate, domainEventSubscriberList);
@@ -78,7 +77,7 @@ public class CarRentalMain {
 
     private CarManagementView createCarManagementView(MessageDialog messageDialog) {
         DataSource managementDataSource = h2DataSourceConfig.getManagementDataSource();
-        JdbcTemplate managementJdbcTemplate = h2DataSourceConfig.getManagementJdbcTemplate(n -> managementDataSource);
+        JdbcTemplate managementJdbcTemplate = h2DataSourceConfig.getManagementJdbcTemplate(managementDataSource);
 
         CreateCarBookingComponent createCarBookingComponent = new CreateCarBookingComponent();
         CreateCarBookingUseCase createCarBookingUseCase = createCarBookingComponent.getCreateCarBookingUseCase(managementJdbcTemplate);

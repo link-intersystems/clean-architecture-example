@@ -20,13 +20,13 @@
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.acme.car-rental.shared</groupId>
-            <artifactId>car-rental-shared-jdbc</artifactId>
+            <groupId>com.acme.car-rental.management</groupId>
+            <artifactId>car-management-entities</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.acme.car-rental.app</groupId>
-            <artifactId>app-context</artifactId>
+            <groupId>com.acme.car-rental.shared</groupId>
+            <artifactId>car-rental-shared-jdbc</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
 

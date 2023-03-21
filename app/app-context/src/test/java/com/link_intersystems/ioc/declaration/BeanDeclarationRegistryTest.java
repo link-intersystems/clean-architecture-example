@@ -17,8 +17,8 @@ class BeanDeclarationRegistryTest {
 
     @BeforeEach
     void setUp() {
-        beanDeclaration1 = new BeanDeclaration(TestBean1.class, UnknownBeanDeclarationLocation.INSTANCE);
-        beanDeclaration2 = new BeanDeclaration(TestBean2.class, UnknownBeanDeclarationLocation.INSTANCE);
+        beanDeclaration1 = new DefaultBeanDeclaration(TestBean1.class);
+        beanDeclaration2 = new DefaultBeanDeclaration(TestBean2.class);
 
         BeanDeclarationLocator locator = () -> Arrays.asList(beanDeclaration1, beanDeclaration2);
         beanDeclarationRegistry = new BeanDeclarationRegistry(locator);

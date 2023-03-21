@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Iterator;
 
-public class BeanFactoryMethodBeanDeclaration extends BeanDeclaration {
+public class BeanFactoryMethodBeanDeclaration extends DefaultBeanDeclaration {
     private Method beanFactoryMethod;
 
     public BeanFactoryMethodBeanDeclaration(Class<?> beanType, Method beanFactoryMethod, BeanConfigBeanDeclarationLocation location) {

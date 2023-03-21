@@ -3,7 +3,6 @@ package com.link_intersystems.ioc.declaration;
 import com.link_intersystems.ioc.declaration.config.AnnotationBeanConfigDetector;
 import com.link_intersystems.ioc.declaration.config.CompositeBeanConfigDetector;
 import com.link_intersystems.ioc.declaration.config.NamePatternBeanConfigDetector;
-import com.link_intersystems.ioc.declaration.locator.BeanConfigBeanDeclarationLocator;
 import com.link_intersystems.ioc.declaration.locator.MetaInfBeanDeclarationLocator;
 
 import java.util.ArrayList;
@@ -16,7 +15,6 @@ import static java.util.Objects.*;
 public class BeanDeclarationRegistry {
 
     public static final Predicate<BeanDeclaration> DEFAULT_BEAN_DEFINITION_EXCLUDE_FILTER = bd -> false;
-    public static final BeanAmbiguityResolver DEFAULT_BEAN_AMBIGUITY_RESOLVER = (t, o) -> null;
     private BeanDeclarationLocator beanDeclarationLocator;
     private List<BeanDeclaration> beanDeclarations;
 
@@ -95,8 +93,6 @@ public class BeanDeclarationRegistry {
         List<BeanDeclaration> beanDeclarations = new ArrayList<>();
 
         for (BeanDeclaration beanDeclaration : getBeanDeclarations()) {
-
-
             Class<?> beanType = beanDeclaration.getBeanType();
             if (type.isAssignableFrom(beanType)) {
                 beanDeclarations.add(beanDeclaration);
@@ -106,24 +102,26 @@ public class BeanDeclarationRegistry {
         return beanDeclarations;
     }
 
-
-    private List<BeanDeclaration> getBeanDeclarations() {
+    public List<BeanDeclaration> getBeanDeclarations() {
         if (beanDeclarations == null) {
             beanDeclarations = beanDeclarationLocator.getBeanDeclarations()
                     .stream()
                     .filter(beanDeclarationExcludeFilter.negate())
                     .collect(Collectors.toList());
 
-            for (BeanDeclaration beanDeclaration : new ArrayList<>(beanDeclarations)) {
-                if (beanConfigDetector.isBeanConfig(beanDeclaration)) {
-                    BeanDeclarationLocator beanConfigBeanDeclarationLocator = new BeanConfigBeanDeclarationLocator(beanDeclaration);
-                    List<BeanDeclaration> beanConfigBeanDeclarations = beanConfigBeanDeclarationLocator.getBeanDeclarations();
-                    beanDeclarations.addAll(beanConfigBeanDeclarations);
-                }
-            }
+            processBeanConfigs(beanDeclarations);
         }
         return beanDeclarations;
     }
 
-
+    private void processBeanConfigs(List<BeanDeclaration> beanDeclarations) {
+        for (int i = 0; i < beanDeclarations.size(); i++) {
+            BeanDeclaration beanDeclaration = beanDeclarations.get(i);
+            if (beanConfigDetector.isBeanConfig(beanDeclaration)) {
+                BeanConfigBeanDeclaration beanConfig = new BeanConfigBeanDeclaration(beanDeclaration);
+                beanDeclarations.set(i, beanConfig);
+                beanDeclarations.addAll(i + 1, beanConfig);
+            }
+        }
+    }
 }

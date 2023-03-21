@@ -1,6 +1,7 @@
 package com.link_intersystems.ioc.declaration.locator;
 
 import com.link_intersystems.ioc.declaration.BeanDeclaration;
+import com.link_intersystems.ioc.declaration.DefaultBeanDeclaration;
 import com.link_intersystems.ioc.declaration.BeanDeclarationLocation;
 import com.link_intersystems.ioc.declaration.BeanDeclarationLocator;
 import com.link_intersystems.ioc.declaration.location.ResourceBeanDeclarationLocation;
@@ -60,7 +61,7 @@ public class MetaInfBeanDeclarationLocator implements BeanDeclarationLocator {
 
                 Class<?> type = Class.forName(line);
                 BeanDeclarationLocation location = new ResourceBeanDeclarationLocation(resource);
-                BeanDeclaration beanDeclaration = new BeanDeclaration(type, location);
+                BeanDeclaration beanDeclaration = new DefaultBeanDeclaration(type, location);
                 if (unique.add(beanDeclaration)) {
                     beanDeclarations.add(beanDeclaration);
                 }

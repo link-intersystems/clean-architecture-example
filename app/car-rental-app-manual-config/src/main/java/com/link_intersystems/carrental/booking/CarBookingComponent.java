@@ -8,7 +8,8 @@ import java.util.List;
 public class CarBookingComponent {
 
     public CarBookingUseCase getCarBookingUseCase(JdbcTemplate jdbcTemplate, List<DomainEventSubscriber> subsribers) {
+        CarBookingUseCaseConfig carBookingUseCaseConfig = new CarBookingUseCaseConfig();
         CarBookingRepository repository = new H2CarBookingRepository(jdbcTemplate);
-        return new CarBookingInteractor(repository);
+        return carBookingUseCaseConfig.getCarBookingUseCase(repository, subsribers);
     }
 }

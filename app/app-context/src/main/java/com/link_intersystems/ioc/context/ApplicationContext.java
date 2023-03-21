@@ -23,6 +23,8 @@ public class ApplicationContext implements BeanFactory {
     private ConstructorArgsResolver constructorArgsResolver = new DefaultConstructorArgsResolver(this);
     private BeanConstructorFactory beanConstructorFactory = new DefaultBeanConstructorFactory();
 
+    private boolean initialized;
+
     public ApplicationContext() {
         this(new BeanDeclarationRegistry());
     }
@@ -39,6 +41,11 @@ public class ApplicationContext implements BeanFactory {
     public <T> T getBean(Class<T> type, String name) {
         if (BeanFactory.class.equals(type)) {
             return (T) this;
+        }
+
+        if (!initialized) {
+            initialized = true;
+            init();
         }
 
         BeanDeclaration beanDeclaration = beanDeclarationRegistry.getBeanDeclaration(type, name);
@@ -59,6 +66,12 @@ public class ApplicationContext implements BeanFactory {
         } finally {
             callStack.pop();
         }
+    }
+
+    private void init() {
+        BeanDeclarationRegistry registry = getBeanDeclarationRegistry();
+        List<BeanDeclaration> beanDeclarations = registry.getBeanDeclarations();
+        beanDeclarations.forEach(this::getBeanDefinition);
     }
 
     @Override

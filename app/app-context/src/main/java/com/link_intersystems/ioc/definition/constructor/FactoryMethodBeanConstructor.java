@@ -3,8 +3,8 @@ package com.link_intersystems.ioc.definition.constructor;
 import com.link_intersystems.ioc.context.BeanConstructor;
 import com.link_intersystems.ioc.context.BeanFactory;
 import com.link_intersystems.ioc.context.ConstructorArgsResolver;
-import com.link_intersystems.ioc.declaration.location.BeanConfigBeanDeclarationLocation;
 import com.link_intersystems.ioc.declaration.BeanDeclaration;
+import com.link_intersystems.ioc.declaration.location.BeanConfigBeanDeclarationLocation;
 import com.link_intersystems.ioc.declaration.BeanFactoryMethodBeanDeclaration;
 
 import java.lang.reflect.Method;
