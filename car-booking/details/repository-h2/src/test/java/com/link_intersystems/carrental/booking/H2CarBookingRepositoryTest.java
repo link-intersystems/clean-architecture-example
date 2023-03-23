@@ -3,10 +3,10 @@ package com.link_intersystems.carrental.booking;
 import com.link_intersystems.carrental.CarId;
 import com.link_intersystems.carrental.CarRentalDBExtension;
 import com.link_intersystems.carrental.VIN;
-import com.link_intersystems.jdbc.JdbcTemplate;
-import com.link_intersystems.jdbc.test.db.AbstractDataSource;
 import com.link_intersystems.carrental.customer.CustomerId;
 import com.link_intersystems.carrental.time.Period;
+import com.link_intersystems.jdbc.JdbcTemplate;
+import com.link_intersystems.jdbc.test.db.AbstractDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

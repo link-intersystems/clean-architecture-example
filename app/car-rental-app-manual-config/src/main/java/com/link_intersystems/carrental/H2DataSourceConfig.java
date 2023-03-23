@@ -15,18 +15,16 @@ public class H2DataSourceConfig {
 
     public static final String DEFAULT_JDBC_URL = "jdbc:h2:file:./carrental;USER=sa;PASSWORD=123";
 
-    public DataSource getCarRentalDataSource() {
-        ensureDatabaseInitialized();
-
-        return createDataSource(DEFAULT_JDBC_URL + ";SCHEMA=BOOKING");
+    public DataSource getDataSource() {
+        JdbcDataSource dataSource = createDataSource(DEFAULT_JDBC_URL);
+        ensureDatabaseInitialized(dataSource);
+        return dataSource;
     }
 
-    private void ensureDatabaseInitialized() {
+    private void ensureDatabaseInitialized(DataSource dataSource) {
         if (!new File("./carrental.mv.db").exists()) {
-            JdbcDataSource jdbcDataSource = createDataSource(DEFAULT_JDBC_URL);
-
-            executeScript(jdbcDataSource, "/com/link_intersystems/carrental/init.sql");
-            executeScript(jdbcDataSource, "/com/link_intersystems/carrental/management/init.sql");
+            executeScript(dataSource, "/com/link_intersystems/carrental/init.sql");
+            executeScript(dataSource, "/com/link_intersystems/carrental/management/init.sql");
         }
     }
 
@@ -38,14 +36,8 @@ public class H2DataSourceConfig {
         return jdbcDataSource;
     }
 
-    public DataSource getManagementDataSource() {
-        ensureDatabaseInitialized();
-
-        return createDataSource(DEFAULT_JDBC_URL + ";SCHEMA=MANAGEMENT");
-    }
-
-    private void executeScript(JdbcDataSource jdbcDataSource, String scriptResource) {
-        try (Connection connection = jdbcDataSource.getConnection()) {
+    private void executeScript(DataSource dataSource, String scriptResource) {
+        try (Connection connection = dataSource.getConnection()) {
             URL scriptResourceURL = H2DataSourceConfig.class.getResource(scriptResource);
             SqlScript sqlScript = new SqlScript(new URLScriptResource(scriptResourceURL));
 //            sqlScript.execute(System.out::println);
@@ -55,11 +47,11 @@ public class H2DataSourceConfig {
         }
     }
 
-    public JdbcTemplate getCarRentalJdbcTemplate(DataSource carRentalDataSource) {
-        return new JdbcTemplate(carRentalDataSource);
+    public JdbcTemplate getCarRentalJdbcTemplate(DataSource dataSource) {
+        return new JdbcTemplate(dataSource, "BOOKING");
     }
 
-    public JdbcTemplate getManagementJdbcTemplate(DataSource managementDataSource) {
-        return new JdbcTemplate(managementDataSource);
+    public JdbcTemplate getManagementJdbcTemplate(DataSource dataSource) {
+        return new JdbcTemplate(dataSource, "MANAGEMENT");
     }
 }

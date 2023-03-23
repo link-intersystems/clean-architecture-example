@@ -11,6 +11,7 @@ public class CarRentalNoIoCApp {
 
     void run(String[] args) {
         CarRentalMain carRentalMain = new CarRentalMain();
+        carRentalMain.initDataSource();
         CarRentalMainFrame mainFrame = carRentalMain.createMainFrame();
         openFrame(mainFrame);
     }

@@ -1,7 +1,9 @@
 package com.link_intersystems.ioc.context;
 
+import com.link_intersystems.ioc.aop.BeanPostProcessor;
 import com.link_intersystems.ioc.api.BeanSelector;
 import com.link_intersystems.ioc.api.LazyBeanSetter;
+import com.link_intersystems.ioc.declaration.BeanConfigBeanDeclaration;
 import com.link_intersystems.ioc.declaration.BeanDeclaration;
 import com.link_intersystems.ioc.declaration.BeanDeclarationRegistry;
 import com.link_intersystems.ioc.definition.BeanDefinition;
@@ -86,11 +88,24 @@ public class ApplicationContext implements BeanFactory {
 
         if (bean == null) {
             bean = createBean(beanDeclaration);
+            if (!BeanPostProcessor.class.isAssignableFrom(beanDeclaration.getBeanType()) && !(beanDeclaration instanceof BeanConfigBeanDeclaration)) {
+                bean = postProcessBean(bean, beanDeclaration);
+            }
             beansByDeclaration.put(beanDeclaration, bean);
             afterBeanCreated(beanDeclaration, bean);
         }
 
         return (T) bean;
+    }
+
+    private Object postProcessBean(Object bean, BeanDeclaration beanDeclaration) {
+        List<BeanPostProcessor> beanPostProcessors = getBeans(BeanPostProcessor.class);
+
+        for (BeanPostProcessor beanPostProcessor : beanPostProcessors) {
+            bean = beanPostProcessor.processBean(this, beanDeclaration, bean);
+        }
+
+        return bean;
     }
 
     private void afterBeanCreated(BeanDeclaration beanDeclaration, Object bean) {
@@ -152,7 +167,7 @@ public class ApplicationContext implements BeanFactory {
             T bean = tryGetBean(beanDeclaration);
             return new BeanDefinition<>(bean, beanDeclaration);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(beanDeclaration.toString(), e);
         }
 
     }
