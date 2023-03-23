@@ -19,7 +19,7 @@ public class H2DataSourceConfig {
         JdbcDataSource jdbcDataSource = dataSource(DEFAULT_JDBC_URL);
         ensureDatabaseInitialized(jdbcDataSource);
 
-        return dataSource(DEFAULT_JDBC_URL );
+        return dataSource(DEFAULT_JDBC_URL);
     }
 
     private void ensureDatabaseInitialized(JdbcDataSource jdbcDataSource) {
@@ -49,14 +49,10 @@ public class H2DataSourceConfig {
     }
 
     public JdbcTemplate carRentalJdbcTemplate(DataSource dataSource) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        jdbcTemplate.setSchema("BOOKING");
-        return jdbcTemplate;
+        return new JdbcTemplate(dataSource, "BOOKING");
     }
 
     public JdbcTemplate managementJdbcTemplate(DataSource dataSource) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        jdbcTemplate.setSchema("MANAGEMENT");
-        return jdbcTemplate;
+        return new JdbcTemplate(dataSource, "MANAGEMENT");
     }
 }

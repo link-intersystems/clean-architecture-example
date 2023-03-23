@@ -17,12 +17,13 @@ public class JdbcTemplate {
     private DataSource dataSource;
     private String schema;
 
-    public JdbcTemplate(DataSource dataSource) {
+    public JdbcTemplate(DataSource dataSource, String schema) {
         this.dataSource = requireNonNull(dataSource);
+        this.schema = schema;
     }
 
-    public void setSchema(String schema) {
-        this.schema = schema;
+    public JdbcTemplate(DataSource dataSource) {
+        this.dataSource = requireNonNull(dataSource);
     }
 
     public List<Map<String, Object>> queryForList(String sql, Object... args) {
@@ -78,7 +79,9 @@ public class JdbcTemplate {
 
     public <T> T query(ConnectionCallable<T> connectionCallable) {
         try (Connection connection = dataSource.getConnection()) {
-            connection.setSchema(schema);
+            if (schema != null) {
+                connection.setSchema(schema);
+            }
             return connectionCallable.call(connection);
         } catch (SQLException e) {
             throw new RuntimeException(e);
