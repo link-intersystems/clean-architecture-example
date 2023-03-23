@@ -1,6 +1,5 @@
 package com.link_intersystems.carrental.db;
 
-import com.link_intersystems.ioc.api.BeanSelector;
 import com.link_intersystems.jdbc.JdbcTemplate;
 import com.link_intersystems.sql.io.SqlScript;
 import com.link_intersystems.sql.io.URLScriptResource;
@@ -16,7 +15,7 @@ public class H2DataSourceConfig {
 
     public static final String DEFAULT_JDBC_URL = "jdbc:h2:file:./carrental;USER=sa;PASSWORD=123";
 
-    public DataSource getCarRentalDataSource() {
+    public DataSource carRentalDataSource() {
         ensureDatabaseInitialized();
 
         return createDataSource(DEFAULT_JDBC_URL + ";SCHEMA=BOOKING");
@@ -39,7 +38,7 @@ public class H2DataSourceConfig {
         return jdbcDataSource;
     }
 
-    public DataSource getManagementDataSource() {
+    public DataSource managementDataSource() {
         ensureDatabaseInitialized();
 
         return createDataSource(DEFAULT_JDBC_URL + ";SCHEMA=MANAGEMENT");
@@ -56,13 +55,11 @@ public class H2DataSourceConfig {
         }
     }
 
-    public JdbcTemplate carRentalJdbcTemplate(BeanSelector<DataSource> dataSources) {
-        DataSource carRentalDataSource = dataSources.select("getCarRentalDataSource");
+    public JdbcTemplate carRentalJdbcTemplate(DataSource carRentalDataSource) {
         return new JdbcTemplate(carRentalDataSource);
     }
 
-    public JdbcTemplate managementJdbcTemplate(BeanSelector<DataSource> dataSources) {
-        DataSource managementDataSource = dataSources.select("getManagementDataSource");
+    public JdbcTemplate managementJdbcTemplate(DataSource managementDataSource) {
         return new JdbcTemplate(managementDataSource);
     }
 }
