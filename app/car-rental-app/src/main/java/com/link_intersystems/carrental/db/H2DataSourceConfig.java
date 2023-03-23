@@ -15,33 +15,26 @@ public class H2DataSourceConfig {
 
     public static final String DEFAULT_JDBC_URL = "jdbc:h2:file:./carrental;USER=sa;PASSWORD=123";
 
-    public DataSource carRentalDataSource() {
-        ensureDatabaseInitialized();
+    public DataSource dataSource() {
+        JdbcDataSource jdbcDataSource = dataSource(DEFAULT_JDBC_URL);
+        ensureDatabaseInitialized(jdbcDataSource);
 
-        return createDataSource(DEFAULT_JDBC_URL + ";SCHEMA=BOOKING");
+        return dataSource(DEFAULT_JDBC_URL );
     }
 
-    private void ensureDatabaseInitialized() {
+    private void ensureDatabaseInitialized(JdbcDataSource jdbcDataSource) {
         if (!new File("./carrental.mv.db").exists()) {
-            JdbcDataSource jdbcDataSource = createDataSource(DEFAULT_JDBC_URL);
-
             executeScript(jdbcDataSource, "/com/link_intersystems/carrental/init.sql");
             executeScript(jdbcDataSource, "/com/link_intersystems/carrental/management/init.sql");
         }
     }
 
-    private static JdbcDataSource createDataSource(String jdbcUrl) {
+    private static JdbcDataSource dataSource(String jdbcUrl) {
         JdbcDataSource jdbcDataSource = new JdbcDataSource();
         jdbcDataSource.setURL(jdbcUrl);
         jdbcDataSource.setUser("sa");
         jdbcDataSource.setPassword("123");
         return jdbcDataSource;
-    }
-
-    public DataSource managementDataSource() {
-        ensureDatabaseInitialized();
-
-        return createDataSource(DEFAULT_JDBC_URL + ";SCHEMA=MANAGEMENT");
     }
 
     private void executeScript(JdbcDataSource jdbcDataSource, String scriptResource) {
@@ -55,11 +48,15 @@ public class H2DataSourceConfig {
         }
     }
 
-    public JdbcTemplate carRentalJdbcTemplate(DataSource carRentalDataSource) {
-        return new JdbcTemplate(carRentalDataSource);
+    public JdbcTemplate carRentalJdbcTemplate(DataSource dataSource) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        jdbcTemplate.setSchema("BOOKING");
+        return jdbcTemplate;
     }
 
-    public JdbcTemplate managementJdbcTemplate(DataSource managementDataSource) {
-        return new JdbcTemplate(managementDataSource);
+    public JdbcTemplate managementJdbcTemplate(DataSource dataSource) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        jdbcTemplate.setSchema("MANAGEMENT");
+        return jdbcTemplate;
     }
 }
