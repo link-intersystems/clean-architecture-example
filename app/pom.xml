@@ -16,7 +16,7 @@
     <modules>
         <module>car-rental-app</module>
         <module>car-rental-app-dbunit</module>
-        <module>car-rental-app-manual-config</module>
+        <module>car-rental-app-no-ioc</module>
     </modules>
 
 </project>

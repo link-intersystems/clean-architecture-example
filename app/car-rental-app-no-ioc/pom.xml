@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>car-rental-app-manual-config</artifactId>
+    <artifactId>car-rental-app-no-ioc</artifactId>
 
     <dependencies>
         <dependency>
