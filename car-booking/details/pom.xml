@@ -16,7 +16,6 @@
 
     <modules>
         <module>repository-h2</module>
-        <module>repository-dbunit</module>
         <module>ui</module>
     </modules>
 

@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<dataset>
-    <carbooking carid='WMEEJ8AA3FK792135' customerId='1' pickupDateTime="2023-01-15T08:00:00"
-                returnDateTime="2023-01-17T17:00:00"/>
-    <carbooking carid='WMEEJ8AA3FK792135' customerId='1' pickupDateTime="2023-01-19T08:00:00"
-                returnDateTime="2023-01-20T08:00:00"/>
-</dataset>
