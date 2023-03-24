@@ -4,7 +4,7 @@
     <module name="car-rental-app-dbunit" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="com.link_intersystems.carrental.*" />
+        <option name="PATTERN" value="com.link_intersystems.carrental.DataSourceConfig" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

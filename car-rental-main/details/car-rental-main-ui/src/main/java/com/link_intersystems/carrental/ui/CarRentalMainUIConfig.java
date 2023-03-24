@@ -15,16 +15,5 @@ public class CarRentalMainUIConfig {
         return carRentalMainFrame;
     }
 
-    public DefaultMessageDialog getMessageDialog() {
-        DefaultMessageDialog defaultMessageDialog = new DefaultMessageDialog();
-        return defaultMessageDialog;
-    }
-
-    public void initUI(CarRentalMainFrame carRentalMainFrame, DefaultMessageDialog messageDialog) {
-
-        Thread.setDefaultUncaughtExceptionHandler((t, e) -> messageDialog.showException(e));
-
-        messageDialog.setParentComponent(carRentalMainFrame.getComponent());
-    }
 
 }

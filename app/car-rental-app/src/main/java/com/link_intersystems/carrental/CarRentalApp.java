@@ -1,8 +1,16 @@
 package com.link_intersystems.carrental;
 
+import com.link_intersystems.carrental.management.CarManagementViewConfig;
+import com.link_intersystems.carrental.offer.CarOfferViewConfig;
+import com.link_intersystems.carrental.swing.notification.DefaultMessageDialog;
 import com.link_intersystems.carrental.ui.CarRentalMainFrame;
+import com.link_intersystems.jdbc.JdbcTemplate;
 
 public class CarRentalApp {
+
+    private DataSourceConfig dataSourceConfig;
+    private AOPConfig aopConfig;
+    private DefaultMessageDialog messageDialog;
 
     public static void main(String[] args) {
         CarRentalApp carRentalApp = new CarRentalApp();
@@ -10,10 +18,33 @@ public class CarRentalApp {
     }
 
     void run(String[] args) {
-        CarRentalMain carRentalMain = new CarRentalMain();
-        carRentalMain.initDataSource();
-        CarRentalMainFrame mainFrame = carRentalMain.createMainFrame();
+        AppArgs appArgs = new AppArgs(args);
+        dataSourceConfig = new DataSourceConfig(appArgs);
+        TransactionConfig transactionConfig = new TransactionConfig(dataSourceConfig);
+        aopConfig = new AOPConfig(transactionConfig);
+
+        messageDialog = new DefaultMessageDialog();
+
+        CarManagementViewConfig carManagementViewConfig = createCarManagementViewConfig();
+        CarOfferViewConfig carOfferViewConfig = createCarOfferViewConfig(carManagementViewConfig);
+        CarRentalConfig carRentalConfig = new CarRentalConfig(carOfferViewConfig, carManagementViewConfig, messageDialog);
+
+        CarRentalMainFrame mainFrame = carRentalConfig.getMainFrame();
+
+        Thread.setDefaultUncaughtExceptionHandler((t, e) -> messageDialog.showException(e));
+        messageDialog.setParentComponent(mainFrame.getComponent());
+
         openFrame(mainFrame);
+    }
+
+    private CarOfferViewConfig createCarOfferViewConfig(CarManagementViewConfig carManagementViewConfig) {
+        JdbcTemplate carRentalJdbcTemplate = dataSourceConfig.getCarRentalJdbcTemplate();
+        return new CarOfferViewConfig(carRentalJdbcTemplate, carManagementViewConfig.getDomainEventSubscriberList(), aopConfig, messageDialog);
+    }
+
+    private CarManagementViewConfig createCarManagementViewConfig() {
+        JdbcTemplate managementJdbcTemplate = dataSourceConfig.getManagementJdbcTemplate();
+        return new CarManagementViewConfig(aopConfig, managementJdbcTemplate, messageDialog);
     }
 
     protected void openFrame(CarRentalMainFrame mainFrame) {

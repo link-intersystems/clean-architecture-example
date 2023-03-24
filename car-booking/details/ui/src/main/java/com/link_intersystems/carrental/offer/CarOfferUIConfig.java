@@ -15,23 +15,28 @@ public class CarOfferUIConfig {
         this.messageDialog = messageDialog;
     }
 
-    public CarOfferView getCarOfferView(CarOfferController carOfferController, CarBookingController carBookingController) {
+    public CarOfferView getCarOfferView(CarBookingUseCase carBookingUseCase, CarOfferUseCase carOfferUseCase, MessageDialog messageDialog) {
         CarOfferView carOfferView = new CarOfferView();
+
+        CarOfferController carOfferController = getCarOfferController(carOfferUseCase, messageDialog);
         carOfferView.setCarOfferListModel(carOfferController.getCarOfferListModel());
         carOfferView.setCarSearchModel(carOfferController.getCarSearchModel());
         carOfferView.setCarSearchAction(carOfferController);
+
+        CarBookingController carBookingController = getCarBookingController(carBookingUseCase, carOfferController);
         carOfferView.setBookCarAction(carBookingController);
         carOfferView.getSelectionProvider().addSelectionChangedListener(carBookingController.getSelectionListener());
+
         return carOfferView;
     }
 
-    public CarBookingController getCarBookingController(CarBookingUseCase carBookingUseCase, CarOfferController carOfferController) {
+    private CarBookingController getCarBookingController(CarBookingUseCase carBookingUseCase, CarOfferController carOfferController) {
         CarBookingController carBookingController = new CarBookingController(carBookingUseCase, messageDialog);
         carBookingController.setOnDoneActionListener(carOfferController);
         return carBookingController;
     }
 
-    public CarOfferController getCarOfferController(CarOfferUseCase carOfferUseCase, MessageDialog messageDialog) {
+    private CarOfferController getCarOfferController(CarOfferUseCase carOfferUseCase, MessageDialog messageDialog) {
         CarOfferController carOfferController = new CarOfferController(carOfferUseCase);
         CarSearchModel carSearchModel = carOfferController.getCarSearchModel();
         initCarSearchModel(carSearchModel);

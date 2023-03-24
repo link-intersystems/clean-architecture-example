@@ -19,7 +19,6 @@
         <module>entities</module>
         <module>events</module>
         <module>jdbc</module>
-        <module>ioc</module>
     </modules>
 
 </project>
