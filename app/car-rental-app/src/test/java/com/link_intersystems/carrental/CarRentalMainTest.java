@@ -6,11 +6,11 @@ import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
 
-class CarRentalNoIoCAppTest {
+class CarRentalAppTest {
 
     @Test
     void applicationContext(@TempDir File tempDir) {
-        CarRentalNoIoCApp app = new CarRentalNoIoCApp() {
+        CarRentalApp app = new CarRentalApp() {
 
             @Override
             protected void openFrame(CarRentalMainFrame mainFrame) {

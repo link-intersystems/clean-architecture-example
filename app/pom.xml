@@ -14,9 +14,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>car-rental-app</module>
+        <module>car-rental-app-ioc</module>
         <module>car-rental-app-dbunit</module>
-        <module>car-rental-app-no-ioc</module>
+        <module>car-rental-app</module>
     </modules>
 
 </project>

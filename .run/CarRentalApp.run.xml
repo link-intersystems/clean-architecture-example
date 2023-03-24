@@ -4,7 +4,7 @@
     <module name="car-rental-app" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="com.link_intersystems.swing.exception.*" />
+        <option name="PATTERN" value="com.link_intersystems.carrental.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

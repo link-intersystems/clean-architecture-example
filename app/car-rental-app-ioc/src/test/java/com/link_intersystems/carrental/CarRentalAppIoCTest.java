@@ -7,11 +7,11 @@ import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
 
-class CarRentalAppTest {
+class CarRentalAppIoCTest {
 
     @Test
     void applicationContext(@TempDir File tempDir) {
-        CarRentalApp carRentalApp = new CarRentalApp() {
+        CarRentalAppIoC carRentalAppIoC = new CarRentalAppIoC() {
 
             @Override
             BeanDeclarationRegistry getBeanDeclarationRegistry() {
@@ -26,6 +26,6 @@ class CarRentalAppTest {
         };
 
 
-        carRentalApp.run(new String[]{"-db", tempDir.getAbsolutePath()});
+        carRentalAppIoC.run(new String[]{"-db", tempDir.getAbsolutePath()});
     }
 }
