@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental.management.booking.create;
 
-import com.link_intersystems.carrental.VIN;
+import com.link_intersystems.carrental.booking.BookingNumber;
 import com.link_intersystems.carrental.management.booking.CarBooking;
 import com.link_intersystems.jdbc.JdbcTemplate;
 
@@ -15,8 +15,8 @@ class H2CreateCarBookingRepository implements CreateCarBookingRepository {
 
     @Override
     public void persist(CarBooking carBooking) {
-        Integer bookingNumber = carBooking.getBookingNumber();
+        BookingNumber bookingNumber = carBooking.getBookingNumber();
         String vinValue = carBooking.getVin().getValue();
-        jdbcTemplate.update("INSERT INTO CAR_BOOKING (BOOKING_NUMBER, VIN) VALUES (?, ?)", bookingNumber, vinValue);
+        jdbcTemplate.update("INSERT INTO CAR_BOOKING (BOOKING_NUMBER, VIN) VALUES (?, ?)", bookingNumber.getValue(), vinValue);
     }
 }

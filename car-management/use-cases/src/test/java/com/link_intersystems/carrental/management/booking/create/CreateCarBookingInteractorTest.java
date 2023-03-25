@@ -1,6 +1,7 @@
 package com.link_intersystems.carrental.management.booking.create;
 
 import com.link_intersystems.carrental.VIN;
+import com.link_intersystems.carrental.booking.BookingNumber;
 import com.link_intersystems.carrental.management.booking.CarBooking;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,7 @@ class CreateCarBookingInteractorTest {
 
         createCarBookingInteractor.createCarBooking(request);
 
-        CarBooking expectedCarBooking = new CarBooking(42, new VIN("WMEEJ8AA3FK792135"));
+        CarBooking expectedCarBooking = new CarBooking(new BookingNumber(42), new VIN("WMEEJ8AA3FK792135"));
         assertEquals(expectedCarBooking, repository.getLatestPersistedCarBooking());
     }
 

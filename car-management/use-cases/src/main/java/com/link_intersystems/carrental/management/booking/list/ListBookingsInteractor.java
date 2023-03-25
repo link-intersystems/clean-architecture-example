@@ -35,7 +35,7 @@ class ListBookingsInteractor implements ListBookingsUseCase {
 
     private CarBookingResponseModel toResponseModel(CarBooking carBooking) {
         CarBookingResponseModel carBookingResponseModel = new CarBookingResponseModel();
-        carBookingResponseModel.setBookingNumber(carBooking.getBookingNumber());
+        carBookingResponseModel.setBookingNumber(carBooking.getBookingNumber().getValue());
         VIN vin = carBooking.getVin();
         carBookingResponseModel.setVin(vin.getValue());
         return carBookingResponseModel;

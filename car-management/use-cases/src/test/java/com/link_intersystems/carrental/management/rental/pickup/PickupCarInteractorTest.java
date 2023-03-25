@@ -1,6 +1,7 @@
 package com.link_intersystems.carrental.management.rental.pickup;
 
 import com.link_intersystems.carrental.VIN;
+import com.link_intersystems.carrental.booking.BookingNumber;
 import com.link_intersystems.carrental.management.booking.CarBooking;
 import com.link_intersystems.carrental.management.rental.CarRental;
 import com.link_intersystems.carrental.management.rental.CarState;
@@ -40,7 +41,7 @@ class PickupCarInteractorTest {
         LocalDateTime pickupDataTime = LocalDateTime.of(2023, 2, 15, 8, 0, 0);
         requestModel.setPickupDateTime(pickupDataTime);
 
-        CarBooking carBooking = new CarBooking(1, new VIN("WMEEJ8AA3FK792135"));
+        CarBooking carBooking = new CarBooking(new BookingNumber(1), new VIN("WMEEJ8AA3FK792135"));
         repository.setCarBooking(carBooking);
 
         useCase.pickupCar(requestModel);

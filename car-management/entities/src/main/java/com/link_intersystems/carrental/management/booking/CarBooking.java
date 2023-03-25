@@ -1,21 +1,22 @@
 package com.link_intersystems.carrental.management.booking;
 
 import com.link_intersystems.carrental.VIN;
+import com.link_intersystems.carrental.booking.BookingNumber;
 
 import java.util.Objects;
 
 public class CarBooking {
 
-    private Integer bookingNumber;
+    private BookingNumber bookingNumber;
     private VIN vin;
     private RentalState rentalState;
 
-    public CarBooking(int bookingNumber, VIN vin) {
+    public CarBooking(BookingNumber bookingNumber, VIN vin) {
         this.bookingNumber = bookingNumber;
         this.vin = vin;
     }
 
-    public Integer getBookingNumber() {
+    public BookingNumber getBookingNumber() {
         return bookingNumber;
     }
 
