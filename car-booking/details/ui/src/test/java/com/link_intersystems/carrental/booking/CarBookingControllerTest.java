@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -42,15 +41,7 @@ class CarBookingControllerTest {
         ActionTrigger actionTrigger = new ActionTrigger(this);
         performAction = () -> {
             actionTrigger.performAction(carBookingController);
-            try {
-                boolean isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean().
-                        getInputArguments().toString().contains("-agentlib:jdwp");
-                TimeUnit timeUnit = isDebug ? TimeUnit.DAYS : TimeUnit.SECONDS;
-                done.tryAcquire(1, timeUnit);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-
+            done.tryAcquire();
             assertTrue(done.availablePermits() == 0, "Background action executed");
         };
     }
