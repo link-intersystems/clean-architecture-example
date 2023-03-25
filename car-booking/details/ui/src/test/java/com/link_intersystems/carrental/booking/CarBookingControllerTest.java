@@ -24,7 +24,7 @@ class CarBookingControllerTest {
         carBookingUseCaseMock = new CarBookingUseCaseMock();
         messageDialogMock = new MessageDialogMock();
 
-        Semaphore done = new Semaphore(1);
+        Semaphore done = new Semaphore(0);
         carBookingController = new CarBookingController(carBookingUseCaseMock, messageDialogMock) {
             @Override
             protected void done(CarBookingResponseModel result) {
@@ -45,14 +45,13 @@ class CarBookingControllerTest {
             try {
                 boolean isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean().
                         getInputArguments().toString().contains("-agentlib:jdwp");
-                if (isDebug) {
-                    done.tryAcquire();
-                } else {
-                    done.tryAcquire(1, TimeUnit.SECONDS);
-                }
+                TimeUnit timeUnit = isDebug ? TimeUnit.DAYS : TimeUnit.SECONDS;
+                done.tryAcquire(1, timeUnit);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+
+            assertTrue(done.availablePermits() == 0, "Background action executed");
         };
     }
 
