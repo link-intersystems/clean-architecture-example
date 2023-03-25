@@ -41,7 +41,11 @@ class CarBookingControllerTest {
         ActionTrigger actionTrigger = new ActionTrigger(this);
         performAction = () -> {
             actionTrigger.performAction(carBookingController);
-            done.tryAcquire();
+            try {
+                done.acquire();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             assertTrue(done.availablePermits() == 0, "Background action executed");
         };
     }
