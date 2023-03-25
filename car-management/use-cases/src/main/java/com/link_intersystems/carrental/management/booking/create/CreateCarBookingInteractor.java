@@ -1,5 +1,6 @@
 package com.link_intersystems.carrental.management.booking.create;
 
+import com.link_intersystems.carrental.VIN;
 import com.link_intersystems.carrental.management.booking.CarBooking;
 
 class CreateCarBookingInteractor implements CreateCarBookingUseCase {
@@ -12,7 +13,9 @@ class CreateCarBookingInteractor implements CreateCarBookingUseCase {
 
     @Override
     public void createCarBooking(CreateCarBookingRequestModel requestModel) {
-        CarBooking carBooking = new CarBooking(requestModel.getBookingNumber(), requestModel.getVIN());
+        String vinStr = requestModel.getVIN();
+        VIN vin = new VIN(vinStr);
+        CarBooking carBooking = new CarBooking(requestModel.getBookingNumber(), vin);
         repository.persist(carBooking);
     }
 }

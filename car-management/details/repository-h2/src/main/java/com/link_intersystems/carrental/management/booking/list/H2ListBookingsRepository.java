@@ -1,5 +1,6 @@
 package com.link_intersystems.carrental.management.booking.list;
 
+import com.link_intersystems.carrental.VIN;
 import com.link_intersystems.carrental.management.booking.CarBooking;
 import com.link_intersystems.jdbc.JdbcTemplate;
 
@@ -25,7 +26,7 @@ class H2ListBookingsRepository implements ListBookingsRepository {
     private CarBooking mapCarBookingRow(ResultSet rs) throws SQLException {
         int bookingNumber = rs.getInt("BOOKING_NUMBER");
         String vin = rs.getString("VIN");
-        CarBooking carBooking = new CarBooking(bookingNumber, vin);
+        CarBooking carBooking = new CarBooking(bookingNumber, new VIN(vin));
         return carBooking;
     }
 }

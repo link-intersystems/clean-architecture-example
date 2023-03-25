@@ -1,5 +1,6 @@
 package com.link_intersystems.carrental.management.booking.list;
 
+import com.link_intersystems.carrental.VIN;
 import com.link_intersystems.carrental.management.booking.CarBooking;
 import com.link_intersystems.carrental.DomainEventSubscriber;
 import com.link_intersystems.carrental.booking.CarBookedEvent;
@@ -43,7 +44,8 @@ class ListBookingsInteractor implements ListBookingsUseCase, DomainEventSubscrib
     private CarBookingResponseModel toResponseModel(CarBooking carBooking) {
         CarBookingResponseModel carBookingResponseModel = new CarBookingResponseModel();
         carBookingResponseModel.setBookingNumber(carBooking.getBookingNumber());
-        carBookingResponseModel.setVin(carBooking.getVin());
+        VIN vin = carBooking.getVin();
+        carBookingResponseModel.setVin(vin.getValue());
         return carBookingResponseModel;
     }
 

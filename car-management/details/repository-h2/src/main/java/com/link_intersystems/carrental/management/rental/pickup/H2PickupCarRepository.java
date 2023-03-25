@@ -1,5 +1,6 @@
 package com.link_intersystems.carrental.management.rental.pickup;
 
+import com.link_intersystems.carrental.VIN;
 import com.link_intersystems.carrental.booking.BookingNumber;
 import com.link_intersystems.carrental.management.booking.CarBooking;
 import com.link_intersystems.carrental.management.rental.CarRental;
@@ -52,7 +53,7 @@ class H2PickupCarRepository implements PickupCarRepository {
     private CarBooking mapCarBookingRow(ResultSet rs) throws SQLException {
         int bookingNumber = rs.getInt("BOOKING_NUMBER");
         String vin = rs.getString("VIN");
-        CarBooking carBooking = new CarBooking(bookingNumber, vin);
+        CarBooking carBooking = new CarBooking(bookingNumber, new VIN(vin));
         return carBooking;
     }
 }
