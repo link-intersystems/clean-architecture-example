@@ -4,19 +4,20 @@ import com.link_intersystems.carrental.CarId;
 
 import java.util.*;
 
-public class CarBookinsByCar extends AbstractMap<CarId, CarBooking> {
+public class CarBookinsByCar extends AbstractMap<CarId, List<CarBooking>> {
 
-    private Map<CarId, CarBooking> bookingsByCar = new HashMap<>();
+    private Map<CarId, List<CarBooking>> bookingsByCar = new HashMap<>();
 
     public CarBookinsByCar(List<CarBooking> carBookings) {
         for (CarBooking carBooking : carBookings) {
             CarId carId = carBooking.getCarId();
-            bookingsByCar.put(carId, carBooking);
+            List<CarBooking> carBookingById = bookingsByCar.computeIfAbsent(carId, id -> new ArrayList<>());
+            carBookingById.add(carBooking);
         }
     }
 
     @Override
-    public Set<Entry<CarId, CarBooking>> entrySet() {
+    public Set<Entry<CarId, List<CarBooking>>> entrySet() {
         return Collections.unmodifiableMap(bookingsByCar).entrySet();
     }
 

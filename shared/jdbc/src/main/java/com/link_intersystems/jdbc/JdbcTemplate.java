@@ -14,16 +14,16 @@ import static java.util.Objects.*;
 public class JdbcTemplate {
 
     public static final Object[] EMPTY_ARGS = new Object[0];
-    private DataSource dataSource;
+    private ConnectionSupplier connectionSupplier;
     private String schema;
 
     public JdbcTemplate(DataSource dataSource, String schema) {
-        this.dataSource = requireNonNull(dataSource);
+        this(dataSource::getConnection);
         this.schema = schema;
     }
 
-    public JdbcTemplate(DataSource dataSource) {
-        this.dataSource = requireNonNull(dataSource);
+    public JdbcTemplate(ConnectionSupplier connectionSupplier) {
+        this.connectionSupplier = requireNonNull(connectionSupplier);
     }
 
     public List<Map<String, Object>> queryForList(String sql, Object... args) {
@@ -78,7 +78,7 @@ public class JdbcTemplate {
 
 
     public <T> T query(ConnectionCallable<T> connectionCallable) {
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = connectionSupplier.get()) {
             if (schema != null) {
                 connection.setSchema(schema);
             }

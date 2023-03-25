@@ -6,12 +6,10 @@ import com.link_intersystems.carrental.VIN;
 import com.link_intersystems.carrental.customer.CustomerId;
 import com.link_intersystems.carrental.time.Period;
 import com.link_intersystems.jdbc.JdbcTemplate;
-import com.link_intersystems.jdbc.test.db.AbstractDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 import static com.link_intersystems.carrental.time.LocalDateTimeUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,17 +21,7 @@ class H2CarBookingRepositoryTest {
 
     @BeforeEach
     void setUp(Connection connection) {
-        h2CarBookingRepository = new H2CarBookingRepository(new JdbcTemplate(new AbstractDataSource() {
-            @Override
-            public Connection getConnection() throws SQLException {
-                return connection;
-            }
-
-            @Override
-            public Connection getConnection(String username, String password) throws SQLException {
-                return connection;
-            }
-        }));
+        h2CarBookingRepository = new H2CarBookingRepository(new JdbcTemplate(() -> connection));
     }
 
     @Test

@@ -9,7 +9,9 @@ import com.link_intersystems.carrental.time.Period;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.function.Predicate;
+
+import static java.util.stream.Collectors.*;
 
 class CarOfferInteractor implements CarOfferUseCase {
 
@@ -33,13 +35,16 @@ class CarOfferInteractor implements CarOfferUseCase {
 
         List<RentalOffer> rentalOffers = makeOffer(availableCars, bookingPeriod);
 
-        List<CarId> carIds = rentalOffers.stream().map(RentalOffer::getRentalCar).map(RentalCar::getCarId).collect(Collectors.toList());
+        List<CarId> carIds = rentalOffers.stream().map(RentalOffer::getRentalCar).map(RentalCar::getCarId).collect(toList());
         CarsById carsById = repository.findCars(carIds);
         return intputOutputMapper.toOutputModel(carsById, rentalOffers, bookingPeriod);
     }
 
     private List<RentalOffer> makeOffer(List<RentalCar> rentalCars, Period desiredPeriod) {
-        return rentalCars.stream().map(rc -> new RentalOffer(rc, desiredPeriod)).collect(Collectors.toList());
+        return rentalCars
+                .stream()
+                .map(rc -> new RentalOffer(rc, desiredPeriod))
+                .collect(toList());
     }
 
 
@@ -56,15 +61,17 @@ class CarOfferInteractor implements CarOfferUseCase {
         List<CarId> carIds = rentalCars
                 .stream()
                 .map(RentalCar::getCarId)
-                .collect(Collectors.toList());
+                .collect(toList());
 
         CarBookinsByCar carBookins = repository.findCarBookings(carIds, desiredPeriod);
 
+        Predicate<RentalCar> notBookedPredicate = rc -> {
+            CarId carId = rc.getCarId();
+            return !carBookins.contains(carId);
+        };
+
         return rentalCars
                 .stream()
-                .filter(rc -> {
-                    CarId carId = rc.getCarId();
-                    return !carBookins.contains(carId);
-                }).collect(Collectors.toList());
+                .filter(notBookedPredicate).collect(toList());
     }
 }
