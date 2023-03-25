@@ -1,6 +1,5 @@
 package com.link_intersystems.carrental.time;
 
-import com.link_intersystems.carrental.time.ClockProvider;
 import org.junit.jupiter.api.Test;
 
 import java.time.*;
@@ -22,8 +21,13 @@ class ClockProviderTest {
         Instant intstant = dateTime.toInstant(ZoneOffset.UTC);
 
         Clock fixedClock = Clock.fixed(intstant, zoneId);
-        ClockProvider.setClock(fixedClock);
+        Clock clock = ClockProvider.getClock();
+        try {
+            ClockProvider.setClock(fixedClock);
+            assertEquals(fixedClock, ClockProvider.getClock());
+        } finally {
+            ClockProvider.setClock(clock);
+        }
 
-        assertEquals(fixedClock, ClockProvider.getClock());
     }
 }

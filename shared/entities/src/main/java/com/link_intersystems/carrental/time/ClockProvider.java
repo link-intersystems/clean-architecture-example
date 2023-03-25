@@ -5,6 +5,8 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+import static java.util.Objects.*;
+
 public class ClockProvider {
 
     private static Clock clock = Clock.systemDefaultZone();
@@ -21,6 +23,6 @@ public class ClockProvider {
     }
 
     static void setClock(Clock clock) {
-        ClockProvider.clock = clock;
+        ClockProvider.clock = requireNonNull(clock);
     }
 }
