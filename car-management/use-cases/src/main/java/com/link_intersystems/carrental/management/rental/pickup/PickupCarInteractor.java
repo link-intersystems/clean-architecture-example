@@ -33,7 +33,7 @@ class PickupCarInteractor implements PickupCarUseCase {
         repository.persist(carRental);
 
         CarBooking carBooking = repository.findBooking(bookingNumber);
-        carBooking.setRentalState(RentalState.PICKEDUP);
+        carBooking.setRentalState(RentalState.PICKED_UP);
 
         repository.persist(carBooking);
     }
