@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import static java.util.Objects.*;
 
-public class LocalTransaction implements Transaction {
+public class LocalTransaction extends Transaction {
 
     private Connection connection;
 
@@ -40,25 +40,17 @@ public class LocalTransaction implements Transaction {
     }
 
     @Override
-    public void rollback() {
-        try {
-            connection.rollback();
-            connection.close();
-            connection = null;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public void rollback() throws Exception {
+        connection.rollback();
+        connection.close();
+        connection = null;
     }
 
     @Override
-    public void commit() {
-        try {
-            connection.commit();
-            connection.close();
-            connection = null;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public void commit() throws Exception {
+        connection.commit();
+        connection.close();
+        connection = null;
     }
 
     @Override
@@ -66,6 +58,6 @@ public class LocalTransaction implements Transaction {
         if (Connection.class.isAssignableFrom(type)) {
             return type.cast(getConnection());
         }
-        return Transaction.super.unwrap(type);
+        return super.unwrap(type);
     }
 }

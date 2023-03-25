@@ -13,28 +13,42 @@ public class TransactionTemplate {
     }
 
     public <T> T doInTransaction(Callable<T> callable) throws Exception {
-        Transaction currentTransaction = TransactionHolder.getCurrentTransaction();
+        Transaction currentTransaction = Transaction.getCurrent();
 
         Transaction transaction = currentTransaction;
 
         if (transaction == null) {
-            transaction = transactionManager.beginTransaction();
-            TransactionHolder.setCurrentTransaction(transaction);
+            transaction = requireNonNull(transactionManager.beginTransaction(), "transaction");
+            Transaction.setCurrent(transaction);
         }
 
         try {
             T result = callable.call();
             if (currentTransaction == null) {
-                transaction.commit();
-                TransactionHolder.setCurrentTransaction(null);
+                safeCommit(transaction);
             }
             return result;
         } catch (Throwable e) {
             if (currentTransaction == null) {
-                transaction.rollback();
-                TransactionHolder.setCurrentTransaction(null);
+                safeRollback(transaction);
             }
             throw e;
+        }
+    }
+
+    private void safeCommit(Transaction transaction) throws Exception {
+        try {
+            transaction.commit();
+        } finally {
+            Transaction.setCurrent(null);
+        }
+    }
+
+    private void safeRollback(Transaction transaction) throws Exception {
+        try {
+            transaction.rollback();
+        } finally {
+            Transaction.setCurrent(null);
         }
     }
 }

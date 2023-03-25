@@ -14,7 +14,7 @@ public class TransactionAwareDataSource extends AbstractDataSourceDelegate {
 
     @Override
     public Connection getConnection() throws SQLException {
-        Transaction currentTransaction = TransactionHolder.getCurrentTransaction();
+        Transaction currentTransaction = Transaction.getCurrent();
 
         if (currentTransaction == null) {
             return dataSource.getConnection();
