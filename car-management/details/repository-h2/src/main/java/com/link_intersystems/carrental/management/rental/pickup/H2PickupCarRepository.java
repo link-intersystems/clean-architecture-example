@@ -7,10 +7,7 @@ import com.link_intersystems.carrental.management.booking.RentalState;
 import com.link_intersystems.carrental.management.rental.CarRental;
 import com.link_intersystems.jdbc.JdbcTemplate;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
 
 class H2PickupCarRepository implements PickupCarRepository {
 
@@ -38,7 +35,7 @@ class H2PickupCarRepository implements PickupCarRepository {
             ps.setObject(2, carRental.getDriver().getFirstname());
             ps.setObject(3, carRental.getDriver().getLastname());
             ps.setObject(4, carRental.getDriver().getDrivingLicenceNumber());
-            ps.setObject(5, carRental.getPickupDateTime());
+            ps.setObject(5, Timestamp.valueOf(carRental.getPickupDateTime()));
             ps.setObject(6, carRental.getPickupCarState().getFuelLevel().getPercent());
             ps.setObject(7, carRental.getPickupCarState().getOdometer().getValue());
             return ps.executeUpdate();
