@@ -25,7 +25,7 @@ class ReturnCarInteractor implements ReturnCarUseCase {
         LocalDateTime returnDateTime = requestModel.getReturnDateTime();
         carRental.returnCar(returnCarState, returnDateTime);
 
-        returnCarRepository.persist(carRental);
+        returnCarRepository.update(carRental);
     }
 
     private CarState createCarState(ReturnCarRequestModel requestModel) {

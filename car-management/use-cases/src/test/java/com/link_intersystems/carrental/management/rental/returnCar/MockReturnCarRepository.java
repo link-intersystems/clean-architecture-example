@@ -16,7 +16,7 @@ public class MockReturnCarRepository implements ReturnCarRepository {
     }
 
     @Override
-    public void persist(CarRental carRental) {
+    public void update(CarRental carRental) {
         this.carRental = carRental;
     }
 

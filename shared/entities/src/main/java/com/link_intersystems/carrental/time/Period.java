@@ -1,6 +1,7 @@
 package com.link_intersystems.carrental.time;
 
 import java.time.*;
+import java.util.Objects;
 
 public class Period {
 
@@ -69,5 +70,18 @@ public class Period {
         LocalDateTime beginDateTime = getBegin();
         ZoneOffset zoneOffset = zoneId.getRules().getOffset(instant);
         return beginDateTime.toInstant(zoneOffset).isBefore(instant);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Period period = (Period) o;
+        return Objects.equals(begin, period.begin) && Objects.equals(end, period.end);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(begin, end);
     }
 }

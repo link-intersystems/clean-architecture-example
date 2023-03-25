@@ -23,10 +23,6 @@ public class MapRowMapper implements RowMapper<Map<String, Object>> {
         this.mapFactory = requireNonNull(mapFactory);
     }
 
-    public void setEffectiveColumnNameFunc(Function<String, String> effectiveColumnNameFunc) {
-        this.effectiveColumnNameFunc = requireNonNull(effectiveColumnNameFunc);
-    }
-
     @Override
     public Map<String, Object> mapRow(ResultSet rs) throws SQLException {
         Map<String, Object> row = mapFactory.get();

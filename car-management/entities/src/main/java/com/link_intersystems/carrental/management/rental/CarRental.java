@@ -49,6 +49,15 @@ public class CarRental {
     }
 
     public void returnCar(CarState carState, LocalDateTime returnDateTime) {
+        if (pickupDateTime.compareTo(returnDateTime) > 0) {
+            throw new IllegalArgumentException("returnDate must be equal to or greater then the pickup date");
+        }
+
+        Odometer pickupOdometer = pickupCarState.getOdometer();
+        if (pickupOdometer.compareTo(carState.getOdometer()) > 0) {
+            throw new IllegalArgumentException("return odometer value must not be less then pickup value.");
+        }
+
         this.returnDateTime = returnDateTime;
         returnCarState = carState;
     }
@@ -58,6 +67,10 @@ public class CarRental {
     }
 
     public Period getRentalPeriod() {
+        if (returnDateTime == null) {
+            return null;
+        }
+
         return new Period(pickupDateTime, returnDateTime);
     }
 }

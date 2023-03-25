@@ -45,6 +45,21 @@ class H2PickupCarRepositoryTest {
     }
 
     @Test
+    void persistCarBookingWithoutRentalState() {
+        CarBooking carBooking = new CarBooking(new BookingNumber(42), new VIN("WMEEJ8AA3FK792135"));
+
+        repository.persist(carBooking);
+
+        Map<String, Object> persistedObject = jdbcTemplate.queryForMap("SELECT * FROM CAR_BOOKING WHERE BOOKING_NUMBER = 42");
+        assertNotNull(persistedObject);
+
+        assertEquals(42, persistedObject.get("BOOKING_NUMBER"));
+        assertEquals("WMEEJ8AA3FK792135", persistedObject.get("VIN"));
+        assertNull(persistedObject.get("RENTAL_STATE"));
+    }
+
+
+    @Test
     void findBooking() {
         CarBooking booking = repository.findBooking(new BookingNumber(2));
 
@@ -75,6 +90,4 @@ class H2PickupCarRepositoryTest {
         Object actual = persistedObject.get("PICKUP_TIME");
         assertEquals(expected, actual);
     }
-
-
 }

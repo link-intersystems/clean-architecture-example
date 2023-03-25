@@ -44,7 +44,7 @@ class H2ReturnCarRepository implements ReturnCarRepository {
     }
 
     @Override
-    public void persist(CarRental carRental) {
+    public void update(CarRental carRental) {
         int bookingNumber = carRental.getBookingNumber().getValue();
         LocalDateTime pickupDateTime = carRental.getPickupDateTime();
         LocalDateTime returnDateTime = carRental.getReturnDateTime();

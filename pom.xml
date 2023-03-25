@@ -34,6 +34,13 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
+                <groupId>nl.jqno.equalsverifier</groupId>
+                <artifactId>equalsverifier</artifactId>
+                <version>3.14.1</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>com.link-intersystems.commons</groupId>
                 <artifactId>lis-commons-swing</artifactId>
                 <version>${lis-commons.verions}</version>

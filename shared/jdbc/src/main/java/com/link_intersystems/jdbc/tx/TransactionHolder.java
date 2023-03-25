@@ -5,8 +5,7 @@ public class TransactionHolder {
     private static final ThreadLocal<Transaction> TRANSACTION_THREAD_LOCAL = new ThreadLocal<>();
 
     public static Transaction getCurrentTransaction() {
-        Transaction transaction = TRANSACTION_THREAD_LOCAL.get();
-        return transaction;
+        return TRANSACTION_THREAD_LOCAL.get();
     }
 
     static void setCurrentTransaction(Transaction transaction) {

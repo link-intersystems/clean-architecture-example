@@ -1,10 +1,8 @@
 package com.link_intersystems.carrental.management.rental;
 
-import java.util.Objects;
-
 import static java.util.Objects.*;
 
-public class Odometer {
+public class Odometer implements Comparable<Odometer> {
 
     public static Odometer of(Integer value) {
         return new Odometer(requireNonNull(value, "odometer must not be null").intValue());
@@ -25,6 +23,11 @@ public class Odometer {
     }
 
     @Override
+    public int compareTo(Odometer o) {
+        return Integer.valueOf(value).compareTo(o.value);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -36,4 +39,5 @@ public class Odometer {
     public int hashCode() {
         return hash(value);
     }
+
 }
