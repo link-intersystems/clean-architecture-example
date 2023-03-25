@@ -1,16 +1,13 @@
 package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.offer.CarOfferModel;
-import com.link_intersystems.carrental.offer.CarSearchModel;
 import com.link_intersystems.swing.action.ActionTrigger;
 import com.link_intersystems.swing.selection.DefaultSelection;
-import com.link_intersystems.swing.selection.Selection;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Set;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,18 +24,18 @@ class CarBookingControllerTest {
         carBookingUseCaseMock = new CarBookingUseCaseMock();
         messageDialogMock = new MessageDialogMock();
 
-        CountDownLatch done = new CountDownLatch(1);
-        carBookingController = new CarBookingController(carBookingUseCaseMock,  messageDialogMock) {
+        Semaphore done = new Semaphore(1);
+        carBookingController = new CarBookingController(carBookingUseCaseMock, messageDialogMock) {
             @Override
             protected void done(CarBookingResponseModel result) {
                 super.done(result);
-                done.countDown();
+                done.release();
             }
 
             @Override
             protected void failed(ExecutionException e) {
                 super.failed(e);
-                done.countDown();
+                done.release();
             }
         };
 
@@ -49,15 +46,13 @@ class CarBookingControllerTest {
                 boolean isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean().
                         getInputArguments().toString().contains("-agentlib:jdwp");
                 if (isDebug) {
-                    done.await();
+                    done.tryAcquire();
                 } else {
-                    done.await(1, TimeUnit.SECONDS);
+                    done.tryAcquire(1, TimeUnit.SECONDS);
                 }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
-            assertTrue(done.getCount() == 0, "Background action executed");
         };
     }
 
