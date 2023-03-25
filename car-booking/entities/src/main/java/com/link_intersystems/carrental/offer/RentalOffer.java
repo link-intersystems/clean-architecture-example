@@ -1,8 +1,7 @@
 package com.link_intersystems.carrental.offer;
 
-import com.link_intersystems.carrental.rental.RentalCar;
-import com.link_intersystems.carrental.rental.RentalRate;
 import com.link_intersystems.carrental.money.Amount;
+import com.link_intersystems.carrental.rental.RentalCar;
 import com.link_intersystems.carrental.time.Period;
 
 import static java.util.Objects.*;
@@ -18,9 +17,8 @@ public class RentalOffer {
     }
 
     public Amount getTotalRentalAmount() {
-        RentalRate rentalRate = rentalCar.getRentalRate();
-        Amount rentalAmountPerDay = rentalRate.getAmount();
-        return rentalAmountPerDay.multiply(rentalPeriod.getDays());
+        Amount rentalRatePerDay = rentalCar.getRentalRate();
+        return rentalRatePerDay.multiply(rentalPeriod.getDays());
     }
 
     public RentalCar getRentalCar() {

@@ -6,7 +6,6 @@ import com.link_intersystems.carrental.booking.CarBookinsByCar;
 import com.link_intersystems.carrental.customer.CustomerId;
 import com.link_intersystems.carrental.money.Amount;
 import com.link_intersystems.carrental.rental.RentalCar;
-import com.link_intersystems.carrental.rental.RentalRate;
 import com.link_intersystems.carrental.time.Period;
 import com.link_intersystems.jdbc.JdbcTemplate;
 import com.link_intersystems.jdbc.RowMapper;
@@ -44,7 +43,7 @@ class H2CarOfferRepository implements CarOfferRepository {
             public RentalCar mapRow(ResultSet rs) throws SQLException {
                 String carid = rs.getString("CARID");
 
-                RentalRate rentalRate = new RentalRate(new Amount(rs.getBigDecimal("RATE_PER_DAY")));
+                Amount rentalRate = new Amount(rs.getBigDecimal("RATE_PER_DAY"));
                 return new RentalCar(new CarId(new VIN(carid)), rentalRate);
             }
         });

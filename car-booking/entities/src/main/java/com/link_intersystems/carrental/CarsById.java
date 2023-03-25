@@ -24,6 +24,6 @@ public class CarsById extends AbstractMap<CarId, Car> {
     }
 
     public Car getCar(CarId carId) {
-        return carIdCarMap.get(carId);
+        return get(carId);
     }
 }

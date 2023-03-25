@@ -42,7 +42,7 @@ class CarRentalTest {
     }
 
     @Test
-    void getRentalPeriod() {
+    void returnCar() {
         CarState returnCarState = new CarState(FuelLevel.FULL, Odometer.of(1235));
 
         carRental.returnCar(returnCarState, LocalDateTime.of(2023, 3, 25, 15, 4, 15));
@@ -51,5 +51,6 @@ class CarRentalTest {
 
         Period expectedPeriod = PeriodBuilder.from("2023-03-25", "15:04:12").to("2023-03-25", "15:04:15");
         assertEquals(expectedPeriod, rentalPeriod);
+        assertEquals(returnCarState, carRental.getReturnCarState());
     }
 }

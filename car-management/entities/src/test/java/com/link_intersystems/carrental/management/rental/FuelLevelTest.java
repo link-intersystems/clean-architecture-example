@@ -29,4 +29,13 @@ class FuelLevelTest {
         assertEquals(FuelLevel.FULL, FuelLevel.ofPercentage(88));
         assertEquals(FuelLevel.FULL, FuelLevel.ofPercentage(100));
     }
+
+    @Test
+    void percent() {
+        assertEquals(0, FuelLevel.EMPTY.getPercent());
+        assertEquals(25, FuelLevel.ONE_QUARTER.getPercent());
+        assertEquals(50, FuelLevel.HALF.getPercent());
+        assertEquals(75, FuelLevel.THREE_QUARTER.getPercent());
+        assertEquals(100, FuelLevel.FULL.getPercent());
+    }
 }

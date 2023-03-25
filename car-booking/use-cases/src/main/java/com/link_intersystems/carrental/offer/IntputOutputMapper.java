@@ -6,7 +6,6 @@ import com.link_intersystems.carrental.CarsById;
 import com.link_intersystems.carrental.Specs;
 import com.link_intersystems.carrental.money.Amount;
 import com.link_intersystems.carrental.rental.RentalCar;
-import com.link_intersystems.carrental.rental.RentalRate;
 import com.link_intersystems.carrental.time.Period;
 
 import java.util.ArrayList;
@@ -41,8 +40,7 @@ class IntputOutputMapper {
         Amount totalRentalAmount = rentalOffer.getTotalRentalAmount();
         carOfferOutputModel.setTotalRentalRate(totalRentalAmount.getValue());
 
-        RentalRate rentalRate = rentalCar.getRentalRate();
-        carOfferOutputModel.setPerDayRentalRate(rentalRate.getAmount().getValue());
+        carOfferOutputModel.setPerDayRentalRate(rentalCar.getRentalRate().getValue());
 
         CarSpecModel carSpecModel = mapCarSpec(car);
         carOfferOutputModel.setCarSpecModel(carSpecModel);
