@@ -14,14 +14,20 @@ public class CarRentalMainFrame {
     public static final String CAR_OFFERS_TAB_TITLE = "Car offers";
     public static final String CAR_MANAGEMENT_TAB_TITLE = "Car Management";
 
+    private static final Dimension VGA = new Dimension(640, 480);
+    private static final Dimension SVGA = new Dimension(800, 600);
+    private static final Dimension XGA = new Dimension(1024, 768);
+    private static final Dimension SXGA = new Dimension(1280, 1024);
+    private static final Dimension FHD = new Dimension(1920, 1080);
+
     private JFrame mainFrame = new JFrame();
     private JTabbedPane tabbedPane = new JTabbedPane();
 
     public CarRentalMainFrame() {
-        mainFrame.setSize(800, 600);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        mainFrame.setSize(XGA);
         mainFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         Point centeredFrameLocation = new DimensionExt(mainFrame.getSize()).centerOn(screenSize);
         mainFrame.setLocation(centeredFrameLocation);
         mainFrame.add(tabbedPane, BorderLayout.CENTER);
