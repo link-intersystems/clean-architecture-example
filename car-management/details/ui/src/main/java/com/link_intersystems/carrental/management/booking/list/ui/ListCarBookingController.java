@@ -1,7 +1,6 @@
 package com.link_intersystems.carrental.management.booking.list.ui;
 
 import com.link_intersystems.carrental.management.booking.list.CarBookingResponseModel;
-import com.link_intersystems.carrental.management.booking.list.ListBookingsRequestModel;
 import com.link_intersystems.carrental.management.booking.list.ListBookingsResponseModel;
 import com.link_intersystems.carrental.management.booking.list.ListBookingsUseCase;
 import com.link_intersystems.swing.action.AbstractWorkerAction;
@@ -30,8 +29,7 @@ public class ListCarBookingController extends AbstractWorkerAction<ListBookingsR
 
     @Override
     protected ListBookingsResponseModel doInBackground(BackgroundProgress<Void> backgroundProgress) throws Exception {
-        ListBookingsRequestModel requestModel = new ListBookingsRequestModel();
-        return listBookingsUseCase.listBookings(requestModel);
+        return listBookingsUseCase.listBookings();
     }
 
     @Override

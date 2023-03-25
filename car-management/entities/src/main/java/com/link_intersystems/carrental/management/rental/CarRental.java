@@ -1,9 +1,13 @@
 package com.link_intersystems.carrental.management.rental;
 
 import com.link_intersystems.carrental.booking.BookingNumber;
+import com.link_intersystems.carrental.time.ClockProvider;
 import com.link_intersystems.carrental.time.Period;
 
+import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import static java.util.Objects.*;
 
@@ -11,7 +15,14 @@ public class CarRental {
 
     private BookingNumber bookingNumber;
     private Driver driver;
-    private LocalDateTime pickupDateTime = LocalDateTime.now();
+    private LocalDateTime pickupDateTime = now();
+
+    private static LocalDateTime now() {
+        Clock clock = ClockProvider.getClock();
+        Instant now = clock.instant();
+        return LocalDateTime.ofInstant(now, ZoneId.systemDefault());
+    }
+
     private LocalDateTime returnDateTime;
     private CarState pickupCarState;
     private CarState returnCarState;

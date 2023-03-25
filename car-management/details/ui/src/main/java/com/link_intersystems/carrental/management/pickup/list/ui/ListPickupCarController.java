@@ -1,8 +1,8 @@
 package com.link_intersystems.carrental.management.pickup.list.ui;
 
 import com.link_intersystems.carrental.management.booking.ui.BookingNumberModel;
-import com.link_intersystems.carrental.management.rental.pickup.list.ListPickupCarResponseModel;
 import com.link_intersystems.carrental.management.rental.pickup.list.ListPickupCarUseCase;
+import com.link_intersystems.carrental.management.rental.pickup.list.ListPickupCarResponseModel;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
 import com.link_intersystems.swing.action.AbstractWorkerAction;
 import com.link_intersystems.swing.action.BackgroundProgress;
@@ -11,7 +11,7 @@ import com.link_intersystems.swing.selection.*;
 import javax.swing.*;
 import java.util.List;
 
-public class ListPickupCarController extends AbstractWorkerAction<ListPickupCarResponseModel, Void> implements SelectionListener<ListPickupCarModel> {
+public class ListPickupCarController extends AbstractWorkerAction<List<ListPickupCarResponseModel>, Void> implements SelectionListener<ListPickupCarModel> {
 
     private DefaultListModel<ListPickupCarModel> pickupCarListModel = new DefaultListModel<>();
     private ListPickupCarPresenter listPickupCarPresenter = new ListPickupCarPresenter();
@@ -52,15 +52,15 @@ public class ListPickupCarController extends AbstractWorkerAction<ListPickupCarR
     }
 
     @Override
-    protected ListPickupCarResponseModel doInBackground(BackgroundProgress<Void> backgroundProgress) throws Exception {
+    protected List<ListPickupCarResponseModel> doInBackground(BackgroundProgress<Void> backgroundProgress) throws Exception {
         return listPickupCarUseCase.listPickedUpCars();
     }
 
     @Override
-    protected void done(ListPickupCarResponseModel result) {
+    protected void done(List<ListPickupCarResponseModel> result) {
         pickupCarListModel.clear();
 
-        List<ListPickupCarModel> listPickupCarModels = listPickupCarPresenter.toPickupCarModels(result.getPickupCars());
+        List<ListPickupCarModel> listPickupCarModels = listPickupCarPresenter.toPickupCarModels(result);
         pickupCarListModel.addAll(listPickupCarModels);
     }
 

@@ -6,7 +6,6 @@ import com.link_intersystems.jdbc.JdbcTemplate;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 class H2ListBookingsRepository implements ListBookingsRepository {
@@ -19,7 +18,7 @@ class H2ListBookingsRepository implements ListBookingsRepository {
 
 
     @Override
-    public List<CarBooking> findBookings(LocalDateTime from, LocalDateTime to) {
+    public List<CarBooking> findBookings() {
         return jdbcTemplate.query("SELECT * FROM CAR_BOOKING WHERE RENTAL_STATE IS NULL", this::mapCarBookingRow);
     }
 

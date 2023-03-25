@@ -1,15 +1,33 @@
 package com.link_intersystems.carrental.management.rental.pickup.list;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 public class ListPickupCarResponseModel {
-    private List<PickupCarResponseModel> pickupCars;
+    private int bookingNumber;
+    private LocalDateTime pickupDate;
+    private int odometer;
 
-    void setPickupCars(List<PickupCarResponseModel> pickupCars) {
-        this.pickupCars = pickupCars;
+    public void setBookingNumber(int bookingNumber) {
+        this.bookingNumber = bookingNumber;
     }
 
-    public List<PickupCarResponseModel> getPickupCars() {
-        return pickupCars;
+    public int getBookingNumber() {
+        return bookingNumber;
+    }
+
+    public LocalDateTime getPickupDate() {
+        return pickupDate;
+    }
+
+    public void setPickupDate(LocalDateTime pickupDate) {
+        this.pickupDate = pickupDate;
+    }
+
+    public int getOdometer() {
+        return odometer;
+    }
+
+    public void setOdometer(int odometer) {
+        this.odometer = odometer;
     }
 }

@@ -20,9 +20,7 @@ class ListBookingsInteractorTest {
 
     @Test
     void listBookings() {
-        ListBookingsRequestModel requestModel = new ListBookingsRequestModel();
-
-        ListBookingsResponseModel responseModel = interactor.listBookings(requestModel);
+        ListBookingsResponseModel responseModel = interactor.listBookings();
 
         assertNotNull(responseModel);
 

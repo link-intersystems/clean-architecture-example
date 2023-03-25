@@ -6,5 +6,5 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 interface ListBookingsRepository {
-    List<CarBooking> findBookings(LocalDateTime from, LocalDateTime to);
+    List<CarBooking> findBookings();
 }

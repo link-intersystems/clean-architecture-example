@@ -48,11 +48,7 @@ class PickupCarInteractor implements PickupCarUseCase {
 
     private CarState createCarState(PickupCarRequestModel requestModel) {
         Integer odometerValue = requestModel.getOdometer();
-        if (odometerValue == null) {
-            throw new IllegalStateException("odometer must be set");
-        }
-
-        Odometer odometer = new Odometer(odometerValue);
+        Odometer odometer = Odometer.of(odometerValue);
         return new CarState(requestModel.getFuelLevel(), odometer);
     }
 }

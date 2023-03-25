@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.management.pickup.list.ui;
 
 import com.link_intersystems.carrental.management.booking.ui.BookingNumberModel;
-import com.link_intersystems.carrental.management.rental.pickup.list.PickupCarResponseModel;
+import com.link_intersystems.carrental.management.rental.pickup.list.ListPickupCarResponseModel;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,10 +9,10 @@ import java.util.List;
 
 public class ListPickupCarPresenter {
 
-    public List<ListPickupCarModel> toPickupCarModels(List<PickupCarResponseModel> responseModels) {
+    public List<ListPickupCarModel> toPickupCarModels(List<ListPickupCarResponseModel> responseModels) {
         List<ListPickupCarModel> listPickupCarModels = new ArrayList<>();
 
-        for (PickupCarResponseModel responseModel : responseModels) {
+        for (ListPickupCarResponseModel responseModel : responseModels) {
             ListPickupCarModel listPickupCarModel = new ListPickupCarModel();
             int bookingNumber = responseModel.getBookingNumber();
             listPickupCarModel.setBookingNumber(Integer.toString(bookingNumber));
