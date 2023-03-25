@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static com.link_intersystems.carrental.time.LocalDateTimeUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,13 +34,12 @@ class CarOffersInteractorTest {
         requestModel.setReturnDateTime(dateTime("2023-01-18", "17:00:00"));
         requestModel.setVehicleType("MICRO");
 
-        CarOfferResponseModel responseModel = carOffersInteractor.makeOffers(requestModel);
+        List<CarOfferOutputModel> response = carOffersInteractor.makeOffers(requestModel);
 
-        CarOffersOutputModel carOffersOutputModel = responseModel.getCarOffers();
-        assertNotNull(carOffersOutputModel);
+        assertNotNull(response);
 
-        assertEquals(1, carOffersOutputModel.size(), "carOffers");
-        CarOfferOutputModel carOfferOutputModel = carOffersOutputModel.get(0);
+        assertEquals(1, response.size(), "carOffers");
+        CarOfferOutputModel carOfferOutputModel = response.get(0);
 
         assertEquals(carFixture.getFiat500().getId().getValue(), carOfferOutputModel.getId(), "carId");
         assertEquals(new BigDecimal("190.00"), carOfferOutputModel.getTotalRentalRate());
@@ -54,13 +54,12 @@ class CarOffersInteractorTest {
         requestModel.setReturnDateTime(dateTime("2023-01-17", "17:00:00"));
         requestModel.setVehicleType("MICRO");
 
-        CarOfferResponseModel responseModel = carOffersInteractor.makeOffers(requestModel);
+        List<CarOfferOutputModel> response = carOffersInteractor.makeOffers(requestModel);
 
-        CarOffersOutputModel carOffersOutputModel = responseModel.getCarOffers();
-        assertNotNull(carOffersOutputModel);
+        assertNotNull(response);
 
-        assertEquals(1, carOffersOutputModel.size(), "carOffers");
-        CarOfferOutputModel carOfferOutputModel = carOffersOutputModel.get(0);
+        assertEquals(1, response.size(), "carOffers");
+        CarOfferOutputModel carOfferOutputModel = response.get(0);
 
         assertEquals(carFixture.getFiat500().getId().getValue(), carOfferOutputModel.getId(), "carId");
         CarSpecModel specModel = carOfferOutputModel.getSpecModel();
@@ -80,12 +79,11 @@ class CarOffersInteractorTest {
         requestModel.setReturnDateTime(dateTime("2023-01-17", "17:00:00"));
         requestModel.setVehicleType("MICRO");
 
-        CarOfferResponseModel responseModel = carOffersInteractor.makeOffers(requestModel);
+        List<CarOfferOutputModel> response = carOffersInteractor.makeOffers(requestModel);
 
-        CarOffersOutputModel carOffersOutputModel = responseModel.getCarOffers();
-        assertNotNull(carOffersOutputModel);
+        assertNotNull(response);
 
-        assertEquals(1, carOffersOutputModel.size());
+        assertEquals(1, response.size());
     }
 
     @Test
@@ -95,11 +93,10 @@ class CarOffersInteractorTest {
         requestModel.setReturnDateTime(dateTime("2023-01-14", "17:00:00"));
         requestModel.setVehicleType("MICRO");
 
-        CarOfferResponseModel responseModel = carOffersInteractor.makeOffers(requestModel);
+        List<CarOfferOutputModel> response = carOffersInteractor.makeOffers(requestModel);
 
-        CarOffersOutputModel carOffersOutputModel = responseModel.getCarOffers();
-        assertNotNull(carOffersOutputModel);
+        assertNotNull(response);
 
-        assertEquals(2, carOffersOutputModel.size());
+        assertEquals(2, response.size());
     }
 }

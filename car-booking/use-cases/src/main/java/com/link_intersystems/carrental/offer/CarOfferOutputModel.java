@@ -66,7 +66,7 @@ public class CarOfferOutputModel {
         return pickupDateTime;
     }
 
-    public void setPickupDateTime(LocalDateTime pickupDateTime) {
+    void setPickupDateTime(LocalDateTime pickupDateTime) {
         this.pickupDateTime = pickupDateTime;
     }
 
@@ -74,7 +74,7 @@ public class CarOfferOutputModel {
         return returnDateTime;
     }
 
-    public void setReturnDateTime(LocalDateTime returnDateTime) {
+    void setReturnDateTime(LocalDateTime returnDateTime) {
         this.returnDateTime = returnDateTime;
     }
 }

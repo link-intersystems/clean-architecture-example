@@ -9,15 +9,4 @@ public class CarBookingException extends Exception {
         super(message);
     }
 
-    public CarBookingException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public CarBookingException(Throwable cause) {
-        super(cause);
-    }
-
-    public CarBookingException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
 }

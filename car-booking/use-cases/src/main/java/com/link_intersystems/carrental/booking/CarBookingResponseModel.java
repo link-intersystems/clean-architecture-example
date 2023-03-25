@@ -4,7 +4,7 @@ public class CarBookingResponseModel {
 
     private String bookingNumber;
 
-    public void setBookingNumber(String bookingNumber) {
+    void setBookingNumber(String bookingNumber) {
         this.bookingNumber = bookingNumber;
     }
 

@@ -5,11 +5,10 @@ import java.time.LocalDateTime;
 public class CarBookingRequestModel {
     private int customerId;
     private String carId;
-    private int stationId;
     private LocalDateTime pickupDateTime;
     private LocalDateTime returnDateTime;
 
-    public int getCustomerId() {
+    int getCustomerId() {
         return customerId;
     }
 
@@ -17,7 +16,7 @@ public class CarBookingRequestModel {
         this.customerId = customerId;
     }
 
-    public String getCarId() {
+    String getCarId() {
         return carId;
     }
 
@@ -25,15 +24,7 @@ public class CarBookingRequestModel {
         this.carId = carId;
     }
 
-    public int getStationId() {
-        return stationId;
-    }
-
-    public void setStationId(int stationId) {
-        this.stationId = stationId;
-    }
-
-    public LocalDateTime getPickUpDateTime() {
+    LocalDateTime getPickUpDateTime() {
         return pickupDateTime;
     }
 
@@ -41,7 +32,7 @@ public class CarBookingRequestModel {
         this.pickupDateTime = pickupDateTime;
     }
 
-    public LocalDateTime getReturnDateTime() {
+    LocalDateTime getReturnDateTime() {
         return returnDateTime;
     }
 

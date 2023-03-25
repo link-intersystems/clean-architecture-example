@@ -9,21 +9,20 @@ import com.link_intersystems.carrental.rental.RentalCar;
 import com.link_intersystems.carrental.rental.RentalRate;
 import com.link_intersystems.carrental.time.Period;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class IntputOutputMapper {
 
-    public CarOfferResponseModel toOutputModel(CarsById carsById, List<RentalOffer> rentalOffers, Period bookingPeriod) {
-        CarOfferResponseModel carOfferResponseModel = new CarOfferResponseModel();
+    public List<CarOfferOutputModel> toOutputModel(CarsById carsById, List<RentalOffer> rentalOffers, Period bookingPeriod) {
+        List<CarOfferOutputModel> carOfferOutputModels = new ArrayList<>();
 
-        CarOffersOutputModel carOfferOutputModels = new CarOffersOutputModel();
         for (RentalOffer rentalOffer : rentalOffers) {
             CarOfferOutputModel carOfferOutputModel = map(carsById, rentalOffer, bookingPeriod);
-            carOfferOutputModels.addCarOffer(carOfferOutputModel);
+            carOfferOutputModels.add(carOfferOutputModel);
         }
 
-        carOfferResponseModel.setCarOffersOutputModel(carOfferOutputModels);
-        return carOfferResponseModel;
+        return carOfferOutputModels;
     }
 
     private CarOfferOutputModel map(CarsById carsById, RentalOffer rentalOffer, Period bookingPeriod) {

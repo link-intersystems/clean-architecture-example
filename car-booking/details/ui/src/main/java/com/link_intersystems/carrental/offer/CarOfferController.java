@@ -5,9 +5,10 @@ import com.link_intersystems.swing.action.AbstractWorkerAction;
 import com.link_intersystems.swing.action.BackgroundProgress;
 
 import javax.swing.*;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class CarOfferController extends AbstractWorkerAction<CarOfferResponseModel, Void> {
+public class CarOfferController extends AbstractWorkerAction<List<CarOfferOutputModel>, Void> {
 
     private CarOfferUseCase carOfferUseCase;
 
@@ -36,17 +37,16 @@ public class CarOfferController extends AbstractWorkerAction<CarOfferResponseMod
     }
 
     @Override
-    protected CarOfferResponseModel doInBackground(BackgroundProgress<Void> backgroundProgress) throws Exception {
+    protected List<CarOfferOutputModel> doInBackground(BackgroundProgress<Void> backgroundProgress) throws Exception {
         CarOfferRequestModel requestModel = carOfferPresenter.toRequestModel(carSearchModel);
         return carOfferUseCase.makeOffers(requestModel);
     }
 
     @Override
-    protected void done(CarOfferResponseModel responseModel) {
-        CarOffersOutputModel carOffers = responseModel.getCarOffers();
-
+    protected void done(List<CarOfferOutputModel> response) {
         carOfferListModel.clear();
-        for (CarOfferOutputModel carOffer : carOffers) {
+
+        for (CarOfferOutputModel carOffer : response) {
             CarOfferModel carOfferModel = carOfferPresenter.toCarOfferModel(carOffer);
             carOfferListModel.addElement(carOfferModel);
         }

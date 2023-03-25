@@ -22,7 +22,7 @@ class CarOfferInteractor implements CarOfferUseCase {
     }
 
     @Override
-    public CarOfferResponseModel makeOffers(CarOfferRequestModel request) {
+    public List<CarOfferOutputModel> makeOffers(CarOfferRequestModel request) {
         List<RentalCar> rentalCars = findMatchingCars(request);
 
         LocalDateTime desiredPickUpDateTime = request.getPickUpDateTime();
@@ -44,7 +44,7 @@ class CarOfferInteractor implements CarOfferUseCase {
 
 
     private List<RentalCar> findMatchingCars(CarOfferRequestModel request) {
-        CarCriteria carCriteria = new CarCriteria();
+        CarOfferRepository.CarCriteria carCriteria = new CarOfferRepository.CarCriteria();
 
         VehicleType vehicleType = VehicleType.valueOf(request.getVehicleType());
         carCriteria.setVehicleType(vehicleType);
