@@ -18,7 +18,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @CarRentalDBExtension
-class H2CarOfferRepositoryTest {
+class H2CarOfferRepositoryIntTest  {
 
     private H2CarOfferRepository repository;
 

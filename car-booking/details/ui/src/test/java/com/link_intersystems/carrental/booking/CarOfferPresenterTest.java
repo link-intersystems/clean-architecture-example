@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CarOfferPresenterTest {
 
-
     @Test
     void carOffers() {
         CarOfferPresenter carOfferPresenter = new CarOfferPresenter();

@@ -12,7 +12,7 @@ import java.sql.Connection;
 import static org.junit.jupiter.api.Assertions.*;
 
 @CarManagementDBExtension
-class H2GetPickupCarRepositoryTest {
+class H2GetPickupCarRepositoryIntTest  {
 
     private H2GetPickupCarRepository repository;
     private JdbcTemplate jdbcTemplate;

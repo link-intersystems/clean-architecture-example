@@ -18,7 +18,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 @CarManagementDBExtension
-class H2PickupCarRepositoryTest {
+class H2PickupCarRepositoryIntTest  {
 
     private H2PickupCarRepository repository;
     private JdbcTemplate jdbcTemplate;

@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @CarManagementDBExtension
-class H2ListPickupCarRepositoryTest {
+class H2ListPickupCarRepositoryIntTest  {
 
     private H2ListPickupCarRepository repository;
     private JdbcTemplate jdbcTemplate;

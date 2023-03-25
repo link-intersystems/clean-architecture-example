@@ -15,7 +15,7 @@ import static com.link_intersystems.carrental.time.LocalDateTimeUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @CarRentalDBExtension
-class H2CarBookingRepositoryTest {
+class H2CarBookingRepositoryIntTest  {
 
     private H2CarBookingRepository h2CarBookingRepository;
 

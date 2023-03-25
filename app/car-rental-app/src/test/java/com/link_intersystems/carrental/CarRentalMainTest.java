@@ -6,7 +6,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
 
-class CarRentalAppTest {
+class CarRentalAppIntTest {
 
     @Test
     void applicationContext(@TempDir File tempDir) {

@@ -13,7 +13,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 @CarManagementDBExtension
-class H2CreateCarBookingRepositoryTest extends AbstractManagementRepositoryTest {
+class H2CreateCarBookingRepositoryIntTest  extends AbstractManagementRepositoryTest {
 
     private H2CreateCarBookingRepository repository;
 
