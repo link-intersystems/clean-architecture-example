@@ -5,7 +5,7 @@ public class DriverRequestModel {
     private String lastname;
     private String drivingLicenceNumber;
 
-    public String getFirstname() {
+    String getFirstname() {
         return firstname;
     }
 
@@ -13,7 +13,7 @@ public class DriverRequestModel {
         this.firstname = firstname;
     }
 
-    public String getLastname() {
+    String getLastname() {
         return lastname;
     }
 
@@ -21,7 +21,7 @@ public class DriverRequestModel {
         this.lastname = lastname;
     }
 
-    public String getDrivingLicenceNumber() {
+    String getDrivingLicenceNumber() {
         return drivingLicenceNumber;
     }
 

@@ -16,7 +16,7 @@ public class PickupCarRequestModel {
         this.bookingNumber = bookingNumber;
     }
 
-    public int getBookingNumber() {
+    int getBookingNumber() {
         return bookingNumber;
     }
 
@@ -36,19 +36,19 @@ public class PickupCarRequestModel {
         this.pickupDateTime = pickupDateTime;
     }
 
-    public DriverRequestModel getDriver() {
+    DriverRequestModel getDriver() {
         return driver;
     }
 
-    public FuelLevel getFuelLevel() {
+    FuelLevel getFuelLevel() {
         return fuelLevel;
     }
 
-    public Integer getOdometer() {
+    Integer getOdometer() {
         return odometer;
     }
 
-    public LocalDateTime getPickupDateTime() {
+    LocalDateTime getPickupDateTime() {
         return pickupDateTime;
     }
 

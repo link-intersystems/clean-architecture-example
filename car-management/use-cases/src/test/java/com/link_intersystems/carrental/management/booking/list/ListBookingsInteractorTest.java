@@ -20,11 +20,10 @@ class ListBookingsInteractorTest {
 
     @Test
     void listBookings() {
-        ListBookingsResponseModel responseModel = interactor.listBookings();
+        List<CarBookingResponseModel> carBookings = interactor.listBookings();
 
-        assertNotNull(responseModel);
+        assertNotNull(carBookings);
 
-        List<CarBookingResponseModel> carBookings = responseModel.getCarBookings();
         assertEquals(2, carBookings.size());
 
         CarBookingResponseModel firstBooking = carBookings.get(0);

@@ -14,7 +14,7 @@ public class ReturnCarRequestModel {
         this.bookingNumber = bookingNumber;
     }
 
-    public int getBookingNumber() {
+    int getBookingNumber() {
         return bookingNumber;
     }
 
@@ -30,15 +30,15 @@ public class ReturnCarRequestModel {
         this.returnDateTime = returnDateTime;
     }
 
-    public FuelLevel getFuelLevel() {
+    FuelLevel getFuelLevel() {
         return fuelLevel;
     }
 
-    public Integer getOdometer() {
+    Integer getOdometer() {
         return odometer;
     }
 
-    public LocalDateTime getReturnDateTime() {
+    LocalDateTime getReturnDateTime() {
         return returnDateTime;
     }
 

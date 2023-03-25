@@ -1,7 +1,6 @@
 package com.link_intersystems.carrental.management.booking.list.ui;
 
 import com.link_intersystems.carrental.management.booking.list.CarBookingResponseModel;
-import com.link_intersystems.carrental.management.booking.list.ListBookingsResponseModel;
 import com.link_intersystems.carrental.management.booking.list.ListBookingsUseCase;
 import com.link_intersystems.swing.action.AbstractWorkerAction;
 import com.link_intersystems.swing.action.BackgroundProgress;
@@ -10,7 +9,7 @@ import javax.swing.*;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class ListCarBookingController extends AbstractWorkerAction<ListBookingsResponseModel, Void> {
+public class ListCarBookingController extends AbstractWorkerAction<List<CarBookingResponseModel>, Void> {
 
     private DefaultListModel<ListCarBookingModel> carBookingListModel = new DefaultListModel<>();
     private CarBookingPresenter carBookingPresenter = new CarBookingPresenter();
@@ -28,15 +27,14 @@ public class ListCarBookingController extends AbstractWorkerAction<ListBookingsR
     }
 
     @Override
-    protected ListBookingsResponseModel doInBackground(BackgroundProgress<Void> backgroundProgress) throws Exception {
+    protected List<CarBookingResponseModel> doInBackground(BackgroundProgress<Void> backgroundProgress) throws Exception {
         return listBookingsUseCase.listBookings();
     }
 
     @Override
-    protected void done(ListBookingsResponseModel result) {
+    protected void done(List<CarBookingResponseModel> carBookings) {
         carBookingListModel.clear();
 
-        List<CarBookingResponseModel> carBookings = result.getCarBookings();
         List<ListCarBookingModel> listCarBookingModels = carBookingPresenter.toCarBookingModels(carBookings);
         carBookingListModel.addAll(listCarBookingModels);
     }

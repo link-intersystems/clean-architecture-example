@@ -7,7 +7,7 @@ public class ListPickupCarResponseModel {
     private LocalDateTime pickupDate;
     private int odometer;
 
-    public void setBookingNumber(int bookingNumber) {
+    void setBookingNumber(int bookingNumber) {
         this.bookingNumber = bookingNumber;
     }
 
@@ -19,7 +19,7 @@ public class ListPickupCarResponseModel {
         return pickupDate;
     }
 
-    public void setPickupDate(LocalDateTime pickupDate) {
+    void setPickupDate(LocalDateTime pickupDate) {
         this.pickupDate = pickupDate;
     }
 
@@ -27,7 +27,7 @@ public class ListPickupCarResponseModel {
         return odometer;
     }
 
-    public void setOdometer(int odometer) {
+    void setOdometer(int odometer) {
         this.odometer = odometer;
     }
 }

@@ -3,12 +3,14 @@ package com.link_intersystems.carrental.management.booking.create;
 import com.link_intersystems.carrental.VIN;
 import com.link_intersystems.carrental.management.booking.CarBooking;
 
+import static java.util.Objects.*;
+
 class CreateCarBookingInteractor implements CreateCarBookingUseCase {
 
     private CreateCarBookingRepository repository;
 
     public CreateCarBookingInteractor(CreateCarBookingRepository repository) {
-        this.repository = repository;
+        this.repository = requireNonNull(repository);
     }
 
     @Override

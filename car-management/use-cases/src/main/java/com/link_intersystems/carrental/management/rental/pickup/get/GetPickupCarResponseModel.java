@@ -10,7 +10,7 @@ public class GetPickupCarResponseModel {
     private int odometer;
     private FuelLevel fuelLevel;
 
-    public void setBookingNumber(int bookingNumber) {
+    void setBookingNumber(int bookingNumber) {
         this.bookingNumber = bookingNumber;
     }
 
@@ -22,7 +22,7 @@ public class GetPickupCarResponseModel {
         return pickupDate;
     }
 
-    public void setPickupDate(LocalDateTime pickupDate) {
+    void setPickupDate(LocalDateTime pickupDate) {
         this.pickupDate = pickupDate;
     }
 
@@ -30,7 +30,7 @@ public class GetPickupCarResponseModel {
         return odometer;
     }
 
-    public void setOdometer(int odometer) {
+    void setOdometer(int odometer) {
         this.odometer = odometer;
     }
 
@@ -38,7 +38,7 @@ public class GetPickupCarResponseModel {
         return fuelLevel;
     }
 
-    public void setFuelLevel(FuelLevel fuelLevel) {
+    void setFuelLevel(FuelLevel fuelLevel) {
         this.fuelLevel = fuelLevel;
     }
 }

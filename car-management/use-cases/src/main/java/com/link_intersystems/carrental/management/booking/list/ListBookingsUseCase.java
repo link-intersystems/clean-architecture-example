@@ -1,6 +1,8 @@
 package com.link_intersystems.carrental.management.booking.list;
 
+import java.util.List;
+
 public interface ListBookingsUseCase {
 
-    public ListBookingsResponseModel listBookings();
+    public List<CarBookingResponseModel> listBookings();
 }

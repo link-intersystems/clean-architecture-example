@@ -8,7 +8,7 @@ public class CarBookingResponseModel {
         return bookingNumber;
     }
 
-    public void setBookingNumber(Integer bookingNumber) {
+    void setBookingNumber(Integer bookingNumber) {
         this.bookingNumber = bookingNumber;
     }
 
@@ -16,7 +16,7 @@ public class CarBookingResponseModel {
         return vin;
     }
 
-    public void setVin(String vin) {
+    void setVin(String vin) {
         this.vin = vin;
     }
 }

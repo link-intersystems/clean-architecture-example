@@ -16,23 +16,21 @@ class ListBookingsInteractor implements ListBookingsUseCase {
     }
 
     @Override
-    public ListBookingsResponseModel listBookings() {
+    public List<CarBookingResponseModel> listBookings() {
         List<CarBooking> carBookings = listBookingsRepository.findBookings();
 
         return toResponseModel(carBookings);
     }
 
-    private ListBookingsResponseModel toResponseModel(List<CarBooking> carBookings) {
-        ListBookingsResponseModel responseModel = new ListBookingsResponseModel();
-
+    private List<CarBookingResponseModel> toResponseModel(List<CarBooking> carBookings) {
         ArrayList<CarBookingResponseModel> carBookingsResponseModels = new ArrayList<>();
+
         for (CarBooking carBooking : carBookings) {
             CarBookingResponseModel carBookingResponseModel = toResponseModel(carBooking);
             carBookingsResponseModels.add(carBookingResponseModel);
         }
-        responseModel.setCarBookings(carBookingsResponseModels);
 
-        return responseModel;
+        return carBookingsResponseModels;
     }
 
     private CarBookingResponseModel toResponseModel(CarBooking carBooking) {

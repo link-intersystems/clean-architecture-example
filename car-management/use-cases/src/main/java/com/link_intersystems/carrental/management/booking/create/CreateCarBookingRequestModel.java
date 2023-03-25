@@ -4,7 +4,7 @@ public class CreateCarBookingRequestModel {
     private Integer bookingNumber;
     private String vin;
 
-    public Integer getBookingNumber() {
+    Integer getBookingNumber() {
         return bookingNumber;
     }
 
@@ -12,7 +12,7 @@ public class CreateCarBookingRequestModel {
         this.bookingNumber = bookingNumber;
     }
 
-    public String getVIN() {
+    String getVIN() {
         return vin;
     }
 
