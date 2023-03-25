@@ -1,7 +1,6 @@
 package com.link_intersystems.carrental.management.rental.returnCar;
 
 import com.link_intersystems.carrental.booking.BookingNumber;
-import com.link_intersystems.carrental.management.accounting.RentalCar;
 import com.link_intersystems.carrental.management.rental.*;
 import com.link_intersystems.jdbc.JdbcTemplate;
 
@@ -81,8 +80,4 @@ class H2ReturnCarRepository implements ReturnCarRepository {
         }
     }
 
-    @Override
-    public RentalCar findRentalCar(BookingNumber bookingNumber) {
-        return null;
-    }
 }

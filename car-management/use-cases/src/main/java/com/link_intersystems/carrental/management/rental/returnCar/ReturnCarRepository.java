@@ -6,8 +6,5 @@ import com.link_intersystems.carrental.management.rental.CarRental;
 
 interface ReturnCarRepository {
     CarRental find(BookingNumber bookingNumber);
-
     void persist(CarRental carRental);
-
-    RentalCar findRentalCar(BookingNumber bookingNumber);
 }

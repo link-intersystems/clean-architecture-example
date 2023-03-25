@@ -1,6 +1,9 @@
 package com.link_intersystems.carrental.time;
 
 import java.time.Clock;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public class ClockProvider {
 
@@ -8,6 +11,13 @@ public class ClockProvider {
 
     public static Clock getClock() {
         return clock;
+    }
+
+    public static LocalDateTime now() {
+        Clock clock = getClock();
+        Instant now = clock.instant();
+        ZoneId zone = ZoneId.systemDefault();
+        return LocalDateTime.ofInstant(now, zone);
     }
 
     static void setClock(Clock clock) {
