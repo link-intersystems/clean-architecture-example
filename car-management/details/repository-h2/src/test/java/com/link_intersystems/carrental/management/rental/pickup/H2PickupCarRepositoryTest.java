@@ -47,6 +47,9 @@ class H2PickupCarRepositoryTest {
 
     @Test
     void findBooking() {
+        CarBooking booking = repository.findBooking(new BookingNumber(2));
+
+        assertNotNull(booking);
     }
 
     @Test

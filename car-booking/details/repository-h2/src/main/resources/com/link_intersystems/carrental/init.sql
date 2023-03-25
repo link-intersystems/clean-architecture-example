@@ -73,11 +73,12 @@ INSERT INTO CUSTOMER (ID, FIRSTNAME, LASTNAME)
 VALUES (1, 'Nick', 'Wahlberg'),
        (2, 'Kevin', 'Bloom'),
        (3, 'Penelope', 'Guiness'),
-       (5, 'Jennifer', 'Davis');
+       (5, 'Jennifer', 'Davis'),
+       (6, 'René', 'Link');
 
 INSERT INTO CAR_BOOKING (BOOKING_NUMBER, CARID, CUSTOMER_ID, PICKUP_DATETIME, RETURN_DATETIME)
 VALUES (1, 'WMEEJ8AA3FK792135', 1, '2023-01-15 08:00:00', '2023-01-17 17:00:00'),
-       (2, 'WMEEJ8AA3FK792135', 3, '2023-01-19 08:00:00', '2023-01-20 08:00:00');
+       (2, 'WMEEJ8AA3FK792135', 6, '2023-01-19 08:00:00', '2023-01-20 08:00:00');
 
 
 

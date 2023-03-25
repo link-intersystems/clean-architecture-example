@@ -33,3 +33,14 @@ INSERT INTO CAR_BOOKING (BOOKING_NUMBER, VIN, RENTAL_STATE)
 VALUES (1, 'WMEEJ8AA3FK792135', null),
        (2, 'WMEEJ8AA3FK792135', 'PICKEDUP');
 
+
+INSERT INTO CAR_RENTAL (
+                        BOOKING_NUMBER,
+                        DRIVER_FIRSTNAME,
+                        DRIVER_LASTNAME,
+                        DRIVER_LICENCE,
+                        PICKUP_TIME,
+                        PICKUP_CAR_STATE_FUEL,
+                        PICKUP_CAR_STATE_ODOMETER
+                        )
+VALUES (2, 'René', 'Link', 'ABC', '2023-01-19 08:00:00', 100, 12345);

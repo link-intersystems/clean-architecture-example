@@ -1,5 +1,7 @@
 package com.link_intersystems.carrental.management.rental;
 
+import java.util.Objects;
+
 import static java.util.Objects.*;
 
 public class Odometer {
@@ -20,5 +22,18 @@ public class Odometer {
 
     public int getValue() {
         return value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Odometer odometer = (Odometer) o;
+        return value == odometer.value;
+    }
+
+    @Override
+    public int hashCode() {
+        return hash(value);
     }
 }

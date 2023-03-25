@@ -47,10 +47,12 @@ class H2PickupCarRepository implements PickupCarRepository {
 
     @Override
     public CarBooking findBooking(BookingNumber bookingNumber) {
+        Object[] queryArgs = {bookingNumber.getValue()};
+
         return jdbcTemplate.queryForObject("""
                 SELECT * 
                 FROM CAR_BOOKING 
-                WHERE BOOKING_NUMBER = ?""", new Object[]{bookingNumber.getValue()}, this::mapCarBookingRow);
+                WHERE BOOKING_NUMBER = ?""", queryArgs, this::mapCarBookingRow);
     }
 
     @Override
