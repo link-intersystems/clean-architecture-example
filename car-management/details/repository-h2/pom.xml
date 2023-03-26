@@ -31,7 +31,7 @@
         </dependency>
         <dependency>
             <groupId>com.acme.car-rental.shared</groupId>
-            <artifactId>car-rental-shared-entities</artifactId>
+            <artifactId>car-rental-shared-time</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <type>test-jar</type>
             <scope>test</scope>

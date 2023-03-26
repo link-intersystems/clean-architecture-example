@@ -2,7 +2,7 @@ package com.link_intersystems.carrental;
 
 import java.lang.reflect.ParameterizedType;
 
-public abstract class AbstractDomainEventSubscriber<E> implements DomainEventSubscriber {
+public abstract class SingleDomainEventSubscriber<E extends DomainEvent> implements DomainEventSubscriber {
 
     @Override
     public boolean subscribedTo(Class<?> domainEventType) {

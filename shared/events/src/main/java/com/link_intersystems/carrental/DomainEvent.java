@@ -1,11 +1,13 @@
 package com.link_intersystems.carrental;
 
+import com.link_intersystems.carrental.time.ClockProvider;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 public abstract class DomainEvent {
 
-    private LocalDateTime occuredOn = LocalDateTime.now();
+    private LocalDateTime occuredOn = ClockProvider.now();
 
     public LocalDateTime getOccuredOn() {
         return occuredOn;

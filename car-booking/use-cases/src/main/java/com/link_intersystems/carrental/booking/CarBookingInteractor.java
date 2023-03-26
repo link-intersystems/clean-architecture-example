@@ -10,12 +10,16 @@ import com.link_intersystems.carrental.time.Period;
 import java.time.Clock;
 import java.time.LocalDateTime;
 
+import static java.util.Objects.*;
+
 class CarBookingInteractor implements CarBookingUseCase {
 
     private CarBookingRepository repository;
+    private DomainEventBus domainEventBus;
 
-    public CarBookingInteractor(CarBookingRepository repository) {
-        this.repository = repository;
+    public CarBookingInteractor(CarBookingRepository repository, DomainEventBus domainEventBus) {
+        this.repository = requireNonNull(repository);
+        this.domainEventBus = requireNonNull(domainEventBus);
     }
 
     @Override
@@ -37,7 +41,8 @@ class CarBookingInteractor implements CarBookingUseCase {
         CarBookingResponseModel responseModel = new CarBookingResponseModel();
         responseModel.setBookingNumber(Integer.toString(carBooking.getBookingNumber().getValue()));
 
-        DomainEventBus.publish(new CarBookedEvent(carBooking.getBookingNumber().getValue(), carBooking.getCarId().getValue()));
+        CarBookedEvent carBookedEvent = new CarBookedEvent(carBooking.getBookingNumber().getValue(), carBooking.getCarId().getValue());
+        domainEventBus.publish(carBookedEvent);
         return responseModel;
     }
 

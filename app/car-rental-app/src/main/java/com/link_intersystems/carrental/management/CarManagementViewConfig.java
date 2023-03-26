@@ -38,8 +38,9 @@ public class CarManagementViewConfig {
     private AOPConfig aopConfig;
     private JdbcTemplate jdbcTemplate;
     private MessageDialog messageDialog;
-    private List<DomainEventSubscriber> domainEventSubscriberList = new ArrayList<>();
     private CarManagementView carManagementView;
+
+    private CarBookedEventSubscriber carBookedEventSubscriber;
 
     public CarManagementViewConfig(AOPConfig aopConfig, JdbcTemplate jdbcTemplate, MessageDialog messageDialog) {
         this.aopConfig = requireNonNull(aopConfig);
@@ -47,19 +48,8 @@ public class CarManagementViewConfig {
         this.messageDialog = requireNonNull(messageDialog);
     }
 
-    public List<DomainEventSubscriber> getDomainEventSubscriberList() {
-        return domainEventSubscriberList;
-    }
-
     public CarManagementView getCarManagementView() {
         if (carManagementView == null) {
-            CreateCarBookingComponent createCarBookingComponent = new CreateCarBookingComponent();
-            CreateCarBookingUseCase createCarBookingUseCase = createCarBookingComponent.getCreateCarBookingUseCase(jdbcTemplate);
-            createCarBookingUseCase = aopConfig.applyAOP(createCarBookingUseCase);
-
-            CarBookedEventSubscriber carBookedEventSubscriber = new CarBookedEventSubscriber(createCarBookingUseCase);
-            domainEventSubscriberList.add(carBookedEventSubscriber);
-
             ListCarBookingComponent listCarBookingComponent = new ListCarBookingComponent();
             ListBookingsUseCase listBookingUseCase = listCarBookingComponent.getListBookingsUseCase(jdbcTemplate);
             listBookingUseCase = aopConfig.applyAOP(listBookingUseCase);
@@ -99,5 +89,16 @@ public class CarManagementViewConfig {
             carManagementView = carManagementUIConfig.getCarManagementView(listCarBookingView, listPickupCarView);
         }
         return carManagementView;
+    }
+
+    public DomainEventSubscriber getCarBookedEventSubscriber() {
+        if (carBookedEventSubscriber == null) {
+            CreateCarBookingComponent createCarBookingComponent = new CreateCarBookingComponent();
+            CreateCarBookingUseCase createCarBookingUseCase = createCarBookingComponent.getCreateCarBookingUseCase(jdbcTemplate);
+            createCarBookingUseCase = aopConfig.applyAOP(createCarBookingUseCase);
+
+            carBookedEventSubscriber = new CarBookedEventSubscriber(createCarBookingUseCase);
+        }
+        return carBookedEventSubscriber;
     }
 }

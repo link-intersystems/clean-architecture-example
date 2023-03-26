@@ -1,6 +1,7 @@
 package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.CarFixture;
+import com.link_intersystems.carrental.DefaultDomainEventBus;
 import com.link_intersystems.carrental.customer.CustomerFixture;
 import com.link_intersystems.carrental.time.EnableFixedClock;
 import com.link_intersystems.carrental.time.FixedClock;
@@ -23,7 +24,7 @@ class CarBookingInteractorTest {
         carFixture = new CarFixture();
         CarBookingFixture carBookingFixture = new CarBookingFixture(carFixture);
         repository = new MockCarBookingRepository(carFixture, customers, carBookingFixture);
-        carBookingInteractor = new CarBookingInteractor(repository);
+        carBookingInteractor = new CarBookingInteractor(repository, new DefaultDomainEventBus());
     }
 
     @Test

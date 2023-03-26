@@ -25,8 +25,12 @@ public class CarRentalApp {
 
         messageDialog = new DefaultMessageDialog();
 
+        DefaultDomainEventBus defaultDomainEventBus = new DefaultDomainEventBus();
+
         CarManagementViewConfig carManagementViewConfig = createCarManagementViewConfig();
-        CarOfferViewConfig carOfferViewConfig = createCarOfferViewConfig(carManagementViewConfig);
+        defaultDomainEventBus.addSubscribers( carManagementViewConfig.getCarBookedEventSubscriber());
+
+        CarOfferViewConfig carOfferViewConfig = createCarOfferViewConfig(defaultDomainEventBus);
         CarRentalConfig carRentalConfig = new CarRentalConfig(carOfferViewConfig, carManagementViewConfig, messageDialog);
 
         CarRentalMainFrame mainFrame = carRentalConfig.getMainFrame();
@@ -37,9 +41,9 @@ public class CarRentalApp {
         openFrame(mainFrame);
     }
 
-    private CarOfferViewConfig createCarOfferViewConfig(CarManagementViewConfig carManagementViewConfig) {
+    private CarOfferViewConfig createCarOfferViewConfig(DomainEventBus domainEventBus) {
         JdbcTemplate carRentalJdbcTemplate = dataSourceConfig.getCarRentalJdbcTemplate();
-        return new CarOfferViewConfig(carRentalJdbcTemplate, carManagementViewConfig.getDomainEventSubscriberList(), aopConfig, messageDialog);
+        return new CarOfferViewConfig(carRentalJdbcTemplate, domainEventBus, aopConfig, messageDialog);
     }
 
     private CarManagementViewConfig createCarManagementViewConfig() {

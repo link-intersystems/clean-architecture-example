@@ -3,15 +3,15 @@ package com.link_intersystems.carrental;
 import java.util.ArrayList;
 import java.util.List;
 
-class CaptureEventSubscriber extends AbstractDomainEventSubscriber<Object> {
+class CaptureEventSubscriber extends SingleDomainEventSubscriber<DomainEvent> {
 
-    private List<Object> capturedEvents = new ArrayList();
+    private List<DomainEvent> capturedEvents = new ArrayList();
 
-    protected void doHandleEvent(Object domainEvent) {
+    protected void doHandleEvent(DomainEvent domainEvent) {
         capturedEvents.add(domainEvent);
     }
 
-    public List<Object> getCapturedEvents() {
+    public List<DomainEvent> getCapturedEvents() {
         return capturedEvents;
     }
 }

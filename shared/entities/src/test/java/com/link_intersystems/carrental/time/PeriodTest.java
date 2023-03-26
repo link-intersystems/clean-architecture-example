@@ -1,5 +1,6 @@
 package com.link_intersystems.carrental.time;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -129,4 +130,8 @@ class PeriodTest {
         assertTrue(period.isPast(clock));
     }
 
+    @Test
+    void equalsAndHashCode(){
+        EqualsVerifier.simple().forClass(Period.class).verify();
+    }
 }
