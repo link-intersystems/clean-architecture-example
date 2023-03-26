@@ -1,8 +1,7 @@
 package com.link_intersystems.carrental.management.returnCar.ui;
 
-import com.link_intersystems.carrental.management.booking.ui.BookingNumberModel;
 import com.link_intersystems.carrental.management.rental.FuelLevel;
-import com.link_intersystems.carrental.management.pickup.list.ui.ListPickupCarModel;
+import com.link_intersystems.carrental.management.rental.pickup.get.GetPickupCarResponseModel;
 import com.link_intersystems.carrental.management.rental.returnCar.ReturnCarRequestModel;
 
 import javax.swing.*;
@@ -10,16 +9,25 @@ import java.time.LocalDateTime;
 
 public class ReturnCarModelPresenter {
 
-    public ReturnCarModel toReturnCarModel(ListPickupCarModel listPickupCarModel) {
+    public ReturnCarModel toReturnCarModel(GetPickupCarResponseModel result) {
         ReturnCarModel returnCarModel = new ReturnCarModel();
 
-        returnCarModel.setBookingNumber(listPickupCarModel.getBookingNumber());
+        returnCarModel.setReturnDate(formatReturnDate(LocalDateTime.now()));
+        returnCarModel.setBookingNumber(Integer.toString(result.getBookingNumber()));
+        returnCarModel.setOdometer(Integer.toString(result.getOdometer()));
+        returnCarModel.getFuelModel().setValue(result.getFuelLevel().getPercent());
 
         return returnCarModel;
     }
 
+    private String formatReturnDate(LocalDateTime localDateTime) {
+        return localDateTime.toString();
+    }
+
     public ReturnCarRequestModel toRequestModel(ReturnCarModel returnCarModel) {
         ReturnCarRequestModel requestModel = new ReturnCarRequestModel();
+
+        requestModel.setBookingNumber(Integer.parseInt(returnCarModel.getBookingNumber()));
 
         String odometer = returnCarModel.getOdometer();
         requestModel.setOdometer(Integer.parseInt(odometer));
@@ -33,15 +41,5 @@ public class ReturnCarModelPresenter {
         return requestModel;
     }
 
-    public String formatReturnDate(LocalDateTime localDateTime) {
-        return localDateTime.toString();
-    }
 
-    public String formatBookingNumber(BookingNumberModel bookingNumberModel) {
-        return formatBookingNumber(bookingNumberModel.getValue());
-    }
-
-    public String formatBookingNumber(int bookingNumber) {
-        return Integer.toString(bookingNumber);
-    }
 }

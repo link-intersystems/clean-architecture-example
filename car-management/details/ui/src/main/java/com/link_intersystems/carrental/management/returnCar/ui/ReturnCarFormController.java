@@ -27,7 +27,6 @@ public class ReturnCarFormController extends AbstractTaskAction<GetPickupCarResp
     private GetPickupCarUseCase getPickupCarUseCase;
     private MessageDialog messageDialog;
     private ReturnCarUseCase returnCarUseCase;
-    private ReturnCarModel returnCarModel = new ReturnCarModel();
     private Selection<BookingNumberModel> selectedModel;
     private ActionTrigger actionTrigger = new ActionTrigger(this);
     private ActionListener afterCarReturnedActionListener = e -> {
@@ -62,26 +61,19 @@ public class ReturnCarFormController extends AbstractTaskAction<GetPickupCarResp
 
     @Override
     protected void done(GetPickupCarResponseModel result) {
-        ReturnCarForm returnCarForm = new ReturnCarForm();
-        returnCarModel.setReturnDate(presenter.formatReturnDate(LocalDateTime.now()));
-        returnCarModel.setBookingNumber(Integer.toString(result.getBookingNumber()));
-        returnCarModel.setOdometer(Integer.toString(result.getOdometer()));
-        returnCarModel.getFuelModel().setValue(result.getFuelLevel().getPercent());
+        ReturnCarForm returnCarForm = createReturnCarForm();
+        ReturnCarModel returnCarModel = presenter.toReturnCarModel(result);
         returnCarForm.setModel(returnCarModel);
 
         int returnCarResult = messageDialog.showDialog("Return car", returnCarForm.getComponent());
         if (JOptionPane.OK_OPTION == returnCarResult) {
 
-            Action returnCarAction = new AbstractTaskAction<Void, Void>() {
+            AbstractTaskAction returnCarAction = new AbstractTaskAction<Void, Void>() {
 
                 @Override
                 protected Void doInBackground(TaskProgress<Void> backgroundProgress) throws Exception {
-                    ReturnCarRequestModel requestModel = new ReturnCarRequestModel();
-                    String returnDate = returnCarModel.getReturnDate();
-                    requestModel.setReturnDateTime(LocalDateTime.parse(returnDate));
-                    requestModel.setFuelLevel(FuelLevel.ofPercentage(returnCarModel.getFuelModel().getValue()));
-                    requestModel.setBookingNumber(Integer.parseInt(returnCarModel.getBookingNumber()));
-                    requestModel.setOdometer(Integer.parseInt(returnCarModel.getOdometer()));
+                    ReturnCarRequestModel requestModel = presenter.toRequestModel(returnCarModel);
+
 
                     returnCarUseCase.returnCar(requestModel);
                     return null;
@@ -92,7 +84,12 @@ public class ReturnCarFormController extends AbstractTaskAction<GetPickupCarResp
                     actionTrigger.performAction(afterCarReturnedActionListener);
                 }
             };
+            returnCarAction.setTaskExecutor(taskExecutor);
             actionTrigger.performAction(returnCarAction);
         }
+    }
+
+    protected ReturnCarForm createReturnCarForm() {
+        return new ReturnCarForm();
     }
 }

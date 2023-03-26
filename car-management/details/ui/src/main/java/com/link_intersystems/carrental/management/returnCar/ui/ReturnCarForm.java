@@ -47,6 +47,10 @@ public class ReturnCarForm {
         updateForm();
     }
 
+    public ReturnCarModel getModel() {
+        return returnCarModel;
+    }
+
     private void updateModel() {
         returnCarModel.setBookingNumber(bookingNumberField.getText());
         returnCarModel.setReturnDate(returnDateField.getText());
