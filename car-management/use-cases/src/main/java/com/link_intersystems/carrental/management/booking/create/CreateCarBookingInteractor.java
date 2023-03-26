@@ -3,6 +3,7 @@ package com.link_intersystems.carrental.management.booking.create;
 import com.link_intersystems.carrental.VIN;
 import com.link_intersystems.carrental.booking.BookingNumber;
 import com.link_intersystems.carrental.management.booking.CarBooking;
+import com.link_intersystems.carrental.management.booking.Customer;
 
 import static java.util.Objects.*;
 
@@ -19,7 +20,13 @@ class CreateCarBookingInteractor implements CreateCarBookingUseCase {
         String vinStr = requestModel.getVIN();
         VIN vin = new VIN(vinStr);
         BookingNumber bookingNumber = new BookingNumber(requestModel.getBookingNumber());
-        CarBooking carBooking = new CarBooking(bookingNumber, vin);
+
+        CustomerRequestModel customerRequestModel = requestModel.getCustomerRequestModel();
+        String customerFirstname = customerRequestModel.getFirstname();
+        String customerLastname = customerRequestModel.getLastname();
+        Customer customer = new Customer(customerFirstname, customerLastname);
+        CarBooking carBooking = new CarBooking(bookingNumber, vin, customer);
+
         repository.persist(carBooking);
     }
 }

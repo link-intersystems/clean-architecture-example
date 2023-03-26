@@ -1,8 +1,9 @@
 package com.link_intersystems.carrental.management.pickup.ui;
 
+import com.link_intersystems.carrental.management.booking.list.ui.CustomerModel;
 import com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingModel;
-import com.link_intersystems.carrental.management.rental.pickup.DriverRequestModel;
 import com.link_intersystems.carrental.management.rental.FuelLevel;
+import com.link_intersystems.carrental.management.rental.pickup.DriverRequestModel;
 import com.link_intersystems.carrental.management.rental.pickup.PickupCarRequestModel;
 
 import java.time.LocalDateTime;
@@ -15,8 +16,12 @@ public class PickupCarModelPresenter {
         pickupCarModel.setVin(listCarBookingModel.getVin());
         pickupCarModel.setBookingNumber(listCarBookingModel.getBookingNumber());
         pickupCarModel.setPickupDate(LocalDateTime.now().toString());
-        return pickupCarModel;
 
+        CustomerModel customerModel = listCarBookingModel.getCustomerModel();
+        pickupCarModel.setDriverFirstname(customerModel.getFirstname());
+        pickupCarModel.setDriverLastname(customerModel.getLastname());
+
+        return pickupCarModel;
     }
 
 

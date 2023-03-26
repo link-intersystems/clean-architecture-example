@@ -4,6 +4,7 @@ import com.link_intersystems.carrental.VIN;
 import com.link_intersystems.carrental.booking.BookingNumber;
 import com.link_intersystems.carrental.management.CarManagementDBExtension;
 import com.link_intersystems.carrental.management.booking.CarBooking;
+import com.link_intersystems.carrental.management.booking.Customer;
 import com.link_intersystems.carrental.management.booking.RentalState;
 import com.link_intersystems.carrental.management.rental.*;
 import com.link_intersystems.carrental.time.FixedClock;
@@ -18,7 +19,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 @CarManagementDBExtension
-class H2PickupCarRepositoryIntTest  {
+class H2PickupCarRepositoryIntTest {
 
     private H2PickupCarRepository repository;
     private JdbcTemplate jdbcTemplate;
@@ -31,7 +32,7 @@ class H2PickupCarRepositoryIntTest  {
 
     @Test
     void persistCarBooking() {
-        CarBooking carBooking = new CarBooking(new BookingNumber(42), new VIN("WMEEJ8AA3FK792135"));
+        CarBooking carBooking = new CarBooking(new BookingNumber(42), new VIN("WMEEJ8AA3FK792135"), new Customer("René", "Link"));
         carBooking.setRentalState(RentalState.PICKED_UP);
 
         repository.persist(carBooking);
@@ -42,11 +43,13 @@ class H2PickupCarRepositoryIntTest  {
         assertEquals(42, persistedObject.get("BOOKING_NUMBER"));
         assertEquals("WMEEJ8AA3FK792135", persistedObject.get("VIN"));
         assertEquals("PICKED_UP", persistedObject.get("RENTAL_STATE"));
+        assertEquals("René", persistedObject.get("CUSTOMER_FIRSTNAME"));
+        assertEquals("Link", persistedObject.get("CUSTOMER_LASTNAME"));
     }
 
     @Test
     void persistCarBookingWithoutRentalState() {
-        CarBooking carBooking = new CarBooking(new BookingNumber(42), new VIN("WMEEJ8AA3FK792135"));
+        CarBooking carBooking = new CarBooking(new BookingNumber(42), new VIN("WMEEJ8AA3FK792135"), new Customer("René", "Link"));
 
         repository.persist(carBooking);
 

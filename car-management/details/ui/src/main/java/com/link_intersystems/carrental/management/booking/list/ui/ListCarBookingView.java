@@ -37,12 +37,18 @@ public class ListCarBookingView {
         actionToolBar.setModel(toolbarActions);
         tableDescriptorModel.addColumnDescriptor("Booking Number", ListCarBookingModel::getBookingNumber);
         tableDescriptorModel.addColumnDescriptor("VIN", ListCarBookingModel::getVin);
+        tableDescriptorModel.addColumnDescriptor("Customer", this::getCustomerName);
         carBookingTableModel.setListTableDescriptorModel(tableDescriptorModel);
 
         bookingsTable.setModel(carBookingTableModel);
 
         panel.add(actionToolBar, BorderLayout.NORTH);
         panel.add(bookingsTableScrollPane, BorderLayout.CENTER);
+    }
+
+    private String getCustomerName(ListCarBookingModel listCarBookingModel) {
+        CustomerModel customerModel = listCarBookingModel.getCustomerModel();
+        return customerModel.getFirstname() + " " + customerModel.getLastname();
     }
 
     private void onSelectionChanged(ListSelectionEvent e) {
@@ -70,3 +76,4 @@ public class ListCarBookingView {
         return panel;
     }
 }
+

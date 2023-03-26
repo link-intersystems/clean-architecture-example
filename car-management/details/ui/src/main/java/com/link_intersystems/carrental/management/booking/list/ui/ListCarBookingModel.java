@@ -4,6 +4,15 @@ public class ListCarBookingModel {
 
     private String vin;
     private String bookingNumber;
+    private CustomerModel customerModel;
+
+    public CustomerModel getCustomerModel() {
+        return customerModel;
+    }
+
+    public void setCustomerModel(CustomerModel customerModel) {
+        this.customerModel = customerModel;
+    }
 
     public String getVin() {
         return vin;

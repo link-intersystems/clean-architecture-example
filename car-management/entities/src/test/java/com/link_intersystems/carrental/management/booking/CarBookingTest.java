@@ -11,7 +11,10 @@ class CarBookingTest {
 
     @Test
     void rentalState() {
-        CarBooking carBooking = new CarBooking(new BookingNumber(42), new VIN("WMEEJ8AA3FK792135"));
+        BookingNumber bookingNumber = new BookingNumber(42);
+        VIN vin = new VIN("WMEEJ8AA3FK792135");
+        Customer customer = new Customer("René", "Link");
+        CarBooking carBooking = new CarBooking(bookingNumber, vin, customer);
 
         assertNull(carBooking.getRentalState());
 

@@ -29,9 +29,13 @@ class ListBookingsInteractorTest {
         CarBookingResponseModel firstBooking = carBookings.get(0);
         assertEquals(1, firstBooking.getBookingNumber());
         assertEquals("WMEEJ8AA3FK792135", firstBooking.getVIN());
+        assertEquals("Nick", firstBooking.getCustomer().getFirstname());
+        assertEquals("Wahlberg", firstBooking.getCustomer().getLastname());
 
         CarBookingResponseModel secondBooking = carBookings.get(1);
         assertEquals(2, secondBooking.getBookingNumber());
         assertEquals("WMEEJ8AA3FK792135", secondBooking.getVIN());
+        assertEquals("René", secondBooking.getCustomer().getFirstname());
+        assertEquals("Link", secondBooking.getCustomer().getLastname());
     }
 }

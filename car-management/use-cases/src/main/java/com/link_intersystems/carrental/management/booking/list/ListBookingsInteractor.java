@@ -34,10 +34,16 @@ class ListBookingsInteractor implements ListBookingsUseCase {
     }
 
     private CarBookingResponseModel toResponseModel(CarBooking carBooking) {
-        CarBookingResponseModel carBookingResponseModel = new CarBookingResponseModel();
-        carBookingResponseModel.setBookingNumber(carBooking.getBookingNumber().getValue());
-        VIN vin = carBooking.getVin();
-        carBookingResponseModel.setVin(vin.getValue());
-        return carBookingResponseModel;
+        CarBookingResponseModel response = new CarBookingResponseModel();
+
+        response.setBookingNumber(carBooking.getBookingNumber().getValue());
+        response.setVin(carBooking.getVin().getValue());
+
+        CustomerResponseModel customer = new CustomerResponseModel();
+        customer.setFirstname(carBooking.getCustomer().getFirstname());
+        customer.setLastname(carBooking.getCustomer().getLastname());
+        response.setCustomer(customer);
+
+        return response;
     }
 }
