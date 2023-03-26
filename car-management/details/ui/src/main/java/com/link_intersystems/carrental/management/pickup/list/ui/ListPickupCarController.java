@@ -17,11 +17,9 @@ public class ListPickupCarController extends AbstractTaskAction<List<ListPickupC
     private ListPickupCarPresenter listPickupCarPresenter = new ListPickupCarPresenter();
     private SelectionProviderSupport<BookingNumberModel> selectedBookingNumberSupport = new SelectionProviderSupport<>(this);
     private ListPickupCarUseCase listPickupCarUseCase;
-    private MessageDialog messageDialog;
 
-    public ListPickupCarController(ListPickupCarUseCase listPickupCarUseCase, MessageDialog messageDialog) {
+    public ListPickupCarController(ListPickupCarUseCase listPickupCarUseCase) {
         this.listPickupCarUseCase = listPickupCarUseCase;
-        this.messageDialog = messageDialog;
 
         putValue(Action.NAME, "List picked up cars");
     }

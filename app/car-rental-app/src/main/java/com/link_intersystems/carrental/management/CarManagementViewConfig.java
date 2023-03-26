@@ -71,7 +71,7 @@ public class CarManagementViewConfig {
             listPickupCarUseCase = aopConfig.applyAOP(listPickupCarUseCase);
 
             ListPickupCarUIConfig listPickupCarUIConfig = new ListPickupCarUIConfig();
-            ListPickupCarController listPickupCarController = listPickupCarUIConfig.getPickupCarListController(messageDialog, listPickupCarUseCase);
+            ListPickupCarController listPickupCarController = listPickupCarUIConfig.getPickupCarListController(listPickupCarUseCase);
 
             ReturnCarComponent returnCarComponent = new ReturnCarComponent();
             ReturnCarUseCase returnCarUseCase = returnCarComponent.getReturnUseCase(jdbcTemplate);
