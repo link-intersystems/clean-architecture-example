@@ -10,10 +10,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 class CarBookingControllerTest {
 
-    private CarBookingUseCaseMock carBookingUseCaseMock;
+    private CarBookingUseCase carBookingUseCase;
     private MessageDialogMock messageDialogMock;
     private CarBookingController carBookingController;
     private ActionTrigger actionTrigger;
@@ -21,24 +23,45 @@ class CarBookingControllerTest {
 
     @BeforeEach
     void setUp() {
-        carBookingUseCaseMock = new CarBookingUseCaseMock();
+        carBookingUseCase = mock(CarBookingUseCase.class);
         messageDialogMock = new MessageDialogMock();
 
-        carBookingController = new CarBookingController(carBookingUseCaseMock, messageDialogMock);
+        carBookingController = new CarBookingController(carBookingUseCase, messageDialogMock);
         carBookingController.setTaskExecutor(new DirectTaskExecutor());
 
         actionTrigger = new ActionTrigger(this);
     }
 
     @Test
-    void performAction() {
+    void performAction() throws CarBookingException {
         CarOfferModel carOfferModel = new CarOfferModel();
         DefaultSelection<CarOfferModel> selection = new DefaultSelection<>(carOfferModel);
         SelectionChangeEvent<CarOfferModel> selectionChangeEvent = new SelectionChangeEvent<>(this, Selection.empty(), selection);
         carBookingController.getSelectionListener().selectionChanged(selectionChangeEvent);
         CarBookingResponseModel responseModel = new CarBookingResponseModel();
         responseModel.setBookingNumber("123456789");
-        carBookingUseCaseMock.addResponse(responseModel);
+        when(carBookingUseCase.bookCar(any(CarBookingRequestModel.class))).thenReturn(responseModel);
+
+        actionTrigger.performAction(carBookingController);
+
+        String info = messageDialogMock.getInfo();
+
+        assertTrue(info.contains("123456789"), () -> {
+            Throwable exception = messageDialogMock.getException();
+            exception.printStackTrace();
+            return "info";
+        });
+    }
+
+    @Test
+    void exception() throws CarBookingException {
+        CarOfferModel carOfferModel = new CarOfferModel();
+        DefaultSelection<CarOfferModel> selection = new DefaultSelection<>(carOfferModel);
+        SelectionChangeEvent<CarOfferModel> selectionChangeEvent = new SelectionChangeEvent<>(this, Selection.empty(), selection);
+        carBookingController.getSelectionListener().selectionChanged(selectionChangeEvent);
+        CarBookingResponseModel responseModel = new CarBookingResponseModel();
+        responseModel.setBookingNumber("123456789");
+        when(carBookingUseCase.bookCar(any(CarBookingRequestModel.class))).thenReturn(responseModel);
 
         actionTrigger.performAction(carBookingController);
 
