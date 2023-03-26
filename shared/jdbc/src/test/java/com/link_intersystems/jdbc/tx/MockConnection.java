@@ -5,11 +5,19 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class MockConnection implements Connection {
     private boolean rollback;
+    private boolean commit;
+    private boolean autoCommit = true;
 
     public boolean isRollback() {
         return rollback;
+    }
+
+    public boolean isCommit() {
+        return commit;
     }
 
     @Override
@@ -34,22 +42,22 @@ public class MockConnection implements Connection {
 
     @Override
     public void setAutoCommit(boolean autoCommit) throws SQLException {
-
+        this.autoCommit = autoCommit;
     }
 
     @Override
     public boolean getAutoCommit() throws SQLException {
-        return false;
+        return autoCommit;
     }
 
     @Override
     public void commit() throws SQLException {
-
+        this.commit = true;
     }
 
     @Override
     public void rollback() throws SQLException {
-this.rollback = true;
+        this.rollback = true;
     }
 
     @Override
@@ -281,4 +289,13 @@ this.rollback = true;
     public boolean isWrapperFor(Class<?> iface) throws SQLException {
         return false;
     }
+
+    public void assertRollback() {
+        assertTrue(isRollback(), "rollback");
+    }
+
+    public void assertCommit() {
+        assertTrue(isCommit(), "commit");
+    }
+
 }

@@ -79,10 +79,17 @@ public class JdbcTemplate {
 
     public <T> T query(ConnectionCallable<T> connectionCallable) {
         try (Connection connection = connectionSupplier.get()) {
+            String previousSchema = connection.getSchema();
+
             if (schema != null) {
                 connection.setSchema(schema);
             }
-            return connectionCallable.call(connection);
+
+            try {
+                return connectionCallable.call(connection);
+            } finally {
+                connection.setSchema(previousSchema);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
