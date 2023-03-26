@@ -30,12 +30,18 @@
         </dependency>
 
         <dependency>
+            <groupId>com.acme.car-rental.shared</groupId>
+            <artifactId>car-rental-shared-time</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>5.2.0</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>nl.jqno.equalsverifier</groupId>
             <artifactId>equalsverifier</artifactId>

@@ -68,6 +68,10 @@ public class PickupCarForm<T> {
         modelToView();
     }
 
+    public PickupCarModel getModel() {
+        return pickupCarModel;
+    }
+
     public void setEventsEnabled(boolean enabled) {
         driverFirstname.getDocument().removeDocumentListener(viewToModelListener);
         driverLicence.getDocument().removeDocumentListener(viewToModelListener);

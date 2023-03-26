@@ -16,9 +16,6 @@ public class ReturnCarForm {
     private JTextField returnDateField = new JTextField();
     private JTextField odometerField = new JTextField();
     private JSlider fuelSlider = new JSlider();
-    private JTextField driverFirstname = new JTextField();
-    private JTextField driverLastname = new JTextField();
-    private JTextField driverLicence = new JTextField();
 
     private ReturnCarModel returnCarModel = new ReturnCarModel();
 

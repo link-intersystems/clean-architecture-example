@@ -4,6 +4,8 @@ import com.link_intersystems.carrental.offer.CarOfferModel;
 import com.link_intersystems.swing.action.ActionTrigger;
 import com.link_intersystems.swing.action.DirectTaskExecutor;
 import com.link_intersystems.swing.selection.DefaultSelection;
+import com.link_intersystems.swing.selection.Selection;
+import com.link_intersystems.swing.selection.SelectionChangeEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +34,8 @@ class CarBookingControllerTest {
     void performAction() {
         CarOfferModel carOfferModel = new CarOfferModel();
         DefaultSelection<CarOfferModel> selection = new DefaultSelection<>(carOfferModel);
-        carBookingController.setCarOfferSelection(selection);
+        SelectionChangeEvent<CarOfferModel> selectionChangeEvent = new SelectionChangeEvent<>(this, Selection.empty(), selection);
+        carBookingController.getSelectionListener().selectionChanged(selectionChangeEvent);
         CarBookingResponseModel responseModel = new CarBookingResponseModel();
         responseModel.setBookingNumber("123456789");
         carBookingUseCaseMock.addResponse(responseModel);

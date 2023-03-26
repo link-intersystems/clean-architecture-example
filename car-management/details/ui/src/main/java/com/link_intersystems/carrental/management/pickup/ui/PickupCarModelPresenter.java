@@ -5,6 +5,7 @@ import com.link_intersystems.carrental.management.booking.list.ui.ListCarBooking
 import com.link_intersystems.carrental.management.rental.FuelLevel;
 import com.link_intersystems.carrental.management.rental.pickup.DriverRequestModel;
 import com.link_intersystems.carrental.management.rental.pickup.PickupCarRequestModel;
+import com.link_intersystems.carrental.time.ClockProvider;
 
 import java.time.LocalDateTime;
 
@@ -15,7 +16,7 @@ public class PickupCarModelPresenter {
 
         pickupCarModel.setVin(listCarBookingModel.getVin());
         pickupCarModel.setBookingNumber(listCarBookingModel.getBookingNumber());
-        pickupCarModel.setPickupDate(LocalDateTime.now().toString());
+        pickupCarModel.setPickupDate(ClockProvider.now().toString());
 
         CustomerModel customerModel = listCarBookingModel.getCustomerModel();
         pickupCarModel.setDriverFirstname(customerModel.getFirstname());

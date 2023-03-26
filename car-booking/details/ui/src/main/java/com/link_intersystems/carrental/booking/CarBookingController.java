@@ -50,7 +50,7 @@ public class CarBookingController extends AbstractTaskAction<CarBookingResponseM
         this.onDoneActionListener = Optional.ofNullable(onDoneActionListener);
     }
 
-    public void setCarOfferSelection(Selection<CarOfferModel> carOfferSelection) {
+    private void setCarOfferSelection(Selection<CarOfferModel> carOfferSelection) {
         this.carOfferSelection = carOfferSelection;
         updateEnablement();
     }

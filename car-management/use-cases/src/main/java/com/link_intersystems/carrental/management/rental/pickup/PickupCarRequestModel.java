@@ -36,7 +36,7 @@ public class PickupCarRequestModel {
         this.pickupDateTime = pickupDateTime;
     }
 
-    DriverRequestModel getDriver() {
+    public DriverRequestModel getDriver() {
         return driver;
     }
 

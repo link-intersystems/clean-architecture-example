@@ -3,6 +3,7 @@ package com.link_intersystems.carrental.booking;
 import com.link_intersystems.carrental.offer.*;
 import com.link_intersystems.carrental.time.LocalDateTimeUtils;
 import com.link_intersystems.swing.action.ActionTrigger;
+import com.link_intersystems.swing.action.DirectTaskExecutor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +11,6 @@ import javax.swing.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Semaphore;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,22 +20,17 @@ class CarOfferControllerTest {
     private CarOfferController carOfferController;
     private CarSearchModel carSearchModel;
     private ListModel<CarOfferModel> carOfferListModel;
-    private Semaphore controllerDone;
+    private ActionTrigger actionTrigger;
 
     @BeforeEach
     void setUp() {
-        controllerDone = new Semaphore(0);
-
         carOffersUseCase = new CarOfferUseCaseMock();
-        carOfferController = new CarOfferController(carOffersUseCase) {
-            @Override
-            protected void done(List<CarOfferOutputModel> response) {
-                super.done(response);
-                controllerDone.release();
-            }
-        };
+        carOfferController = new CarOfferController(carOffersUseCase);
+        carOfferController.setTaskExecutor(new DirectTaskExecutor());
         carSearchModel = carOfferController.getCarSearchModel();
         carOfferListModel = carOfferController.getCarOfferListModel();
+
+        actionTrigger = new ActionTrigger(this);
     }
 
     @Test
@@ -69,8 +64,8 @@ class CarOfferControllerTest {
         carSearchModel.getPickupDate().setValue("2023-01-15T08:00:00");
         carSearchModel.getReturnDate().setValue("2023-01-17T08:00:00");
 
-        new ActionTrigger(this).performAction(carOfferController);
-        controllerDone.acquire();
+
+        actionTrigger.performAction(carOfferController);
 
         assertTrue(carOffersUseCase.isInvoked());
 

@@ -21,7 +21,7 @@ public class PickupCarController extends AbstractAction implements SelectionList
 
     private PickupCarUseCase pickupCarUseCase;
     private MessageDialog messageDialog;
-    private Selection<ListCarBookingModel> listCarBookingModelSelection;
+    private Selection<ListCarBookingModel> listCarBookingModelSelection = Selection.empty();
     private ActionTrigger actionTrigger = new ActionTrigger(this);
     private ActionListener afterPickupActionListener = a -> {
     };
@@ -57,7 +57,7 @@ public class PickupCarController extends AbstractAction implements SelectionList
         PickupCarModel pickupCarModel = presenter.toPickupCarModel(firstElement);
 
 
-        PickupCarForm<PickupCarModel> pickupCarForm = new PickupCarForm<>();
+        PickupCarForm<PickupCarModel> pickupCarForm = createPickupCarForm();
         pickupCarForm.setModel(pickupCarModel);
 
         int pickupCar = messageDialog.showDialog("Pickup Car", pickupCarForm.getComponent());
@@ -69,5 +69,9 @@ public class PickupCarController extends AbstractAction implements SelectionList
 
             actionTrigger.performAction(afterPickupActionListener);
         }
+    }
+
+    protected PickupCarForm<PickupCarModel> createPickupCarForm() {
+        return new PickupCarForm<>();
     }
 }
