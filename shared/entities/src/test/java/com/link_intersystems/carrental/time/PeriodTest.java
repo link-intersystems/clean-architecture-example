@@ -131,7 +131,7 @@ class PeriodTest {
     }
 
     @Test
-    void equalsAndHashCode(){
+    void equalsAndHashCode() {
         EqualsVerifier.simple().forClass(Period.class).verify();
     }
 }

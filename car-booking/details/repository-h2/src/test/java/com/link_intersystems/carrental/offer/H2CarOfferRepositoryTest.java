@@ -7,7 +7,6 @@ import com.link_intersystems.carrental.rental.RentalCar;
 import com.link_intersystems.carrental.time.Period;
 import com.link_intersystems.carrental.time.PeriodBuilder;
 import com.link_intersystems.jdbc.JdbcTemplate;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +17,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @CarRentalDBExtension
-class H2CarOfferRepositoryIntTest  {
+class H2CarOfferRepositoryIntTest {
 
     private H2CarOfferRepository repository;
 

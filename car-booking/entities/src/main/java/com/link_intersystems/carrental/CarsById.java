@@ -1,8 +1,5 @@
 package com.link_intersystems.carrental;
 
-import com.link_intersystems.carrental.Car;
-import com.link_intersystems.carrental.CarId;
-
 import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;

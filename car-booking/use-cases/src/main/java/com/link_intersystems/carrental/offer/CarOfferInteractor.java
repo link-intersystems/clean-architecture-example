@@ -15,7 +15,7 @@ import static java.util.stream.Collectors.*;
 
 class CarOfferInteractor implements CarOfferUseCase {
 
-    private IntputOutputMapper intputOutputMapper = new IntputOutputMapper();
+    private BoundaryModelMapper boundaryModelMapper = new BoundaryModelMapper();
 
     private final CarOfferRepository repository;
 
@@ -24,7 +24,7 @@ class CarOfferInteractor implements CarOfferUseCase {
     }
 
     @Override
-    public List<CarOfferOutputModel> makeOffers(CarOfferRequestModel request) {
+    public List<CarOfferResponseModel> makeOffers(CarOfferRequestModel request) {
         List<RentalCar> rentalCars = findMatchingCars(request);
 
         LocalDateTime desiredPickUpDateTime = request.getPickUpDateTime();
@@ -37,7 +37,7 @@ class CarOfferInteractor implements CarOfferUseCase {
 
         List<CarId> carIds = rentalOffers.stream().map(RentalOffer::getRentalCar).map(RentalCar::getCarId).collect(toList());
         CarsById carsById = repository.findCars(carIds);
-        return intputOutputMapper.toOutputModel(carsById, rentalOffers, bookingPeriod);
+        return boundaryModelMapper.toResponseModels(carsById, rentalOffers, bookingPeriod);
     }
 
     private List<RentalOffer> makeOffer(List<RentalCar> rentalCars, Period desiredPeriod) {

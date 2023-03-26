@@ -2,7 +2,6 @@ package com.link_intersystems.carrental;
 
 import com.link_intersystems.carrental.time.FixedClock;
 import nl.jqno.equalsverifier.EqualsVerifier;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

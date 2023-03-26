@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.management;
 
-import com.link_intersystems.carrental.AOPConfig;
 import com.link_intersystems.carrental.DomainEventSubscriber;
+import com.link_intersystems.carrental.main.AOPConfig;
 import com.link_intersystems.carrental.management.booking.create.CarBookedEventSubscriber;
 import com.link_intersystems.carrental.management.booking.create.CreateCarBookingComponent;
 import com.link_intersystems.carrental.management.booking.create.CreateCarBookingUseCase;
@@ -10,26 +10,23 @@ import com.link_intersystems.carrental.management.booking.list.ListCarBookingCom
 import com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingController;
 import com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingUIConfig;
 import com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingView;
+import com.link_intersystems.carrental.management.pickup.PickupCarComponent;
+import com.link_intersystems.carrental.management.pickup.PickupCarUseCase;
+import com.link_intersystems.carrental.management.pickup.get.GetPickupCarComponent;
+import com.link_intersystems.carrental.management.pickup.get.GetPickupCarUseCase;
+import com.link_intersystems.carrental.management.pickup.list.ListPickupCarComponent;
+import com.link_intersystems.carrental.management.pickup.list.ListPickupCarUseCase;
 import com.link_intersystems.carrental.management.pickup.list.ui.ListPickupCarController;
 import com.link_intersystems.carrental.management.pickup.list.ui.ListPickupCarUIConfig;
 import com.link_intersystems.carrental.management.pickup.list.ui.ListPickupCarView;
 import com.link_intersystems.carrental.management.pickup.ui.PickupCarController;
 import com.link_intersystems.carrental.management.pickup.ui.PickupUIConfig;
-import com.link_intersystems.carrental.management.rental.pickup.PickupCarComponent;
-import com.link_intersystems.carrental.management.rental.pickup.PickupCarUseCase;
-import com.link_intersystems.carrental.management.rental.pickup.get.GetPickupCarComponent;
-import com.link_intersystems.carrental.management.rental.pickup.get.GetPickupCarUseCase;
-import com.link_intersystems.carrental.management.rental.pickup.list.ListPickupCarComponent;
-import com.link_intersystems.carrental.management.rental.pickup.list.ListPickupCarUseCase;
-import com.link_intersystems.carrental.management.rental.returnCar.ReturnCarComponent;
-import com.link_intersystems.carrental.management.rental.returnCar.ReturnCarUseCase;
+import com.link_intersystems.carrental.management.returnCar.ReturnCarComponent;
+import com.link_intersystems.carrental.management.returnCar.ReturnCarUseCase;
 import com.link_intersystems.carrental.management.returnCar.ui.ReturnCarFormController;
 import com.link_intersystems.carrental.management.returnCar.ui.ReturnCarUIConfig;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
 import com.link_intersystems.jdbc.JdbcTemplate;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static java.util.Objects.*;
 

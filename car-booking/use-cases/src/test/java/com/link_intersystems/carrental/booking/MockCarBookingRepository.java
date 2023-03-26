@@ -2,6 +2,7 @@ package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.CarFixture;
 import com.link_intersystems.carrental.CarId;
+import com.link_intersystems.carrental.customer.Customer;
 import com.link_intersystems.carrental.customer.CustomerFixture;
 import com.link_intersystems.carrental.customer.CustomerId;
 import com.link_intersystems.carrental.time.Period;
@@ -45,8 +46,8 @@ class MockCarBookingRepository implements CarBookingRepository {
     }
 
     @Override
-    public boolean isCustomerExistent(CustomerId customerId) {
-        return customers.getById(customerId.getValue()) != null;
+    public Customer findCustomer(CustomerId customerId) {
+        return customers.getById(customerId.getValue());
     }
 
     public CarBooking getLastPersistedCarBooking() {

@@ -1,6 +1,5 @@
 package com.link_intersystems.carrental.money;
 
-import com.link_intersystems.carrental.money.Amount;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

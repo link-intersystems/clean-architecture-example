@@ -1,14 +1,13 @@
 package com.link_intersystems.carrental.offer;
 
-import com.link_intersystems.carrental.AOPConfig;
 import com.link_intersystems.carrental.DomainEventBus;
-import com.link_intersystems.carrental.DomainEventSubscriber;
 import com.link_intersystems.carrental.booking.CarBookingComponent;
 import com.link_intersystems.carrental.booking.CarBookingUseCase;
+import com.link_intersystems.carrental.main.AOPConfig;
+import com.link_intersystems.carrental.offer.ui.CarOfferUIConfig;
+import com.link_intersystems.carrental.offer.ui.CarOfferView;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
 import com.link_intersystems.jdbc.JdbcTemplate;
-
-import java.util.List;
 
 import static java.util.Objects.*;
 

@@ -24,7 +24,7 @@ class CarBookedEventSubscriberTest {
 
     @Test
     void handleEvent() {
-        eventSubscriber.handleEvent(new CarBookedEvent(42, "WMEEJ8AA3FK792135"));
+        eventSubscriber.handleEvent(new CarBookedEvent(42, "WMEEJ8AA3FK792135", "René", "Link"));
 
         CreateCarBookingRequestModel latestRequestModel = useCase.getLatestRequestModel();
         assertEquals(42, latestRequestModel.getBookingNumber());

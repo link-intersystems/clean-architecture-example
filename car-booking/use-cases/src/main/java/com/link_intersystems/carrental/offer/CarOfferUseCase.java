@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface CarOfferUseCase {
 
-    List<CarOfferOutputModel> makeOffers(CarOfferRequestModel request);
+    List<CarOfferResponseModel> makeOffers(CarOfferRequestModel request);
 }

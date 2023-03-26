@@ -10,11 +10,11 @@ public class CarManagementView {
 
     private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
 
-    public void setListCarBookingsView(ListCarBookingView listCarBookingsView){
+    public void setListCarBookingsView(ListCarBookingView listCarBookingsView) {
         tabbedPane.addTab("Car Bookings", listCarBookingsView.getViewComponent());
     }
 
-    public void setListPickupCarView(ListPickupCarView listPickupCarView){
+    public void setListPickupCarView(ListPickupCarView listPickupCarView) {
         tabbedPane.addTab("Picked up cars", listPickupCarView.getViewComponent());
     }
 

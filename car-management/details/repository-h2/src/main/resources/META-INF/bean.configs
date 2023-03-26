@@ -3,4 +3,4 @@ com.link_intersystems.carrental.management.booking.list.H2ListBookingsRepository
 com.link_intersystems.carrental.management.rental.pickup.H2PickupCarRepository
 com.link_intersystems.carrental.management.rental.pickup.list.H2ListPickupCarRepository
 com.link_intersystems.carrental.management.rental.pickup.get.H2GetPickupCarRepository
-com.link_intersystems.carrental.management.rental.returnCar.H2ReturnCarRepository
+com.link_intersystems.carrental.management.returnCar.H2ReturnCarRepository

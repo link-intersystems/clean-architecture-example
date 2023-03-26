@@ -23,6 +23,10 @@ public class CarBookedEventSubscriber implements DomainEventSubscriber {
         CreateCarBookingRequestModel requestModel = new CreateCarBookingRequestModel();
         requestModel.setBookingNumber(carBookedEvent.getBookingNumber());
         requestModel.setVin(carBookedEvent.getVin());
+        CustomerRequestModel customerModel = new CustomerRequestModel();
+        customerModel.setFirstname(carBookedEvent.getCustomerFirstname());
+        customerModel.setLastname(carBookedEvent.getCustomerLastname());
+        requestModel.setCustomerRequestModel(customerModel);
         createCarBookingUseCase.createCarBooking(requestModel);
     }
 }

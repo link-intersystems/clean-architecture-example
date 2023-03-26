@@ -2,6 +2,7 @@ package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.CarId;
 import com.link_intersystems.carrental.VIN;
+import com.link_intersystems.carrental.customer.Customer;
 import com.link_intersystems.carrental.customer.CustomerId;
 import com.link_intersystems.carrental.time.Period;
 import com.link_intersystems.jdbc.JdbcTemplate;
@@ -71,10 +72,17 @@ class H2CarBookingRepository implements CarBookingRepository {
     }
 
     @Override
-    public boolean isCustomerExistent(CustomerId customerId) {
+    public Customer findCustomer(CustomerId customerId) {
         Object[] queryArgs = {customerId.getValue()};
-        RowMapper<Integer> rowMapper = rs -> rs.getInt("ID");
-        Integer existentCustomerID = jdbcTemplate.queryForObject("select * from customer where id = ?", queryArgs, rowMapper);
-        return existentCustomerID != null;
+        Customer customer = jdbcTemplate.queryForObject("""
+                select * from customer where id = ?""", queryArgs, this::map);
+        return customer;
+    }
+
+    private Customer map(ResultSet rs) throws SQLException {
+        CustomerId id = new CustomerId(rs.getInt("ID"));
+        String firstname = rs.getString("FIRSTNAME");
+        String lastname = rs.getString("LASTNAME");
+        return new Customer(id, firstname, lastname);
     }
 }

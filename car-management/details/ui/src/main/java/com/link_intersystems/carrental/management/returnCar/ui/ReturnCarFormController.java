@@ -1,11 +1,10 @@
 package com.link_intersystems.carrental.management.returnCar.ui;
 
 import com.link_intersystems.carrental.management.booking.ui.BookingNumberModel;
-import com.link_intersystems.carrental.management.rental.FuelLevel;
-import com.link_intersystems.carrental.management.rental.pickup.get.GetPickupCarResponseModel;
-import com.link_intersystems.carrental.management.rental.pickup.get.GetPickupCarUseCase;
-import com.link_intersystems.carrental.management.rental.returnCar.ReturnCarRequestModel;
-import com.link_intersystems.carrental.management.rental.returnCar.ReturnCarUseCase;
+import com.link_intersystems.carrental.management.pickup.get.GetPickupCarResponseModel;
+import com.link_intersystems.carrental.management.pickup.get.GetPickupCarUseCase;
+import com.link_intersystems.carrental.management.returnCar.ReturnCarRequestModel;
+import com.link_intersystems.carrental.management.returnCar.ReturnCarUseCase;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
 import com.link_intersystems.swing.action.AbstractTaskAction;
 import com.link_intersystems.swing.action.ActionTrigger;
@@ -16,7 +15,6 @@ import com.link_intersystems.swing.selection.SelectionListener;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
-import java.time.LocalDateTime;
 
 import static com.link_intersystems.carrental.swing.action.ActionConstants.*;
 import static java.util.Objects.*;

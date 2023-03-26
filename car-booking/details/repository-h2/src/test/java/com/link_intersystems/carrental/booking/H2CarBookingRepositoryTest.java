@@ -3,6 +3,7 @@ package com.link_intersystems.carrental.booking;
 import com.link_intersystems.carrental.CarId;
 import com.link_intersystems.carrental.CarRentalDBExtension;
 import com.link_intersystems.carrental.VIN;
+import com.link_intersystems.carrental.customer.Customer;
 import com.link_intersystems.carrental.customer.CustomerId;
 import com.link_intersystems.carrental.time.Period;
 import com.link_intersystems.jdbc.JdbcTemplate;
@@ -15,7 +16,7 @@ import static com.link_intersystems.carrental.time.LocalDateTimeUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @CarRentalDBExtension
-class H2CarBookingRepositoryIntTest  {
+class H2CarBookingRepositoryIntTest {
 
     private H2CarBookingRepository h2CarBookingRepository;
 
@@ -66,8 +67,9 @@ class H2CarBookingRepositoryIntTest  {
     }
 
     @Test
-    void isCustomerExistent() {
-        assertTrue(h2CarBookingRepository.isCustomerExistent(new CustomerId(1)));
-        assertFalse(h2CarBookingRepository.isCustomerExistent(new CustomerId(1000)));
+    void findCustomer() {
+        Customer customer = new Customer(new CustomerId(1), "Nick", "Wahlberg");
+        assertEquals(customer, h2CarBookingRepository.findCustomer(new CustomerId(1)));
+        assertNull(h2CarBookingRepository.findCustomer(new CustomerId(1000)));
     }
 }

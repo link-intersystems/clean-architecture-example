@@ -3,6 +3,7 @@ package com.link_intersystems.carrental.booking;
 import com.link_intersystems.carrental.CarId;
 import com.link_intersystems.carrental.DomainEventBus;
 import com.link_intersystems.carrental.VIN;
+import com.link_intersystems.carrental.customer.Customer;
 import com.link_intersystems.carrental.customer.CustomerId;
 import com.link_intersystems.carrental.time.ClockProvider;
 import com.link_intersystems.carrental.time.Period;
@@ -30,7 +31,8 @@ class CarBookingInteractor implements CarBookingUseCase {
         ensureCarAvailable(carId, bookingPeriod);
 
         CustomerId customerId = new CustomerId(request.getCustomerId());
-        if (!repository.isCustomerExistent(customerId)) {
+        Customer customer = repository.findCustomer(customerId);
+        if (customer == null) {
             throw new CarBookingException("customer does not exist");
         }
 
@@ -41,7 +43,7 @@ class CarBookingInteractor implements CarBookingUseCase {
         CarBookingResponseModel responseModel = new CarBookingResponseModel();
         responseModel.setBookingNumber(Integer.toString(carBooking.getBookingNumber().getValue()));
 
-        CarBookedEvent carBookedEvent = new CarBookedEvent(carBooking.getBookingNumber().getValue(), carBooking.getCarId().getValue());
+        CarBookedEvent carBookedEvent = new CarBookedEvent(carBooking.getBookingNumber().getValue(), carBooking.getCarId().getValue(), customer.getFirstname(), customer.getLastname());
         domainEventBus.publish(carBookedEvent);
         return responseModel;
     }

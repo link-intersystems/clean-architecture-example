@@ -3,4 +3,4 @@ com.link_intersystems.carrental.management.booking.list.ListBookingsInteractor
 com.link_intersystems.carrental.management.rental.pickup.PickupCarInteractor
 com.link_intersystems.carrental.management.rental.pickup.list.ListPickupCarInteractor
 com.link_intersystems.carrental.management.rental.pickup.get.GetPickupCarInteractor
-com.link_intersystems.carrental.management.rental.returnCar.ReturnCarInteractor
+com.link_intersystems.carrental.management.returnCar.ReturnCarInteractor

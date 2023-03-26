@@ -4,7 +4,6 @@ import com.link_intersystems.jdbc.ConnectionSupplier;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.util.Objects;
 
 import static java.util.Objects.*;
 

@@ -2,10 +2,10 @@ package com.link_intersystems.carrental.management.pickup.ui;
 
 import com.link_intersystems.carrental.management.booking.list.ui.CustomerModel;
 import com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingModel;
+import com.link_intersystems.carrental.management.pickup.DriverRequestModel;
+import com.link_intersystems.carrental.management.pickup.PickupCarRequestModel;
+import com.link_intersystems.carrental.management.pickup.PickupCarUseCase;
 import com.link_intersystems.carrental.management.rental.FuelLevel;
-import com.link_intersystems.carrental.management.rental.pickup.DriverRequestModel;
-import com.link_intersystems.carrental.management.rental.pickup.PickupCarRequestModel;
-import com.link_intersystems.carrental.management.rental.pickup.PickupCarUseCase;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
 import com.link_intersystems.carrental.time.ClockProvider;
 import com.link_intersystems.carrental.time.FixedClock;
