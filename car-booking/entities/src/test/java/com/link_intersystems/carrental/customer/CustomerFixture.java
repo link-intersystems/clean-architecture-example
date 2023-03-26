@@ -1,13 +1,10 @@
 package com.link_intersystems.carrental.customer;
 
 import com.link_intersystems.EntityFixture;
-import com.link_intersystems.carrental.time.ClockFactory;
 
 import java.util.List;
 
 public class CustomerFixture extends EntityFixture<Customer> {
-
-    private ClockFactory clockFactory = new ClockFactory();
 
     @Override
     protected void init(List<Customer> entities) {

@@ -27,8 +27,7 @@ class FixedClockExtension implements BeforeEachCallback, AfterEachCallback, Para
 
         String value = fixedClock.value();
         LocalDateTime localDateTime = LocalDateTime.parse(value.replaceAll(" ", "T"));
-        ClockFactory clockFactory = new ClockFactory();
-        Clock clockForTest = clockFactory.getClock(localDateTime);
+        Clock clockForTest = LocalDateTimeUtils.clockOf(localDateTime);
         ClockProvider.setClock(clockForTest);
         store.put(FIXED_CLOCK_KEY, clockForTest);
     }
