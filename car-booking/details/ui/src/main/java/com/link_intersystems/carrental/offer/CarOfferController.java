@@ -1,14 +1,14 @@
 package com.link_intersystems.carrental.offer;
 
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
-import com.link_intersystems.swing.action.AbstractWorkerAction;
-import com.link_intersystems.swing.action.BackgroundProgress;
+import com.link_intersystems.swing.action.AbstractTaskAction;
+import com.link_intersystems.swing.action.TaskProgress;
 
 import javax.swing.*;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class CarOfferController extends AbstractWorkerAction<List<CarOfferOutputModel>, Void> {
+public class CarOfferController extends AbstractTaskAction<List<CarOfferOutputModel>, Void> {
 
     private CarOfferUseCase carOfferUseCase;
 
@@ -37,7 +37,7 @@ public class CarOfferController extends AbstractWorkerAction<List<CarOfferOutput
     }
 
     @Override
-    protected List<CarOfferOutputModel> doInBackground(BackgroundProgress<Void> backgroundProgress) throws Exception {
+    protected List<CarOfferOutputModel> doInBackground(TaskProgress<Void> backgroundProgress) throws Exception {
         CarOfferRequestModel requestModel = carOfferPresenter.toRequestModel(carSearchModel);
         return carOfferUseCase.makeOffers(requestModel);
     }

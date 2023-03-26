@@ -1,6 +1,5 @@
 package com.link_intersystems.carrental.management.booking.list;
 
-import com.link_intersystems.carrental.VIN;
 import com.link_intersystems.carrental.management.booking.CarBooking;
 
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ class ListBookingsInteractor implements ListBookingsUseCase {
         CarBookingResponseModel response = new CarBookingResponseModel();
 
         response.setBookingNumber(carBooking.getBookingNumber().getValue());
-        response.setVin(carBooking.getVin().getValue());
+        response.setVIN(carBooking.getVin().getValue());
 
         CustomerResponseModel customer = new CustomerResponseModel();
         customer.setFirstname(carBooking.getCustomer().getFirstname());

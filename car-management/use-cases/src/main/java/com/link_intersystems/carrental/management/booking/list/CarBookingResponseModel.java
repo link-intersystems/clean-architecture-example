@@ -16,7 +16,7 @@ public class CarBookingResponseModel {
         this.customer = customer;
     }
 
-    public String getVin() {
+    public String getVIN() {
         return vin;
     }
 
@@ -28,11 +28,7 @@ public class CarBookingResponseModel {
         this.bookingNumber = bookingNumber;
     }
 
-    public String getVIN() {
-        return vin;
-    }
-
-    void setVin(String vin) {
-        this.vin = vin;
+    void setVIN(String VIN) {
+        this.vin = VIN;
     }
 }

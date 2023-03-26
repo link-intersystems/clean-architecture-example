@@ -2,14 +2,13 @@ package com.link_intersystems.carrental.management.booking.list.ui;
 
 import com.link_intersystems.carrental.management.booking.list.CarBookingResponseModel;
 import com.link_intersystems.carrental.management.booking.list.ListBookingsUseCase;
-import com.link_intersystems.swing.action.AbstractWorkerAction;
-import com.link_intersystems.swing.action.BackgroundProgress;
+import com.link_intersystems.swing.action.AbstractTaskAction;
+import com.link_intersystems.swing.action.TaskProgress;
 
 import javax.swing.*;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-public class ListCarBookingController extends AbstractWorkerAction<List<CarBookingResponseModel>, Void> {
+public class ListCarBookingController extends AbstractTaskAction<List<CarBookingResponseModel>, Void> {
 
     private DefaultListModel<ListCarBookingModel> carBookingListModel = new DefaultListModel<>();
     private CarBookingPresenter carBookingPresenter = new CarBookingPresenter();
@@ -27,11 +26,10 @@ public class ListCarBookingController extends AbstractWorkerAction<List<CarBooki
     }
 
     @Override
-    protected List<CarBookingResponseModel> doInBackground(BackgroundProgress<Void> backgroundProgress) throws Exception {
+    protected List<CarBookingResponseModel> doInBackground(TaskProgress<Void> backgroundProgress) throws Exception {
         return listBookingsUseCase.listBookings();
     }
 
-    @Override
     protected void done(List<CarBookingResponseModel> carBookings) {
         carBookingListModel.clear();
 
@@ -39,13 +37,5 @@ public class ListCarBookingController extends AbstractWorkerAction<List<CarBooki
         carBookingListModel.addAll(listCarBookingModels);
     }
 
-    @Override
-    protected void failed(ExecutionException e) {
-        Throwable cause = e.getCause();
-        if (cause instanceof RuntimeException) {
-            throw (RuntimeException) cause;
-        }
 
-        throw new RuntimeException(e);
-    }
 }

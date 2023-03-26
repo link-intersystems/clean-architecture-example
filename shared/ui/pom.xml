@@ -12,4 +12,10 @@
 
     <artifactId>car-rental-shared-ui</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.link-intersystems.commons</groupId>
+            <artifactId>lis-commons-swing</artifactId>
+        </dependency>
+    </dependencies>
 </project>

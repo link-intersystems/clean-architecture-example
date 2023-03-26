@@ -1,15 +1,15 @@
 package com.link_intersystems.carrental.management.returnCar.ui;
 
 import com.link_intersystems.carrental.management.booking.ui.BookingNumberModel;
+import com.link_intersystems.carrental.management.rental.FuelLevel;
 import com.link_intersystems.carrental.management.rental.pickup.get.GetPickupCarResponseModel;
 import com.link_intersystems.carrental.management.rental.pickup.get.GetPickupCarUseCase;
-import com.link_intersystems.carrental.management.rental.FuelLevel;
 import com.link_intersystems.carrental.management.rental.returnCar.ReturnCarRequestModel;
 import com.link_intersystems.carrental.management.rental.returnCar.ReturnCarUseCase;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
-import com.link_intersystems.swing.action.AbstractWorkerAction;
+import com.link_intersystems.swing.action.AbstractTaskAction;
 import com.link_intersystems.swing.action.ActionTrigger;
-import com.link_intersystems.swing.action.BackgroundProgress;
+import com.link_intersystems.swing.action.TaskProgress;
 import com.link_intersystems.swing.selection.Selection;
 import com.link_intersystems.swing.selection.SelectionChangeEvent;
 import com.link_intersystems.swing.selection.SelectionListener;
@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 import static com.link_intersystems.carrental.swing.action.ActionConstants.*;
 import static java.util.Objects.*;
 
-public class ReturnCarFormController extends AbstractWorkerAction<GetPickupCarResponseModel, Void> implements SelectionListener<BookingNumberModel> {
+public class ReturnCarFormController extends AbstractTaskAction<GetPickupCarResponseModel, Void> implements SelectionListener<BookingNumberModel> {
 
     private ReturnCarModelPresenter presenter = new ReturnCarModelPresenter();
     private GetPickupCarUseCase getPickupCarUseCase;
@@ -55,7 +55,7 @@ public class ReturnCarFormController extends AbstractWorkerAction<GetPickupCarRe
     }
 
     @Override
-    protected GetPickupCarResponseModel doInBackground(BackgroundProgress<Void> backgroundProgress) throws Exception {
+    protected GetPickupCarResponseModel doInBackground(TaskProgress<Void> backgroundProgress) throws Exception {
         BookingNumberModel bookingNumberModel = selectedModel.getFirstElement();
         return getPickupCarUseCase.getPickupCar(bookingNumberModel.getValue());
     }
@@ -72,10 +72,10 @@ public class ReturnCarFormController extends AbstractWorkerAction<GetPickupCarRe
         int returnCarResult = messageDialog.showDialog("Return car", returnCarForm.getComponent());
         if (JOptionPane.OK_OPTION == returnCarResult) {
 
-            AbstractWorkerAction<Void, Void> returnCarAction = new AbstractWorkerAction<>() {
+            Action returnCarAction = new AbstractTaskAction<Void, Void>() {
 
                 @Override
-                protected Void doInBackground(BackgroundProgress<Void> backgroundProgress) throws Exception {
+                protected Void doInBackground(TaskProgress<Void> backgroundProgress) throws Exception {
                     ReturnCarRequestModel requestModel = new ReturnCarRequestModel();
                     String returnDate = returnCarModel.getReturnDate();
                     requestModel.setReturnDateTime(LocalDateTime.parse(returnDate));

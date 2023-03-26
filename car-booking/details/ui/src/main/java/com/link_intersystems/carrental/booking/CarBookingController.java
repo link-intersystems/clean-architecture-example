@@ -2,9 +2,9 @@ package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.offer.CarOfferModel;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
-import com.link_intersystems.swing.action.AbstractWorkerAction;
+import com.link_intersystems.swing.action.AbstractTaskAction;
 import com.link_intersystems.swing.action.ActionTrigger;
-import com.link_intersystems.swing.action.BackgroundProgress;
+import com.link_intersystems.swing.action.TaskProgress;
 import com.link_intersystems.swing.selection.Selection;
 import com.link_intersystems.swing.selection.SelectionListener;
 
@@ -16,7 +16,7 @@ import java.util.concurrent.ExecutionException;
 
 import static java.util.Objects.*;
 
-public class CarBookingController extends AbstractWorkerAction<CarBookingResponseModel, Void> {
+public class CarBookingController extends AbstractTaskAction<CarBookingResponseModel, Void> {
 
     private CarBookingUseCase carBookingUseCase;
     private MessageDialog messageDialog;
@@ -65,7 +65,7 @@ public class CarBookingController extends AbstractWorkerAction<CarBookingRespons
     }
 
     @Override
-    protected CarBookingResponseModel doInBackground(BackgroundProgress<Void> backgroundProgress) throws Exception {
+    protected CarBookingResponseModel doInBackground(TaskProgress<Void> backgroundProgress) throws Exception {
         CarOfferModel carToBook = carOfferSelection.getFirstElement();
         CarBookingRequestModel requestModel = new CarBookingRequestModel();
         requestModel.setCustomerId(1);
