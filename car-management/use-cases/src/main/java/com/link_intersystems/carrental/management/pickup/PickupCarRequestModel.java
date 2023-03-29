@@ -3,6 +3,7 @@ package com.link_intersystems.carrental.management.pickup;
 import com.link_intersystems.carrental.management.rental.FuelLevel;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class PickupCarRequestModel {
     private int bookingNumber;
@@ -52,4 +53,16 @@ public class PickupCarRequestModel {
         return pickupDateTime;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PickupCarRequestModel that = (PickupCarRequestModel) o;
+        return bookingNumber == that.bookingNumber && Objects.equals(pickupDateTime, that.pickupDateTime) && fuelLevel == that.fuelLevel && Objects.equals(odometer, that.odometer) && Objects.equals(driver, that.driver);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bookingNumber, pickupDateTime, fuelLevel, odometer, driver);
+    }
 }

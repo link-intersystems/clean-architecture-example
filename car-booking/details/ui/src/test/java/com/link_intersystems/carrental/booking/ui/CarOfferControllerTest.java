@@ -1,7 +1,8 @@
 package com.link_intersystems.carrental.booking.ui;
 
-import com.link_intersystems.carrental.offer.CarOfferResponseModel;
 import com.link_intersystems.carrental.offer.CarOfferRequestModel;
+import com.link_intersystems.carrental.offer.CarOfferResponseModel;
+import com.link_intersystems.carrental.offer.CarOfferResponseModelMock;
 import com.link_intersystems.carrental.offer.ui.CarOfferController;
 import com.link_intersystems.carrental.offer.ui.CarOfferModel;
 import com.link_intersystems.carrental.offer.ui.CarSearchModel;
@@ -38,29 +39,26 @@ class CarOfferControllerTest {
     }
 
     @Test
-    void searchCars() throws InterruptedException {
+    void searchCars()  {
         CarOfferRequestModel requestModel = new CarOfferRequestModel();
         requestModel.setVehicleType("MICRO");
         requestModel.setPickUpDateTime(LocalDateTimeUtils.dateTime("2023-01-15", "08:00:00"));
         requestModel.setReturnDateTime(LocalDateTimeUtils.dateTime("2023-01-17", "08:00:00"));
 
         List<CarOfferResponseModel> response = new ArrayList<>();
-        CarOfferOutputModerBuilder carOfferOutputModerBuilder = new CarOfferOutputModerBuilder();
-        response.add( //
-                carOfferOutputModerBuilder //
-                        .setId("1") //
-                        .setVehicleType("MICRO") //
-                        .setPerDayRentalRate(new BigDecimal("40.00")) //
-                        .setTotalRentalRate(new BigDecimal("120.00")) //
-                        .build());
+        CarOfferResponseModelMock responseModel1 = new CarOfferResponseModelMock();
+        responseModel1.setId("1");
+        responseModel1.setVehicleType("MICRO");
+        responseModel1.setPerDayRentalRate(new BigDecimal("40.00"));
+        responseModel1.setTotalRentalRate(new BigDecimal("120.00"));
+        response.add(responseModel1);
 
-        response.add( //
-                carOfferOutputModerBuilder //
-                        .setId("2") //
-                        .setVehicleType("MICRO") //
-                        .setPerDayRentalRate(new BigDecimal("30.00")) //
-                        .setTotalRentalRate(new BigDecimal("90.00")) //
-                        .build());
+        CarOfferResponseModelMock responseModel2 = new CarOfferResponseModelMock();
+        responseModel2.setId("2");
+        responseModel2.setVehicleType("MICRO");
+        responseModel2.setPerDayRentalRate(new BigDecimal("30.00"));
+        responseModel2.setTotalRentalRate(new BigDecimal("90.00"));
+        response.add(responseModel2);
 
         carOffersUseCase.setResponse(response);
 

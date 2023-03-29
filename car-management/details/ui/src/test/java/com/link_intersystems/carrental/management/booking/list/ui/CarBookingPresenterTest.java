@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.management.booking.list.ui;
 
-import com.link_intersystems.carrental.management.booking.list.CarBookingResponseModel;
-import com.link_intersystems.carrental.management.booking.list.CustomerResponseModel;
+import com.link_intersystems.carrental.management.booking.list.CarBookingResponseModelMock;
+import com.link_intersystems.carrental.management.booking.list.CustomerResponseModelMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,25 +9,24 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class CarBookingPresenterTest {
 
-    private CarBookingResponseModel responseModel;
+    private CarBookingResponseModelMock responseModel;
     private CarBookingPresenter carBookingPresenter;
 
     @BeforeEach
     void setUp() {
         carBookingPresenter = new CarBookingPresenter();
 
-        responseModel = mock(CarBookingResponseModel.class);
-        when(responseModel.getVIN()).thenReturn("WMEEJ8AA3FK792135");
-        when(responseModel.getBookingNumber()).thenReturn(1);
+        responseModel = new CarBookingResponseModelMock();
+        responseModel.setVIN("WMEEJ8AA3FK792135");
+        responseModel.setBookingNumber(1);
 
-        CustomerResponseModel customer = mock(CustomerResponseModel.class);
-        when(customer.getFirstname()).thenReturn("Nick");
-        when(customer.getLastname()).thenReturn("Wahlberg");
-        when(responseModel.getCustomer()).thenReturn(customer);
+        CustomerResponseModelMock customer = new CustomerResponseModelMock();
+        customer.setFirstname("Nick");
+        customer.setLastname("Wahlberg");
+        responseModel.setCustomer(customer);
     }
 
     @Test

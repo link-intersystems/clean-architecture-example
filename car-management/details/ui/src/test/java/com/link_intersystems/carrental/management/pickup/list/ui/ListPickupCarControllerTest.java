@@ -1,8 +1,10 @@
 package com.link_intersystems.carrental.management.pickup.list.ui;
 
 import com.link_intersystems.carrental.management.pickup.list.ListPickupCarResponseModel;
-import com.link_intersystems.carrental.management.pickup.list.ListPickupCarUseCase;
+import com.link_intersystems.carrental.management.pickup.list.ListPickupCarResponseModelMock;
+import com.link_intersystems.carrental.management.pickup.list.ListPickupCarUseCaseMock;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
+import com.link_intersystems.carrental.swing.notification.MessageDialogMock;
 import com.link_intersystems.carrental.time.FixedClock;
 import com.link_intersystems.swing.action.ActionTrigger;
 import com.link_intersystems.swing.action.DirectTaskExecutor;
@@ -13,24 +15,22 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class ListPickupCarControllerTest {
 
-    private ListPickupCarUseCase listPickupCarUseCase;
+    private ListPickupCarUseCaseMock listPickupCarUseCase;
     private MessageDialog messageDialog;
     private ListPickupCarController listPickupCarController;
     private ActionTrigger actionTrigger;
 
     @BeforeEach
     void setUp() {
-        listPickupCarUseCase = mock(ListPickupCarUseCase.class);
-        messageDialog = mock(MessageDialog.class);
+        listPickupCarUseCase = new ListPickupCarUseCaseMock();
+        messageDialog = new MessageDialogMock();
         listPickupCarController = new ListPickupCarController(listPickupCarUseCase);
         listPickupCarController.setTaskExecutor(new DirectTaskExecutor());
 
@@ -49,12 +49,12 @@ class ListPickupCarControllerTest {
         listPickupCarController.selectionChanged(event);
 
         List<ListPickupCarResponseModel> responseModels = new ArrayList<>();
-        ListPickupCarResponseModel responseModel = mock(ListPickupCarResponseModel.class);
-        when(responseModel.getPickupDate()).thenReturn(LocalDateTime.parse("2023-03-26T16:34:23"));
-        when(responseModel.getOdometer()).thenReturn(1234);
-        when(responseModel.getBookingNumber()).thenReturn(2);
+        ListPickupCarResponseModelMock responseModel = new ListPickupCarResponseModelMock();
+        responseModel.setPickupDate("2023-03-26", "16:34:23");
+        responseModel.setOdometer(1234);
+        responseModel.setBookingNumber(2);
         responseModels.add(responseModel);
-        doReturn(responseModels).when(listPickupCarUseCase).listPickedUpCars();
+        listPickupCarUseCase.whenListPickupCars().thenReturn(responseModel);
 
         actionTrigger.performAction(listPickupCarController);
 

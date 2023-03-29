@@ -1,9 +1,9 @@
 package com.link_intersystems.carrental.booking.ui;
 
 import com.link_intersystems.carrental.booking.CarBookingException;
-import com.link_intersystems.carrental.booking.CarBookingRequestModel;
 import com.link_intersystems.carrental.booking.CarBookingResponseModel;
-import com.link_intersystems.carrental.booking.CarBookingUseCase;
+import com.link_intersystems.carrental.booking.CarBookingResponseModelMock;
+import com.link_intersystems.carrental.booking.CarBookingUseCaseMock;
 import com.link_intersystems.carrental.offer.ui.CarOfferModel;
 import com.link_intersystems.swing.action.ActionTrigger;
 import com.link_intersystems.swing.action.DirectTaskExecutor;
@@ -14,12 +14,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
 
 class CarBookingControllerTest {
 
-    private CarBookingUseCase carBookingUseCase;
+    private CarBookingUseCaseMock carBookingUseCase;
     private MessageDialogMock messageDialogMock;
     private CarBookingController carBookingController;
     private ActionTrigger actionTrigger;
@@ -27,7 +25,7 @@ class CarBookingControllerTest {
 
     @BeforeEach
     void setUp() {
-        carBookingUseCase = mock(CarBookingUseCase.class);
+        carBookingUseCase = new CarBookingUseCaseMock();
         messageDialogMock = new MessageDialogMock();
 
         carBookingController = new CarBookingController(carBookingUseCase, messageDialogMock);
@@ -42,9 +40,8 @@ class CarBookingControllerTest {
         DefaultSelection<CarOfferModel> selection = new DefaultSelection<>(carOfferModel);
         SelectionChangeEvent<CarOfferModel> selectionChangeEvent = new SelectionChangeEvent<>(this, Selection.empty(), selection);
         carBookingController.getSelectionListener().selectionChanged(selectionChangeEvent);
-        CarBookingResponseModel responseModel = mock(CarBookingResponseModel.class);
-        when(responseModel.getBookingNumber()).thenReturn("123456789");
-        when(carBookingUseCase.bookCar(any(CarBookingRequestModel.class))).thenReturn(responseModel);
+        CarBookingResponseModelMock responseModel = new CarBookingResponseModelMock("123456789");
+        carBookingUseCase.setResponseModel(responseModel);
 
         actionTrigger.performAction(carBookingController);
 
@@ -63,9 +60,8 @@ class CarBookingControllerTest {
         DefaultSelection<CarOfferModel> selection = new DefaultSelection<>(carOfferModel);
         SelectionChangeEvent<CarOfferModel> selectionChangeEvent = new SelectionChangeEvent<>(this, Selection.empty(), selection);
         carBookingController.getSelectionListener().selectionChanged(selectionChangeEvent);
-        CarBookingResponseModel responseModel = mock(CarBookingResponseModel.class);
-        when(responseModel.getBookingNumber()).thenReturn("123456789");
-        when(carBookingUseCase.bookCar(any(CarBookingRequestModel.class))).thenReturn(responseModel);
+        CarBookingResponseModel responseModel = new CarBookingResponseModelMock("123456789");
+        carBookingUseCase.setResponseModel(responseModel);
 
         actionTrigger.performAction(carBookingController);
 

@@ -4,9 +4,9 @@ import com.link_intersystems.carrental.management.booking.list.ui.CustomerModel;
 import com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingModel;
 import com.link_intersystems.carrental.management.pickup.DriverRequestModel;
 import com.link_intersystems.carrental.management.pickup.PickupCarRequestModel;
-import com.link_intersystems.carrental.management.pickup.PickupCarUseCase;
+import com.link_intersystems.carrental.management.pickup.PickupCarUseCaseMock;
 import com.link_intersystems.carrental.management.rental.FuelLevel;
-import com.link_intersystems.carrental.swing.notification.MessageDialog;
+import com.link_intersystems.carrental.swing.notification.MessageDialogMock;
 import com.link_intersystems.carrental.time.ClockProvider;
 import com.link_intersystems.carrental.time.FixedClock;
 import com.link_intersystems.swing.action.ActionTrigger;
@@ -15,21 +15,13 @@ import com.link_intersystems.swing.selection.Selection;
 import com.link_intersystems.swing.selection.SelectionChangeEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatcher;
-import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 
 import javax.swing.*;
-import java.awt.*;
-
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
 
 class PickupCarControllerTest {
 
-    private PickupCarUseCase pickupCarUseCase;
-    private MessageDialog messageDialog;
+    private PickupCarUseCaseMock pickupCarUseCase;
+    private MessageDialogMock messageDialog;
     private PickupCarController pickupCarController;
     private ActionTrigger actionTrigger;
 
@@ -37,8 +29,8 @@ class PickupCarControllerTest {
 
     @BeforeEach
     void setUp() {
-        pickupCarUseCase = mock(PickupCarUseCase.class);
-        messageDialog = mock(MessageDialog.class);
+        pickupCarUseCase = new PickupCarUseCaseMock();
+        messageDialog = new MessageDialogMock();
         pickupCarController = new PickupCarController(pickupCarUseCase, messageDialog) {
             @Override
             protected PickupCarForm<PickupCarModel> createPickupCarForm() {
@@ -68,16 +60,13 @@ class PickupCarControllerTest {
         SelectionChangeEvent<ListCarBookingModel> event = new SelectionChangeEvent<>(this, Selection.empty(), selection);
         pickupCarController.selectionChanged(event);
 
-        when(messageDialog.showDialog(anyString(), any(Component.class))).thenAnswer(new Answer<Integer>() {
-            @Override
-            public Integer answer(InvocationOnMock invocationOnMock) throws Throwable {
-                PickupCarModel pickupCarFormModel = pickupCarForm.getModel();
-                pickupCarFormModel.setOdometer("12345");
-                pickupCarFormModel.setDriverLicence("ABC");
-                pickupCarFormModel.getFuelLevel().setValue(50);
-                pickupCarForm.setModel(pickupCarFormModel);
-                return JOptionPane.OK_OPTION;
-            }
+        messageDialog.whenShowDialog("Pickup Car").thenReturn(() -> {
+            PickupCarModel pickupCarFormModel = pickupCarForm.getModel();
+            pickupCarFormModel.setOdometer("12345");
+            pickupCarFormModel.setDriverLicence("ABC");
+            pickupCarFormModel.getFuelLevel().setValue(50);
+            pickupCarForm.setModel(pickupCarFormModel);
+            return JOptionPane.OK_OPTION;
         });
 
         actionTrigger.performAction(pickupCarController);
@@ -93,14 +82,6 @@ class PickupCarControllerTest {
         requestModel.setPickupDateTime(ClockProvider.now());
         requestModel.setBookingNumber(42);
 
-        verify(pickupCarUseCase).pickupCar(eq(requestModel));
-    }
-
-    private PickupCarRequestModel eq(PickupCarRequestModel expected) {
-        ArgumentMatcher<PickupCarRequestModel> argMatcher = pickupCarRequestModel -> {
-            return new ReflectionEquals(expected, "driver").matches(pickupCarRequestModel) &&
-                    new ReflectionEquals(expected.getDriver()).matches(pickupCarRequestModel.getDriver());
-        };
-        return argThat(argMatcher);
+        pickupCarUseCase.verifyPickupCar(1).pickupCar(requestModel);
     }
 }

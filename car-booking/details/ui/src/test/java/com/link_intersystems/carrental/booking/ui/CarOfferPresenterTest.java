@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental.booking.ui;
 
-import com.link_intersystems.carrental.offer.CarOfferResponseModel;
+import com.link_intersystems.carrental.offer.CarOfferResponseModelMock;
 import com.link_intersystems.carrental.offer.ui.CarOfferModel;
 import com.link_intersystems.carrental.offer.ui.CarOfferPresenter;
 import org.junit.jupiter.api.Test;
@@ -13,12 +13,11 @@ class CarOfferPresenterTest {
     void carOffers() {
         CarOfferPresenter carOfferPresenter = new CarOfferPresenter();
 
-        CarOfferResponseModel carOfferResponseModel = new CarOfferOutputModerBuilder()
-                .setId("123") //
-                .setTotalRentalRate("122.97") //
-                .setPerDayRentalRate("40.99") //
-                .setVehicleType("MICRO") //
-                .build();
+        CarOfferResponseModelMock carOfferResponseModel = new CarOfferResponseModelMock();
+        carOfferResponseModel.setId("123");
+        carOfferResponseModel.setTotalRentalRate("122.97");
+        carOfferResponseModel.setPerDayRentalRate("40.99");
+        carOfferResponseModel.setVehicleType("MICRO");
 
         CarOfferModel carOfferModel = carOfferPresenter.toCarOfferModel(carOfferResponseModel);
 
