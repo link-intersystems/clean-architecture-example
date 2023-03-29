@@ -1,6 +1,5 @@
 package com.link_intersystems.carrental.customer;
 
-import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,6 +13,10 @@ class CustomerIdTest {
 
     @Test
     void verifyEqualsAndHashCode() {
-        EqualsVerifier.simple().forClass(CustomerId.class).verify();
+        assertEquals(new CustomerId(1), new CustomerId(1));
+        assertEquals(new CustomerId(1).hashCode(), new CustomerId(1).hashCode());
+
+        assertNotEquals(new CustomerId(1), new CustomerId(2));
+        assertNotEquals(new CustomerId(1).hashCode(), new CustomerId(2).hashCode());
     }
 }

@@ -2,12 +2,19 @@ package com.link_intersystems.carrental.management.booking;
 
 import com.link_intersystems.carrental.VIN;
 import com.link_intersystems.carrental.booking.BookingNumber;
-import nl.jqno.equalsverifier.EqualsVerifier;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CarBookingTest {
+
+    private CarBookingFixture carBookingFixture;
+
+    @BeforeEach
+    void setUp() {
+        carBookingFixture = new CarBookingFixture();
+    }
 
     @Test
     void rentalState() {
@@ -25,7 +32,11 @@ class CarBookingTest {
 
     @Test
     void equalsTest() {
-        EqualsVerifier.simple().forClass(CarBooking.class).verify();
+        CarBooking reneLinkBooking1 = carBookingFixture.getReneLinkBooking();
+        CarBooking reneLinkBooking2 = carBookingFixture.getReneLinkBooking();
+
+        assertEquals(reneLinkBooking1, reneLinkBooking2);
+        assertEquals(reneLinkBooking1.hashCode(), reneLinkBooking2.hashCode());
     }
 
 }

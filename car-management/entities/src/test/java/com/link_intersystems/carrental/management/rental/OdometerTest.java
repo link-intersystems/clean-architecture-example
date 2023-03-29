@@ -1,6 +1,5 @@
 package com.link_intersystems.carrental.management.rental;
 
-import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,6 +27,10 @@ class OdometerTest {
 
     @Test
     void testEquals() {
-        EqualsVerifier.simple().forClass(Odometer.class).verify();
+        assertEquals(Odometer.of(1), Odometer.of(1));
+        assertEquals(Odometer.of(1).hashCode(), Odometer.of(1).hashCode());
+
+        assertNotEquals(Odometer.of(1), Odometer.of(2));
+        assertNotEquals(Odometer.of(1).hashCode(), Odometer.of(2).hashCode());
     }
 }

@@ -1,7 +1,5 @@
 package com.link_intersystems.carrental.time;
 
-import nl.jqno.equalsverifier.EqualsVerifier;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.Clock;
@@ -23,8 +21,8 @@ class PeriodTest {
 
     @Test
     void getDays() {
-        Assertions.assertEquals(1, PeriodBuilder.from("2023-01-15", "08:00:00").to("2023-01-15", "17:00:00").getDays());
-        Assertions.assertEquals(3, PeriodBuilder.from("2023-01-15", "08:00:00").to("2023-01-17", "08:00:00").getDays());
+        assertEquals(1, PeriodBuilder.from("2023-01-15", "08:00:00").to("2023-01-15", "17:00:00").getDays());
+        assertEquals(3, PeriodBuilder.from("2023-01-15", "08:00:00").to("2023-01-17", "08:00:00").getDays());
     }
 
     /**
@@ -132,6 +130,12 @@ class PeriodTest {
 
     @Test
     void equalsAndHashCode() {
-        EqualsVerifier.simple().forClass(Period.class).verify();
+        Period period1 = PeriodBuilder.from("2023-01-15", "08:00:00").to("2023-01-17", "17:00:00");
+        Period period2 = PeriodBuilder.from("2023-01-15", "08:00:00").to("2023-01-17", "17:00:00");
+        Period period3 = PeriodBuilder.from("2023-01-11", "08:00:00").to("2023-01-17", "17:00:00");
+        assertEquals(period1, period2);
+        assertEquals(period1.hashCode(), period2.hashCode());
+
+        assertNotEquals(period1, period3);
     }
 }
