@@ -17,24 +17,20 @@
         <dependency>
             <groupId>com.acme.car-rental.management</groupId>
             <artifactId>car-management-use-cases</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.acme.car-rental.management</groupId>
             <artifactId>car-management-entities</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.acme.car-rental.shared</groupId>
             <artifactId>car-rental-shared-jdbc</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
         </dependency>
+
         <dependency>
             <groupId>com.acme.car-rental.shared</groupId>
             <artifactId>car-rental-shared-time</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
             <type>test-jar</type>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.link-intersystems.commons</groupId>
