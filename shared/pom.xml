@@ -22,4 +22,48 @@
         <module>time</module>
     </modules>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.acme.car-rental.shared</groupId>
+                <artifactId>car-rental-shared-entities</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.acme.car-rental.shared</groupId>
+                <artifactId>car-rental-shared-entities</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.acme.car-rental.shared</groupId>
+                <artifactId>car-rental-shared-events</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.acme.car-rental.shared</groupId>
+                <artifactId>car-rental-shared-time</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.acme.car-rental.shared</groupId>
+                <artifactId>car-rental-shared-time</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.acme.car-rental.shared</groupId>
+                <artifactId>car-rental-shared-jdbc</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.acme.car-rental.shared</groupId>
+                <artifactId>car-rental-shared-ui</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+
+    </dependencyManagement>
 </project>

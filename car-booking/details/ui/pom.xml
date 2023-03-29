@@ -17,12 +17,10 @@
         <dependency>
             <groupId>com.acme.car-rental.booking</groupId>
             <artifactId>car-booking-use-cases</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.acme.car-rental.shared</groupId>
             <artifactId>car-rental-shared-ui</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.link-intersystems.commons</groupId>
@@ -32,39 +30,26 @@
             <groupId>com.link-intersystems.commons</groupId>
             <artifactId>lis-commons-events</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.acme.car-rental.shared</groupId>
-            <artifactId>car-rental-shared-ui</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
 
         <dependency>
             <groupId>com.acme.car-rental.booking</groupId>
             <artifactId>car-booking-use-cases</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
             <type>test-jar</type>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.acme.car-rental.booking</groupId>
             <artifactId>car-booking-entities</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
             <type>test-jar</type>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.acme.car-rental.shared</groupId>
             <artifactId>car-rental-shared-entities</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
             <type>test-jar</type>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.acme.car-rental.shared</groupId>
             <artifactId>car-rental-shared-time</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
             <type>test-jar</type>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
