@@ -25,11 +25,15 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(firstname, customer.firstname) && Objects.equals(lastname, customer.lastname);
+        return Objects.equals(getFirstname(), customer.getFirstname()) &&
+                Objects.equals(getLastname(), customer.getLastname());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstname, lastname);
+        return Objects.hash(
+                getFirstname(),
+                getLastname()
+        );
     }
 }

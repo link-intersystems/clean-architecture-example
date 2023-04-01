@@ -41,12 +41,20 @@ public class CarBooking {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CarBooking that = (CarBooking) o;
-        return Objects.equals(bookingNumber, that.bookingNumber) && Objects.equals(vin, that.vin) && rentalState == that.rentalState && Objects.equals(customer, that.customer);
+        return Objects.equals(getBookingNumber(), that.getBookingNumber()) &&
+                Objects.equals(getVin(), that.getVin()) &&
+                getRentalState() == that.getRentalState() &&
+                Objects.equals(getCustomer(), that.getCustomer());
     }
 
     @Override
     public int hashCode() {
-        return hash(bookingNumber, vin, rentalState, customer);
+        return hash(
+                getBookingNumber(),
+                getVin(),
+                getRentalState(),
+                getCustomer()
+        );
     }
 
     public Customer getCustomer() {
