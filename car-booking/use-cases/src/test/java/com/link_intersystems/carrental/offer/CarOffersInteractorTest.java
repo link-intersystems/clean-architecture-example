@@ -45,6 +45,9 @@ class CarOffersInteractorTest {
         assertEquals(new BigDecimal("190.00"), carOfferResponseModel.getTotalRentalRate());
         assertEquals(new BigDecimal("95.00"), carOfferResponseModel.getPerDayRentalRate());
         assertEquals("MICRO", carOfferResponseModel.getVehicleType());
+        assertEquals("Fiat 500", carOfferResponseModel.getName());
+        assertEquals(dateTime("2023-01-17", "08:30"), carOfferResponseModel.getPickupDateTime());
+        assertEquals(dateTime("2023-01-18", "17:00"), carOfferResponseModel.getReturnDateTime());
     }
 
     @Test
