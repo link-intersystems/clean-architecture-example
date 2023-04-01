@@ -27,6 +27,7 @@ public class CarRentalMainFrame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         mainFrame.setSize(XGA);
         mainFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        mainFrame.setTitle("Car Rental App");
 
         Point centeredFrameLocation = new DimensionExt(mainFrame.getSize()).centerOn(screenSize);
         mainFrame.setLocation(centeredFrameLocation);
