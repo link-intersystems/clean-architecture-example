@@ -28,6 +28,8 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with Maven
+        env:
+          COVERALLS_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
         uses: GabrielBB/xvfb-action@v1
         with:
-          run: mvn -B package --file pom.xml
+          run: mvn -B package coveralls:report --file pom.xml

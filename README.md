@@ -1,4 +1,5 @@
 ![Java CI with Maven](https://github.com/link-intersystems/clean-architecture-example/workflows/Java%20CI%20with%20Maven/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/link-intersystems/clean-architecture-example/badge.svg?branch=main)](https://coveralls.io/github/link-intersystems/clean-architecture-example?branch=main)
 
 # Clean Architecture in Pure Java
 
