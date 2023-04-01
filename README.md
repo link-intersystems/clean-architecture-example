@@ -37,7 +37,7 @@ that is implemented in pure Java. You will probably be surprised that many frame
 without significantly increasing the implementation effort. We should consider this before using a framework or library,
 especially if we made the experience that framework updates sometimes make a lot of effort. Also license issues do not 
 arise if we do not use them and a fix is easy to make. I don't want to say that frameworks and libraries are bad, 
-but they come at a cost that we often forget. So if we use them we should know why we use them and maybe separate 
+but they come at a cost that we often forget. So if we use them we should know why we use them, and we should separate 
 hem from the core of our application to protect it. Most libraries I use in this example application are written by myself.
 
 ## The Example Domain
