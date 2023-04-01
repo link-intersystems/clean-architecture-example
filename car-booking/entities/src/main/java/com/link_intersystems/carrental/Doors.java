@@ -1,5 +1,7 @@
 package com.link_intersystems.carrental;
 
+import java.util.Objects;
+
 public class Doors {
 
     private int value;
@@ -14,5 +16,23 @@ public class Doors {
 
     public int getValue() {
         return value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Doors doors = (Doors) o;
+        return value == doors.value;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
+    }
+
+    @Override
+    public String toString() {
+        return Integer.toString(value);
     }
 }

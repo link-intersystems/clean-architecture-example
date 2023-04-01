@@ -33,4 +33,8 @@ public class RentalCarFixture extends EntityFixture<RentalCar> {
         entities.add(mercedesBenzE200);
     }
 
+    public RentalCar getSmartForTwo() {
+        return get(0);
+    }
+
 }
