@@ -48,11 +48,14 @@ public class ReturnCarRequestModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ReturnCarRequestModel that = (ReturnCarRequestModel) o;
-        return bookingNumber == that.bookingNumber && Objects.equals(returnDateTime, that.returnDateTime) && fuelLevel == that.fuelLevel && Objects.equals(odometer, that.odometer);
+        return getBookingNumber() == that.getBookingNumber() &&
+                Objects.equals(getReturnDateTime(), that.getReturnDateTime()) &&
+                getFuelLevel() == that.getFuelLevel() &&
+                Objects.equals(getOdometer(), that.getOdometer());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(bookingNumber, returnDateTime, fuelLevel, odometer);
+        return Objects.hash(getBookingNumber(), getReturnDateTime(), getFuelLevel(), getOdometer());
     }
 }
