@@ -33,7 +33,7 @@ the use cases or entities and the object-relational mapping. Thus, you will not 
 even no apache commons library.
 
 Although I like frameworks and libraries as much as you probably do, I want to show how a complete application works
-that is implemented in pure Java. You will be probably surprised that many frameworks and libraries can be omitted 
+that is implemented in pure Java. You will probably be surprised that many frameworks and libraries can be omitted 
 without significantly increasing the implementation effort. We should consider this before using a framework or library,
 especially if we made the experience that framework updates sometimes make a lot of effort. Also license issues do not 
 arise if we do not use them and a fix is easy to make. I don't want to say that frameworks and libraries are bad, 
