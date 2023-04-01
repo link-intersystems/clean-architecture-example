@@ -36,4 +36,13 @@ public class Car {
     public Specs getSpecs() {
         return specs;
     }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", vehicleType=" + vehicleType +
+                '}';
+    }
 }
