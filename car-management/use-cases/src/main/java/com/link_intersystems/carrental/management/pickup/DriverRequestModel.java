@@ -36,11 +36,17 @@ public class DriverRequestModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DriverRequestModel that = (DriverRequestModel) o;
-        return Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname) && Objects.equals(drivingLicenceNumber, that.drivingLicenceNumber);
+        return Objects.equals(getFirstname(), that.getFirstname()) &&
+                Objects.equals(getLastname(), that.getLastname()) &&
+                Objects.equals(getDrivingLicenceNumber(), that.getDrivingLicenceNumber());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstname, lastname, drivingLicenceNumber);
+        return Objects.hash(
+                getFirstname(),
+                getLastname(),
+                getDrivingLicenceNumber()
+        );
     }
 }

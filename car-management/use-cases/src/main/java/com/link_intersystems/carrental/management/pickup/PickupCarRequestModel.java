@@ -58,11 +58,20 @@ public class PickupCarRequestModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PickupCarRequestModel that = (PickupCarRequestModel) o;
-        return bookingNumber == that.bookingNumber && Objects.equals(pickupDateTime, that.pickupDateTime) && fuelLevel == that.fuelLevel && Objects.equals(odometer, that.odometer) && Objects.equals(driver, that.driver);
+        return getBookingNumber() == that.getBookingNumber() &&
+                Objects.equals(getPickupDateTime(), that.getPickupDateTime()) &&
+                getFuelLevel() == that.getFuelLevel() &&
+                Objects.equals(getOdometer(), that.getOdometer()) &&
+                Objects.equals(getDriver(), that.getDriver());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(bookingNumber, pickupDateTime, fuelLevel, odometer, driver);
+        return Objects.hash(
+                getBookingNumber(),
+                getPickupDateTime(),
+                getFuelLevel(),
+                getOdometer(),
+                getDriver());
     }
 }
