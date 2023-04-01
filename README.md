@@ -49,10 +49,10 @@ to stay focused on the architecture and not the domain.
 
 The application is made of 2 domain modules. Follow the links of the modules for details about each one.
 
-- [car-booking](car-booking/README.md)
+- car-booking
    
   The car-booking module contains the use cases a customer executes, like find car offers and book a car.  
-- [car-management](car-management/README.md)
+- car-management
 
   The car-management module contains the use cases a salesperson executes, like handover a car to a customer and return one. 
 
