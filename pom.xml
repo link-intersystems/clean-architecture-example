@@ -80,16 +80,55 @@
                         </compilerArgs>
                     </configuration>
                 </plugin>
-                <plugin>
-                    <groupId>org.eluder.coveralls</groupId>
-                    <artifactId>coveralls-maven-plugin</artifactId>
-                    <version>4.3.0</version>
-                    <configuration>
-                        <!--suppress UnresolvedMavenProperty -->
-                        <repoToken>${env.COVERALLS_TOKEN}</repoToken>
-                    </configuration>
-                </plugin>
             </plugins>
         </pluginManagement>
     </build>
+
+    <profiles>
+        <profile>
+            <id>coveralls</id>
+            <activation>
+                <property>
+                    <name>env.COVERALLS_TOKEN</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>jacoco-prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>jacoco-report</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.eluder.coveralls</groupId>
+                            <artifactId>coveralls-maven-plugin</artifactId>
+                            <version>4.3.0</version>
+                            <configuration>
+                                <!--suppress UnresolvedMavenProperty -->
+                                <repoToken>${env.COVERALLS_TOKEN}</repoToken>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
 </project>
