@@ -29,7 +29,7 @@ to use the simplest solution that works.
 ## As Pure As Possible
 
 This example does not use a lot of frameworks and libraries. Especially not for the application bootstrap, 
-the use cases or entities and the object relational mapping. Thus you will not find any Spring or Hibernate and
+the use cases or entities and the object-relational mapping. Thus, you will not find any Spring or Hibernate and
 even no apache commons library.
 
 Although I like frameworks and libraries as much as you probably do, I want to show how a complete application works
