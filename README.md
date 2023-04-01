@@ -26,6 +26,9 @@ The package by component strategy makes use of Java's default access modifier th
 classes within the same package. It would also be possible to use the Java module system or OSGI, but I wanted
 to use the simplest solution that works.
 
+If you would like to learn more about the other packaging strategies take a look at chapter 34, the missing chapter, in
+the [Clean Architecture book](https://www.amazon.com/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164).
+
 ## As Pure As Possible
 
 This example does not use a lot of frameworks and libraries. Especially not for the application bootstrap, 
