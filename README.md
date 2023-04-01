@@ -1,9 +1,10 @@
 ![Java CI with Maven](https://github.com/link-intersystems/clean-architecture-example/workflows/Java%20CI%20with%20Maven/badge.svg)
 
-# Clean Architecture 
+# Clean Architecture in Pure Java
 
-This repository contains an example implementation of the clean architecture. It should be a starting point for
-discussions about the clean architecture and its various implementation details.
+This repository contains an example implementation of the clean architecture in [pure Java](#as-pure-as-possible).
+You can either use this example as a starting point for discussions about the clean architecture and its various
+implementation details, or you can use it to learn more about the clean architecture.
 
 ![Clean Architecture by Uncle Bob (Robert C. Martin)](src/site/resources/CleanArchitecture.jpg)
 [The Clean Architecture, Robert C. Martin, 13 August 2012](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
@@ -25,6 +26,19 @@ The package by component strategy makes use of Java's default access modifier th
 classes within the same package. It would also be possible to use the Java module system or OSGI, but I wanted
 to use the simplest solution that works.
 
+## As Pure As Possible
+
+This example does not use a lot of frameworks and libraries. Especially not for the application bootstrap, 
+the use cases or entities and the object relational mapping. Thus you will not find any Spring or Hibernate and
+even no apache commons library.
+
+Although I like frameworks and libraries as much as you probably do, I want to show how a complete application works
+that is implemented in pure Java. You will be probably surprised that many frameworks and libraries can be omitted 
+without significantly increasing the implementation effort. We should consider this before using a framework or library,
+especially if we made the experience that framework updates sometimes make a lot of effort. Also license issues do not 
+arise if we do not use them and a fix is easy to make. I don't want to say that frameworks and libraries are bad, 
+but they come at a cost that we often forget. So if we use them we should know why and maybe separate them from the
+core of our application to protect it. Most libraries I use in this example application are written by myself.
 
 ## The Example Domain
 
