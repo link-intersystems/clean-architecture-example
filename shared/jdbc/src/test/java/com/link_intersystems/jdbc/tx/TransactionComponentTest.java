@@ -25,6 +25,15 @@ class TransactionComponentTest {
     }
 
     @Test
+    void closeConnectionHasNoEffect() throws Exception {
+        Transaction transaction = transactionManager.beginTransaction();
+        Connection connection = transaction.unwrap(Connection.class);
+        connection.close();
+
+        assertFalse(connection.isClosed());
+    }
+
+    @Test
     void noActiveTransaction() throws Exception {
         Connection connection = transactionAwareDataSource.getConnection();
         assertEquals(this.connection, connection);
@@ -74,5 +83,30 @@ class TransactionComponentTest {
 
         assertTrue(connection.isRollback());
         assertSame(re, thrownException);
+    }
+
+    @Test
+    void transactionProxy() {
+        ServiceImpl service = new ServiceImpl();
+        Service serviceProxy = TransactionProxy.create(service, transactionManager);
+
+        serviceProxy.execute();
+
+        assertEquals(1, service.invocationCount);
+    }
+
+    private static interface Service {
+        public void execute();
+    }
+
+    private static class ServiceImpl implements Service {
+
+        private int invocationCount;
+
+        @Override
+        public void execute() {
+            invocationCount++;
+        }
+
     }
 }

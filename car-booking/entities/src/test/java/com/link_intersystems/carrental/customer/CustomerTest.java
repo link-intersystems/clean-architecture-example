@@ -28,4 +28,15 @@ class CustomerTest {
     void getLastname() {
         assertEquals("Link", customer.getLastname());
     }
+
+    @Test
+    void equalsAndHashCode(){
+        Customer customer2 = new Customer(new CustomerId(6), "René", "Link");
+
+        assertEquals(customer, customer2);
+        assertEquals(customer.hashCode(), customer2.hashCode());
+
+        Customer customer3 = new Customer(new CustomerId(6), "John", "Doe");
+        assertNotEquals(customer, customer3);
+    }
 }

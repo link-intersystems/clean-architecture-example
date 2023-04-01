@@ -11,6 +11,7 @@ public class MockConnection implements Connection {
     private boolean rollback;
     private boolean commit;
     private boolean autoCommit = true;
+    private boolean closed;
 
     public boolean isRollback() {
         return rollback;
@@ -62,12 +63,12 @@ public class MockConnection implements Connection {
 
     @Override
     public void close() throws SQLException {
-
+        closed = true;
     }
 
     @Override
     public boolean isClosed() throws SQLException {
-        return false;
+        return closed;
     }
 
     @Override
