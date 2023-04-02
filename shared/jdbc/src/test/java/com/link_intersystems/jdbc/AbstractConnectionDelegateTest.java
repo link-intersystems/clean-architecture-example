@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.platform.commons.support.ModifierSupport;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
@@ -14,6 +15,7 @@ import java.sql.Wrapper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 class AbstractConnectionDelegateTest implements InvocationHandler {
 
@@ -28,11 +30,11 @@ class AbstractConnectionDelegateTest implements InvocationHandler {
         };
     }
 
-    static List<Method> delegationMethods() {
+    static Stream<Method> delegationMethods() {
         List<Method> methods = new ArrayList<>();
         methods.addAll(Arrays.asList(Connection.class.getDeclaredMethods()));
         methods.addAll(Arrays.asList(Wrapper.class.getDeclaredMethods()));
-        return methods;
+        return methods.stream().filter(ModifierSupport::isNotStatic).filter(ModifierSupport::isPublic);
     }
 
     @ParameterizedTest
