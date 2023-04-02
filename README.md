@@ -94,13 +94,16 @@ In the UI presenters are used by a controller to present response models to the 
 request models. The controller is invoked by the UI as a result of an event. It then uses the presenter to create a request
 model and invokes the use case.
 
-In this point my architecture is different to diagram I showed above, because it does not decouple a presenter from a
+In this point my architecture is different to the diagram I showed above, because it does not decouple a presenter from a
 controller, and thus it doesn't need to pass an output boundary to a use case interactor. Therefore, my architecture
 has a lot less complexity in this area, but at the cost that controllers are not separated from presenters. It's true
 that I don't have the benefits of decoupling them, but I also don't have a lot of implementation issues that arise from
-the decoupling. It's a tradeoff that I made in the UI - use case integration to reduce the complexity in that area. I made
+the decoupling. It's a tradeoff that I made in the UI/use case integration to reduce the complexity in that area. I made
 that decision, because the focus of the example application is the use case part, how these classes are structured and
 how different modules integrate.
+
+Since this example should be used as a starting point for discussions, feel free to refactor the UI/use case integration part
+and [start a discussion](https://github.com/link-intersystems/clean-architecture-example/discussions).
 
 ## More Sources
 
