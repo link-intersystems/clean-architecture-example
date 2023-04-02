@@ -21,6 +21,7 @@ implementation details, or you can use it to learn more about the clean architec
 - [More Sources](#more-sources)
 - [The Example Domain](#the-example-domain)
   - [Domain Modules](#domain-modules)
+  - [Domain Events](#domain-events)
   - [Details](#details)
     - [User Interface](#user-interface)
     - [Database](#database)
@@ -165,8 +166,8 @@ Feel free to refactor the domain event bus to use asynchronous event publishing 
 The example application comes with a very basic swing ui that you can use to try out the application. Since it
 is a basic ui it neither has any convenience features, like validation, nor it is very nice. The purpose of the
 user interface is to provide a simple GUI to access the use cases. It also shows the basics of how use cases are
-connected to controllers and how controllers use presenters in order to update models. Feel to implement a web server
-and provide rest controllers in order to support a web ui.
+connected to controllers and how controllers use presenters in order to update models. Feel free to implement a 
+web server and provide rest controllers in order to support a web ui.
 
 ![Simple Swing UI](src/site/resources/ui-screenshot.png)
 
