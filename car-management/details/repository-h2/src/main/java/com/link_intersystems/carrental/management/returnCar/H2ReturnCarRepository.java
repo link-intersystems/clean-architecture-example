@@ -4,6 +4,7 @@ import com.link_intersystems.carrental.booking.BookingNumber;
 import com.link_intersystems.carrental.management.rental.*;
 import com.link_intersystems.jdbc.JdbcTemplate;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -27,6 +28,8 @@ class H2ReturnCarRepository implements ReturnCarRepository {
         Driver driver = mapDriver(carPickupRow);
         CarState carState = mapCarState(carPickupRow);
         CarRental carPickup = new CarRental(new BookingNumber(bookingNumber), driver, carState);
+        Timestamp pickupTimestamp = (Timestamp) carPickupRow.get("PICKUP_TIME");
+        carPickup.setPickupDateTime(pickupTimestamp.toLocalDateTime());
         return carPickup;
     }
 
