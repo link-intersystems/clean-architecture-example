@@ -1,15 +1,17 @@
 package com.link_intersystems.jdbc.tx;
 
-import com.link_intersystems.jdbc.AbstractDataSourceDelegate;
+import com.link_intersystems.sql.AbstractDataSource;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class TransactionAwareDataSource extends AbstractDataSourceDelegate {
+public class TransactionAwareDataSource extends AbstractDataSource {
+
+    private DataSource dataSource;
 
     public TransactionAwareDataSource(DataSource dataSource) {
-        super(dataSource);
+        this.dataSource = dataSource;
     }
 
     @Override
