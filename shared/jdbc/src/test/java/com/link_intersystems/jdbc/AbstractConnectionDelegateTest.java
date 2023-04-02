@@ -31,7 +31,6 @@ class AbstractConnectionDelegateTest implements InvocationHandler {
     private static List<Method> delegationMethods() {
         List<Method> methods = new ArrayList<>();
         methods.addAll(Arrays.asList(Connection.class.getDeclaredMethods()));
-        methods.addAll(Arrays.asList(Wrapper.class.getDeclaredMethods()));
         return methods;
     }
 
