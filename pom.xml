@@ -139,4 +139,33 @@
             </build>
         </profile>
     </profiles>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>Link Intersystems GmbH</name>
+        <url>http://www.link-intersystems.com</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>rene.link</id>
+            <name>René Link</name>
+            <organization>Link Intersystems GmbH</organization>
+            <organizationUrl>http://www.link-intersystems.com</organizationUrl>
+            <email>rene.link@link-intersystems.com</email>
+            <timezone>Europe/Berlin</timezone>
+            <url>http://stackoverflow.com/users/974186/ren%C3%A9-link</url>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
 </project>
