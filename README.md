@@ -145,6 +145,19 @@ Here is a list of user story proposals:
 2. As a sales manager I would like to specify different stations where the customer can pick up cars.
 3. As a customer I would like to get offers for stations in the city where I live (my address).
 
+## Domain Events
+
+The domain modules are completely separated, which means that each one uses its own dedicated data storage. At the moment they
+are separated by two different database schemas, but they could also use their own database. The management module reacts
+to domain events that are fired by the car-booking module in order to update its database. I chose that way to 
+demonstrate how domain events can be implemented.
+
+In the current implementation the domain events are synchronously published on the same thread. Since I use local
+transactions that are bound to the thread, the event subscribers logic is executed in the same transaction as the 
+publisher.
+
+Feel free to refactor the domain event bus to use asynchronous event publishing or even an external event queue.
+
 ## Details
 
 ### User Interface
