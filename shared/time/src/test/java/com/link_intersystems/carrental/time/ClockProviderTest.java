@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.*;
 
+import static com.link_intersystems.carrental.time.LocalDateTimeUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ClockProviderTest {
@@ -28,6 +29,15 @@ class ClockProviderTest {
         } finally {
             ClockProvider.setClock(clock);
         }
+
+    }
+
+    @Test
+    @FixedClock("2023-04-01 17:23:45")
+    void now() {
+        LocalDateTime now = ClockProvider.now();
+
+        assertEquals(dateTime("2023-04-01", "17:23:45"), now);
 
     }
 }
