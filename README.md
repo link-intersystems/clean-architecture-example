@@ -24,6 +24,7 @@ implementation details, or you can use it to learn more about the clean architec
   - [Details](#details)
     - [User Interface](#user-interface)
     - [Database](#database)
+- [Any Questions?](#any-questions)
 
 ## Screaming Architecture
 
@@ -113,6 +114,12 @@ you should take a look at my [youtube channel - clean-code.guru (german)](https:
 I also would like to recommend the [cleancoders.com](https://cleancoders.com) website, where you can find a lot of
 videos about clean code. Most of them provided by Robert "Uncle Bob" Martin and Micah Martin.
 
+If you would like to learn more about clean code and the clean architecture,
+you should take a look at my [youtube channel - clean-code.guru (german)](https://www.youtube.com/@cleancodeguru).
+
+I also would like to recommend the [cleancoders.com](https://cleancoders.com) website, where you can find a lot of
+videos about clean code. Most of them provided by Robert "Uncle Bob" Martin and Micah Martin.
+
 ## The Example Domain
 
 For this clean architecture example I chose a car rental application which is complex enough to address common implementation issues, but simple enough 
@@ -159,4 +166,15 @@ working directory.
 The example data is the same as the data that the unit tests use. So you can also browse it here:
 
 - [car booking test data](car-booking/entities/src/site/markdown/TestFixtures.md)
+
+
+## Any Questions?
+
+If you have any questions about
+
+- this example application you can [start a discussion](https://github.com/link-intersystems/clean-architecture-example/discussions).
+- the clean architecture and clean code in general you can browse [my answers on stackoverflow](https://stackoverflow.com/search?q=user%3A974186+%5Bclean-architecture%5D) or post 
+  a new answer. I usually watch new answers to the [clean-architecture](https://stackoverflow.com/questions/tagged/clean-architecture) and
+  [hexagonal-architecture](https://stackoverflow.com/questions/tagged/hexagonal-architecture) tag.
+- take a look at my [youtube channel - clean-code.guru (german)](https://www.youtube.com/@cleancodeguru).
 
