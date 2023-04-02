@@ -13,7 +13,6 @@ import java.awt.*;
 
 public class ListCarBookingView {
 
-
     private JPanel panel = new JPanel(new BorderLayout());
 
     private JActionToolBar actionToolBar = new JActionToolBar();
@@ -44,6 +43,10 @@ public class ListCarBookingView {
 
         panel.add(actionToolBar, BorderLayout.NORTH);
         panel.add(bookingsTableScrollPane, BorderLayout.CENTER);
+    }
+
+    JTable getBookingsTable() {
+        return bookingsTable;
     }
 
     private String getCustomerName(ListCarBookingModel listCarBookingModel) {
