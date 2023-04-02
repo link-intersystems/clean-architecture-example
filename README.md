@@ -176,5 +176,5 @@ If you have any questions about
 - the clean architecture and clean code in general you can browse [my answers on stackoverflow](https://stackoverflow.com/search?q=user%3A974186+%5Bclean-architecture%5D) or post 
   a new answer. I usually watch new answers to the [clean-architecture](https://stackoverflow.com/questions/tagged/clean-architecture) and
   [hexagonal-architecture](https://stackoverflow.com/questions/tagged/hexagonal-architecture) tag.
-- take a look at my [youtube channel - clean-code.guru (german)](https://www.youtube.com/@cleancodeguru).
+- clean code in general, take a look at my [youtube channel - clean-code.guru (german)](https://www.youtube.com/@cleancodeguru).
 
