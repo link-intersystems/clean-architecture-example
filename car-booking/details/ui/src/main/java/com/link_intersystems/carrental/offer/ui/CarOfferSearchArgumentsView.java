@@ -53,6 +53,10 @@ class CarOfferSearchArgumentsView {
         searchPanel.add(searchButton, constraints);
     }
 
+    JComboBox<String> getVehicleType() {
+        return vehicleType;
+    }
+
     public void setCarSearchModel(CarSearchModel carSearchModel) {
         this.carSearchModel = carSearchModel;
         bindToView(carSearchModel);

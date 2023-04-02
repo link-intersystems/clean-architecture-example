@@ -29,6 +29,10 @@ class CarOfferSearchResultView {
         listSelectionProvider.setListSelectionModel(listSelectionModel);
     }
 
+    JTable getCarOfferTable() {
+        return carOfferTable;
+    }
+
     public void setCarOfferListModel(ListModel<CarOfferModel> carOfferListModel) {
         listSelectionProvider.setListModel(carOfferListModel);
         carOfferModelListTableModel.setListModel(carOfferListModel);
