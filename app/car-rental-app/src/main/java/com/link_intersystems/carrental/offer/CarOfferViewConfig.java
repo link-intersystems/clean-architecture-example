@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental.offer;
 
-import com.link_intersystems.carrental.DomainEventBus;
+import com.link_intersystems.carrental.DomainEventPublisher;
 import com.link_intersystems.carrental.booking.CarBookingComponent;
 import com.link_intersystems.carrental.booking.CarBookingUseCase;
 import com.link_intersystems.carrental.main.AOPConfig;
@@ -14,13 +14,13 @@ import static java.util.Objects.*;
 public class CarOfferViewConfig {
 
     private JdbcTemplate jdbcTemplate;
-    private DomainEventBus domainEventBus;
+    private DomainEventPublisher eventPublisher;
     private AOPConfig aopConfig;
     private MessageDialog messageDialog;
 
-    public CarOfferViewConfig(JdbcTemplate jdbcTemplate, DomainEventBus domainEventBus, AOPConfig aopConfig, MessageDialog messageDialog) {
+    public CarOfferViewConfig(JdbcTemplate jdbcTemplate, DomainEventPublisher eventPublisher, AOPConfig aopConfig, MessageDialog messageDialog) {
         this.jdbcTemplate = requireNonNull(jdbcTemplate);
-        this.domainEventBus = requireNonNull(domainEventBus);
+        this.eventPublisher = requireNonNull(eventPublisher);
         this.aopConfig = requireNonNull(aopConfig);
         this.messageDialog = requireNonNull(messageDialog);
     }
@@ -41,7 +41,7 @@ public class CarOfferViewConfig {
 
     private CarBookingUseCase createCarBookingUseCase(JdbcTemplate rentalJdbcTemplate) {
         CarBookingComponent carBookingComponent = new CarBookingComponent();
-        CarBookingUseCase carBookingUseCase = carBookingComponent.getCarBookingUseCase(rentalJdbcTemplate, domainEventBus);
+        CarBookingUseCase carBookingUseCase = carBookingComponent.getCarBookingUseCase(rentalJdbcTemplate, eventPublisher);
         return aopConfig.applyAOP(carBookingUseCase);
     }
 }

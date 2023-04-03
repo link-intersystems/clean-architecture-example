@@ -9,11 +9,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DefaultDomainEventBusTest {
+abstract class AbstractEventDispatchStrategyTest {
 
-    private CaptureEventSubscriber captureEventSubscriber;
-    private List<DomainEventSubscriber> subscribers;
-    private DefaultDomainEventBus domainEventBus;
+    protected CaptureEventSubscriber captureEventSubscriber;
+    protected List<DomainEventSubscriber> subscribers;
+    protected EventDispatchStrategy eventDispatchStrategy;
 
     @BeforeEach
     void setUp() {
@@ -21,16 +21,17 @@ class DefaultDomainEventBusTest {
         subscribers = new ArrayList<>();
         subscribers.add(captureEventSubscriber);
 
-        domainEventBus = new DefaultDomainEventBus();
-        domainEventBus.addSubscribers(captureEventSubscriber);
+        eventDispatchStrategy = createEventDispatchStrategy();
     }
 
+    protected abstract EventDispatchStrategy createEventDispatchStrategy();
+
     @Test
-    void publish() {
+    void dispatchEvent() {
         LocalDateTime beginOfExecution = LocalDateTime.now();
 
         StringValueDomainEvent stringValueDomainEvent = new StringValueDomainEvent("");
-        domainEventBus.publish(stringValueDomainEvent);
+        eventDispatchStrategy.dispatch(stringValueDomainEvent, subscribers);
         LocalDateTime endOfExecution = LocalDateTime.now();
 
         List<DomainEvent> capturedEvents = captureEventSubscriber.getCapturedEvents();
@@ -38,21 +39,5 @@ class DefaultDomainEventBusTest {
         DomainEvent publishedEvent = capturedEvents.get(0);
         assertTrue(publishedEvent.getOccuredOn().compareTo(beginOfExecution) >= 0);
         assertTrue(publishedEvent.getOccuredOn().compareTo(endOfExecution) <= 0);
-    }
-
-    @Test
-    void doNotPublishTheSameEventTwice() {
-        subscribers.add(new SingleDomainEventSubscriber<StringValueDomainEvent>() {
-            @Override
-            protected void doHandleEvent(StringValueDomainEvent domainEvent) {
-                domainEventBus.publish(domainEvent);
-            }
-        });
-
-        StringValueDomainEvent stringValueDomainEvent = new StringValueDomainEvent("");
-        domainEventBus.publish(stringValueDomainEvent);
-
-        List<DomainEvent> capturedEvents = captureEventSubscriber.getCapturedEvents();
-        assertEquals(1, capturedEvents.size());
     }
 }

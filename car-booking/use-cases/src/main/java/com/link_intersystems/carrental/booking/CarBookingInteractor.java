@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.CarId;
-import com.link_intersystems.carrental.DomainEventBus;
+import com.link_intersystems.carrental.DomainEventPublisher;
 import com.link_intersystems.carrental.VIN;
 import com.link_intersystems.carrental.customer.Customer;
 import com.link_intersystems.carrental.customer.CustomerId;
@@ -16,11 +16,11 @@ import static java.util.Objects.*;
 class CarBookingInteractor implements CarBookingUseCase {
 
     private CarBookingRepository repository;
-    private DomainEventBus domainEventBus;
+    private DomainEventPublisher eventPublisher;
 
-    public CarBookingInteractor(CarBookingRepository repository, DomainEventBus domainEventBus) {
+    public CarBookingInteractor(CarBookingRepository repository, DomainEventPublisher eventPublisher) {
         this.repository = requireNonNull(repository);
-        this.domainEventBus = requireNonNull(domainEventBus);
+        this.eventPublisher = requireNonNull(eventPublisher);
     }
 
     @Override
@@ -44,7 +44,7 @@ class CarBookingInteractor implements CarBookingUseCase {
         responseModel.setBookingNumber(Integer.toString(carBooking.getBookingNumber().getValue()));
 
         CarBookedEvent carBookedEvent = new CarBookedEvent(carBooking.getBookingNumber().getValue(), carBooking.getCarId().getValue(), customer.getFirstname(), customer.getLastname());
-        domainEventBus.publish(carBookedEvent);
+        eventPublisher.publish(carBookedEvent);
         return responseModel;
     }
 

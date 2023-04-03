@@ -1,12 +1,15 @@
 package com.link_intersystems.carrental.main;
 
-import com.link_intersystems.carrental.DefaultDomainEventBus;
-import com.link_intersystems.carrental.DomainEventBus;
+import com.link_intersystems.carrental.*;
 import com.link_intersystems.carrental.management.CarManagementViewConfig;
 import com.link_intersystems.carrental.offer.CarOfferViewConfig;
 import com.link_intersystems.carrental.swing.notification.DefaultMessageDialog;
 import com.link_intersystems.carrental.ui.CarRentalMainFrame;
 import com.link_intersystems.jdbc.JdbcTemplate;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
 public class CarRentalApp {
 
@@ -27,12 +30,12 @@ public class CarRentalApp {
 
         messageDialog = new DefaultMessageDialog();
 
-        DefaultDomainEventBus defaultDomainEventBus = new DefaultDomainEventBus();
+        DomainEventBus domainEventBus = createDomainEventBus(appArgs);
 
         CarManagementViewConfig carManagementViewConfig = createCarManagementViewConfig();
-        defaultDomainEventBus.addSubscribers(carManagementViewConfig.getCarBookedEventSubscriber());
+        domainEventBus.addSubscribers(carManagementViewConfig.getCarBookedEventSubscriber());
 
-        CarOfferViewConfig carOfferViewConfig = createCarOfferViewConfig(defaultDomainEventBus);
+        CarOfferViewConfig carOfferViewConfig = createCarOfferViewConfig(domainEventBus);
         CarRentalConfig carRentalConfig = new CarRentalConfig(carOfferViewConfig, carManagementViewConfig, messageDialog);
 
         CarRentalMainFrame mainFrame = carRentalConfig.getMainFrame();
@@ -43,9 +46,19 @@ public class CarRentalApp {
         openFrame(mainFrame);
     }
 
-    private CarOfferViewConfig createCarOfferViewConfig(DomainEventBus domainEventBus) {
+    private DomainEventBus createDomainEventBus(AppArgs appArgs) {
+        Map<String, Supplier<EventDispatchStrategy>> strategyMap = new HashMap<>();
+        strategyMap.put("sync", SyncEventDispatchStrategy::new);
+        strategyMap.put("async", AsyncEventDispatchStrategy::new);
+
+        String eventBusType = appArgs.getArg("eb", "sync");
+        EventDispatchStrategy eventDispatchStrategy = strategyMap.getOrDefault(eventBusType, SyncEventDispatchStrategy::new).get();
+        return new DomainEventBus(eventDispatchStrategy);
+    }
+
+    private CarOfferViewConfig createCarOfferViewConfig(DomainEventPublisher eventPublisher) {
         JdbcTemplate carRentalJdbcTemplate = dataSourceConfig.getCarRentalJdbcTemplate();
-        return new CarOfferViewConfig(carRentalJdbcTemplate, domainEventBus, aopConfig, messageDialog);
+        return new CarOfferViewConfig(carRentalJdbcTemplate, eventPublisher, aopConfig, messageDialog);
     }
 
     private CarManagementViewConfig createCarManagementViewConfig() {
