@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.management;
 
 import com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingView;
-import com.link_intersystems.carrental.management.pickup.list.ui.ListPickupCarView;
+import com.link_intersystems.carrental.management.rental.pickup.list.ui.ListPickupCarView;
 
 import javax.swing.*;
 import java.awt.*;
