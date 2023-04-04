@@ -115,11 +115,6 @@ you should take a look at my [youtube channel - clean-code.guru (german)](https:
 I also would like to recommend the [cleancoders.com](https://cleancoders.com) website, where you can find a lot of
 videos about clean code. Most of them provided by Robert "Uncle Bob" Martin and Micah Martin.
 
-If you would like to learn more about clean code and the clean architecture,
-you should take a look at my [youtube channel - clean-code.guru (german)](https://www.youtube.com/@cleancodeguru).
-
-I also would like to recommend the [cleancoders.com](https://cleancoders.com) website, where you can find a lot of
-videos about clean code. Most of them provided by Robert "Uncle Bob" Martin and Micah Martin.
 
 ## The Example Domain
 
