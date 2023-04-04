@@ -13,15 +13,15 @@ import static com.link_intersystems.carrental.time.LocalDateTimeUtils.*;
 import static com.link_intersystems.carrental.time.PeriodBuilder.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-class CarRentalMapperTest {
+class CarRentalFactoryTest {
 
     private Map<String, Object> row;
-    private CarRentalMapper mapper;
+    private CarRentalFactory mapper;
 
     @BeforeEach
     void setUp() {
         row = new HashMap<>();
-        mapper = new CarRentalMapper();
+        mapper = new CarRentalFactory();
     }
 
     @Test
@@ -37,7 +37,7 @@ class CarRentalMapperTest {
         row.put("RETURN_CAR_STATE_FUEL", 100);
         row.put("RETURN_CAR_STATE_ODOMETER", 12345);
 
-        CarRental carRental = mapper.toCarRental(row);
+        CarRental carRental = mapper.create(row);
 
         assertEquals(new BookingNumber(42), carRental.getBookingNumber());
         Period expectedRentalPeriod = from("2023-04-03", "08:07:42").to("2023-04-04", "07:03:23");

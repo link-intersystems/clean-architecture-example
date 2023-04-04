@@ -10,15 +10,15 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CarBookingMapperTest {
+class CarBookingFactoryTest {
 
     private Map<String, Object> row;
-    private CarBookingMapper mapper;
+    private CarBookingFactory mapper;
 
     @BeforeEach
     void setUp() {
         row = new HashMap<>();
-        mapper = new CarBookingMapper();
+        mapper = new CarBookingFactory();
     }
 
 
@@ -29,7 +29,7 @@ class CarBookingMapperTest {
         row.put("CUSTOMER_FIRSTNAME", "René");
         row.put("CUSTOMER_LASTNAME", "Link");
 
-        CarBooking carBooking = mapper.toCarBooking(row);
+        CarBooking carBooking = mapper.create(row);
 
         assertEquals(new BookingNumber(42), carBooking.getBookingNumber());
         assertEquals(new VIN("WMEEJ8AA3FK792135"), carBooking.getVin());

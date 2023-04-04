@@ -2,7 +2,7 @@ package com.link_intersystems.carrental.management.rental.returnCar;
 
 import com.link_intersystems.carrental.booking.BookingNumber;
 import com.link_intersystems.carrental.management.rental.CarRental;
-import com.link_intersystems.carrental.management.rental.CarRentalMapper;
+import com.link_intersystems.carrental.management.rental.CarRentalFactory;
 import com.link_intersystems.carrental.management.rental.CarState;
 import com.link_intersystems.jdbc.JdbcTemplate;
 
@@ -11,7 +11,7 @@ import java.util.Map;
 
 class H2ReturnCarRepository implements ReturnCarRepository {
 
-    private CarRentalMapper carRentalMapper = new CarRentalMapper();
+    private CarRentalFactory carRentalFactory = new CarRentalFactory();
     private JdbcTemplate jdbcTemplate;
 
     public H2ReturnCarRepository(JdbcTemplate managementJdbcTemplate) {
@@ -21,7 +21,7 @@ class H2ReturnCarRepository implements ReturnCarRepository {
     @Override
     public CarRental find(BookingNumber bookingNumber) {
         Map<String, Object> carRentalRow = jdbcTemplate.queryForMap("SELECT * FROM CAR_RENTAL WHERE BOOKING_NUMBER = ?", bookingNumber.getValue());
-        return carRentalMapper.toCarRental(carRentalRow);
+        return carRentalFactory.create(carRentalRow);
     }
 
     @Override

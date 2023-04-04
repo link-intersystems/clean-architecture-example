@@ -2,7 +2,7 @@ package com.link_intersystems.carrental.management.rental.pickup;
 
 import com.link_intersystems.carrental.booking.BookingNumber;
 import com.link_intersystems.carrental.management.booking.CarBooking;
-import com.link_intersystems.carrental.management.booking.CarBookingMapper;
+import com.link_intersystems.carrental.management.booking.CarBookingFactory;
 import com.link_intersystems.carrental.management.booking.Customer;
 import com.link_intersystems.carrental.management.booking.RentalState;
 import com.link_intersystems.carrental.management.rental.CarRental;
@@ -15,7 +15,7 @@ import java.util.Map;
 
 class H2PickupCarRepository implements PickupCarRepository {
 
-    private CarBookingMapper carBookingMapper = new CarBookingMapper();
+    private CarBookingFactory carBookingFactory = new CarBookingFactory();
     private JdbcTemplate jdbcTemplate;
 
     public H2PickupCarRepository(JdbcTemplate managementJdbcTemplate) {
@@ -56,7 +56,7 @@ class H2PickupCarRepository implements PickupCarRepository {
                 FROM CAR_BOOKING 
                 WHERE BOOKING_NUMBER = ?""", queryArgs);
 
-        return carBookingMapper.toCarBooking(row);
+        return carBookingFactory.create(row);
     }
 
     @Override
