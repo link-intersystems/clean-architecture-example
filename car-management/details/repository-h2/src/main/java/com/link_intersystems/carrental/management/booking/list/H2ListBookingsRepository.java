@@ -1,17 +1,16 @@
 package com.link_intersystems.carrental.management.booking.list;
 
-import com.link_intersystems.carrental.VIN;
-import com.link_intersystems.carrental.booking.BookingNumber;
 import com.link_intersystems.carrental.management.booking.CarBooking;
-import com.link_intersystems.carrental.management.booking.Customer;
+import com.link_intersystems.carrental.management.booking.CarBookingMapper;
 import com.link_intersystems.jdbc.JdbcTemplate;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 class H2ListBookingsRepository implements ListBookingsRepository {
 
+    private CarBookingMapper carBookingMapper = new CarBookingMapper();
     private JdbcTemplate jdbcTemplate;
 
     public H2ListBookingsRepository(JdbcTemplate managementJdbcTemplate) {
@@ -21,15 +20,13 @@ class H2ListBookingsRepository implements ListBookingsRepository {
 
     @Override
     public List<CarBooking> findBookings() {
-        return jdbcTemplate.query("SELECT * FROM CAR_BOOKING WHERE RENTAL_STATE IS NULL", this::mapCarBookingRow);
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList("""
+                SELECT * FROM CAR_BOOKING 
+                    WHERE
+                     RENTAL_STATE IS NULL
+                     """);
+        return rows.stream().map(carBookingMapper::toCarBooking).collect(Collectors.toList());
     }
 
-    private CarBooking mapCarBookingRow(ResultSet rs) throws SQLException {
-        BookingNumber bookingNumber = new BookingNumber(rs.getInt("BOOKING_NUMBER"));
-        VIN vin = new VIN(rs.getString("VIN"));
-        String customerFirstname = rs.getString("CUSTOMER_FIRSTNAME");
-        String customerLastname = rs.getString("CUSTOMER_LASTNAME");
-        Customer customer = new Customer(customerFirstname, customerLastname);
-        return new CarBooking(bookingNumber, vin, customer);
-    }
+
 }

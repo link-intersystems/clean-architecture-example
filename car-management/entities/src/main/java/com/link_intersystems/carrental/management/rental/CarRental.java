@@ -44,6 +44,10 @@ public class CarRental {
         return returnDateTime;
     }
 
+    void setReturnDateTime(LocalDateTime returnDateTime) {
+        this.returnDateTime = returnDateTime;
+    }
+
     public CarState getPickupCarState() {
         return pickupCarState;
     }
@@ -64,6 +68,10 @@ public class CarRental {
 
     public CarState getReturnCarState() {
         return returnCarState;
+    }
+
+    void setReturnCarState(CarState returnCarState) {
+        this.returnCarState = returnCarState;
     }
 
     public Period getRentalPeriod() {

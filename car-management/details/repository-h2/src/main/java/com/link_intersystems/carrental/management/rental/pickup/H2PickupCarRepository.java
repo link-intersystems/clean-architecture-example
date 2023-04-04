@@ -1,17 +1,21 @@
 package com.link_intersystems.carrental.management.rental.pickup;
 
-import com.link_intersystems.carrental.VIN;
 import com.link_intersystems.carrental.booking.BookingNumber;
 import com.link_intersystems.carrental.management.booking.CarBooking;
+import com.link_intersystems.carrental.management.booking.CarBookingMapper;
 import com.link_intersystems.carrental.management.booking.Customer;
 import com.link_intersystems.carrental.management.booking.RentalState;
 import com.link_intersystems.carrental.management.rental.CarRental;
 import com.link_intersystems.jdbc.JdbcTemplate;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.Timestamp;
+import java.sql.Types;
+import java.util.Map;
 
 class H2PickupCarRepository implements PickupCarRepository {
 
+    private CarBookingMapper carBookingMapper = new CarBookingMapper();
     private JdbcTemplate jdbcTemplate;
 
     public H2PickupCarRepository(JdbcTemplate managementJdbcTemplate) {
@@ -47,10 +51,12 @@ class H2PickupCarRepository implements PickupCarRepository {
     public CarBooking findBooking(BookingNumber bookingNumber) {
         Object[] queryArgs = {bookingNumber.getValue()};
 
-        return jdbcTemplate.queryForObject("""
+        Map<String, Object> row = jdbcTemplate.queryForMap("""
                 SELECT * 
                 FROM CAR_BOOKING 
-                WHERE BOOKING_NUMBER = ?""", queryArgs, this::mapCarBookingRow);
+                WHERE BOOKING_NUMBER = ?""", queryArgs);
+
+        return carBookingMapper.toCarBooking(row);
     }
 
     @Override
@@ -84,13 +90,4 @@ class H2PickupCarRepository implements PickupCarRepository {
         });
     }
 
-    private CarBooking mapCarBookingRow(ResultSet rs) throws SQLException {
-        BookingNumber bookingNumber = new BookingNumber(rs.getInt("BOOKING_NUMBER"));
-        VIN vin = new VIN(rs.getString("VIN"));
-        String customerFirstname = rs.getString("CUSTOMER_FIRSTNAME");
-        String customerLastname = rs.getString("CUSTOMER_LASTNAME");
-        Customer customer = new Customer(customerFirstname, customerLastname);
-        CarBooking carBooking = new CarBooking(bookingNumber, vin, customer);
-        return carBooking;
-    }
 }
