@@ -15,6 +15,8 @@ implementation details, or you can use it to learn more about the clean architec
 - [Screaming Architecture](#screaming-architecture)
 - [Package By Component](#package-by-component)
 - [Modules And Components](#modules-and-components)
+  - [Components In CleanArchitecture](#components-in-clean-architecture)
+- [Domain Events And The Event Bus](#domain-events-and-the-event-bus)
 - [As Pure As Possible](#as-pure-as-possible)
 - [Implementation Notes](#implementation-notes)
   - [Use Cases And Interactors](#use-cases-and-interactors)
@@ -48,7 +50,7 @@ to use the simplest solution that works.
 If you would like to learn more about the other packaging strategies take a look at chapter 34, the missing chapter, in
 the [Clean Architecture book](https://www.amazon.com/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164).
 
-# Modules And Components
+## Modules And Components
 
 Event though the terms module and component are widely used, there is often a lot of confusion about the meaning of them.
 If you ask 5 developers: "What are the differences?", you might get 5 different answers, so here is mine:
@@ -64,6 +66,25 @@ Today the meaning in general is "interchangeable part".
 
 The example application is organized in 2 [domain modules](#domain-modules) that you find at the top level
 of this project, like a [screaming architecture](#screaming-architecture) should be organized.
+
+### Components In Clean Architecture
+
+A component in the clean architecture spans all layers, so it's hard to explain what a component is if you only use 
+a 2D diagram. So I tried to visualize my thoughts in 3D.
+
+![Components in Clean Architecture](src/site/resources/components-in-clean-architecture.png)
+
+## Domain Events And The Event Bus
+
+Components in the clean architecture should be completely separated, but sometimes they share common entities. The
+communication between components can be done using domain events. A domain event is usually the outcome of the execution
+of a use case and is published somehow. 
+
+I would call the publishing mechanism a domain-event bus. The domain-event bus is a component that is responsible for
+the delivery of domain events. Domain events are published by use cases and can are consumed by controllers or other
+components within the interface adapters layer, e.g. a gateway that sends the event to an external system, like a message queue.
+
+![Domain Event Bus](src/site/resources/domain-event-bus.png)
 
 ## As Pure As Possible
 
