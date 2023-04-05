@@ -42,4 +42,14 @@
             <artifactId>junit-jupiter-engine</artifactId>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.link-intersystems.commons</groupId>
+                <artifactId>lis-commons-jdbc-test</artifactId>
+                <version>${lis-commons.verions}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

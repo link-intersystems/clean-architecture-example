@@ -19,6 +19,16 @@
         </dependency>
     </dependencies>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.link-intersystems.commons</groupId>
+                <artifactId>lis-commons-swing</artifactId>
+                <version>${lis-commons.verions}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <build>
         <plugins>
             <plugin>

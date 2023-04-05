@@ -39,32 +39,6 @@
                 <version>${junit-jupiter.version}</version>
                 <scope>test</scope>
             </dependency>
-
-            <dependency>
-                <groupId>com.link-intersystems.commons</groupId>
-                <artifactId>lis-commons-swing</artifactId>
-                <version>${lis-commons.verions}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.link-intersystems.commons</groupId>
-                <artifactId>lis-commons-beans</artifactId>
-                <version>${lis-commons.verions}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.link-intersystems.commons</groupId>
-                <artifactId>lis-commons-events</artifactId>
-                <version>${lis-commons.verions}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.link-intersystems.commons</groupId>
-                <artifactId>lis-commons-sql</artifactId>
-                <version>${lis-commons.verions}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.link-intersystems.commons</groupId>
-                <artifactId>lis-commons-jdbc-test</artifactId>
-                <version>${lis-commons.verions}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
