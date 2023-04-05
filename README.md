@@ -14,6 +14,7 @@ implementation details, or you can use it to learn more about the clean architec
 
 - [Screaming Architecture](#screaming-architecture)
 - [Package By Component](#package-by-component)
+- [Modules And Components](#modules-and-components)
 - [As Pure As Possible](#as-pure-as-possible)
 - [Implementation Notes](#implementation-notes)
   - [Use Cases And Interactors](#use-cases-and-interactors)
@@ -35,7 +36,7 @@ find domain-related terms at the top level of this project.
 
 ## Package By Component
 
-All [domain modules](#domain-modules) in this project are structured using the *package by component* strategy as described by Simon Brown in the Clean
+All [modules](#modules-and-components) in this project are structured using the *package by component* strategy as described by Simon Brown in the Clean
 Architecture book - chapter 34, the missing chapter.
 
 ![Package By Component, Simon Brown, The Missing Chapter, Clean Architecture Book](src/site/resources/package-by-component.png)
@@ -46,6 +47,23 @@ to use the simplest solution that works.
 
 If you would like to learn more about the other packaging strategies take a look at chapter 34, the missing chapter, in
 the [Clean Architecture book](https://www.amazon.com/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164).
+
+# Modules And Components
+
+Event though the terms module and component are widely used, there is often a lot of confusion about the meaning of them.
+If you ask 5 developers: "What are the differences?", you might get 5 different answers, so here is mine:
+
+> A component is a group of elements. A component can contain other components.
+
+Component is derived from the latin word *componere*, which means "to put together".
+
+> A module is a replaceable component.
+
+The term module is derived from the latin word *modulus*, which means "measure". 
+Today the meaning in general is "interchangeable part".
+
+The example application is organized in 2 [domain modules](#domain-modules) that you find at the top level
+of this project, like a [screaming architecture](#screaming-architecture) should be organized.
 
 ## As Pure As Possible
 
@@ -123,7 +141,9 @@ to stay focused on the architecture and not the domain.
 
 ### Domain Modules
 
-The application is made of 2 domain modules. Follow the links of the modules for details about each one.
+The application is separated in 2 domain module in order to show how communication via [domain](#domain-events) events can be done.
+Each module implements several use cases that are the modules components.
+
 
 - car-booking
    
@@ -131,6 +151,7 @@ The application is made of 2 domain modules. Follow the links of the modules for
 - car-management
 
   The car-management module contains the use cases a salesperson executes, like handover a car to a customer and return one. 
+
 
 You might want to explore the clean architecture further by implementing more use cases.
 
