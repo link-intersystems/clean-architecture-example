@@ -8,6 +8,7 @@ You can either use this example as a starting point for discussions about the cl
 implementation details, or you can use it to learn more about the clean architecture.
 
 ![Clean Architecture by Uncle Bob (Robert C. Martin)](src/site/resources/CleanArchitecture.jpg)
+
 [The Clean Architecture, Robert C. Martin, 13 August 2012](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
 ## Table Of Contents
