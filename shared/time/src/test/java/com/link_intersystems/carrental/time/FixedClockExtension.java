@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.time.Clock;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Optional;
 
 class FixedClockExtension implements BeforeEachCallback, AfterEachCallback, ParameterResolver {
@@ -17,18 +18,23 @@ class FixedClockExtension implements BeforeEachCallback, AfterEachCallback, Para
     @Override
     public void beforeEach(ExtensionContext extensionContext) throws Exception {
         Optional<FixedClock> fixedClock = getFixedClockAnnotation(extensionContext);
-        fixedClock.ifPresent(fc -> adjustClock(fc, extensionContext));
+        fixedClock.ifPresent(fc -> setClock(fc, extensionContext));
     }
 
-    private void adjustClock(FixedClock fixedClock, ExtensionContext extensionContext) {
+    private void setClock(FixedClock fixedClock, ExtensionContext extensionContext) {
         ExtensionContext.Store store = extensionContext.getStore(NAMESPACE);
         Clock actualClock = ClockProvider.getClock();
         store.put(PREVIOUS_CLOCK_KEY, actualClock);
 
         String value = fixedClock.value();
         LocalDateTime localDateTime = LocalDateTime.parse(value.replaceAll(" ", "T"));
-        Clock clockForTest = LocalDateTimeUtils.clockOf(localDateTime);
+
+        String zoneIdValue = fixedClock.zoneId();
+        ZoneId zoneId = "null".equals(zoneIdValue) ? ZoneId.systemDefault() : ZoneId.of(zoneIdValue);
+
+        Clock clockForTest = LocalDateTimeUtils.clockOf(localDateTime, zoneId);
         ClockProvider.setClock(clockForTest);
+
         store.put(FIXED_CLOCK_KEY, clockForTest);
     }
 
@@ -69,14 +75,20 @@ class FixedClockExtension implements BeforeEachCallback, AfterEachCallback, Para
     public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
         Parameter parameter = parameterContext.getParameter();
         Class<?> parmeterType = parameter.getType();
-        return Clock.class.isAssignableFrom(parmeterType);
+        return Clock.class.equals(parmeterType) || MutableClock.class.equals(parmeterType);
     }
 
     @Override
     public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
         if (supportsParameter(parameterContext, extensionContext)) {
-            ExtensionContext.Store store = extensionContext.getStore(NAMESPACE);
-            return store.get(FIXED_CLOCK_KEY);
+            Parameter parameter = parameterContext.getParameter();
+            Class<?> parameterType = parameter.getType();
+            if (Clock.class.equals(parameterType)) {
+                ExtensionContext.Store store = extensionContext.getStore(NAMESPACE);
+                return store.get(FIXED_CLOCK_KEY);
+            } else if (MutableClock.class.equals(parameterType)) {
+                return (MutableClock) ldt -> ClockProvider.setClock(LocalDateTimeUtils.clockOf(ldt));
+            }
         }
         return null;
     }

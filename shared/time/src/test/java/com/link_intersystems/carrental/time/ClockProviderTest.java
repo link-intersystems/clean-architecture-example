@@ -40,4 +40,13 @@ class ClockProviderTest {
         assertEquals(dateTime("2023-04-01", "17:23:45"), now);
 
     }
+
+    @Test
+    @FixedClock("2023-04-01 17:23:45")
+    void nowMs() {
+        long now = ClockProvider.getClock().millis();
+
+        assertEquals(dateTime("2023-04-01", "17:23:45").atZone(ZoneId.systemDefault()).toInstant().toEpochMilli(), now);
+
+    }
 }

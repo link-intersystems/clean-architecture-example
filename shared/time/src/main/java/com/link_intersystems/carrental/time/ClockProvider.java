@@ -18,11 +18,12 @@ public class ClockProvider {
     public static LocalDateTime now() {
         Clock clock = getClock();
         Instant now = clock.instant();
-        ZoneId zone = ZoneId.systemDefault();
+        ZoneId zone = clock.getZone();
         return LocalDateTime.ofInstant(now, zone);
     }
 
     static void setClock(Clock clock) {
         ClockProvider.clock = requireNonNull(clock);
     }
+
 }

@@ -29,6 +29,11 @@
             <type>test-jar</type>
         </dependency>
         <dependency>
+            <groupId>com.acme.car-rental.shared</groupId>
+            <artifactId>car-rental-shared-time</artifactId>
+            <type>test-jar</type>
+        </dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
         </dependency>

@@ -13,4 +13,6 @@ import java.lang.annotation.Target;
 public @interface FixedClock {
 
     public String value();
+
+    public String zoneId() default "null";
 }
