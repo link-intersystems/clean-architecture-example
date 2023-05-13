@@ -4,9 +4,9 @@ import static java.util.Objects.*;
 
 public class LoginInteractor implements LoginUseCase {
     private AccessTokenIssuer accessTokenIssuer;
-    private CustomerLoginRepository repository;
+    private LoginRepository repository;
 
-    public LoginInteractor(CustomerLoginRepository repository, AccessTokenIssuer accessTokenIssuer) {
+    public LoginInteractor(LoginRepository repository, AccessTokenIssuer accessTokenIssuer) {
         this.accessTokenIssuer = requireNonNull(accessTokenIssuer);
         this.repository = requireNonNull(repository);
     }

@@ -3,7 +3,7 @@ package com.link_intersystems.carrental.login;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-class LoginRepositoryMock implements CustomerLoginRepository {
+class LoginRepositoryMock implements LoginRepository {
 
     private Set<Login> logins = new LinkedHashSet<>();
 
