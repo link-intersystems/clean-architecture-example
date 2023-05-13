@@ -16,20 +16,28 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.*;
+
 class H2CarBookingRepository implements CarBookingRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
     public H2CarBookingRepository(JdbcTemplate carRentalJdbcTemplate) {
-        this.jdbcTemplate = carRentalJdbcTemplate;
+        this.jdbcTemplate = requireNonNull(carRentalJdbcTemplate);
     }
 
     @Override
     public CarBooking findBooking(CarId carId, Period bookingPeriod) {
-        String sql = "select * from car_booking where carid = ? " + " AND ((CAR_BOOKING.PICKUP_DATETIME >= ? OR CAR_BOOKING.PICKUP_DATETIME <= ?)" + " OR (CAR_BOOKING.RETURN_DATETIME >= ? OR CAR_BOOKING.RETURN_DATETIME <= ?))";
         LocalDateTime begin = bookingPeriod.getBegin();
         LocalDateTime end = bookingPeriod.getEnd();
-        List<CarBooking> carBookings = jdbcTemplate.query(sql, new Object[]{carId.getValue(), begin, end, begin, end}, new RowMapper<CarBooking>() {
+        List<CarBooking> carBookings = jdbcTemplate.query("""
+                select * from car_booking 
+                where carid = ? 
+                AND (
+                    (CAR_BOOKING.PICKUP_DATETIME >= ? OR CAR_BOOKING.PICKUP_DATETIME <= ?) 
+                    OR 
+                    (CAR_BOOKING.RETURN_DATETIME >= ? OR CAR_BOOKING.RETURN_DATETIME <= ?)
+                )""", new Object[]{carId.getValue(), begin, end, begin, end}, new RowMapper<CarBooking>() {
             @Override
             public CarBooking mapRow(ResultSet rs) throws SQLException {
                 CustomerId customerId = new CustomerId(rs.getInt("CUSTOMER_ID"));

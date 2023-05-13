@@ -1,0 +1,49 @@
+package com.link_intersystems.carrental.login;
+
+import com.link_intersystems.carrental.customer.Customer;
+import com.link_intersystems.carrental.customer.CustomerId;
+import com.link_intersystems.jdbc.JdbcTemplate;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import static java.util.Objects.*;
+
+public class H2LoginRepository implements LoginRepository {
+
+    private final JdbcTemplate jdbcTemplate;
+
+    public H2LoginRepository(JdbcTemplate carRentalJdbcTemplate) {
+        this.jdbcTemplate = requireNonNull(carRentalJdbcTemplate);
+    }
+
+    @Override
+    public Customer findCustomer(Login login) {
+        return jdbcTemplate.query(c -> {
+            PreparedStatement ps = c.prepareStatement("""
+                                select c.* from login l 
+                                    join customer c on c.id = l.customer_id
+                                    where l.username = ? 
+                                    and l.pass = ? 
+                    """);
+            ps.setString(1, login.getUsername());
+            ps.setString(2, login.getSecurePassword().getValue());
+
+
+            ResultSet resultSet = ps.executeQuery();
+            if (resultSet != null && resultSet.next()) {
+                return mapCustomer(resultSet);
+            }
+            return null;
+        });
+    }
+
+    private Customer mapCustomer(ResultSet resultSet) throws SQLException {
+        String firstname = resultSet.getString("firstname");
+        String lastname = resultSet.getString("lastname");
+        CustomerId id = new CustomerId(resultSet.getInt("id"));
+
+        return new Customer(id, firstname, lastname);
+    }
+}

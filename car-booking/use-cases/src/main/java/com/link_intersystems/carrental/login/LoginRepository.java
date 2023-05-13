@@ -1,5 +1,7 @@
 package com.link_intersystems.carrental.login;
 
+import com.link_intersystems.carrental.customer.Customer;
+
 public interface LoginRepository {
-    boolean isLoginExistent(Login login);
+    Customer findCustomer(Login login);
 }

@@ -1,5 +1,7 @@
 package com.link_intersystems.carrental.login;
 
+import com.link_intersystems.carrental.customer.Customer;
+
 import static java.util.Objects.*;
 
 public class LoginInteractor implements LoginUseCase {
@@ -18,7 +20,8 @@ public class LoginInteractor implements LoginUseCase {
 
         LoginResponseModel response = new LoginResponseModel();
 
-        if (repository.isLoginExistent(login)) {
+        Customer customer;
+        if ((customer = repository.findCustomer(login)) != null) {
             AccessToken accessToken = accessTokenIssuer.issueAccessToken(username);
             updateAccessToken(response, accessToken);
         }

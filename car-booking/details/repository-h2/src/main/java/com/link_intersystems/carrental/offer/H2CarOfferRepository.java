@@ -18,12 +18,14 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.*;
+
 class H2CarOfferRepository implements CarOfferRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
     public H2CarOfferRepository(JdbcTemplate carRentalJdbcTemplate) {
-        this.jdbcTemplate = carRentalJdbcTemplate;
+        this.jdbcTemplate = requireNonNull(carRentalJdbcTemplate);
     }
 
     @Override
