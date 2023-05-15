@@ -17,6 +17,11 @@
             <groupId>com.link-intersystems.commons</groupId>
             <artifactId>lis-commons-swing</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
