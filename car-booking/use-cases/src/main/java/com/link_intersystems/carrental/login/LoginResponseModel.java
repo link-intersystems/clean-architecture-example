@@ -5,6 +5,10 @@ public class LoginResponseModel {
     private String username;
     private long tokenIssueTime;
 
+    private int customerId;
+    private String customerFirstname;
+    private String customerLastname;
+
     public String getTokenSignature() {
         return tokenSignature;
     }
@@ -27,5 +31,33 @@ public class LoginResponseModel {
 
     public long getTokenIssueTime() {
         return tokenIssueTime;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getCustomerFirstname() {
+        return customerFirstname;
+    }
+
+    public void setCustomerFirstname(String customerFirstname) {
+        this.customerFirstname = customerFirstname;
+    }
+
+    public String getCustomerLastname() {
+        return customerLastname;
+    }
+
+    public void setCustomerLastname(String customerLastname) {
+        this.customerLastname = customerLastname;
+    }
+
+    public boolean isSuccessful() {
+        return customerId > -1 && tokenSignature != null && tokenIssueTime != 0;
     }
 }

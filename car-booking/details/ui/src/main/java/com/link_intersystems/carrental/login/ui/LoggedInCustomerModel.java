@@ -1,10 +1,10 @@
 package com.link_intersystems.carrental.login.ui;
 
-public class CustomerModel {
+public class LoggedInCustomerModel {
 
-    private int id;
-    private String firstname;
-    private String lastname;
+    private int id = -1;
+    private String firstname = "";
+    private String lastname = "";
 
     public int getId() {
         return id;
@@ -28,5 +28,11 @@ public class CustomerModel {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public void clear() {
+        this.id = -1;
+        this.firstname = "";
+        this.lastname = "";
     }
 }
