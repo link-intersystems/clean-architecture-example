@@ -11,9 +11,14 @@ class ModelContextMediatorTest {
 
     private static class SomeController {
         private ListModel model;
+        private boolean executed;
 
         public void setModel(ListModel model) {
             this.model = model;
+        }
+
+        public void execute() {
+            executed = !executed;
         }
     }
 
@@ -27,14 +32,65 @@ class ModelContextMediatorTest {
         modelContextMediator = new ModelContextMediator(modelContext);
     }
 
-
     @Test
-    void whenAvailableAfterModelAvailable() {
+    void whenModelChangedRun() {
         SomeController someController = new SomeController();
         DefaultListModel defaultListModel = new DefaultListModel();
         modelContext.registerModel(ListModel.class, defaultListModel);
 
-        modelContextMediator.whenAvailable(ListModel.class).thenSet(someController::setModel);
+        modelContextMediator.when(ListModel.class).changed().then(someController::execute);
+
+        assertTrue(someController.executed);
+        modelContext.unregisterModel(ListModel.class, defaultListModel);
+        assertFalse(someController.executed);
+    }
+
+    @Test
+    void whenModelAddedRun() {
+        SomeController someController = new SomeController();
+        DefaultListModel defaultListModel = new DefaultListModel();
+        modelContext.registerModel(ListModel.class, defaultListModel);
+
+        modelContextMediator.when(ListModel.class).added().then(someController::execute);
+
+        assertTrue(someController.executed);
+        modelContext.unregisterModel(ListModel.class, defaultListModel);
+        assertTrue(someController.executed);
+    }
+
+    @Test
+    void whenModelRemovedRun() {
+        SomeController someController = new SomeController();
+        DefaultListModel defaultListModel = new DefaultListModel();
+        modelContext.registerModel(ListModel.class, defaultListModel);
+
+        modelContextMediator.when(ListModel.class).removed().then(someController::execute);
+        assertFalse(someController.executed);
+        modelContext.unregisterModel(ListModel.class, defaultListModel);
+        assertTrue(someController.executed);
+    }
+
+    @Test
+    void whenModelAddedSetModel() {
+        SomeController someController = new SomeController();
+        DefaultListModel defaultListModel = new DefaultListModel();
+        modelContext.registerModel(ListModel.class, defaultListModel);
+
+        modelContextMediator.when(ListModel.class).added().then(someController::setModel);
+
+        assertSame(defaultListModel, someController.model);
+        modelContext.unregisterModel(ListModel.class, defaultListModel);
+        assertEquals(defaultListModel, someController.model);
+    }
+
+    @Test
+    void whenModelRemovedSetModel() {
+        SomeController someController = new SomeController();
+        DefaultListModel defaultListModel = new DefaultListModel();
+        someController.model = defaultListModel;
+        modelContext.registerModel(ListModel.class, defaultListModel);
+
+        modelContextMediator.when(ListModel.class).removed().then(someController::setModel);
 
         assertSame(defaultListModel, someController.model);
         modelContext.unregisterModel(ListModel.class, defaultListModel);
@@ -42,9 +98,22 @@ class ModelContextMediatorTest {
     }
 
     @Test
-    void whenAvailableBeforeModelAvailable() {
+    void whenAddedAfterModelAvailable() {
         SomeController someController = new SomeController();
-        modelContextMediator.whenAvailable(ListModel.class).thenSet(someController::setModel);
+        DefaultListModel defaultListModel = new DefaultListModel();
+        modelContext.registerModel(ListModel.class, defaultListModel);
+
+        modelContextMediator.when(ListModel.class).changed().then(someController::setModel);
+
+        assertSame(defaultListModel, someController.model);
+        modelContext.unregisterModel(ListModel.class, defaultListModel);
+        assertNull(someController.model);
+    }
+
+    @Test
+    void whenAddedBeforeModelAvailable() {
+        SomeController someController = new SomeController();
+        modelContextMediator.when(ListModel.class).changed().then(someController::setModel);
 
         DefaultListModel defaultListModel = new DefaultListModel();
         modelContext.registerModel(ListModel.class, defaultListModel);
@@ -60,20 +129,21 @@ class ModelContextMediatorTest {
         SomeController someController = new SomeController();
         DefaultListModel<Object> defaultListModel = new DefaultListModel<>();
 
-        modelContextMediator.whenAvailable(ListModel.class).thenSet(someController::setModel).orSetDefault(defaultListModel);
+        modelContextMediator.when(ListModel.class).added().then(someController::setModel).orDefault(defaultListModel);
 
         assertEquals(defaultListModel, someController.model);
     }
 
     @Test
-    void disposeCondition() {
+    void disposeAll() {
         SomeController someController = new SomeController();
         DefaultListModel<Object> defaultListModel = new DefaultListModel<>();
 
-        ModelContextCondition<ListModel> contextCondition = modelContextMediator.whenAvailable(ListModel.class);
-        contextCondition.thenSet(someController::setModel).orSetDefault(defaultListModel);
+        WhenModel<ListModel> whenModel = modelContextMediator.when(ListModel.class);
+        ModelAction<ListModel> addedModelAction = whenModel.added();
+        addedModelAction.then(someController::setModel).orDefault(defaultListModel);
 
-        contextCondition.dispose();
+        whenModel.dispose();
         DefaultListModel defaultListModel2 = new DefaultListModel();
         modelContext.registerModel(ListModel.class, defaultListModel2);
 

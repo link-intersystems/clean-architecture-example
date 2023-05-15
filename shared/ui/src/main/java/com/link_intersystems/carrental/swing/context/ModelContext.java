@@ -1,40 +1,11 @@
 package com.link_intersystems.carrental.swing.context;
 
-import com.link_intersystems.util.AmbiguousObjectException;
-
 import java.text.MessageFormat;
 import java.util.*;
 
+import static java.util.Objects.*;
+
 public class ModelContext {
-
-
-    private static class NamedModel<T> {
-
-        private final ModelQualifier<T> modelQualifier;
-        private final T model;
-
-        public <M extends T> NamedModel(ModelQualifier<T> modelQualifier, M model) {
-            this.modelQualifier = modelQualifier;
-            this.model = model;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            NamedModel<?> that = (NamedModel<?>) o;
-            return Objects.equals(modelQualifier, that.modelQualifier);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(modelQualifier);
-        }
-
-        public boolean accept(ModelQualifier<?> modelQualifier) {
-            return this.modelQualifier.equals(modelQualifier);
-        }
-    }
 
     private static class ModelContextListenerRegistration<T> {
 
@@ -42,8 +13,8 @@ public class ModelContext {
         private ModelContextListener<T> modelContextListener;
 
         public ModelContextListenerRegistration(ModelQualifier<? super T> modelQualifier, ModelContextListener<T> modelContextListener) {
-            this.modelQualifier = modelQualifier;
-            this.modelContextListener = modelContextListener;
+            this.modelQualifier = requireNonNull(modelQualifier);
+            this.modelContextListener = requireNonNull(modelContextListener);
         }
 
         public <T> ModelContextListener<T> cast(ModelQualifier<? super T> modelQualifier) {
@@ -71,10 +42,9 @@ public class ModelContext {
         }
     }
 
-    private Set<NamedModel> models = new LinkedHashSet<>();
+    private Map<ModelQualifier<?>, Object> modelsByQualifier = new HashMap<>();
 
     private List<ModelContextListenerRegistration<?>> modelContextListenerRegistrations = new ArrayList<>();
-
 
     public <T, M extends T> void registerModel(Class<T> registrationType, M model) {
         registerModel(registrationType, null, model);
@@ -83,9 +53,7 @@ public class ModelContext {
     public <T> void registerModel(Class<? super T> registrationType, String name, T model) {
         ModelQualifier<? super T> modelQualifier = new ModelQualifier<>(registrationType, name);
 
-        NamedModel namedModel = new NamedModel(modelQualifier, model);
-
-        if (models.add(namedModel)) {
+        if (modelsByQualifier.put(modelQualifier, model) == null) {
             for (ModelContextListenerRegistration<?> listenerRegistration : modelContextListenerRegistrations) {
                 ModelContextListener<T> modelContextListener = listenerRegistration.cast(modelQualifier);
                 if (modelContextListener != null) {
@@ -103,12 +71,10 @@ public class ModelContext {
         unregisterModel(registrationType, null, model);
     }
 
-
     public <T> void unregisterModel(Class<? super T> registrationType, String name, T model) {
         ModelQualifier<? super T> modelQualifier = new ModelQualifier<>(registrationType, name);
-        NamedModel namedModel = new NamedModel(modelQualifier, model);
 
-        if (models.remove(namedModel)) {
+        if (modelsByQualifier.remove(modelQualifier) != null) {
             for (ModelContextListenerRegistration<?> listenerRegistration : modelContextListenerRegistrations) {
                 ModelContextListener<T> modelContextListener = listenerRegistration.cast(modelQualifier);
                 if (modelContextListener != null) {
@@ -118,41 +84,16 @@ public class ModelContext {
         }
     }
 
-
     public <T> T get(Class<T> modelType) {
         return get(modelType, null);
     }
 
     public <T> T get(Class<T> modelType, String name) {
-        ModelQualifier<T> modelQualifier = new ModelQualifier<>(modelType, name);
-
-        return get(modelQualifier);
+        return get(new ModelQualifier<T>(modelType, name));
     }
 
-    private <T> T get(ModelQualifier<T> modelQualifier) {
-        List<T> models = findModels(modelQualifier);
-        if (models.isEmpty()) {
-            return null;
-        }
-
-        if (models.size() == 1) {
-            return models.get(0);
-        }
-
-        String msg = MessageFormat.format("Multiple models {0} are registered.", modelQualifier);
-        throw new AmbiguousObjectException(models, msg);
-    }
-
-    private <T, R extends T> List<R> findModels(ModelQualifier<T> modelQualifier) {
-        List<R> matchingModels = new ArrayList<>();
-
-        for (NamedModel namedModel : models) {
-            if (namedModel.accept(modelQualifier)) {
-                matchingModels.add((R) namedModel.model);
-            }
-        }
-
-        return matchingModels;
+    public <T> T get(ModelQualifier<T> modelQualifier) {
+        return (T) modelsByQualifier.get(requireNonNull(modelQualifier));
     }
 
     public <T> void addModelContextListener(Class<? super T> modelType, ModelContextListener<T> modelContextListener) {
@@ -161,12 +102,17 @@ public class ModelContext {
 
     public <T> void addModelContextListener(Class<? super T> modelType, String name, ModelContextListener<T> modelContextListener) {
         ModelQualifier<? super T> modelQualifier = new ModelQualifier<>(modelType, name);
+
+        addModelContextListener(modelQualifier, modelContextListener);
+    }
+
+    public <T> void addModelContextListener(ModelQualifier<? super T> modelQualifier, ModelContextListener<T> modelContextListener) {
         ModelContextListenerRegistration<T> listenerRegistration = new ModelContextListenerRegistration<>(modelQualifier, modelContextListener);
         modelContextListenerRegistrations.add(listenerRegistration);
 
-        List<T> models = findModels(modelQualifier);
-        if (!models.isEmpty() && listenerRegistration.accept(modelQualifier)) {
-            for (T model : models) {
+        if (listenerRegistration.accept(modelQualifier)) {
+            T model = (T) get(modelQualifier);
+            if (model != null) {
                 modelContextListener.modelAdded(model);
             }
         }
@@ -178,6 +124,10 @@ public class ModelContext {
 
     public <T> void removeModelContextListener(Class<? super T> modelType, String name, ModelContextListener<T> modelContextListener) {
         ModelQualifier<? super T> modelQualifier = new ModelQualifier<>(modelType, name);
+        removeModelContextListener(modelQualifier, modelContextListener);
+    }
+
+    public <T> void removeModelContextListener(ModelQualifier<? super T> modelQualifier, ModelContextListener<T> modelContextListener) {
         ModelContextListenerRegistration<T> listenerRegistration = new ModelContextListenerRegistration<>(modelQualifier, modelContextListener);
         modelContextListenerRegistrations.remove(listenerRegistration);
     }
