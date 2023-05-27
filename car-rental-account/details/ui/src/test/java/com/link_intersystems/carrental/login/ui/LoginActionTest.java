@@ -1,6 +1,5 @@
 package com.link_intersystems.carrental.login.ui;
 
-import com.link_intersystems.carrental.application.ui.CustomerModel;
 import com.link_intersystems.carrental.login.LoginResponseModel;
 import com.link_intersystems.swing.action.ActionTrigger;
 import com.link_intersystems.swing.action.DirectTaskExecutor;
@@ -25,7 +24,7 @@ class LoginActionTest {
     }
 
     @Test
-    void login(){
+    void login() {
         LoginResponseModel loginResponseModel = new LoginResponseModel();
         loginResponseModel.setCustomerId(6);
         loginResponseModel.setCustomerFirstname("René");
@@ -43,12 +42,7 @@ class LoginActionTest {
         actionTrigger.performAction(loginAction);
 
         assertEquals("", loginModel.getUsername(), "username cleared");
-        assertArrayEquals(new char[]{'\0','\0','\0','\0'}, loginPassword, "login password cleared");
+        assertArrayEquals(new char[]{'\0', '\0', '\0', '\0'}, loginPassword, "login password cleared");
         assertArrayEquals(new char[0], loginModel.getPassword(), "cleared model contains empty password");
-
-        CustomerModel customerModel = loginAction.getCustomerModel();
-        assertEquals(6, customerModel.getId());
-        assertEquals("René", customerModel.getFirstname());
-        assertEquals("Link", customerModel.getLastname());
     }
 }

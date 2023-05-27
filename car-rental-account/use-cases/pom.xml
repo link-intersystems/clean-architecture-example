@@ -4,17 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.acme.car-rental</groupId>
+        <groupId>com.acme.car-rental.account</groupId>
         <artifactId>car-rental-account</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>car-rental-account-use-cases</artifactId>
 
-
     <dependencies>
         <dependency>
-            <groupId>com.acme.car-rental</groupId>
+            <groupId>com.acme.car-rental.account</groupId>
             <artifactId>car-rental-account-entities</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
@@ -29,4 +28,21 @@
             <artifactId>junit-jupiter-engine</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

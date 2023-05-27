@@ -14,17 +14,17 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.acme.car-rental</groupId>
+            <groupId>com.acme.car-rental.account</groupId>
             <artifactId>car-rental-account-ui</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.acme.car-rental</groupId>
+            <groupId>com.acme.car-rental.account</groupId>
             <artifactId>car-rental-account-use-cases</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.acme.car-rental</groupId>
+            <groupId>com.acme.car-rental.account</groupId>
             <artifactId>car-rental-account-repository-h2</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>

@@ -9,6 +9,7 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
+    <groupId>com.acme.car-rental.account</groupId>
     <artifactId>car-rental-account</artifactId>
     <packaging>pom</packaging>
     <modules>
@@ -20,32 +21,32 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.acme.car-rental</groupId>
+                <groupId>com.acme.car-rental.account</groupId>
                 <artifactId>car-rental-account-entities</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.acme.car-rental</groupId>
+                <groupId>com.acme.car-rental.account</groupId>
                 <artifactId>car-rental-account-entities</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>com.acme.car-rental</groupId>
+                <groupId>com.acme.car-rental.account</groupId>
                 <artifactId>car-rental-account-use-cases</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.acme.car-rental</groupId>
+                <groupId>com.acme.car-rental.account</groupId>
                 <artifactId>car-rental-account-use-cases</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>com.acme.car-rental</groupId>
-                <artifactId>car-rental-account-details-ui</artifactId>
+                <groupId>com.acme.car-rental.account</groupId>
+                <artifactId>car-rental-account-ui</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
 
