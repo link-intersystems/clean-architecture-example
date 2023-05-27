@@ -15,6 +15,7 @@
         <module>app</module>
         <module>shared</module>
         <module>car-rental-main</module>
+        <module>car-rental-account</module>
     </modules>
 
     <properties>

@@ -32,7 +32,6 @@ public class LoginViewConfig {
         if (loginAction == null) {
             LoginUseCase loginUseCase = createLoginUseCase();
             loginAction = new LoginAction(loginUseCase);
-            loginAction.setApplicationViewSupplier(applicationViewSupplier);
         }
         return loginAction;
     }

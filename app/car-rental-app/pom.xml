@@ -14,15 +14,33 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.acme.car-rental</groupId>
+            <artifactId>car-rental-account-ui</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.acme.car-rental</groupId>
+            <artifactId>car-rental-account-use-cases</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.acme.car-rental</groupId>
+            <artifactId>car-rental-account-repository-h2</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.acme.car-rental.main</groupId>
             <artifactId>car-rental-main-ui</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
+
         <dependency>
             <groupId>com.acme.car-rental.shared</groupId>
             <artifactId>car-rental-shared-ui</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
+
         <dependency>
             <groupId>com.acme.car-rental.booking</groupId>
             <artifactId>car-booking-use-cases</artifactId>
@@ -33,6 +51,7 @@
             <artifactId>car-booking-ui</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
+
         <dependency>
             <groupId>com.acme.car-rental.management</groupId>
             <artifactId>car-management-ui</artifactId>
@@ -48,6 +67,7 @@
             <artifactId>car-management-repository-h2</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
+
         <dependency>
             <groupId>com.acme.car-rental.management</groupId>
             <artifactId>car-management-event-subscriber</artifactId>
