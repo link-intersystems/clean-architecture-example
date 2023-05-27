@@ -7,6 +7,8 @@ import static java.util.Objects.*;
 public class LoginModel {
     private String username = "";
     private char[] password = new char[0];
+    private Throwable loginException;
+    private boolean loginFailed;
 
     public void clear() {
         Arrays.fill(password, '\0');
@@ -29,4 +31,22 @@ public class LoginModel {
     public char[] getPassword() {
         return password.clone();
     }
+
+    public void setLoginException(Throwable loginException) {
+        this.loginException = loginException;
+    }
+
+    public Throwable getLoginException() {
+        return loginException;
+    }
+
+
+    public boolean isLoginFailed() {
+        return loginFailed;
+    }
+
+    public void setLoginFailed(boolean loginFailed) {
+        this.loginFailed = loginFailed;
+    }
+
 }

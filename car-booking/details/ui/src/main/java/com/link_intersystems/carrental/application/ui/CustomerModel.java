@@ -1,6 +1,6 @@
-package com.link_intersystems.carrental.login.ui;
+package com.link_intersystems.carrental.application.ui;
 
-public class LoggedInCustomerModel {
+public class CustomerModel {
 
     private int id = -1;
     private String firstname = "";

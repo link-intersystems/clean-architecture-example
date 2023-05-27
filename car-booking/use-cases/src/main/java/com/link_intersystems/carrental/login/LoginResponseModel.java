@@ -5,7 +5,7 @@ public class LoginResponseModel {
     private String username;
     private long tokenIssueTime;
 
-    private int customerId;
+    private int customerId = -1;
     private String customerFirstname;
     private String customerLastname;
 

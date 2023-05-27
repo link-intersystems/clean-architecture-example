@@ -67,6 +67,11 @@ public class ModelContext {
         throw new IllegalArgumentException(msg);
     }
 
+    public <T> void unregisterModel(Class<? super T> registrationType) {
+        T model = (T) get(registrationType);
+        unregisterModel(registrationType, null, model);
+    }
+
     public <T> void unregisterModel(Class<? super T> registrationType, T model) {
         unregisterModel(registrationType, null, model);
     }

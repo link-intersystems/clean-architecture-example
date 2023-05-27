@@ -17,7 +17,10 @@
             <groupId>com.link-intersystems.commons</groupId>
             <artifactId>lis-commons-swing</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.link-intersystems.commons</groupId>
+            <artifactId>lis-commons-beans</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -29,6 +32,11 @@
             <dependency>
                 <groupId>com.link-intersystems.commons</groupId>
                 <artifactId>lis-commons-swing</artifactId>
+                <version>${lis-commons.verions}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.link-intersystems.commons</groupId>
+                <artifactId>lis-commons-beans</artifactId>
                 <version>${lis-commons.verions}</version>
             </dependency>
         </dependencies>
