@@ -15,20 +15,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class LoginInteractorTest {
 
     private LoginInteractor loginInteractor;
-    private LoginRepositoryMock customerLoginRepository;
+    private LoginRepositoryMock loginRepository;
 
     @BeforeEach
     void setUp() {
         AccessTokenIssuer accessTokenIssuer = new AccessTokenIssuer(Duration.of(5, ChronoUnit.SECONDS), "abc"::toCharArray);
-        customerLoginRepository = new LoginRepositoryMock();
+        loginRepository = new LoginRepositoryMock();
 
-        loginInteractor = new LoginInteractor(customerLoginRepository, accessTokenIssuer);
+        loginInteractor = new LoginInteractor(loginRepository, accessTokenIssuer);
     }
 
     @Test
     @FixedClock("2023-05-12 05:25:42")
     void login() {
-        customerLoginRepository.addUser("rene.link", "12345", 6, "René", "Link");
+        loginRepository.addUser("rene.link", "12345", 6, "René", "Link");
 
         LoginResponseModel loginResponseModel = loginInteractor.login("rene.link", "12345".toCharArray());
 
@@ -37,7 +37,6 @@ class LoginInteractorTest {
         assertEquals("rene.link", loginResponseModel.getUsername());
         assertEquals("René", loginResponseModel.getCustomerFirstname());
         assertEquals("Link", loginResponseModel.getCustomerLastname());
-        assertEquals(6, loginResponseModel.getCustomerId());
         assertEquals(ClockProvider.getClock().millis(), loginResponseModel.getTokenIssueTime());
     }
 

@@ -10,12 +10,12 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>car-rental-account</module>
         <module>car-booking</module>
         <module>car-management</module>
         <module>app</module>
         <module>shared</module>
         <module>car-rental-main</module>
-        <module>car-rental-account</module>
     </modules>
 
     <properties>

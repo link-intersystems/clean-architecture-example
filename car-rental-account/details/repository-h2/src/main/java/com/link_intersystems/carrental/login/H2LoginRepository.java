@@ -41,6 +41,6 @@ public class H2LoginRepository implements LoginRepository {
         String firstname = resultSet.getString("firstname");
         String lastname = resultSet.getString("lastname");
 
-        return new User();
+        return new User(firstname, lastname);
     }
 }

@@ -25,7 +25,7 @@ class LoginRepositoryMock implements LoginRepository {
 
     public void addUser(String username, String securePassword, int customerId, String customerFirstname, String customerLastname) {
         Login login = new Login(username, new SecurePassword(securePassword.toCharArray()));
-        User customer = new User();
+        User customer = new User(customerFirstname, customerLastname);
         logins.put(login, customer);
     }
 }

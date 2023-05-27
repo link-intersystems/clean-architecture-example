@@ -18,10 +18,19 @@ public class LoginInteractor implements LoginUseCase {
 
         LoginResponseModel response = new LoginResponseModel();
 
-        AccessToken accessToken = accessTokenIssuer.issueAccessToken(username);
-        updateAccessToken(response, accessToken);
+        User user = repository.findUser(login);
+        if (user != null) {
+            updateUser(response, user);
+            AccessToken accessToken = accessTokenIssuer.issueAccessToken(username);
+            updateAccessToken(response, accessToken);
+        }
 
         return response;
+    }
+
+    private void updateUser(LoginResponseModel response, User user) {
+        response.setCustomerFirstname(user.getFirstname());
+        response.setCustomerLastname(user.getLastname());
     }
 
     private void updateAccessToken(LoginResponseModel loginModel, AccessToken accessToken) {
