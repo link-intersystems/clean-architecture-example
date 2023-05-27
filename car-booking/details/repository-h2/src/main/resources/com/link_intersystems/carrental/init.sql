@@ -71,9 +71,7 @@ VALUES ('WMEEJ8AA3FK792135', 89.99),
 INSERT INTO CUSTOMER (ID, FIRSTNAME, LASTNAME, USER_ID)
 VALUES (1, 'Nick', 'Wahlberg', 1),
        (2, 'René', 'Link', 2),
-       (3, 'Kevin', 'Bloom', 3),
-       (4, 'Penelope', 'Guiness', 4),
-       (5, 'John', 'Doe', 5);
+       (3, 'John', 'Doe', 3);
 
 
 

@@ -5,6 +5,9 @@ import com.link_intersystems.jdbc.JdbcTemplate;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static java.util.Objects.*;
 
@@ -20,8 +23,7 @@ public class H2LoginRepository implements LoginRepository {
     public User findUser(Login login) {
         return jdbcTemplate.query(c -> {
             PreparedStatement ps = c.prepareStatement("""
-                                select c.* from login l 
-                                    join customer c on c.id = l.customer_id
+                                select l.* from login l 
                                     where l.username = ? 
                                     and l.pass = ? 
                     """);
@@ -41,6 +43,10 @@ public class H2LoginRepository implements LoginRepository {
         String firstname = resultSet.getString("firstname");
         String lastname = resultSet.getString("lastname");
 
-        return new User(firstname, lastname);
+        List<String> roles = new ArrayList<>();
+        String roleNameValue = resultSet.getString("roles");
+        String[] roleNames = roleNameValue.split(",");
+        roles.addAll(Arrays.asList(roleNames));
+        return new User(firstname, lastname, roles);
     }
 }

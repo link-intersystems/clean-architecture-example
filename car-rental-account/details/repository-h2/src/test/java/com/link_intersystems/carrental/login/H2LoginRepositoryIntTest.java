@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,9 +21,12 @@ class H2LoginRepositoryIntTest {
 
     @Test
     void isLoginExistent() {
-        User customer = loginRepository.findUser(new Login("rene.link", new SecurePassword("rene".toCharArray())));
+        User user = loginRepository.findUser(new Login("rene.link", new SecurePassword("rene".toCharArray())));
 
-        assertNotNull(customer);
+        assertNotNull(user);
+        assertEquals("René", user.getFirstname());
+        assertEquals("Link", user.getLastname());
+        assertEquals(Arrays.asList("CUSTOMER", "MANAGER"), user.getRoles());
     }
 
     @Test

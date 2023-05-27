@@ -12,6 +12,7 @@
     <modules>
         <module>car-rental-account</module>
         <module>car-booking</module>
+
         <module>car-management</module>
         <module>app</module>
         <module>shared</module>
