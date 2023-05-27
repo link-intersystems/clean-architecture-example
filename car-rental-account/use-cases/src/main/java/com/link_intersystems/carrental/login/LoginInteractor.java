@@ -29,8 +29,8 @@ public class LoginInteractor implements LoginUseCase {
     }
 
     private void updateUser(LoginResponseModel response, User user) {
-        response.setCustomerFirstname(user.getFirstname());
-        response.setCustomerLastname(user.getLastname());
+        response.setFirstname(user.getFirstname());
+        response.setLastname(user.getLastname());
     }
 
     private void updateAccessToken(LoginResponseModel loginModel, AccessToken accessToken) {

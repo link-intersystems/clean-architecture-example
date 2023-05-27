@@ -27,8 +27,8 @@ class LoginActionTest {
     void login() {
         LoginResponseModel loginResponseModel = new LoginResponseModel();
         loginResponseModel.setCustomerId(6);
-        loginResponseModel.setCustomerFirstname("René");
-        loginResponseModel.setCustomerLastname("Link");
+        loginResponseModel.setFirstname("René");
+        loginResponseModel.setLastname("Link");
         loginResponseModel.setTokenIssueTime(12345);
         loginResponseModel.setTokenSignature("abcde");
         useCaseMock.whenLogin("rene.link", "rene".toCharArray()).thenReturn(loginResponseModel);

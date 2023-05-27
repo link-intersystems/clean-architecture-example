@@ -52,6 +52,7 @@ public class DataSourceConfig {
         if (!new File(dbFilePath).exists()) {
             executeScript(dataSource, "/com/link_intersystems/carrental/init.sql");
             executeScript(dataSource, "/com/link_intersystems/carrental/management/init.sql");
+            executeScript(dataSource, "/com/link_intersystems/carrental/account/init.sql");
         }
     }
 

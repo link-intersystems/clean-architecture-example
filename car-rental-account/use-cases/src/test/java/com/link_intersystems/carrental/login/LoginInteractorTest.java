@@ -35,8 +35,8 @@ class LoginInteractorTest {
         assertNotNull(loginResponseModel);
         assertNotNull(loginResponseModel.getTokenSignature());
         assertEquals("rene.link", loginResponseModel.getUsername());
-        assertEquals("René", loginResponseModel.getCustomerFirstname());
-        assertEquals("Link", loginResponseModel.getCustomerLastname());
+        assertEquals("René", loginResponseModel.getFirstname());
+        assertEquals("Link", loginResponseModel.getLastname());
         assertEquals(ClockProvider.getClock().millis(), loginResponseModel.getTokenIssueTime());
     }
 

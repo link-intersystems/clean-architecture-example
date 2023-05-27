@@ -2,12 +2,13 @@ package com.link_intersystems.carrental.login;
 
 public class LoginResponseModel {
     private String tokenSignature;
-    private String username;
     private long tokenIssueTime;
 
+    private String username;
+    private String firstname;
+    private String lastname;
+
     private int customerId = -1;
-    private String customerFirstname;
-    private String customerLastname;
 
     public String getTokenSignature() {
         return tokenSignature;
@@ -41,20 +42,20 @@ public class LoginResponseModel {
         this.customerId = customerId;
     }
 
-    public String getCustomerFirstname() {
-        return customerFirstname;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setCustomerFirstname(String customerFirstname) {
-        this.customerFirstname = customerFirstname;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getCustomerLastname() {
-        return customerLastname;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setCustomerLastname(String customerLastname) {
-        this.customerLastname = customerLastname;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public boolean isSuccessful() {
