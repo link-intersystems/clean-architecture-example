@@ -1,13 +1,15 @@
 package com.link_intersystems.carrental.application.ui;
 
-public class ApplicationModel {
-    private CustomerModel customerModel;
+import com.link_intersystems.carrental.login.ui.UserModel;
 
-    public void setCustomerModel(CustomerModel customerModel) {
-        this.customerModel = customerModel;
+public class ApplicationModel {
+    private UserModel userModel;
+
+    public UserModel getUserModel() {
+        return userModel;
     }
 
-    public CustomerModel getCustomerModel() {
-        return customerModel;
+    public void setUserModel(UserModel userModel) {
+        this.userModel = userModel;
     }
 }

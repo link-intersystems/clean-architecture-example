@@ -2,7 +2,7 @@ package com.link_intersystems.carrental.ui;
 
 import com.link_intersystems.carrental.application.ui.ApplicationModel;
 import com.link_intersystems.carrental.application.ui.ApplicationView;
-import com.link_intersystems.carrental.application.ui.CustomerModel;
+import com.link_intersystems.carrental.login.ui.UserModel;
 import com.link_intersystems.carrental.management.CarManagementView;
 import com.link_intersystems.carrental.offer.ui.CarOfferBookingView;
 import com.link_intersystems.carrental.offer.ui.CarOfferView;
@@ -40,7 +40,7 @@ public class MainFrame implements ApplicationView {
     private void updateTitle() {
         StringBuilder titleBuilder = new StringBuilder("Car Rental App");
 
-        Optional<CustomerModel> customerModel = applicationModel.map(ApplicationModel::getCustomerModel);
+        Optional<UserModel> customerModel = applicationModel.map(ApplicationModel::getUserModel);
         customerModel.ifPresent(cm -> {
             titleBuilder.append(" - ");
             titleBuilder.append(cm.getFirstname());

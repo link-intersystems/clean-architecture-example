@@ -7,9 +7,9 @@ import com.link_intersystems.swing.action.ActionTrigger;
 import com.link_intersystems.swing.action.TaskProgress;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
+import java.util.function.Consumer;
 
 import static java.util.Objects.*;
 
@@ -19,7 +19,7 @@ public class LoginAction extends AbstractTaskAction<LoginResponseModel, LoginRes
 
     private LoginModel loginModel = new LoginModel();
     private Optional<LoginView> loginView = Optional.empty();
-    private Optional<ActionListener> onSuccessfulLoginAction = Optional.empty();
+    private Optional<Consumer<UserModel>> userModelConsumer = Optional.empty();
     private ActionTrigger actionTrigger = new ActionTrigger(this);
 
     public LoginAction(LoginUseCase loginUseCase) {
@@ -28,8 +28,8 @@ public class LoginAction extends AbstractTaskAction<LoginResponseModel, LoginRes
         putValue(Action.NAME, "Login");
     }
 
-    public void setOnSuccessfulLoginAction(ActionListener onSuccessfulLoginAction) {
-        this.onSuccessfulLoginAction = Optional.ofNullable(onSuccessfulLoginAction);
+    public void setUserModelConsumer(Consumer<UserModel> userModelConsumer) {
+        this.userModelConsumer = Optional.ofNullable(userModelConsumer);
     }
 
     public LoginModel getLoginModel() {
@@ -68,7 +68,18 @@ public class LoginAction extends AbstractTaskAction<LoginResponseModel, LoginRes
             loginView.ifPresent(LoginView::close);
             loginView = Optional.empty();
 
-            onSuccessfulLoginAction.ifPresent(actionTrigger::performAction);
+
+
+            userModelConsumer.ifPresent(c -> {
+                UserModel userModel = new UserModel();
+
+                userModel.setUserId(loginResponse.getUserId());
+                userModel.setFirstname(loginResponse.getFirstname());
+                userModel.setLastname(loginResponse.getLastname());
+                userModel.setRoles(loginResponse.getRoles());
+
+                c.accept(userModel);
+            });
         } else {
             loginView.ifPresent(LoginView::update);
         }

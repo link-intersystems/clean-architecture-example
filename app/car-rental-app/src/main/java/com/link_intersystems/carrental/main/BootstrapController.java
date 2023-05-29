@@ -1,11 +1,13 @@
 package com.link_intersystems.carrental.main;
 
 import com.link_intersystems.carrental.*;
+import com.link_intersystems.carrental.application.ui.ApplicationModel;
 import com.link_intersystems.carrental.login.LoginViewConfig;
 import com.link_intersystems.carrental.login.ui.LoginAction;
 import com.link_intersystems.carrental.management.CarManagementViewConfig;
 import com.link_intersystems.carrental.offer.CarOfferViewConfig;
 import com.link_intersystems.carrental.swing.notification.DefaultMessageDialog;
+import com.link_intersystems.carrental.ui.MainFrame;
 import com.link_intersystems.jdbc.JdbcTemplate;
 import com.link_intersystems.swing.action.ActionTrigger;
 
@@ -44,7 +46,15 @@ public class BootstrapController {
 
         LoginViewConfig loginViewConfig = new LoginViewConfig(dataSourceConfig.getAccountJdbcTemplate(), mainConfig::getMainFrame);
         LoginAction loginAction = loginViewConfig.getLoginAction();
-        loginAction.setOnSuccessfulLoginAction(ae -> mainConfig.getMainFrame().show());
+        loginAction.setUserModelConsumer(userModel -> {
+            MainFrame mainFrame = mainConfig.getMainFrame();
+
+            ApplicationModel applicationModel = new ApplicationModel();
+            applicationModel.setUserModel(userModel);
+            mainFrame.setModel(applicationModel);
+
+            mainFrame.show();
+        });
         Action initiateLoginAction = loginViewConfig.getInitiateLoginAction();
         actionTrigger.performAction(initiateLoginAction);
     }
