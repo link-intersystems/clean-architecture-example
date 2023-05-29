@@ -14,14 +14,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.acme.car-rental.booking</groupId>
-            <artifactId>car-booking-ui</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.acme.car-rental.management</groupId>
-            <artifactId>car-management-ui</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.acme.car-rental.account</groupId>
             <artifactId>car-rental-account-ui</artifactId>
         </dependency>

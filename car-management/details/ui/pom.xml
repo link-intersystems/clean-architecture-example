@@ -26,6 +26,10 @@
             <groupId>com.link-intersystems.commons</groupId>
             <artifactId>lis-commons-swing</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.acme.car-rental.main</groupId>
+            <artifactId>car-rental-main-ui-plugin</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.acme.car-rental.management</groupId>

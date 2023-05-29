@@ -1,28 +1,23 @@
 package com.link_intersystems.carrental.ui;
 
 import com.link_intersystems.carrental.login.ui.UserModel;
-import com.link_intersystems.carrental.management.CarManagementView;
-import com.link_intersystems.carrental.offer.ui.CarOfferBookingView;
-import com.link_intersystems.carrental.offer.ui.CarOfferView;
 import com.link_intersystems.swing.DimensionExt;
 import com.link_intersystems.swing.DisplayResolution;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static javax.swing.WindowConstants.*;
 
 public class MainFrame implements ApplicationView {
 
-    public static final String CAR_OFFERS_TAB_TITLE = "Car offers";
-    public static final String CAR_MANAGEMENT_TAB_TITLE = "Car Management";
-
     private JFrame mainFrame = new JFrame();
     private JTabbedPane tabbedPane = new JTabbedPane();
     private Optional<ApplicationModel> applicationModel = Optional.empty();
-    private Optional<CarManagementView> carManagementView = Optional.empty();
-    private Optional<CarOfferBookingView> carOfferBookingView = Optional.empty();
+    private List<View> views = new ArrayList<>();
 
     public MainFrame() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -49,18 +44,21 @@ public class MainFrame implements ApplicationView {
         mainFrame.setTitle(titleBuilder.toString());
     }
 
-    public void setCarManagementView(CarManagementView carManagementView) {
-        removeTab(CAR_MANAGEMENT_TAB_TITLE);
-
-        Component viewComponent = carManagementView.getViewComponent();
-        tabbedPane.addTab(CAR_MANAGEMENT_TAB_TITLE, viewComponent);
+    public void addView(View view) {
+        applicationModel.ifPresent(m -> addView(m, view));
     }
 
-    public void setCarOfferView(CarOfferView carOfferView) {
-        removeTab(CAR_OFFERS_TAB_TITLE);
+    private void addView(ApplicationModel applicationModel, View view) {
+        UserModel userModel = applicationModel.getUserModel();
 
-        Component viewComponent = carOfferView.getViewComponent();
-        tabbedPane.addTab(CAR_OFFERS_TAB_TITLE, viewComponent);
+        List<String> requiredRoles = view.getRequiredRoles();
+        if (userModel.isAllowed(requiredRoles)) {
+            String title = view.getTitle();
+            removeTab(title);
+
+            Component viewComponent = view.createComponent(applicationModel);
+            tabbedPane.addTab(title, viewComponent);
+        }
     }
 
     private void removeTab(String title) {
@@ -73,6 +71,8 @@ public class MainFrame implements ApplicationView {
     }
 
     public void show() {
+        views.forEach(this::addView);
+
         mainFrame.setVisible(true);
     }
 
@@ -80,5 +80,9 @@ public class MainFrame implements ApplicationView {
     public void setModel(ApplicationModel applicationModel) {
         this.applicationModel = Optional.ofNullable(applicationModel);
         updateTitle();
+    }
+
+    public void setViews(List<View> views) {
+        this.views = new ArrayList<>(views);
     }
 }

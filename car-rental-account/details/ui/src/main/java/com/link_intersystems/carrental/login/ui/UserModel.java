@@ -1,5 +1,6 @@
 package com.link_intersystems.carrental.login.ui;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserModel {
@@ -37,6 +38,12 @@ public class UserModel {
     }
 
     public List<String> getRoles() {
-        return roles;
+        return new ArrayList<>(roles);
+    }
+
+    public boolean isAllowed(List<String> roles) {
+        ArrayList<String> rolesCopy = new ArrayList<>(roles);
+        rolesCopy.removeAll(getRoles());
+        return rolesCopy.isEmpty();
     }
 }

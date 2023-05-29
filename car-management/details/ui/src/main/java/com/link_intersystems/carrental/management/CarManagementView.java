@@ -1,30 +1,52 @@
 package com.link_intersystems.carrental.management;
 
-import com.link_intersystems.carrental.management.booking.list.ui.CustomerModel;
 import com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingView;
 import com.link_intersystems.carrental.management.rental.pickup.list.ui.ListPickupCarView;
+import com.link_intersystems.carrental.ui.ApplicationModel;
+import com.link_intersystems.carrental.ui.View;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
 
-public class CarManagementView {
+public class CarManagementView implements View {
 
-    private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
-    private CustomerModel customerModel;
+    private ListCarBookingView listCarBookingsView;
+    private ListPickupCarView listPickupCarView;
 
     public void setListCarBookingsView(ListCarBookingView listCarBookingsView) {
-        tabbedPane.addTab("Car Bookings", listCarBookingsView.getViewComponent());
+        this.listCarBookingsView = listCarBookingsView;
     }
 
     public void setListPickupCarView(ListPickupCarView listPickupCarView) {
-        tabbedPane.addTab("Picked up cars", listPickupCarView.getViewComponent());
+        this.listPickupCarView = listPickupCarView;
     }
 
-    public Component getViewComponent() {
+
+    @Override
+    public String getTitle() {
+        return "Car Management";
+    }
+
+    @Override
+    public Component createComponent(ApplicationModel applicationModel) {
+        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
+
+
+        if (listCarBookingsView != null) {
+            tabbedPane.addTab("Car Bookings", listCarBookingsView.getViewComponent());
+        }
+
+        if (listPickupCarView != null) {
+            tabbedPane.addTab("Picked up cars", listPickupCarView.getViewComponent());
+        }
+
         return tabbedPane;
     }
 
-    public void setCustomerModel(CustomerModel customerModel) {
-        this.customerModel = customerModel;
+    @Override
+    public List<String> getRequiredRoles() {
+        return Arrays.asList("MANAGER");
     }
 }
