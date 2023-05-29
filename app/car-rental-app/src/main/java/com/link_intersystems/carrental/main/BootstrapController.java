@@ -2,6 +2,7 @@ package com.link_intersystems.carrental.main;
 
 import com.link_intersystems.carrental.*;
 import com.link_intersystems.carrental.login.LoginViewConfig;
+import com.link_intersystems.carrental.login.ui.LoginAction;
 import com.link_intersystems.carrental.management.CarManagementViewConfig;
 import com.link_intersystems.carrental.offer.CarOfferViewConfig;
 import com.link_intersystems.carrental.swing.notification.DefaultMessageDialog;
@@ -41,8 +42,9 @@ public class BootstrapController {
 //        messageDialog.setParentComponent(mainFrame.getComponent());
 
 
-        LoginViewConfig loginViewConfig = new LoginViewConfig(dataSourceConfig.getCarRentalJdbcTemplate(), mainConfig::getMainFrame);
-
+        LoginViewConfig loginViewConfig = new LoginViewConfig(dataSourceConfig.getAccountJdbcTemplate(), mainConfig::getMainFrame);
+        LoginAction loginAction = loginViewConfig.getLoginAction();
+        loginAction.setOnSuccessfulLoginAction(ae -> mainConfig.getMainFrame().show());
         Action initiateLoginAction = loginViewConfig.getInitiateLoginAction();
         actionTrigger.performAction(initiateLoginAction);
     }

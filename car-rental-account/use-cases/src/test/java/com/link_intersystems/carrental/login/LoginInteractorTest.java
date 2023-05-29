@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,7 +29,7 @@ class LoginInteractorTest {
     @Test
     @FixedClock("2023-05-12 05:25:42")
     void login() {
-        loginRepository.addUser("rene.link", "12345",  "René", "Link");
+        loginRepository.addUser(2, "rene.link", "12345",  "René", "Link", "CUSTOMER", "MANAGER");
 
         LoginResponseModel loginResponseModel = loginInteractor.login("rene.link", "12345".toCharArray());
 
@@ -37,6 +38,8 @@ class LoginInteractorTest {
         assertEquals("rene.link", loginResponseModel.getUsername());
         assertEquals("René", loginResponseModel.getFirstname());
         assertEquals("Link", loginResponseModel.getLastname());
+        assertEquals(2, loginResponseModel.getUserId());
+        assertEquals(Arrays.asList("CUSTOMER", "MANAGER"), loginResponseModel.getRoles());
         assertEquals(ClockProvider.getClock().millis(), loginResponseModel.getTokenIssueTime());
     }
 

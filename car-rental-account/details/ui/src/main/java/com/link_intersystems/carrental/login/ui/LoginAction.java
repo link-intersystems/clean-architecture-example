@@ -3,9 +3,11 @@ package com.link_intersystems.carrental.login.ui;
 import com.link_intersystems.carrental.login.LoginResponseModel;
 import com.link_intersystems.carrental.login.LoginUseCase;
 import com.link_intersystems.swing.action.AbstractTaskAction;
+import com.link_intersystems.swing.action.ActionTrigger;
 import com.link_intersystems.swing.action.TaskProgress;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
@@ -17,6 +19,8 @@ public class LoginAction extends AbstractTaskAction<LoginResponseModel, LoginRes
 
     private LoginModel loginModel = new LoginModel();
     private Optional<LoginView> loginView = Optional.empty();
+    private Optional<ActionListener> onSuccessfulLoginAction = Optional.empty();
+    private ActionTrigger actionTrigger = new ActionTrigger(this);
 
     public LoginAction(LoginUseCase loginUseCase) {
 
@@ -24,6 +28,9 @@ public class LoginAction extends AbstractTaskAction<LoginResponseModel, LoginRes
         putValue(Action.NAME, "Login");
     }
 
+    public void setOnSuccessfulLoginAction(ActionListener onSuccessfulLoginAction) {
+        this.onSuccessfulLoginAction = Optional.ofNullable(onSuccessfulLoginAction);
+    }
 
     public LoginModel getLoginModel() {
         return loginModel;
@@ -61,6 +68,7 @@ public class LoginAction extends AbstractTaskAction<LoginResponseModel, LoginRes
             loginView.ifPresent(LoginView::close);
             loginView = Optional.empty();
 
+            onSuccessfulLoginAction.ifPresent(actionTrigger::performAction);
         } else {
             loginView.ifPresent(LoginView::update);
         }

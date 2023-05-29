@@ -1,8 +1,7 @@
 package com.link_intersystems.carrental.login;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 class LoginRepositoryMock implements LoginRepository {
@@ -25,10 +24,9 @@ class LoginRepositoryMock implements LoginRepository {
                 login.getSecurePassword().getValue().equals(otherLogin.getSecurePassword().getValue());
     }
 
-    public void addUser(String username, String securePassword, String customerFirstname, String customerLastname) {
+    public void addUser(int userId, String username, String securePassword, String firstname, String lastname, String... roles) {
         Login login = new Login(username, new SecurePassword(securePassword.toCharArray()));
-        List<String> roles = new ArrayList<>();
-        User customer = new User(customerFirstname, customerLastname, roles);
+        User customer = new User(new UserId(userId), firstname, lastname, Arrays.asList(roles));
         logins.put(login, customer);
     }
 }

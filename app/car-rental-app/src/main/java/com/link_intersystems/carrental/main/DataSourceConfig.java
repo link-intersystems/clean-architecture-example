@@ -19,6 +19,7 @@ public class DataSourceConfig {
     private JdbcDataSource dataSource;
     private JdbcTemplate bookingJdbcTemplate;
     private JdbcTemplate managementJdbcTemplate;
+    private JdbcTemplate accountJdbcTemplate;
 
     private AppArgs appArgs;
 
@@ -91,5 +92,14 @@ public class DataSourceConfig {
         }
 
         return managementJdbcTemplate;
+    }
+
+    public JdbcTemplate getAccountJdbcTemplate() {
+        if (accountJdbcTemplate == null) {
+            DataSource dataSource = getDataSource();
+            accountJdbcTemplate = new JdbcTemplate(dataSource, "ACCOUNT");
+        }
+
+        return accountJdbcTemplate;
     }
 }

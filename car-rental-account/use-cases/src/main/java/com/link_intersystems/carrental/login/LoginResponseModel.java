@@ -1,5 +1,10 @@
 package com.link_intersystems.carrental.login;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.util.Objects.*;
+
 public class LoginResponseModel {
     private String tokenSignature;
     private long tokenIssueTime;
@@ -8,7 +13,8 @@ public class LoginResponseModel {
     private String firstname;
     private String lastname;
 
-    private int customerId = -1;
+    private int userId = -1;
+    private List<String> roles = new ArrayList<>();
 
     public String getTokenSignature() {
         return tokenSignature;
@@ -34,12 +40,12 @@ public class LoginResponseModel {
         return tokenIssueTime;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getFirstname() {
@@ -59,6 +65,14 @@ public class LoginResponseModel {
     }
 
     public boolean isSuccessful() {
-        return customerId > -1 && tokenSignature != null && tokenIssueTime != 0;
+        return userId > -1 && tokenSignature != null && tokenIssueTime != 0;
+    }
+
+    public List<String> getRoles() {
+        return new ArrayList<>(roles);
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = requireNonNull(roles);
     }
 }

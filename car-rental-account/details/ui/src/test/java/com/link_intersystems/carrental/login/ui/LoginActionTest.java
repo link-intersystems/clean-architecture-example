@@ -26,7 +26,7 @@ class LoginActionTest {
     @Test
     void login() {
         LoginResponseModel loginResponseModel = new LoginResponseModel();
-        loginResponseModel.setCustomerId(6);
+        loginResponseModel.setUserId(6);
         loginResponseModel.setFirstname("René");
         loginResponseModel.setLastname("Link");
         loginResponseModel.setTokenIssueTime(12345);

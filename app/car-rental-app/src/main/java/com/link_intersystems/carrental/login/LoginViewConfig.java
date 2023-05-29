@@ -12,12 +12,12 @@ public class LoginViewConfig {
     private DefaultLoginView loginView;
 
     private LoginAction loginAction;
-    private JdbcTemplate jdbcTemplate;
+    private JdbcTemplate accountTemplate;
     private Supplier<ApplicationView> applicationViewSupplier;
     private InitiateLoginAction initiateLoginAction;
 
-    public LoginViewConfig(JdbcTemplate jdbcTemplate, Supplier<ApplicationView> applicationViewSupplier) {
-        this.jdbcTemplate = jdbcTemplate;
+    public LoginViewConfig(JdbcTemplate accountTemplate, Supplier<ApplicationView> applicationViewSupplier) {
+        this.accountTemplate = accountTemplate;
         this.applicationViewSupplier = applicationViewSupplier;
     }
 
@@ -28,7 +28,7 @@ public class LoginViewConfig {
         return loginView;
     }
 
-    public LoginAction getLoginController() {
+    public LoginAction getLoginAction() {
         if (loginAction == null) {
             LoginUseCase loginUseCase = createLoginUseCase();
             loginAction = new LoginAction(loginUseCase);
@@ -38,13 +38,13 @@ public class LoginViewConfig {
 
     public InitiateLoginAction getInitiateLoginAction() {
         if (initiateLoginAction == null) {
-            initiateLoginAction = new InitiateLoginAction(getLoginController(), this::getLoginView);
+            initiateLoginAction = new InitiateLoginAction(getLoginAction(), this::getLoginView);
         }
         return initiateLoginAction;
     }
 
     private LoginUseCase createLoginUseCase() {
         LoginComponent loginComponent = new LoginComponent();
-        return loginComponent.createLoginUseCase(jdbcTemplate);
+        return loginComponent.createLoginUseCase(accountTemplate);
     }
 }

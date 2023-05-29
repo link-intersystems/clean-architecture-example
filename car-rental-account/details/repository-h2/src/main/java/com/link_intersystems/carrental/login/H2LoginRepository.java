@@ -40,6 +40,7 @@ public class H2LoginRepository implements LoginRepository {
     }
 
     private User mapCustomer(ResultSet resultSet) throws SQLException {
+        UserId userId = new UserId(resultSet.getInt("id"));
         String firstname = resultSet.getString("firstname");
         String lastname = resultSet.getString("lastname");
 
@@ -47,6 +48,6 @@ public class H2LoginRepository implements LoginRepository {
         String roleNameValue = resultSet.getString("roles");
         String[] roleNames = roleNameValue.split(",");
         roles.addAll(Arrays.asList(roleNames));
-        return new User(firstname, lastname, roles);
+        return new User(userId, firstname, lastname, roles);
     }
 }
