@@ -1,4 +1,4 @@
-package com.link_intersystems.carrental.application.ui;
+package com.link_intersystems.carrental.ui;
 
 import com.link_intersystems.carrental.login.ui.UserModel;
 

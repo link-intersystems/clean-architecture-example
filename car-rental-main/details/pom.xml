@@ -14,7 +14,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>car-rental-main-ui</module>
+        <module>ui</module>
+        <module>ui-plugin</module>
     </modules>
 
 </project>

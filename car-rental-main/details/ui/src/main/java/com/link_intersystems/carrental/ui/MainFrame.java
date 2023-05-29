@@ -1,7 +1,5 @@
 package com.link_intersystems.carrental.ui;
 
-import com.link_intersystems.carrental.application.ui.ApplicationModel;
-import com.link_intersystems.carrental.application.ui.ApplicationView;
 import com.link_intersystems.carrental.login.ui.UserModel;
 import com.link_intersystems.carrental.management.CarManagementView;
 import com.link_intersystems.carrental.offer.ui.CarOfferBookingView;

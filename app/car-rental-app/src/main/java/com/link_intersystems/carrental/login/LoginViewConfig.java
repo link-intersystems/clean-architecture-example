@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental.login;
 
-import com.link_intersystems.carrental.application.ui.ApplicationView;
+import com.link_intersystems.carrental.ui.ApplicationView;
 import com.link_intersystems.carrental.login.ui.DefaultLoginView;
 import com.link_intersystems.carrental.login.ui.InitiateLoginAction;
 import com.link_intersystems.carrental.login.ui.LoginAction;

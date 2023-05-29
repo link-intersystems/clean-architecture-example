@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.main;
 
 import com.link_intersystems.carrental.*;
-import com.link_intersystems.carrental.application.ui.ApplicationModel;
+import com.link_intersystems.carrental.ui.ApplicationModel;
 import com.link_intersystems.carrental.login.LoginViewConfig;
 import com.link_intersystems.carrental.login.ui.LoginAction;
 import com.link_intersystems.carrental.management.CarManagementViewConfig;
