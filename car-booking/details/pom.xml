@@ -16,6 +16,7 @@
 
     <modules>
         <module>repository-h2</module>
+        <module>repository-jpa</module>
         <module>ui</module>
     </modules>
 
