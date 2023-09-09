@@ -5,7 +5,11 @@ import com.link_intersystems.carrental.management.CarManagementViewConfig;
 import com.link_intersystems.carrental.offer.CarOfferViewConfig;
 import com.link_intersystems.carrental.swing.notification.DefaultMessageDialog;
 import com.link_intersystems.carrental.ui.CarRentalMainFrame;
-import com.link_intersystems.jdbc.JdbcTemplate;
+import com.link_intersystems.jdbc.tx.TransactionListener;
+import com.link_intersystems.jdbc.tx.TransactionManager;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +20,7 @@ public class CarRentalApp {
     private DataSourceConfig dataSourceConfig;
     private AOPConfig aopConfig;
     private DefaultMessageDialog messageDialog;
+    private JpaBootstrap jpaBootstrap;
 
     public static void main(String[] args) {
         CarRentalApp carRentalApp = new CarRentalApp();
@@ -25,7 +30,34 @@ public class CarRentalApp {
     void run(String[] args) {
         AppArgs appArgs = new AppArgs(args);
         dataSourceConfig = new DataSourceConfig(appArgs);
+        JpaEntityManagerFactory jpaEntityManagerFactory = new JpaEntityManagerFactory();
+        EntityManagerFactory entityManagerFactory = jpaEntityManagerFactory.getEntityManagerFactory(dataSourceConfig.getDataSource());
         TransactionConfig transactionConfig = new TransactionConfig(dataSourceConfig);
+        TransactionManager transactionManager = transactionConfig.getTransactionManager();
+        transactionManager.addTransactionListener(new TransactionListener() {
+            @Override
+            public void begin() {
+                EntityManager entityManager = entityManagerFactory.createEntityManager();
+                entityManager.getTransaction().begin();
+                ThreadLoacalEntityManagerProxy.setEntityManager(entityManager);
+            }
+
+            @Override
+            public void rollback() {
+                EntityManager entityManager = ThreadLoacalEntityManagerProxy.getEntityManager();
+                entityManager.getTransaction().rollback();
+            }
+
+            @Override
+            public void beforeCommit() {
+                EntityManager entityManager = ThreadLoacalEntityManagerProxy.getEntityManager();
+                EntityTransaction transaction = entityManager.getTransaction();
+                transaction.commit();
+
+                ThreadLoacalEntityManagerProxy.setEntityManager(null);
+            }
+        });
+
         aopConfig = new AOPConfig(transactionConfig);
 
         messageDialog = new DefaultMessageDialog();
@@ -57,13 +89,12 @@ public class CarRentalApp {
     }
 
     private CarOfferViewConfig createCarOfferViewConfig(DomainEventPublisher eventPublisher) {
-        JdbcTemplate carRentalJdbcTemplate = dataSourceConfig.getCarRentalJdbcTemplate();
-        return new CarOfferViewConfig(carRentalJdbcTemplate, eventPublisher, aopConfig, messageDialog);
+        EntityManager entityManager = ThreadLoacalEntityManagerProxy.createEntityManager();
+        return new CarOfferViewConfig(entityManager, eventPublisher, aopConfig, messageDialog);
     }
 
     private CarManagementViewConfig createCarManagementViewConfig() {
-        JdbcTemplate managementJdbcTemplate = dataSourceConfig.getManagementJdbcTemplate();
-        return new CarManagementViewConfig(aopConfig, managementJdbcTemplate, messageDialog);
+        return new CarManagementViewConfig(aopConfig, dataSourceConfig.getDataSource(), messageDialog);
     }
 
     protected void openFrame(CarRentalMainFrame mainFrame) {

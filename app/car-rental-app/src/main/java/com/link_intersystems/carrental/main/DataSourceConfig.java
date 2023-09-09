@@ -83,12 +83,4 @@ public class DataSourceConfig {
         return bookingJdbcTemplate;
     }
 
-    public JdbcTemplate getManagementJdbcTemplate() {
-        if (managementJdbcTemplate == null) {
-            DataSource dataSource = getDataSource();
-            managementJdbcTemplate = new JdbcTemplate(dataSource, "MANAGEMENT");
-        }
-
-        return managementJdbcTemplate;
-    }
 }

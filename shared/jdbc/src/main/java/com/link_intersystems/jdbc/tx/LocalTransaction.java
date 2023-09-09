@@ -10,6 +10,7 @@ import static java.util.Objects.*;
 public class LocalTransaction extends Transaction {
 
     private Connection connection;
+    private TransactionListener transactionListener;
 
     public LocalTransaction(Connection connection) {
         this.connection = requireNonNull(connection);
@@ -18,6 +19,17 @@ public class LocalTransaction extends Transaction {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public TransactionListener getTransactionListener() {
+        if (transactionListener == null) {
+            return TransactionListener.NULL_INSTANCE;
+        }
+        return transactionListener;
+    }
+
+    public void setTransactionListener(TransactionListener transactionListener) {
+        this.transactionListener = transactionListener;
     }
 
     private Connection getConnection() {
@@ -42,13 +54,16 @@ public class LocalTransaction extends Transaction {
     @Override
     public void rollback() throws Exception {
         connection.rollback();
+        getTransactionListener().rollback();
         connection.close();
         connection = null;
     }
 
     @Override
     public void commit() throws Exception {
+        getTransactionListener().beforeCommit();
         connection.commit();
+        getTransactionListener().afterCommit();
         connection.close();
         connection = null;
     }

@@ -11,6 +11,8 @@ public class LocalTransactionManager implements TransactionManager {
 
     private ConnectionSupplier connectionSupplier;
 
+    private CompositeTransactionListener transactionListener = new CompositeTransactionListener();
+
     public LocalTransactionManager(DataSource dataSource) {
         this(dataSource::getConnection);
     }
@@ -22,6 +24,14 @@ public class LocalTransactionManager implements TransactionManager {
     @Override
     public Transaction beginTransaction() throws Exception {
         Connection connection = connectionSupplier.get();
-        return new LocalTransaction(connection);
+        LocalTransaction localTransaction = new LocalTransaction(connection);
+        localTransaction.setTransactionListener(transactionListener);
+        transactionListener.begin();
+        return localTransaction;
+    }
+
+    @Override
+    public void addTransactionListener(TransactionListener transactionListener) {
+        this.transactionListener.addTransactionListener(transactionListener);
     }
 }

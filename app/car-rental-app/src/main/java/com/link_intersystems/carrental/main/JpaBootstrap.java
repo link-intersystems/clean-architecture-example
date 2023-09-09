@@ -1,10 +1,9 @@
-package com.link_intersystems.carrental;
+package com.link_intersystems.carrental.main;
 
 import com.link_intersystems.carrental.booking.JpaCarBooking;
 import com.link_intersystems.carrental.booking.JpaCustomer;
 import com.link_intersystems.carrental.offer.JpaCar;
 import com.link_intersystems.carrental.offer.JpaRentalCar;
-import com.link_intersystems.jdbc.test.db.h2.H2Database;
 import jakarta.persistence.EntityManagerFactory;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -33,6 +32,9 @@ public class JpaBootstrap {
         DatasourceConnectionProviderImpl connectionProvider = new DatasourceConnectionProviderImpl();
         connectionProvider.setDataSource(dataSource);
         registryBuilder.applySetting(AvailableSettings.CONNECTION_PROVIDER, connectionProvider);
+        registryBuilder.applySetting(AvailableSettings.DEFAULT_SCHEMA, "BOOKING");
+        registryBuilder.applySetting(AvailableSettings.TRANSACTION_COORDINATOR_STRATEGY, "jdbc");
+
         ServiceRegistry standardRegistry = registryBuilder.build();
 
         MetadataSources sources = new MetadataSources(standardRegistry);
@@ -43,14 +45,16 @@ public class JpaBootstrap {
         sources.addAnnotatedClass(JpaRentalCar.class);
 
         MetadataBuilder metadataBuilder = sources.getMetadataBuilder();
-
         metadataBuilder.applyImplicitNamingStrategy(ImplicitNamingStrategyJpaCompliantImpl.INSTANCE);
+
+        metadataBuilder.applyImplicitSchemaName("BOOKING");
 
         Metadata metadata = metadataBuilder.build();
 
         SessionFactoryBuilder sessionFactoryBuilder = metadata.getSessionFactoryBuilder();
-
+sessionFactoryBuilder.enableJpaTransactionCompliance(false);
         SessionFactory sessionFactory = sessionFactoryBuilder.build();
+
         return sessionFactory;
     }
 }

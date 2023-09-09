@@ -5,4 +5,8 @@ class TransactionManagerMock implements TransactionManager {
     public Transaction beginTransaction() throws Exception {
         return null;
     }
+
+    @Override
+    public void addTransactionListener(TransactionListener transactionListener) {
+    }
 }

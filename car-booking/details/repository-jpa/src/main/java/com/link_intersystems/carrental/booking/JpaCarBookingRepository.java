@@ -20,7 +20,14 @@ class JpaCarBookingRepository implements CarBookingRepository {
 
     @Override
     public CarBooking findBooking(CarId carId, Period bookingPeriod) {
-        TypedQuery<JpaCarBooking> query = entityManager.createQuery("FROM CarBooking cb where cb.carIdValue =:carId and ((cb.pickupDateTime >= :pickup or cb.pickupDateTime <= :pickup) or (cb.returnDateTime >= :return or cb.returnDateTime <= :return))", JpaCarBooking.class);
+        TypedQuery<JpaCarBooking> query = entityManager.createQuery("""
+                   FROM CarBooking cb where cb.carIdValue =:carId and 
+                   (
+                    (cb.pickupDateTime < :pickup or cb.pickupDateTime <= :pickup) 
+                    or 
+                    (cb.returnDateTime >= :return or cb.returnDateTime <= :return)
+                   )
+                   """, JpaCarBooking.class);
         query.setParameter("carId", carId.getValue());
         query.setParameter("pickup", bookingPeriod.getBegin());
         query.setParameter("return", bookingPeriod.getEnd());
@@ -36,7 +43,7 @@ class JpaCarBookingRepository implements CarBookingRepository {
     public void persist(CarBooking carBooking) {
         JpaCarBooking jpaCarBooking = new JpaCarBooking(carBooking);
         entityManager.persist(jpaCarBooking);
-
+        entityManager.flush();
         jpaCarBooking.updateDomainObject();
     }
 

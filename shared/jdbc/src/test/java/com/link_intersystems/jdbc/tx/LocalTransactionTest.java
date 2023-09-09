@@ -16,7 +16,7 @@ class LocalTransactionTest {
     @BeforeEach
     void setUp() {
         mockConnection = new MockConnection();
-        localTransaction = new LocalTransaction(mockConnection);
+        localTransaction = new LocalTransaction(mockConnection, transactionListener);
     }
 
     @Test
