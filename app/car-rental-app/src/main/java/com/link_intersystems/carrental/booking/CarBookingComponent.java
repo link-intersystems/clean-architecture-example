@@ -1,20 +1,20 @@
 package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.DomainEventPublisher;
-import com.link_intersystems.jdbc.JdbcTemplate;
-import jakarta.persistence.EntityManager;
+import com.link_intersystems.carrental.main.AOPConfig;
 
-public class CarBookingComponent {
+public abstract class CarBookingComponent {
 
+    public AOPConfig aopConfig;
 
-    private EntityManager entityManager;
-
-    public CarBookingComponent(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public CarBookingComponent(AOPConfig aopConfig) {
+        this.aopConfig = aopConfig;
     }
 
     public CarBookingUseCase getCarBookingUseCase(DomainEventPublisher eventPublisher) {
-        CarBookingRepository repository = new JpaCarBookingRepository(entityManager);
+        CarBookingRepository repository = getCarBookingRepository();
         return new CarBookingInteractor(repository, eventPublisher);
     }
+
+    protected abstract CarBookingRepository getCarBookingRepository();
 }

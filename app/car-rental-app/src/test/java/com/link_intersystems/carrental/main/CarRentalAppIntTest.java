@@ -10,7 +10,7 @@ class CarRentalAppIntTest {
 
     @Test
     void applicationContext(@TempDir File tempDir) {
-        CarRentalApp app = new CarRentalApp() {
+        JdbcCarRentalApp app = new JdbcCarRentalApp() {
 
             @Override
             protected void openFrame(CarRentalMainFrame mainFrame) {

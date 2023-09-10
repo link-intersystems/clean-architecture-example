@@ -1,25 +1,22 @@
 package com.link_intersystems.carrental.main;
 
 import com.link_intersystems.tx.TransactionManager;
-import jakarta.persistence.EntityManagerFactory;
+import com.link_intersystems.tx.jdbc.JdbcLocalTransactionManager;
 
 import static java.util.Objects.*;
 
 public class TransactionConfig {
 
     private DataSourceConfig dataSourceConfig;
-    private final JpaConfig jpaConfig;
     private TransactionManager transactionManager;
 
-    public TransactionConfig(DataSourceConfig dataSourceConfig, JpaConfig jpaConfig) {
+    public TransactionConfig(DataSourceConfig dataSourceConfig) {
         this.dataSourceConfig = requireNonNull(dataSourceConfig);
-        this.jpaConfig = requireNonNull(jpaConfig);
     }
 
     public TransactionManager getTransactionManager() {
         if (transactionManager == null) {
-            EntityManagerFactory entityManagerFactory = jpaConfig.getEntityManagerFactory();
-            transactionManager = new JpaLocalTransactionManager(entityManagerFactory);
+            transactionManager = new JdbcLocalTransactionManager(dataSourceConfig.getDataSource());
         }
 
         return transactionManager;

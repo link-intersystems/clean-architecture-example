@@ -5,40 +5,26 @@ import com.link_intersystems.carrental.management.CarManagementViewConfig;
 import com.link_intersystems.carrental.offer.CarOfferViewConfig;
 import com.link_intersystems.carrental.swing.notification.DefaultMessageDialog;
 import com.link_intersystems.carrental.ui.CarRentalMainFrame;
-import jakarta.persistence.EntityManager;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class CarRentalApp {
+public abstract class AbstractCarRentalApp {
 
-    private DataSourceConfig dataSourceConfig;
-    private AOPConfig aopConfig;
-    private DefaultMessageDialog messageDialog;
-    private JpaConfig jpaConfig;
 
-    public static void main(String[] args) {
-        CarRentalApp carRentalApp = new CarRentalApp();
-        carRentalApp.run(args);
-    }
-
-    void run(String[] args) {
+    public void run(String[] args) {
         AppArgs appArgs = new AppArgs(args);
-        dataSourceConfig = new DataSourceConfig(appArgs);
-        JpaConfig jpaConfig = new JpaConfig(dataSourceConfig.getDataSource());
-        TransactionConfig transactionConfig = new TransactionConfig(dataSourceConfig, jpaConfig);
+        ComponentsConfig componentsConfig = getComponentsConfig(appArgs);
 
-        aopConfig = new AOPConfig(transactionConfig);
-
-        messageDialog = new DefaultMessageDialog();
+        DefaultMessageDialog messageDialog = new DefaultMessageDialog();
 
         DomainEventBus domainEventBus = createDomainEventBus(appArgs);
 
-        CarManagementViewConfig carManagementViewConfig = createCarManagementViewConfig();
+        CarManagementViewConfig carManagementViewConfig = createCarManagementViewConfig(componentsConfig, messageDialog);
         domainEventBus.addSubscribers(carManagementViewConfig.getCarBookedEventSubscriber());
 
-        CarOfferViewConfig carOfferViewConfig = createCarOfferViewConfig(domainEventBus);
+        CarOfferViewConfig carOfferViewConfig = createCarOfferViewConfig(componentsConfig, domainEventBus, messageDialog);
         CarRentalConfig carRentalConfig = new CarRentalConfig(carOfferViewConfig, carManagementViewConfig, messageDialog);
 
         CarRentalMainFrame mainFrame = carRentalConfig.getMainFrame();
@@ -48,6 +34,8 @@ public class CarRentalApp {
 
         openFrame(mainFrame);
     }
+
+    protected abstract ComponentsConfig getComponentsConfig(AppArgs appArgs);
 
     private DomainEventBus createDomainEventBus(AppArgs appArgs) {
         Map<String, Supplier<EventDispatchStrategy>> strategyMap = new HashMap<>();
@@ -59,13 +47,12 @@ public class CarRentalApp {
         return new DomainEventBus(eventDispatchStrategy);
     }
 
-    private CarOfferViewConfig createCarOfferViewConfig(DomainEventPublisher eventPublisher) {
-        EntityManager entityManager = ThreadLoacalEntityManagerProxy.createEntityManager();
-        return new CarOfferViewConfig(entityManager, eventPublisher, aopConfig, messageDialog);
+    private CarOfferViewConfig createCarOfferViewConfig(ComponentsConfig componentsConfig, DomainEventPublisher eventPublisher, DefaultMessageDialog messageDialog) {
+        return new CarOfferViewConfig(componentsConfig, eventPublisher, messageDialog);
     }
 
-    private CarManagementViewConfig createCarManagementViewConfig() {
-        return new CarManagementViewConfig(aopConfig, dataSourceConfig.getDataSource(), messageDialog);
+    private CarManagementViewConfig createCarManagementViewConfig(ComponentsConfig componentsConfig, DefaultMessageDialog messageDialog) {
+        return new CarManagementViewConfig(componentsConfig, messageDialog);
     }
 
     protected void openFrame(CarRentalMainFrame mainFrame) {

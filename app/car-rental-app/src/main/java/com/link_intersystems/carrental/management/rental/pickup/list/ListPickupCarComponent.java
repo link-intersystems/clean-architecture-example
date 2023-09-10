@@ -1,21 +1,21 @@
 package com.link_intersystems.carrental.management.rental.pickup.list;
 
 
-import com.link_intersystems.jdbc.JdbcTemplate;
+import com.link_intersystems.carrental.main.AOPConfig;
 
-import javax.sql.DataSource;
+public abstract class ListPickupCarComponent {
 
-public class ListPickupCarComponent {
+    private final AOPConfig aopConfig;
 
-    private final DataSource dataSource;
-
-    public ListPickupCarComponent(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public ListPickupCarComponent(AOPConfig aopConfig) {
+        this.aopConfig = aopConfig;
     }
 
     public ListPickupCarUseCase getListPickupCarUseCase() {
-        JdbcTemplate managementJdbcTemplate = new JdbcTemplate(dataSource, "MANAGEMENT");
-        ListPickupCarRepository repository = new H2ListPickupCarRepository(managementJdbcTemplate);
-        return new ListPickupCarInteractor(repository);
+        ListPickupCarRepository repository = getRepository();
+        ListPickupCarInteractor interactor = new ListPickupCarInteractor(repository);
+        return aopConfig.applyAOP(ListPickupCarUseCase.class, interactor);
     }
+
+    protected abstract ListPickupCarRepository getRepository();
 }

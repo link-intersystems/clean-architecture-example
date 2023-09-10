@@ -1,21 +1,21 @@
 package com.link_intersystems.carrental.management.booking.create;
 
 
-import com.link_intersystems.jdbc.JdbcTemplate;
+import com.link_intersystems.carrental.main.AOPConfig;
 
-import javax.sql.DataSource;
+public abstract class CreateCarBookingComponent {
 
-public class CreateCarBookingComponent {
+    private final AOPConfig aopConfig;
 
-    private final DataSource dataSource;
-
-    public CreateCarBookingComponent(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public CreateCarBookingComponent(AOPConfig aopConfig) {
+        this.aopConfig = aopConfig;
     }
 
     public CreateCarBookingUseCase getCreateCarBookingUseCase() {
-        JdbcTemplate managementJdbcTemplate = new JdbcTemplate(dataSource, "MANAGEMENT");
-        H2CreateCarBookingRepository repository = new H2CreateCarBookingRepository(managementJdbcTemplate);
-        return new CreateCarBookingInteractor(repository);
+        H2CreateCarBookingRepository repository = getRepository();
+        CreateCarBookingInteractor interactor = new CreateCarBookingInteractor(repository);
+        return aopConfig.applyAOP(CreateCarBookingUseCase.class, interactor);
     }
+
+    protected abstract H2CreateCarBookingRepository getRepository();
 }

@@ -1,20 +1,21 @@
 package com.link_intersystems.carrental.management.rental.returnCar;
 
-import com.link_intersystems.jdbc.JdbcTemplate;
+import com.link_intersystems.carrental.main.AOPConfig;
 
-import javax.sql.DataSource;
+public abstract class ReturnCarComponent {
 
-public class ReturnCarComponent {
+    private final AOPConfig aopConfig;
 
-    private final DataSource dataSource;
 
-    public ReturnCarComponent(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public ReturnCarComponent(AOPConfig aopConfig) {
+        this.aopConfig = aopConfig;
     }
 
     public ReturnCarUseCase getReturnUseCase() {
-        JdbcTemplate managementJdbcTemplate = new JdbcTemplate(dataSource, "MANAGEMENT");
-        ReturnCarRepository repository = new H2ReturnCarRepository(managementJdbcTemplate);
-        return new ReturnCarInteractor(repository);
+        ReturnCarRepository repository = getRepository();
+        ReturnCarInteractor interactor = new ReturnCarInteractor(repository);
+        return aopConfig.applyAOP(ReturnCarUseCase.class, interactor);
     }
+
+    protected abstract ReturnCarRepository getRepository();
 }

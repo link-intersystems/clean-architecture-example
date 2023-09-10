@@ -1,18 +1,21 @@
 package com.link_intersystems.carrental.offer;
 
 
-import jakarta.persistence.EntityManager;
+import com.link_intersystems.carrental.main.AOPConfig;
 
-public class CarOfferComponent {
+public abstract class CarOfferComponent {
 
-    private EntityManager entityManager;
+    public AOPConfig aopConfig;
 
-    public CarOfferComponent(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public CarOfferComponent(AOPConfig aopConfig) {
+        this.aopConfig = aopConfig;
     }
 
     public CarOfferUseCase createCarOfferUseCase() {
-        CarOfferRepository repository = new JpaCarOfferRepository(entityManager);
-        return new CarOfferInteractor(repository);
+        CarOfferRepository repository = getCarOfferRepository();
+        CarOfferInteractor carOfferInteractor = new CarOfferInteractor(repository);
+        return aopConfig.applyAOP(CarOfferUseCase.class, carOfferInteractor);
     }
+
+    protected abstract CarOfferRepository getCarOfferRepository();
 }
