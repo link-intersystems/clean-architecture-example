@@ -3,34 +3,19 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
-        <groupId>com.acme.car-rental.management</groupId>
-        <artifactId>car-management-details</artifactId>
+        <groupId>com.link_intersystems.libs</groupId>
+        <artifactId>libs</artifactId>
         <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>car-management-repository-h2</artifactId>
+    <artifactId>jdbc</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>com.acme.car-rental.management</groupId>
-            <artifactId>car-management-use-cases</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.acme.car-rental.management</groupId>
-            <artifactId>car-management-entities</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.acme.car-rental.shared</groupId>
-            <artifactId>car-rental-shared-jdbc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.link_intersystems.libs</groupId>
-            <artifactId>time</artifactId>
+            <artifactId>car-rental-shared-aop</artifactId>
             <version>1.0.0-SNAPSHOT</version>
-            <type>test-jar</type>
         </dependency>
         <dependency>
             <groupId>com.link-intersystems.commons</groupId>
@@ -38,13 +23,26 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>com.link-intersystems.commons</groupId>
+            <artifactId>lis-commons-sql</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
         </dependency>
     </dependencies>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.link-intersystems.commons</groupId>
+                <artifactId>lis-commons-sql</artifactId>
+                <version>${lis-commons.verions}</version>
+            </dependency>
             <dependency>
                 <groupId>com.link-intersystems.commons</groupId>
                 <artifactId>lis-commons-jdbc-test</artifactId>

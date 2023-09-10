@@ -15,12 +15,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>ui</module>
         <module>entities</module>
         <module>events</module>
-        <module>jdbc</module>
-        <module>time</module>
-        <module>tx</module>
     </modules>
 
     <dependencyManagement>

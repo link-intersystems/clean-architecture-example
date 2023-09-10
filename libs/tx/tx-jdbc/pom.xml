@@ -4,30 +4,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.acme.car-rental.shared</groupId>
-        <artifactId>shared</artifactId>
+        <groupId>com.link_intersystems.libs</groupId>
+        <artifactId>tx</artifactId>
         <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>car-rental-shared-events</artifactId>
+    <artifactId>tx-jdbc</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.link_intersystems.libs</groupId>
-            <artifactId>time</artifactId>
+            <artifactId>tx-api</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.link_intersystems.libs</groupId>
-            <artifactId>time</artifactId>
+            <artifactId>jdbc</artifactId>
             <version>1.0.0-SNAPSHOT</version>
-            <type>test-jar</type>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
         </dependency>
     </dependencies>
 </project>
