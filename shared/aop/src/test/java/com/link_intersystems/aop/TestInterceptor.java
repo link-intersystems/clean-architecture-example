@@ -14,7 +14,7 @@ class TestInterceptor implements MethodInterceptor {
     }
 
     @Override
-    public Object invoke(MethodInvocation methodInvocation) throws Throwable {
+    public Object invoke(MethodInvocation methodInvocation) throws Exception {
         invocationOrder = invocationOrderSupplier.get();
         return methodInvocation.proceed();
     }

@@ -4,7 +4,6 @@ import com.link_intersystems.carrental.booking.JpaCarBooking;
 import com.link_intersystems.carrental.booking.JpaCustomer;
 import com.link_intersystems.carrental.offer.JpaCar;
 import com.link_intersystems.carrental.offer.JpaRentalCar;
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.SharedCacheMode;
 import jakarta.persistence.ValidationMode;
@@ -20,17 +19,30 @@ import javax.sql.DataSource;
 import java.net.URL;
 import java.util.*;
 
-public class JpaEntityManagerFactory {
 
-    public EntityManagerFactory getEntityManagerFactory(DataSource dataSource) {
+public class JpaConfig {
+
+    private final DataSource dataSource;
+    private EntityManagerFactory entityManagerFactory;
+
+    public JpaConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    public EntityManagerFactory getEntityManagerFactory() {
+        if (entityManagerFactory != null) {
+            return entityManagerFactory;
+        }
+
         PersistenceUnitInfo persistenceUnitInfo = getPersistenceUnitInfo(
                 getClass().getSimpleName(), dataSource);
         Map<String, Object> configuration = new HashMap<>();
         EntityManagerFactoryBuilderImpl entityManagerFactoryBuilder = new EntityManagerFactoryBuilderImpl(
                 new PersistenceUnitInfoDescriptor(persistenceUnitInfo), configuration);
         entityManagerFactoryBuilder.withDataSource(dataSource);
-        return entityManagerFactoryBuilder
+        entityManagerFactory = entityManagerFactoryBuilder
                 .build();
+        return entityManagerFactory;
     }
 
     protected PersistenceUnitInfo getPersistenceUnitInfo(String name, DataSource dataSource) {
@@ -128,5 +140,4 @@ public class JpaEntityManagerFactory {
             }
         };
     }
-
 }

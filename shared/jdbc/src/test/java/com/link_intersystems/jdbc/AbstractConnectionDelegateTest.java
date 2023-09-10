@@ -1,6 +1,5 @@
 package com.link_intersystems.jdbc;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -16,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class AbstractConnectionDelegateTest implements InvocationHandler {
 
@@ -43,7 +44,12 @@ class AbstractConnectionDelegateTest implements InvocationHandler {
         Object[] args = getTestArgs(method);
         method.invoke(delegate, args);
 
-        Assertions.assertEquals(this.invokedMethod, method);
+        assertEquals(this.invokedMethod, method);
+        if(args.length == 0){
+            assertNull(invocationArgs);
+        } else {
+            assertArrayEquals(this.invocationArgs, args);
+        }
     }
 
     private Object[] getTestArgs(Method method) {

@@ -1,6 +1,10 @@
 package com.link_intersystems.jdbc.tx;
 
+import com.link_intersystems.aop.MethodInterceptorProxy;
+import com.link_intersystems.tx.*;
 import com.link_intersystems.jdbc.ConnectionSupplierDataSourceAdapter;
+import com.link_intersystems.tx.jdbc.JdbcLocalTransactionManager;
+import com.link_intersystems.tx.jdbc.TransactionAwareDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +22,7 @@ class TransactionComponentTest {
     @BeforeEach
     void setUp() {
         connection = new MockConnection();
-        transactionManager = new LocalTransactionManager(() -> connection);
+        transactionManager = new JdbcLocalTransactionManager(() -> connection);
         transactionAwareDataSource = new TransactionAwareDataSource(new ConnectionSupplierDataSourceAdapter(() -> connection));
 
         transactionTemplate = new TransactionTemplate(transactionManager);
@@ -88,14 +92,18 @@ class TransactionComponentTest {
     @Test
     void transactionProxy() {
         ServiceImpl service = new ServiceImpl();
-        Service serviceProxy = TransactionProxy.create(service, transactionManager);
+
+        TransactionMethodInterceptor transactionMethodInterceptor = new TransactionMethodInterceptor(transactionManager);
+        Service serviceProxy = new MethodInterceptorProxy.Builder()
+                .withInterceptor(transactionMethodInterceptor)
+                .build(Service.class, service);
 
         serviceProxy.execute();
 
         assertEquals(1, service.invocationCount);
     }
 
-    private static interface Service {
+    public static interface Service {
         public void execute();
     }
 

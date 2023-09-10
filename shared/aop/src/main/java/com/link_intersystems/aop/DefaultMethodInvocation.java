@@ -27,7 +27,7 @@ public class DefaultMethodInvocation implements MethodInvocation {
     }
 
     @Override
-    public Object proceed() throws Throwable {
+    public Object proceed() throws Exception {
         return method.invoke(target, args);
     }
 

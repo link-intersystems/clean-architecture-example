@@ -69,6 +69,16 @@
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
+            <groupId>com.acme.car-rental.shared</groupId>
+            <artifactId>car-rental-shared-jdbc</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.acme.car-rental.shared</groupId>
+            <artifactId>car-rental-shared-tx</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>2.1.214</version>

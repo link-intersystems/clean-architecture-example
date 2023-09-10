@@ -50,7 +50,7 @@ public class CarManagementViewConfig {
         if (carManagementView == null) {
             ListCarBookingComponent listCarBookingComponent = new ListCarBookingComponent(dataSource);
             ListBookingsUseCase listBookingUseCase = listCarBookingComponent.getListBookingsUseCase();
-            listBookingUseCase = aopConfig.applyAOP(listBookingUseCase);
+            listBookingUseCase = aopConfig.applyAOP(ListBookingsUseCase.class, listBookingUseCase);
 
             ListCarBookingUIConfig listCarBookingUIConfig = new ListCarBookingUIConfig();
             ListCarBookingController listCarBookingController = listCarBookingUIConfig.getListCarBookingController(listBookingUseCase);
@@ -58,7 +58,7 @@ public class CarManagementViewConfig {
 
             PickupCarComponent pickupCarComponent = new PickupCarComponent(dataSource);
             PickupCarUseCase pickupCarUseCase = pickupCarComponent.getPickupCarUseCase();
-            pickupCarUseCase = aopConfig.applyAOP(pickupCarUseCase);
+            pickupCarUseCase = aopConfig.applyAOP(PickupCarUseCase.class, pickupCarUseCase);
 
             PickupCarController pickupCarController = pickupUIConfig.getPickupCarController(messageDialog, pickupCarUseCase);
             ListCarBookingView listCarBookingView = listCarBookingUIConfig.getListCarBookingView(listCarBookingController, pickupCarController);
@@ -66,18 +66,18 @@ public class CarManagementViewConfig {
 
             ListPickupCarComponent listPickupCarComponent = new ListPickupCarComponent(dataSource);
             ListPickupCarUseCase listPickupCarUseCase = listPickupCarComponent.getListPickupCarUseCase();
-            listPickupCarUseCase = aopConfig.applyAOP(listPickupCarUseCase);
+            listPickupCarUseCase = aopConfig.applyAOP(ListPickupCarUseCase.class, listPickupCarUseCase);
 
             ListPickupCarUIConfig listPickupCarUIConfig = new ListPickupCarUIConfig();
             ListPickupCarController listPickupCarController = listPickupCarUIConfig.getPickupCarListController(listPickupCarUseCase);
 
             ReturnCarComponent returnCarComponent = new ReturnCarComponent(dataSource);
             ReturnCarUseCase returnCarUseCase = returnCarComponent.getReturnUseCase();
-            returnCarUseCase = aopConfig.applyAOP(returnCarUseCase);
+            returnCarUseCase = aopConfig.applyAOP(ReturnCarUseCase.class, returnCarUseCase);
 
             GetPickupCarComponent getPickupCarComponent = new GetPickupCarComponent(dataSource);
             GetPickupCarUseCase getPickupCarUseCase = getPickupCarComponent.getGetPickupCarUseCase();
-            getPickupCarUseCase = aopConfig.applyAOP(getPickupCarUseCase);
+            getPickupCarUseCase = aopConfig.applyAOP(GetPickupCarUseCase.class, getPickupCarUseCase);
 
             ReturnCarUIConfig returnCarUIConfig = new ReturnCarUIConfig();
             ReturnCarFormController returnCarFormController = returnCarUIConfig.getReturnCarController(getPickupCarUseCase, messageDialog, listPickupCarController, returnCarUseCase);
@@ -93,7 +93,7 @@ public class CarManagementViewConfig {
         if (carBookedEventSubscriber == null) {
             CreateCarBookingComponent createCarBookingComponent = new CreateCarBookingComponent(dataSource);
             CreateCarBookingUseCase createCarBookingUseCase = createCarBookingComponent.getCreateCarBookingUseCase();
-            createCarBookingUseCase = aopConfig.applyAOP(createCarBookingUseCase);
+            createCarBookingUseCase = aopConfig.applyAOP(CreateCarBookingUseCase.class, createCarBookingUseCase);
 
             carBookedEventSubscriber = new CarBookedEventSubscriber(createCarBookingUseCase);
         }

@@ -8,5 +8,5 @@ public interface MethodInvocation {
 
     public Object[] getArgs();
 
-    Object proceed() throws Throwable;
+    Object proceed() throws Exception;
 }

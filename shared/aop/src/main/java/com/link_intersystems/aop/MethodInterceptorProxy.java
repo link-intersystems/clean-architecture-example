@@ -3,10 +3,13 @@ package com.link_intersystems.aop;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.List;
 
 import static java.util.Objects.*;
 
 public class MethodInterceptorProxy implements InvocationHandler {
+
+    public static final Object[] EMPTY_ARGS = new Object[0];
 
     public static class Builder {
         private MethodInterceptorChain methodInterceptorChain = new MethodInterceptorChain();
@@ -32,6 +35,7 @@ public class MethodInterceptorProxy implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        args = args == null ? EMPTY_ARGS : args;
         MethodInvocation methodInvocation = new DefaultMethodInvocation(target, method, args);
         return methodInterceptor.invoke(methodInvocation);
     }

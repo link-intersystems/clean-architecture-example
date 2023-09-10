@@ -1,4 +1,4 @@
-package com.link_intersystems.jdbc.tx;
+package com.link_intersystems.tx;
 
 import java.util.concurrent.Callable;
 

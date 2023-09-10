@@ -1,4 +1,4 @@
-package com.link_intersystems.jdbc.tx;
+package com.link_intersystems.tx;
 
 public abstract class Transaction {
 
@@ -16,9 +16,9 @@ public abstract class Transaction {
         }
     }
 
-    abstract void rollback() throws Exception;
+    protected abstract void rollback() throws Exception;
 
-    abstract void commit() throws Exception;
+    protected abstract void commit() throws Exception;
 
     public <T> T unwrap(Class<T> type) {
         return null;

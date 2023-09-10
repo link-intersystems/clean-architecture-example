@@ -20,6 +20,7 @@
         <module>events</module>
         <module>jdbc</module>
         <module>time</module>
+        <module>tx</module>
     </modules>
 
     <dependencyManagement>

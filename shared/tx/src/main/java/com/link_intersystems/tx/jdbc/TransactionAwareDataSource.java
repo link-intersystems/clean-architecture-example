@@ -1,6 +1,7 @@
-package com.link_intersystems.jdbc.tx;
+package com.link_intersystems.tx.jdbc;
 
 import com.link_intersystems.sql.AbstractDataSource;
+import com.link_intersystems.tx.Transaction;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

@@ -36,12 +36,12 @@ public class CarOfferViewConfig {
     private CarOfferUseCase createCarOfferUseCase() {
         CarOfferComponent carOfferComponent = new CarOfferComponent(entityManager);
         CarOfferUseCase carOfferUseCase = carOfferComponent.createCarOfferUseCase();
-        return aopConfig.applyAOP(carOfferUseCase);
+        return aopConfig.applyAOP(CarOfferUseCase.class, carOfferUseCase);
     }
 
     private CarBookingUseCase createCarBookingUseCase() {
         CarBookingComponent carBookingComponent = new CarBookingComponent(entityManager);
         CarBookingUseCase carBookingUseCase = carBookingComponent.getCarBookingUseCase(eventPublisher);
-        return aopConfig.applyAOP(carBookingUseCase);
+        return aopConfig.applyAOP(CarBookingUseCase.class, carBookingUseCase);
     }
 }

@@ -1,35 +1,24 @@
-package com.link_intersystems.jdbc.tx;
+package com.link_intersystems.tx.jdbc;
 
 import com.link_intersystems.jdbc.AbstractConnectionDelegate;
+import com.link_intersystems.tx.Transaction;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import static java.util.Objects.*;
 
-public class LocalTransaction extends Transaction {
+public class JdbcLocalTransaction extends Transaction {
 
     private Connection connection;
-    private TransactionListener transactionListener;
 
-    public LocalTransaction(Connection connection) {
+    public JdbcLocalTransaction(Connection connection) {
         this.connection = requireNonNull(connection);
         try {
             this.connection.setAutoCommit(false);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public TransactionListener getTransactionListener() {
-        if (transactionListener == null) {
-            return TransactionListener.NULL_INSTANCE;
-        }
-        return transactionListener;
-    }
-
-    public void setTransactionListener(TransactionListener transactionListener) {
-        this.transactionListener = transactionListener;
     }
 
     private Connection getConnection() {
@@ -40,11 +29,11 @@ public class LocalTransaction extends Transaction {
             }
 
             @Override
-            public void setAutoCommit(boolean autoCommit) throws SQLException {
+            public void setAutoCommit(boolean autoCommit) {
             }
 
             @Override
-            public void close() throws SQLException {
+            public void close() {
             }
         }
 
@@ -54,16 +43,13 @@ public class LocalTransaction extends Transaction {
     @Override
     public void rollback() throws Exception {
         connection.rollback();
-        getTransactionListener().rollback();
         connection.close();
         connection = null;
     }
 
     @Override
     public void commit() throws Exception {
-        getTransactionListener().beforeCommit();
         connection.commit();
-        getTransactionListener().afterCommit();
         connection.close();
         connection = null;
     }

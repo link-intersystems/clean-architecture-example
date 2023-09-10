@@ -17,7 +17,7 @@ import static com.link_intersystems.carrental.time.LocalDateTimeUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @CarRentalDBExtension
-class H2CarBookingRepositoryIntTest {
+class JpaCarBookingRepositoryIntTest {
 
     private JpaCarBookingRepository h2CarBookingRepository;
     private EntityManager entityManager;
@@ -27,6 +27,7 @@ class H2CarBookingRepositoryIntTest {
     void setUp(H2Database connection) {
         entityManager = new JpaBootstrap(connection).create().createEntityManager();
         h2CarBookingRepository = new JpaCarBookingRepository(entityManager);
+        entityManager.getTransaction().begin();
     }
 
     @AfterEach

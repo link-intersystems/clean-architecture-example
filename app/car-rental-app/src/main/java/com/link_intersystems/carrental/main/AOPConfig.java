@@ -1,7 +1,8 @@
 package com.link_intersystems.carrental.main;
 
-import com.link_intersystems.jdbc.tx.TransactionManager;
-import com.link_intersystems.jdbc.tx.TransactionProxy;
+import com.link_intersystems.aop.MethodInterceptorProxy;
+import com.link_intersystems.tx.TransactionManager;
+import com.link_intersystems.tx.TransactionMethodInterceptor;
 
 public class AOPConfig {
 
@@ -11,8 +12,9 @@ public class AOPConfig {
         this.transactionConfig = transactionConfig;
     }
 
-    public <T> T applyAOP(T bean) {
+    public <T, I extends T> T applyAOP(Class<T> type, I implementation) {
         TransactionManager tm = transactionConfig.getTransactionManager();
-        return TransactionProxy.create(bean, tm);
+        TransactionMethodInterceptor transactionMethodInterceptor = new TransactionMethodInterceptor(tm);
+        return new MethodInterceptorProxy.Builder().withInterceptor(transactionMethodInterceptor).build(type, implementation);
     }
 }

@@ -1,5 +1,7 @@
-package com.link_intersystems.jdbc.tx;
+package com.link_intersystems.jdbc.tx.jdbc;
 
+import com.link_intersystems.jdbc.tx.MockConnection;
+import com.link_intersystems.tx.jdbc.JdbcLocalTransaction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,27 +10,27 @@ import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LocalTransactionTest {
+class JdbcLocalTransactionTest {
 
     private MockConnection mockConnection;
-    private LocalTransaction localTransaction;
+    private JdbcLocalTransaction jdbcLocalTransaction;
 
     @BeforeEach
     void setUp() {
         mockConnection = new MockConnection();
-        localTransaction = new LocalTransaction(mockConnection, transactionListener);
+        jdbcLocalTransaction = new JdbcLocalTransaction(mockConnection);
     }
 
     @Test
     void rollback() throws Exception {
-        localTransaction.rollback();
+        jdbcLocalTransaction.rollback();
 
         mockConnection.assertRollback();
     }
 
     @Test
     void commit() throws Exception {
-        localTransaction.commit();
+        jdbcLocalTransaction.commit();
 
         mockConnection.assertCommit();
     }
@@ -37,7 +39,7 @@ class LocalTransactionTest {
     void setAutoCommit() throws SQLException {
         mockConnection.setAutoCommit(true);
 
-        Connection connection = localTransaction.unwrap(Connection.class);
+        Connection connection = jdbcLocalTransaction.unwrap(Connection.class);
         connection.setAutoCommit(false);
 
         assertTrue(connection.getAutoCommit());

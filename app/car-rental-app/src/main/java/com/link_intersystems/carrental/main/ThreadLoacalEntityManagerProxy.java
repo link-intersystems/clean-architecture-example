@@ -16,10 +16,6 @@ public class ThreadLoacalEntityManagerProxy implements InvocationHandler {
 
     public static void setEntityManager(EntityManager entityManager) {
         if (entityManager == null) {
-            EntityManager actualEntityManager = ENTITY_MANAGER_THREAD_LOCAL.get();
-            if (actualEntityManager != null) {
-                actualEntityManager.close();
-            }
             ENTITY_MANAGER_THREAD_LOCAL.remove();
         } else {
             ENTITY_MANAGER_THREAD_LOCAL.set(entityManager);

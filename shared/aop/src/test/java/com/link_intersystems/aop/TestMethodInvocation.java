@@ -30,7 +30,7 @@ class TestMethodInvocation implements MethodInvocation {
     }
 
     @Override
-    public Object proceed() throws Throwable {
+    public Object proceed() throws Exception {
         invocationOrder = invocationOrderSupplier.get();
         return result;
     }
