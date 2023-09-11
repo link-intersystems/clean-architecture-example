@@ -2,8 +2,7 @@ package com.link_intersystems.carrental.main;
 
 import com.link_intersystems.carrental.*;
 import com.link_intersystems.carrental.components.ComponentsConfig;
-import com.link_intersystems.carrental.components.jdbc.JdbcComponentsConfig;
-import com.link_intersystems.carrental.components.jpa.JpaComponentsConfig;
+import com.link_intersystems.carrental.components.ComponentsConfigProvider;
 import com.link_intersystems.carrental.management.CarManagementViewConfig;
 import com.link_intersystems.carrental.offer.CarOfferViewConfig;
 import com.link_intersystems.carrental.swing.notification.DefaultMessageDialog;
@@ -25,7 +24,7 @@ public class CarRentalApp {
     public void run(String[] args) {
         AppArgsParser appArgsParser = new AppArgsParser();
         Properties appProperties = appArgsParser.parse(args);
-        ComponentsConfig componentsConfig = getComponentsConfig(appProperties);
+        ComponentsConfig componentsConfig = ComponentsConfigProvider.findComponentsConfig(appProperties);
 
         DefaultMessageDialog messageDialog = new DefaultMessageDialog();
 
@@ -43,18 +42,6 @@ public class CarRentalApp {
         messageDialog.setParentComponent(mainFrame.getComponent());
 
         openFrame(mainFrame);
-    }
-
-    protected ComponentsConfig getComponentsConfig(Properties appProperties) {
-
-        String persistenceProvider = appProperties.getProperty("persistence-provider", "jdbc");
-        if ("jdbc".equals(persistenceProvider)) {
-            return new JdbcComponentsConfig(appProperties);
-        } else if ("jpa".equals(persistenceProvider)) {
-            return new JpaComponentsConfig(appProperties);
-        } else {
-            throw new IllegalArgumentException("Unsupported persistence-provider '" + persistenceProvider + "'");
-        }
     }
 
     private DomainEventBus createDomainEventBus(Properties appProperties) {
