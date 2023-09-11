@@ -1,10 +1,11 @@
-package com.link_intersystems.carrental.main;
+package com.link_intersystems.carrental.components.jpa;
 
 import com.link_intersystems.tx.Transaction;
 import com.link_intersystems.tx.TransactionManager;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.PersistenceUnitUtil;
 
 public class JpaLocalTransactionManager implements TransactionManager {
 
@@ -25,7 +26,7 @@ public class JpaLocalTransactionManager implements TransactionManager {
                 try {
                     entityManager.close();
                 } finally {
-                    ThreadLoacalEntityManagerProxy.setEntityManager(null);
+                    ThreadLoacalEntityManagerProxy.removeEntityManager(getPuName());
                 }
             }
         }
@@ -38,7 +39,7 @@ public class JpaLocalTransactionManager implements TransactionManager {
                 try {
                     entityManager.close();
                 } finally {
-                    ThreadLoacalEntityManagerProxy.setEntityManager(null);
+                    ThreadLoacalEntityManagerProxy.removeEntityManager(getPuName());
                 }
             }
         }
@@ -54,7 +55,11 @@ public class JpaLocalTransactionManager implements TransactionManager {
     public Transaction beginTransaction() throws Exception {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        ThreadLoacalEntityManagerProxy.setEntityManager(entityManager);
+        ThreadLoacalEntityManagerProxy.setEntityManager(getPuName(), entityManager);
         return new JpaLocalTransaction(entityManager);
+    }
+
+    private String getPuName() {
+        return (String) this.entityManagerFactory.getProperties().get("hibernate.persistenceUnitName");
     }
 }

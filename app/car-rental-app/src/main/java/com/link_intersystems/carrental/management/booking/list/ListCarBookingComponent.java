@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental.management.booking.list;
 
-import com.link_intersystems.carrental.main.AOPConfig;
+import com.link_intersystems.carrental.components.AOPConfig;
 
 public abstract class ListCarBookingComponent {
 

@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental.offer;
 
-import com.link_intersystems.carrental.main.AOPConfig;
+import com.link_intersystems.carrental.components.AOPConfig;
 import com.link_intersystems.jdbc.JdbcTemplate;
 
 public class JdbcCarOfferComponent extends CarOfferComponent {

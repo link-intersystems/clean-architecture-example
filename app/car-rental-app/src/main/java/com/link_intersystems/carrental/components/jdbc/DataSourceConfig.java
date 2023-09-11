@@ -1,4 +1,4 @@
-package com.link_intersystems.carrental.main;
+package com.link_intersystems.carrental.components.jdbc;
 
 import com.link_intersystems.jdbc.JdbcTemplate;
 import com.link_intersystems.sql.io.SqlScript;
@@ -11,6 +11,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.MessageFormat;
+import java.util.Properties;
 
 public class DataSourceConfig {
 
@@ -20,10 +21,10 @@ public class DataSourceConfig {
     private JdbcTemplate bookingJdbcTemplate;
     private JdbcTemplate managementJdbcTemplate;
 
-    private AppArgs appArgs;
+    private Properties properties;
 
-    public DataSourceConfig(AppArgs appArgs) {
-        this.appArgs = appArgs;
+    public DataSourceConfig(Properties properties) {
+        this.properties = properties;
     }
 
 
@@ -39,7 +40,7 @@ public class DataSourceConfig {
     }
 
     private String getDBPath() {
-        String dbName = appArgs.getArg("db", "./carrental");
+        String dbName = properties.getProperty("db", "./carrental");
         if (dbName.equals(".mv.db")) {
             dbName = dbName.substring(0, dbName.length() - ".mv.db".length());
         }

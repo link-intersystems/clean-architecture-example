@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental.management.rental.returnCar;
 
-import com.link_intersystems.carrental.main.AOPConfig;
+import com.link_intersystems.carrental.components.AOPConfig;
 
 public abstract class ReturnCarComponent {
 

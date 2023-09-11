@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.management;
 
 import com.link_intersystems.carrental.DomainEventSubscriber;
-import com.link_intersystems.carrental.main.ComponentsConfig;
+import com.link_intersystems.carrental.components.ComponentsConfig;
 import com.link_intersystems.carrental.management.booking.create.CarBookedEventSubscriber;
 import com.link_intersystems.carrental.management.booking.create.CreateCarBookingComponent;
 import com.link_intersystems.carrental.management.booking.create.CreateCarBookingUseCase;

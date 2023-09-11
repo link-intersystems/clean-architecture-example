@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.management.rental.pickup.list;
 
 
-import com.link_intersystems.carrental.main.AOPConfig;
+import com.link_intersystems.carrental.components.AOPConfig;
 
 public abstract class ListPickupCarComponent {
 

@@ -3,7 +3,7 @@ package com.link_intersystems.carrental.offer;
 import com.link_intersystems.carrental.DomainEventPublisher;
 import com.link_intersystems.carrental.booking.CarBookingComponent;
 import com.link_intersystems.carrental.booking.CarBookingUseCase;
-import com.link_intersystems.carrental.main.ComponentsConfig;
+import com.link_intersystems.carrental.components.ComponentsConfig;
 import com.link_intersystems.carrental.offer.ui.CarOfferUIConfig;
 import com.link_intersystems.carrental.offer.ui.CarOfferView;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;

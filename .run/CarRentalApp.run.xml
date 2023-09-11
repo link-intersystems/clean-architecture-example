@@ -1,10 +1,10 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="CarRentalApp" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="com.link_intersystems.carrental.main.JdbcCarRentalApp" />
+    <option name="MAIN_CLASS_NAME" value="com.link_intersystems.carrental.main.CarRentalApp" />
     <module name="car-rental-app" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="com.link_intersystems.carrental.main.DataSourceConfig" />
+        <option name="PATTERN" value="com.link_intersystems.carrental.components.jdbc.DataSourceConfig" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

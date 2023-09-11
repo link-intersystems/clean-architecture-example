@@ -1,6 +1,9 @@
 package com.link_intersystems.carrental.main;
 
 import com.link_intersystems.carrental.*;
+import com.link_intersystems.carrental.components.ComponentsConfig;
+import com.link_intersystems.carrental.components.jdbc.JdbcComponentsConfig;
+import com.link_intersystems.carrental.components.jpa.JpaComponentsConfig;
 import com.link_intersystems.carrental.management.CarManagementViewConfig;
 import com.link_intersystems.carrental.offer.CarOfferViewConfig;
 import com.link_intersystems.carrental.swing.notification.DefaultMessageDialog;
@@ -8,18 +11,25 @@ import com.link_intersystems.carrental.ui.CarRentalMainFrame;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.function.Supplier;
 
-public abstract class AbstractCarRentalApp {
+public class CarRentalApp {
 
+
+    public static void main(String[] args) {
+        CarRentalApp carRentalApp = new CarRentalApp();
+        carRentalApp.run(args);
+    }
 
     public void run(String[] args) {
-        AppArgs appArgs = new AppArgs(args);
-        ComponentsConfig componentsConfig = getComponentsConfig(appArgs);
+        AppArgsParser appArgsParser = new AppArgsParser();
+        Properties appProperties = appArgsParser.parse(args);
+        ComponentsConfig componentsConfig = getComponentsConfig(appProperties);
 
         DefaultMessageDialog messageDialog = new DefaultMessageDialog();
 
-        DomainEventBus domainEventBus = createDomainEventBus(appArgs);
+        DomainEventBus domainEventBus = createDomainEventBus(appProperties);
 
         CarManagementViewConfig carManagementViewConfig = createCarManagementViewConfig(componentsConfig, messageDialog);
         domainEventBus.addSubscribers(carManagementViewConfig.getCarBookedEventSubscriber());
@@ -35,14 +45,24 @@ public abstract class AbstractCarRentalApp {
         openFrame(mainFrame);
     }
 
-    protected abstract ComponentsConfig getComponentsConfig(AppArgs appArgs);
+    protected ComponentsConfig getComponentsConfig(Properties appProperties) {
 
-    private DomainEventBus createDomainEventBus(AppArgs appArgs) {
+        String persistenceProvider = appProperties.getProperty("persistence-provider", "jdbc");
+        if ("jdbc".equals(persistenceProvider)) {
+            return new JdbcComponentsConfig(appProperties);
+        } else if ("jpa".equals(persistenceProvider)) {
+            return new JpaComponentsConfig(appProperties);
+        } else {
+            throw new IllegalArgumentException("Unsupported persistence-provider '" + persistenceProvider + "'");
+        }
+    }
+
+    private DomainEventBus createDomainEventBus(Properties appProperties) {
         Map<String, Supplier<EventDispatchStrategy>> strategyMap = new HashMap<>();
         strategyMap.put("sync", SyncEventDispatchStrategy::new);
         strategyMap.put("async", AsyncEventDispatchStrategy::new);
 
-        String eventBusType = appArgs.getArg("eb", "sync");
+        String eventBusType = appProperties.getProperty("eb", "sync");
         EventDispatchStrategy eventDispatchStrategy = strategyMap.getOrDefault(eventBusType, SyncEventDispatchStrategy::new).get();
         return new DomainEventBus(eventDispatchStrategy);
     }

@@ -1,15 +1,14 @@
 package com.link_intersystems.carrental.main;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.ListIterator;
-import java.util.Map;
+import java.util.Properties;
 
-public class AppArgs {
+public class AppArgsParser {
 
-    private Map<String, String> argValues = new HashMap<>();
+    public Properties parse(String[] args) {
+        Properties properties = new Properties();
 
-    public AppArgs(String[] args) {
         ListIterator<String> argIterator = Arrays.asList(args).listIterator();
         while (argIterator.hasNext()) {
             String arg = argIterator.next();
@@ -25,13 +24,11 @@ public class AppArgs {
                     argValue = "true";
                 }
 
-                argValues.put(argName, argValue);
+                properties.put(argName, argValue);
             }
         }
+
+        return properties;
     }
 
-    public String getArg(String name, String defaultValue) {
-        String argValue = argValues.get(name);
-        return argValue == null ? defaultValue : argValue;
-    }
 }
