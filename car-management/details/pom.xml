@@ -16,7 +16,8 @@
 
     <modules>
         <module>repository-jdbc</module>
-        <module>ui</module>
+        <module>repository-jpa</module>
         <module>event-subscriber</module>
+        <module>ui</module>
     </modules>
 </project>

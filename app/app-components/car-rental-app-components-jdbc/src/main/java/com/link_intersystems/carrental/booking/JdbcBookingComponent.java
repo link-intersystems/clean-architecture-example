@@ -14,6 +14,6 @@ public class JdbcBookingComponent extends CarBookingComponent {
 
     @Override
     protected CarBookingRepository getRepository() {
-        return new H2CarBookingRepository(bookingJdbcTemplate);
+        return new JdbcCarBookingRepository(bookingJdbcTemplate);
     }
 }

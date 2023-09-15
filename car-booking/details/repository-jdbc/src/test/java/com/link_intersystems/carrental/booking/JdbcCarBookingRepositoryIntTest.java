@@ -6,32 +6,23 @@ import com.link_intersystems.carrental.VIN;
 import com.link_intersystems.carrental.customer.Customer;
 import com.link_intersystems.carrental.customer.CustomerId;
 import com.link_intersystems.carrental.time.Period;
-import com.link_intersystems.jdbc.test.db.h2.H2Database;
-import jakarta.persistence.EntityManager;
-import org.junit.jupiter.api.AfterEach;
+import com.link_intersystems.jdbc.JdbcTemplate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.sql.Connection;
 
 import static com.link_intersystems.carrental.time.LocalDateTimeUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @CarRentalDBExtension
-class JpaCarBookingRepositoryIntTest {
+class JdbcCarBookingRepositoryIntTest {
 
-    private JpaCarBookingRepository h2CarBookingRepository;
-    private EntityManager entityManager;
-
+    private JdbcCarBookingRepository h2CarBookingRepository;
 
     @BeforeEach
-    void setUp(H2Database connection) {
-        entityManager =  new CarBookingJpaConfig(connection).newEntityManager();
-        h2CarBookingRepository = new JpaCarBookingRepository(entityManager);
-        entityManager.getTransaction().begin();
-    }
-
-    @AfterEach
-    void tearDown() {
-        entityManager.close();
+    void setUp(Connection connection) {
+        h2CarBookingRepository = new JdbcCarBookingRepository(new JdbcTemplate(() -> connection));
     }
 
     @Test

@@ -5,15 +5,23 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.acme.car-rental.booking</groupId>
-        <artifactId>car-booking-details</artifactId>
+        <groupId>com.acme.car-rental.management</groupId>
+        <artifactId>car-management-details</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>car-booking-repository-jpa</artifactId>
+    <artifactId>car-management-repository-jpa</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>com.acme.car-rental.management</groupId>
+            <artifactId>car-management-use-cases</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.acme.car-rental.management</groupId>
+            <artifactId>car-management-entities</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.acme.car-rental.booking</groupId>
             <artifactId>car-booking-use-cases</artifactId>
@@ -32,6 +40,12 @@
             <groupId>com.acme.car-rental.shared</groupId>
             <artifactId>car-rental-shared-entities</artifactId>
             <type>test-jar</type>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.3.0.Final</version>
         </dependency>
         <dependency>
             <groupId>com.link_intersystems.libs</groupId>

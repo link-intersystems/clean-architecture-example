@@ -14,6 +14,6 @@ public class JdbcCarOfferComponent extends CarOfferComponent {
 
     @Override
     protected CarOfferRepository getRepository() {
-        return new H2CarOfferRepository(bookingJdbcTemplate);
+        return new JdbcCarOfferRepository(bookingJdbcTemplate);
     }
 }

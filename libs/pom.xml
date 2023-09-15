@@ -18,6 +18,7 @@
         <module>tx</module>
         <module>time</module>
         <module>ui</module>
+        <module>jpa</module>
     </modules>
 
     <dependencies>
