@@ -5,7 +5,7 @@ import com.link_intersystems.carrental.booking.BookingNumber;
 import com.link_intersystems.carrental.management.CarManagementDBExtension;
 import com.link_intersystems.carrental.management.booking.CarBooking;
 import com.link_intersystems.carrental.management.booking.Customer;
-import com.link_intersystems.carrental.management.booking.create.TestJdbcCreateCarBookingRepository;
+import com.link_intersystems.carrental.management.booking.TestJdbcCreateCarBookingRepository;
 import com.link_intersystems.carrental.management.rental.*;
 import com.link_intersystems.carrental.time.FixedClock;
 import com.link_intersystems.jdbc.JdbcTemplate;

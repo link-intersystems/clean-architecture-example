@@ -24,7 +24,7 @@ class JpaCarBookingRepositoryIntTest {
 
     @BeforeEach
     void setUp(H2Database connection) {
-        entityManager =  new CarBookingJpaConfig(connection).newEntityManager();
+        entityManager = new CarBookingJpaConfig(connection).newEntityManager();
         h2CarBookingRepository = new JpaCarBookingRepository(entityManager);
         entityManager.getTransaction().begin();
     }

@@ -1,13 +1,10 @@
 package com.link_intersystems.carrental.management.rental.pickup;
 
-import com.link_intersystems.carrental.VIN;
 import com.link_intersystems.carrental.booking.BookingNumber;
 import com.link_intersystems.carrental.management.AbstractJpaManagementRepositoryTest;
 import com.link_intersystems.carrental.management.CarManagementDBExtension;
 import com.link_intersystems.carrental.management.booking.CarBooking;
-import com.link_intersystems.carrental.management.booking.Customer;
-import com.link_intersystems.carrental.management.booking.RentalState;
-import com.link_intersystems.carrental.management.booking.create.TestCreateCarBookingRepository;
+import com.link_intersystems.carrental.management.booking.TestCreateCarBookingRepository;
 import com.link_intersystems.carrental.management.rental.*;
 import com.link_intersystems.carrental.time.FixedClock;
 import org.junit.jupiter.api.BeforeEach;

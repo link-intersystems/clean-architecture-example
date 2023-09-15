@@ -24,22 +24,6 @@ public class JTextComponentBinding implements DocumentListener {
         return textComponent;
     }
 
-    public void setBindingValue(BindingValue<String> bindingValue) {
-        this.bindingValue = bindingValue;
-        if (bindingValue != null && textComponent != null) {
-            valueToView(bindingValue, textComponent);
-        }
-    }
-
-    public BindingValue<String> getBindingValue() {
-        return bindingValue;
-    }
-
-    private void valueToView(BindingValue<String> bindingValue, JTextComponent textComponent) {
-        String value = bindingValue.getValue();
-        textComponent.setText(value);
-    }
-
     public void setTextComponent(JTextComponent textComponent) {
         if (this.textComponent != null) {
             this.textComponent.getDocument().removeDocumentListener(this);
@@ -53,6 +37,22 @@ public class JTextComponentBinding implements DocumentListener {
         if (this.textComponent != null) {
             this.textComponent.getDocument().addDocumentListener(this);
         }
+    }
+
+    public BindingValue<String> getBindingValue() {
+        return bindingValue;
+    }
+
+    public void setBindingValue(BindingValue<String> bindingValue) {
+        this.bindingValue = bindingValue;
+        if (bindingValue != null && textComponent != null) {
+            valueToView(bindingValue, textComponent);
+        }
+    }
+
+    private void valueToView(BindingValue<String> bindingValue, JTextComponent textComponent) {
+        String value = bindingValue.getValue();
+        textComponent.setText(value);
     }
 
     @Override

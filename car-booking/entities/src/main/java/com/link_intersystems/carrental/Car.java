@@ -29,12 +29,12 @@ public class Car {
         return vehicleType;
     }
 
-    public void setSpecs(Specs specs) {
-        this.specs = specs;
-    }
-
     public Specs getSpecs() {
         return specs;
+    }
+
+    public void setSpecs(Specs specs) {
+        this.specs = specs;
     }
 
     @Override

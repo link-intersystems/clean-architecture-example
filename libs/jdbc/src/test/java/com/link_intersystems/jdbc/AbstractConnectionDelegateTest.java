@@ -24,18 +24,18 @@ class AbstractConnectionDelegateTest implements InvocationHandler {
     private Method invokedMethod;
     private Object[] invocationArgs;
 
-    @BeforeEach
-    void setUp() {
-        Connection connectionProxy = (Connection) Proxy.newProxyInstance(Connection.class.getClassLoader(), new Class[]{Connection.class}, this);
-        delegate = new AbstractConnectionDelegate(connectionProxy) {
-        };
-    }
-
     static Stream<Method> delegationMethods() {
         List<Method> methods = new ArrayList<>();
         methods.addAll(Arrays.asList(Connection.class.getDeclaredMethods()));
         methods.addAll(Arrays.asList(Wrapper.class.getDeclaredMethods()));
         return methods.stream().filter(ModifierSupport::isNotStatic).filter(ModifierSupport::isPublic);
+    }
+
+    @BeforeEach
+    void setUp() {
+        Connection connectionProxy = (Connection) Proxy.newProxyInstance(Connection.class.getClassLoader(), new Class[]{Connection.class}, this);
+        delegate = new AbstractConnectionDelegate(connectionProxy) {
+        };
     }
 
     @ParameterizedTest
@@ -45,7 +45,7 @@ class AbstractConnectionDelegateTest implements InvocationHandler {
         method.invoke(delegate, args);
 
         assertEquals(this.invokedMethod, method);
-        if(args.length == 0){
+        if (args.length == 0) {
             assertNull(invocationArgs);
         } else {
             assertArrayEquals(this.invocationArgs, args);

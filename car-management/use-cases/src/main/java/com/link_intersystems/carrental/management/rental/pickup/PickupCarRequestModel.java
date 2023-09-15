@@ -13,44 +13,44 @@ public class PickupCarRequestModel {
 
     private DriverRequestModel driver;
 
-    public void setBookingNumber(int bookingNumber) {
-        this.bookingNumber = bookingNumber;
-    }
-
     int getBookingNumber() {
         return bookingNumber;
     }
 
-    public void setDriver(DriverRequestModel driver) {
-        this.driver = driver;
-    }
-
-    public void setFuelLevel(FuelLevel fuelLevel) {
-        this.fuelLevel = fuelLevel;
-    }
-
-    public void setOdometer(Integer odometer) {
-        this.odometer = odometer;
-    }
-
-    public void setPickupDateTime(LocalDateTime pickupDateTime) {
-        this.pickupDateTime = pickupDateTime;
+    public void setBookingNumber(int bookingNumber) {
+        this.bookingNumber = bookingNumber;
     }
 
     public DriverRequestModel getDriver() {
         return driver;
     }
 
+    public void setDriver(DriverRequestModel driver) {
+        this.driver = driver;
+    }
+
     FuelLevel getFuelLevel() {
         return fuelLevel;
+    }
+
+    public void setFuelLevel(FuelLevel fuelLevel) {
+        this.fuelLevel = fuelLevel;
     }
 
     Integer getOdometer() {
         return odometer;
     }
 
+    public void setOdometer(Integer odometer) {
+        this.odometer = odometer;
+    }
+
     LocalDateTime getPickupDateTime() {
         return pickupDateTime;
+    }
+
+    public void setPickupDateTime(LocalDateTime pickupDateTime) {
+        this.pickupDateTime = pickupDateTime;
     }
 
     @Override

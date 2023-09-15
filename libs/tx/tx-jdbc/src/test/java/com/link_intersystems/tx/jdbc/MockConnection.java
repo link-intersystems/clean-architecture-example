@@ -42,13 +42,13 @@ public class MockConnection implements Connection {
     }
 
     @Override
-    public void setAutoCommit(boolean autoCommit) throws SQLException {
-        this.autoCommit = autoCommit;
+    public boolean getAutoCommit() throws SQLException {
+        return autoCommit;
     }
 
     @Override
-    public boolean getAutoCommit() throws SQLException {
-        return autoCommit;
+    public void setAutoCommit(boolean autoCommit) throws SQLException {
+        this.autoCommit = autoCommit;
     }
 
     @Override
@@ -77,17 +77,12 @@ public class MockConnection implements Connection {
     }
 
     @Override
-    public void setReadOnly(boolean readOnly) throws SQLException {
-
-    }
-
-    @Override
     public boolean isReadOnly() throws SQLException {
         return false;
     }
 
     @Override
-    public void setCatalog(String catalog) throws SQLException {
+    public void setReadOnly(boolean readOnly) throws SQLException {
 
     }
 
@@ -97,13 +92,18 @@ public class MockConnection implements Connection {
     }
 
     @Override
-    public void setTransactionIsolation(int level) throws SQLException {
+    public void setCatalog(String catalog) throws SQLException {
 
     }
 
     @Override
     public int getTransactionIsolation() throws SQLException {
         return 0;
+    }
+
+    @Override
+    public void setTransactionIsolation(int level) throws SQLException {
+
     }
 
     @Override
@@ -142,13 +142,13 @@ public class MockConnection implements Connection {
     }
 
     @Override
-    public void setHoldability(int holdability) throws SQLException {
-
+    public int getHoldability() throws SQLException {
+        return 0;
     }
 
     @Override
-    public int getHoldability() throws SQLException {
-        return 0;
+    public void setHoldability(int holdability) throws SQLException {
+
     }
 
     @Override
@@ -232,11 +232,6 @@ public class MockConnection implements Connection {
     }
 
     @Override
-    public void setClientInfo(Properties properties) throws SQLClientInfoException {
-
-    }
-
-    @Override
     public String getClientInfo(String name) throws SQLException {
         return null;
     }
@@ -244,6 +239,11 @@ public class MockConnection implements Connection {
     @Override
     public Properties getClientInfo() throws SQLException {
         return null;
+    }
+
+    @Override
+    public void setClientInfo(Properties properties) throws SQLClientInfoException {
+
     }
 
     @Override
@@ -257,13 +257,13 @@ public class MockConnection implements Connection {
     }
 
     @Override
-    public void setSchema(String schema) throws SQLException {
-
+    public String getSchema() throws SQLException {
+        return null;
     }
 
     @Override
-    public String getSchema() throws SQLException {
-        return null;
+    public void setSchema(String schema) throws SQLException {
+
     }
 
     @Override

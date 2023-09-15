@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 
 class PickupCarInteractor implements PickupCarUseCase {
 
-    private PickupCarRepository repository;
     private final DomainEventPublisher eventPublisher;
+    private PickupCarRepository repository;
 
     public PickupCarInteractor(PickupCarRepository repository, DomainEventPublisher eventPublisher) {
         this.repository = repository;

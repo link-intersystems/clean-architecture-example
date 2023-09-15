@@ -1,8 +1,8 @@
 package com.link_intersystems.carrental.management.booking.list.ui;
 
-import com.link_intersystems.carrental.management.booking.list.CarBookingResponseModelMock;
-import com.link_intersystems.carrental.management.booking.list.CustomerResponseModelMock;
-import com.link_intersystems.carrental.management.booking.list.ListBookingsUseCaseMock;
+import com.link_intersystems.carrental.management.booking.CarBookingResponseModelMock;
+import com.link_intersystems.carrental.management.booking.CustomerResponseModelMock;
+import com.link_intersystems.carrental.management.booking.ListBookingsUseCaseMock;
 import com.link_intersystems.swing.action.ActionTrigger;
 import com.link_intersystems.swing.action.DirectTaskExecutor;
 import org.junit.jupiter.api.BeforeEach;

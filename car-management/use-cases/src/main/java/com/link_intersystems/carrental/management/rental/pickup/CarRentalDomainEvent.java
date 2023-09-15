@@ -7,17 +7,16 @@ public class CarRentalDomainEvent extends DomainEvent {
 
     public static final int PICKED_UP = 1;
     public static final int RETURNED = 2;
-
-    public static CarRentalDomainEvent pickedUpEvent(BookingNumber bookingNumber){
-        return new CarRentalDomainEvent(bookingNumber, PICKED_UP);
-    }
-
     private final BookingNumber bookingNumber;
     private final int eventType;
 
     private CarRentalDomainEvent(BookingNumber bookingNumber, int eventType) {
         this.bookingNumber = bookingNumber;
         this.eventType = eventType;
+    }
+
+    public static CarRentalDomainEvent pickedUpEvent(BookingNumber bookingNumber) {
+        return new CarRentalDomainEvent(bookingNumber, PICKED_UP);
     }
 
     public int getEventType() {

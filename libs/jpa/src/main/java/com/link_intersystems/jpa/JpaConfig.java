@@ -20,7 +20,7 @@ public class JpaConfig {
         this.dataSource = dataSource;
     }
 
-    public EntityManagerFactory getEntityManagerFactory(String schema,  Class<?> ... managedClasses) {
+    public EntityManagerFactory getEntityManagerFactory(String schema, Class<?>... managedClasses) {
         if (entityManagerFactory != null) {
             return entityManagerFactory;
         }

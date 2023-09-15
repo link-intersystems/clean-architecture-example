@@ -6,10 +6,6 @@ import java.util.List;
 
 public class ListPickupCarUseCaseMock implements ListPickupCarUseCase {
 
-    public static interface ListPickedUpCarsInvocation {
-        public void thenReturn(ListPickupCarResponseModel... responseModels);
-    }
-
     private List<ListPickupCarResponseModel> responseModels = new ArrayList<>();
 
     @Override
@@ -22,5 +18,9 @@ public class ListPickupCarUseCaseMock implements ListPickupCarUseCase {
             this.responseModels.clear();
             this.responseModels.addAll(Arrays.asList(responseModels));
         };
+    }
+
+    public static interface ListPickedUpCarsInvocation {
+        public void thenReturn(ListPickupCarResponseModel... responseModels);
     }
 }

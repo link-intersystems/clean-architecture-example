@@ -39,7 +39,7 @@ class CarOfferControllerTest {
     }
 
     @Test
-    void searchCars()  {
+    void searchCars() {
         CarOfferRequestModel requestModel = new CarOfferRequestModel();
         requestModel.setVehicleType("MICRO");
         requestModel.setPickUpDateTime(LocalDateTimeUtils.dateTime("2023-01-15", "08:00:00"));

@@ -28,12 +28,12 @@ public class CarBooking {
         return vin;
     }
 
-    public void setRentalState(RentalState rentalState) {
-        this.rentalState = rentalState;
-    }
-
     public RentalState getRentalState() {
         return rentalState;
+    }
+
+    public void setRentalState(RentalState rentalState) {
+        this.rentalState = rentalState;
     }
 
     @Override

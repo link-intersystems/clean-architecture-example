@@ -2,9 +2,6 @@ package com.link_intersystems.carrental.management.booking;
 
 import com.link_intersystems.carrental.VIN;
 import com.link_intersystems.carrental.booking.BookingNumber;
-import com.link_intersystems.carrental.management.booking.CarBooking;
-import com.link_intersystems.carrental.management.booking.Customer;
-import com.link_intersystems.carrental.management.booking.RentalState;
 import jakarta.persistence.*;
 
 @Entity(name = "CarBooking")

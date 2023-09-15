@@ -5,6 +5,43 @@ import java.util.List;
 
 public class CompositeTransactionManager implements TransactionManager {
 
+    private List<TransactionManager> transactionManagers = new ArrayList<>();
+
+    public CompositeTransactionManager(List<TransactionManager> transactionManagers) {
+        this.transactionManagers.addAll(transactionManagers);
+    }
+
+    @Override
+    public Transaction beginTransaction() throws Exception {
+        List<Transaction> transactions = new ArrayList<>();
+
+        Exception exceptions = new Exception();
+        for (TransactionManager transactionManager : transactionManagers) {
+            try {
+                Transaction transaction = transactionManager.beginTransaction();
+                transactions.add(transaction);
+            } catch (Exception e) {
+                exceptions.addSuppressed(e);
+                break;
+            }
+        }
+
+        CompositeTransaction compositeTransaction = new CompositeTransaction(transactions);
+
+        if (exceptions.getSuppressed().length > 0) {
+            try {
+
+                compositeTransaction.rollback();
+            } catch (Exception e) {
+                exceptions.addSuppressed(e);
+            }
+
+            throw exceptions;
+        }
+
+        return compositeTransaction;
+    }
+
     static class CompositeTransaction extends Transaction {
 
         private List<Transaction> transactions = new ArrayList<>();
@@ -46,42 +83,5 @@ public class CompositeTransactionManager implements TransactionManager {
                 throw exceptions;
             }
         }
-    }
-
-    private List<TransactionManager> transactionManagers = new ArrayList<>();
-
-    public CompositeTransactionManager(List<TransactionManager> transactionManagers) {
-        this.transactionManagers.addAll(transactionManagers);
-    }
-
-    @Override
-    public Transaction beginTransaction() throws Exception {
-        List<Transaction> transactions = new ArrayList<>();
-
-        Exception exceptions = new Exception();
-        for (TransactionManager transactionManager : transactionManagers) {
-            try {
-                Transaction transaction = transactionManager.beginTransaction();
-                transactions.add(transaction);
-            } catch (Exception e) {
-                exceptions.addSuppressed(e);
-                break;
-            }
-        }
-
-        CompositeTransaction compositeTransaction = new CompositeTransaction(transactions);
-
-        if (exceptions.getSuppressed().length > 0) {
-            try {
-
-                compositeTransaction.rollback();
-            } catch (Exception e) {
-                exceptions.addSuppressed(e);
-            }
-
-            throw exceptions;
-        }
-
-        return compositeTransaction;
     }
 }

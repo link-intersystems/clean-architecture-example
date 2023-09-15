@@ -11,12 +11,6 @@ class GetPickupCarInteractor implements GetPickupCarUseCase {
         this.getPickupCarRepository = getPickupCarRepository;
     }
 
-    @Override
-    public GetPickupCarResponseModel getPickupCar(int bookingNumber) {
-        CarRental carPickup = getPickupCarRepository.find(new BookingNumber(bookingNumber));
-        return toResponseModel(carPickup);
-    }
-
     private static GetPickupCarResponseModel toResponseModel(CarRental carPickup) {
         GetPickupCarResponseModel getPickupCarResponseModel = new GetPickupCarResponseModel();
         getPickupCarResponseModel.setBookingNumber(carPickup.getBookingNumber().getValue());
@@ -24,5 +18,11 @@ class GetPickupCarInteractor implements GetPickupCarUseCase {
         getPickupCarResponseModel.setFuelLevel(carPickup.getPickupCarState().getFuelLevel());
         getPickupCarResponseModel.setOdometer(carPickup.getPickupCarState().getOdometer().getValue());
         return getPickupCarResponseModel;
+    }
+
+    @Override
+    public GetPickupCarResponseModel getPickupCar(int bookingNumber) {
+        CarRental carPickup = getPickupCarRepository.find(new BookingNumber(bookingNumber));
+        return toResponseModel(carPickup);
     }
 }

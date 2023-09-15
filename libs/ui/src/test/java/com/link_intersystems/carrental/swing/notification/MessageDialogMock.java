@@ -8,10 +8,6 @@ import java.util.function.Supplier;
 
 public class MessageDialogMock implements MessageDialog {
 
-    public static interface ShowDialogInvocation {
-        public void thenReturn(Supplier<Integer> dialogResult);
-    }
-
     private Map<String, Supplier<Integer>> showDialogResults = new HashMap<>();
 
     @Override
@@ -33,5 +29,9 @@ public class MessageDialogMock implements MessageDialog {
         return dialogResult -> {
             showDialogResults.put(title, dialogResult);
         };
+    }
+
+    public static interface ShowDialogInvocation {
+        public void thenReturn(Supplier<Integer> dialogResult);
     }
 }

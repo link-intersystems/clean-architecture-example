@@ -15,13 +15,10 @@ import static java.util.Objects.*;
 public class ListSelectionProvider<E> implements SelectionProvider<E> {
 
     private SelectionProviderSupport<E> selectionProviderSupport;
-
-    private ListSelectionListener listSelectionListener = ListSelectionEventMethod.VALUE_CHANGED.listener(this::onListSelectionChanged);
-    private ListDataListener listDataListener = new ListDataEventMethod(CONTENTS_CHANGED_NAME, INTERVAL_ADDED_NAME, INTERVAL_REMOVED_NAME).listener(this::updateSelection);
-
-
     private ListSelectionModel listSelectionModel = new DefaultListSelectionModel();
     private ListModel<E> listModel = new DefaultListModel<>();
+    private ListSelectionListener listSelectionListener = ListSelectionEventMethod.VALUE_CHANGED.listener(this::onListSelectionChanged);
+    private ListDataListener listDataListener = new ListDataEventMethod(CONTENTS_CHANGED_NAME, INTERVAL_ADDED_NAME, INTERVAL_REMOVED_NAME).listener(this::updateSelection);
 
     public ListSelectionProvider(Object selectionEventSource) {
         selectionProviderSupport = new SelectionProviderSupport<>(selectionEventSource);

@@ -31,7 +31,7 @@ public class AbstractJpaManagementRepositoryTest extends AbstractManagementRepos
                 try {
                     method.setAccessible(true);
                     return method.invoke(implementation, args);
-                } catch (InvocationTargetException e){
+                } catch (InvocationTargetException e) {
                     throw e.getTargetException();
                 } finally {
                     entityManager.flush();

@@ -9,6 +9,7 @@ import static com.link_intersystems.carrental.swing.action.ActionConstants.*;
 
 public class JActionToolBar extends JToolBar {
 
+    private ListModel<Action> toolbarActions = new DefaultListModel<>();
     private ListDataListener actionsListener = new ListDataListener() {
         @Override
         public void intervalAdded(ListDataEvent e) {
@@ -25,9 +26,6 @@ public class JActionToolBar extends JToolBar {
             updateActions();
         }
     };
-
-    private ListModel<Action> toolbarActions = new DefaultListModel<>();
-
 
     public void setModel(ListModel<Action> actionModel) {
         this.toolbarActions.removeListDataListener(actionsListener);

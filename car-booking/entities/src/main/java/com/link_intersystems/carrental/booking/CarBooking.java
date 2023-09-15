@@ -24,12 +24,12 @@ public class CarBooking {
         this.bookingPeriod = requireNonNull(bookingPeriod);
     }
 
-    void setBookingNumber(BookingNumber bookingNumber) {
-        this.bookingNumber = bookingNumber;
-    }
-
     public BookingNumber getBookingNumber() {
         return bookingNumber;
+    }
+
+    void setBookingNumber(BookingNumber bookingNumber) {
+        this.bookingNumber = bookingNumber;
     }
 
     public CustomerId getCustomerId() {

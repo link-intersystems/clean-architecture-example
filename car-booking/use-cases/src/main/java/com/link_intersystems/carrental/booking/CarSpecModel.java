@@ -22,12 +22,12 @@ public class CarSpecModel {
         this.doors = doors;
     }
 
-    void setConsumption(double consumption) {
-        this.consumption = consumption;
-    }
-
     public double getConsumption() {
         return consumption;
+    }
+
+    void setConsumption(double consumption) {
+        this.consumption = consumption;
     }
 
     public String getEnergyType() {

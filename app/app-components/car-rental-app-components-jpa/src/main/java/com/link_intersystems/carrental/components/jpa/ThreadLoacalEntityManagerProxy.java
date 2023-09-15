@@ -10,16 +10,21 @@ import java.util.Map;
 
 public class ThreadLoacalEntityManagerProxy implements InvocationHandler {
 
-    public static EntityManager createProxy(String puName) {
-        return (EntityManager) Proxy.newProxyInstance(ThreadLoacalEntityManagerProxy.class.getClassLoader(), new Class[]{EntityManager.class}, new ThreadLoacalEntityManagerProxy(puName));
-    }
-
     private static final ThreadLocal<Map<String, EntityManager>> ENTITY_MANAGER_THREAD_LOCAL = new ThreadLocal<>() {
         @Override
         protected Map<String, EntityManager> initialValue() {
             return new HashMap<>();
         }
     };
+    private String puName;
+
+    public ThreadLoacalEntityManagerProxy(String puName) {
+        this.puName = puName;
+    }
+
+    public static EntityManager createProxy(String puName) {
+        return (EntityManager) Proxy.newProxyInstance(ThreadLoacalEntityManagerProxy.class.getClassLoader(), new Class[]{EntityManager.class}, new ThreadLoacalEntityManagerProxy(puName));
+    }
 
     public static void setEntityManager(String puName, EntityManager entityManager) {
         Map<String, EntityManager> emByPu = ENTITY_MANAGER_THREAD_LOCAL.get();
@@ -33,12 +38,6 @@ public class ThreadLoacalEntityManagerProxy implements InvocationHandler {
         if (emByPu.isEmpty()) {
             ENTITY_MANAGER_THREAD_LOCAL.remove();
         }
-    }
-
-    private String puName;
-
-    public ThreadLoacalEntityManagerProxy(String puName) {
-        this.puName = puName;
     }
 
     @Override

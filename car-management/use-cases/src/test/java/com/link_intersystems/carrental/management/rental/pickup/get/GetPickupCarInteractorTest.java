@@ -15,14 +15,14 @@ class GetPickupCarInteractorTest {
     private MockGetPickupCarRepository repository;
     private GetPickupCarInteractor getPickupCarInteractor;
 
+    public GetPickupCarInteractorTest() {
+        super();
+    }
+
     @BeforeEach
     void setUp() {
         repository = new MockGetPickupCarRepository();
         getPickupCarInteractor = new GetPickupCarInteractor(repository);
-    }
-
-    public GetPickupCarInteractorTest() {
-        super();
     }
 
     @Test

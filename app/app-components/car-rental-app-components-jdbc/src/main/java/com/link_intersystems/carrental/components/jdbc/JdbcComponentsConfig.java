@@ -6,10 +6,8 @@ import com.link_intersystems.carrental.booking.CarBookingComponent;
 import com.link_intersystems.carrental.booking.JdbcBookingComponent;
 import com.link_intersystems.carrental.components.AOPConfig;
 import com.link_intersystems.carrental.components.ComponentsConfig;
-import com.link_intersystems.carrental.management.booking.create.CreateCarBookingComponent;
-import com.link_intersystems.carrental.management.booking.create.JdbcCreateCarBookingComponent;
-import com.link_intersystems.carrental.management.booking.list.JdbcListCarBookingComponent;
-import com.link_intersystems.carrental.management.booking.list.ListCarBookingComponent;
+import com.link_intersystems.carrental.management.booking.JdbcManagementCarBookingComponent;
+import com.link_intersystems.carrental.management.booking.ManagementCarBookingComponent;
 import com.link_intersystems.carrental.management.rental.pickup.JdbcPickupCarComponent;
 import com.link_intersystems.carrental.management.rental.pickup.PickupCarComponent;
 import com.link_intersystems.carrental.management.rental.pickup.get.GetPickupCarComponent;
@@ -62,11 +60,6 @@ public class JdbcComponentsConfig implements ComponentsConfig {
     }
 
     @Override
-    public ListCarBookingComponent getListCarBookingComponent() {
-        return new JdbcListCarBookingComponent(getAopConfig(), getDataSourceConfig().getManagementJdbcTemplate());
-    }
-
-    @Override
     public PickupCarComponent getPickupCarComponent(DomainEventPublisher eventPublisher) {
         return new JdbcPickupCarComponent(getAopConfig(), getDataSourceConfig().getManagementJdbcTemplate(), eventPublisher);
     }
@@ -87,8 +80,8 @@ public class JdbcComponentsConfig implements ComponentsConfig {
     }
 
     @Override
-    public CreateCarBookingComponent getCreateCarBookingComponent() {
-        return new JdbcCreateCarBookingComponent(getAopConfig(), getDataSourceConfig().getManagementJdbcTemplate());
+    public ManagementCarBookingComponent getCreateCarBookingComponent() {
+        return new JdbcManagementCarBookingComponent(getAopConfig(), getDataSourceConfig().getManagementJdbcTemplate());
     }
 
 

@@ -8,10 +8,8 @@ import com.link_intersystems.carrental.booking.JpaCarBookingComponent;
 import com.link_intersystems.carrental.components.AOPConfig;
 import com.link_intersystems.carrental.components.ComponentsConfig;
 import com.link_intersystems.carrental.management.CarManagementJpaConfig;
-import com.link_intersystems.carrental.management.booking.create.CreateCarBookingComponent;
-import com.link_intersystems.carrental.management.booking.create.JpaCreateCarBookingComponent;
-import com.link_intersystems.carrental.management.booking.list.JpaListCarBookingComponent;
-import com.link_intersystems.carrental.management.booking.list.ListCarBookingComponent;
+import com.link_intersystems.carrental.management.booking.JpaManagementCarBookingComponent;
+import com.link_intersystems.carrental.management.booking.ManagementCarBookingComponent;
 import com.link_intersystems.carrental.management.rental.pickup.JpaPickupCarComponent;
 import com.link_intersystems.carrental.management.rental.pickup.PickupCarComponent;
 import com.link_intersystems.carrental.management.rental.pickup.get.GetPickupCarComponent;
@@ -51,18 +49,9 @@ public class JpaComponentsConfig implements ComponentsConfig {
         this.aopConfig = new AOPConfig(methodInterceptors);
     }
 
-    protected DataSourceConfig getDataSourceConfig() {
-        return dataSourceConfig;
-    }
-
     @Override
     public CarBookingComponent getCarBookingComponent() {
         return new JpaCarBookingComponent(aopConfig, bookingEmProxy);
-    }
-
-    @Override
-    public ListCarBookingComponent getListCarBookingComponent() {
-        return new JpaListCarBookingComponent(aopConfig, managementEmProxy);
     }
 
     @Override
@@ -86,8 +75,8 @@ public class JpaComponentsConfig implements ComponentsConfig {
     }
 
     @Override
-    public CreateCarBookingComponent getCreateCarBookingComponent() {
-        return new JpaCreateCarBookingComponent(aopConfig, managementEmProxy);
+    public ManagementCarBookingComponent getCreateCarBookingComponent() {
+        return new JpaManagementCarBookingComponent(aopConfig, managementEmProxy);
     }
 
 }

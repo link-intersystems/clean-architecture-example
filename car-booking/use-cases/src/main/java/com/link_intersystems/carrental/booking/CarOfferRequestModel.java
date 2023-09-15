@@ -8,27 +8,27 @@ public class CarOfferRequestModel {
     private LocalDateTime pickupDateTime;
     private LocalDateTime returnDateTime;
 
-    public void setVehicleType(String category) {
-        this.vehicleType = category;
-    }
-
     String getVehicleType() {
         return vehicleType;
     }
 
-    public void setPickUpDateTime(LocalDateTime pickupDateTime) {
-        this.pickupDateTime = pickupDateTime;
+    public void setVehicleType(String category) {
+        this.vehicleType = category;
     }
 
     LocalDateTime getPickUpDateTime() {
         return pickupDateTime;
     }
 
-    public void setReturnDateTime(LocalDateTime returnDateTime) {
-        this.returnDateTime = returnDateTime;
+    public void setPickUpDateTime(LocalDateTime pickupDateTime) {
+        this.pickupDateTime = pickupDateTime;
     }
 
     LocalDateTime getReturnDateTime() {
         return returnDateTime;
+    }
+
+    public void setReturnDateTime(LocalDateTime returnDateTime) {
+        this.returnDateTime = returnDateTime;
     }
 }

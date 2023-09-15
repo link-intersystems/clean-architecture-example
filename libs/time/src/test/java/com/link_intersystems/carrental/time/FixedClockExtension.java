@@ -10,9 +10,9 @@ import java.util.Optional;
 
 class FixedClockExtension implements BeforeEachCallback, AfterEachCallback, ParameterResolver {
 
-    private static final ExtensionContext.Namespace NAMESPACE = ExtensionContext.Namespace.create(FixedClockExtension.class);
     public static final String PREVIOUS_CLOCK_KEY = "clock";
     public static final String FIXED_CLOCK_KEY = "fixedClock";
+    private static final ExtensionContext.Namespace NAMESPACE = ExtensionContext.Namespace.create(FixedClockExtension.class);
 
     @Override
     public void beforeEach(ExtensionContext extensionContext) throws Exception {

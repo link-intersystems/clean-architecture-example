@@ -4,14 +4,14 @@ import java.time.LocalDateTime;
 
 public class PeriodBuilder {
 
-    public static PeriodBuilder from(String date, String time) {
-        return new PeriodBuilder(LocalDateTimeUtils.dateTime(date, time));
-    }
-
     private LocalDateTime fromDate;
 
     public PeriodBuilder(LocalDateTime fromDate) {
         this.fromDate = fromDate;
+    }
+
+    public static PeriodBuilder from(String date, String time) {
+        return new PeriodBuilder(LocalDateTimeUtils.dateTime(date, time));
     }
 
     public Period to(String date, String time) {

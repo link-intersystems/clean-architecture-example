@@ -21,13 +21,13 @@ class JpaCarBookingRepository implements CarBookingRepository {
     @Override
     public CarBooking findBooking(CarId carId, Period bookingPeriod) {
         TypedQuery<JpaCarBooking> query = entityManager.createQuery("""
-                   FROM CarBooking cb where cb.carIdValue =:carId and 
-                   (
-                    (cb.pickupDateTime < :pickup or cb.pickupDateTime <= :pickup) 
-                    or 
-                    (cb.returnDateTime >= :return or cb.returnDateTime <= :return)
-                   )
-                   """, JpaCarBooking.class);
+                FROM CarBooking cb where cb.carIdValue =:carId and 
+                (
+                 (cb.pickupDateTime < :pickup or cb.pickupDateTime <= :pickup) 
+                 or 
+                 (cb.returnDateTime >= :return or cb.returnDateTime <= :return)
+                )
+                """, JpaCarBooking.class);
         query.setParameter("carId", carId.getValue());
         query.setParameter("pickup", bookingPeriod.getBegin());
         query.setParameter("return", bookingPeriod.getEnd());

@@ -14,20 +14,12 @@ public class CarOfferResponseModel {
     private LocalDateTime pickupDateTime;
     private LocalDateTime returnDateTime;
 
-    void setId(String id) {
-        this.id = id;
-    }
-
     public String getId() {
         return id;
     }
 
-    void setName(String name) {
-        this.name = name;
-    }
-
-    void setVehicleType(String vehicleType) {
-        this.vehicleType = vehicleType;
+    void setId(String id) {
+        this.id = id;
     }
 
     public BigDecimal getTotalRentalRate() {
@@ -58,8 +50,16 @@ public class CarOfferResponseModel {
         return vehicleType;
     }
 
+    void setVehicleType(String vehicleType) {
+        this.vehicleType = vehicleType;
+    }
+
     public String getName() {
         return name;
+    }
+
+    void setName(String name) {
+        this.name = name;
     }
 
     public LocalDateTime getPickupDateTime() {

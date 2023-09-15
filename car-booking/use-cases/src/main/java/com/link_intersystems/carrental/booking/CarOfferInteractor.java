@@ -15,9 +15,8 @@ import static java.util.stream.Collectors.*;
 
 class CarOfferInteractor implements CarOfferUseCase {
 
-    private CarOfferModelMapper carOfferModelMapper = new CarOfferModelMapper();
-
     private final CarOfferRepository repository;
+    private CarOfferModelMapper carOfferModelMapper = new CarOfferModelMapper();
 
     public CarOfferInteractor(CarOfferRepository repository) {
         this.repository = repository;

@@ -8,12 +8,12 @@ public class PickupCarRepositoryMock implements PickupCarRepository {
     private CarRental carRental;
     private CarBooking carBooking;
 
-    public void setCarBooking(CarBooking carBooking) {
-        this.carBooking = carBooking;
-    }
-
     public CarBooking getCarBooking() {
         return carBooking;
+    }
+
+    public void setCarBooking(CarBooking carBooking) {
+        this.carBooking = carBooking;
     }
 
     @Override

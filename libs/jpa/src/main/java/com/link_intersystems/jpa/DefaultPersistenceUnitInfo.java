@@ -24,11 +24,6 @@ class DefaultPersistenceUnitInfo implements PersistenceUnitInfo {
         this.dataSource = dataSource;
     }
 
-    public void setProperties(Properties properties) {
-        this.properties.clear();
-        this.properties.putAll(properties);
-    }
-
     public void addManagedClassName(String className) {
         managedClassNames.add(requireNonNull(className));
     }
@@ -96,6 +91,11 @@ class DefaultPersistenceUnitInfo implements PersistenceUnitInfo {
     @Override
     public Properties getProperties() {
         return properties;
+    }
+
+    public void setProperties(Properties properties) {
+        this.properties.clear();
+        this.properties.putAll(properties);
     }
 
     @Override

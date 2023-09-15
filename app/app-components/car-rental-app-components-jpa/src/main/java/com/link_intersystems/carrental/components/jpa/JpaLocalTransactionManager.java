@@ -5,9 +5,26 @@ import com.link_intersystems.tx.TransactionManager;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.PersistenceUnitUtil;
 
 public class JpaLocalTransactionManager implements TransactionManager {
+
+    private EntityManagerFactory entityManagerFactory;
+
+    public JpaLocalTransactionManager(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+    }
+
+    @Override
+    public Transaction beginTransaction() throws Exception {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        ThreadLoacalEntityManagerProxy.setEntityManager(getPuName(), entityManager);
+        return new JpaLocalTransaction(entityManager);
+    }
+
+    private String getPuName() {
+        return (String) this.entityManagerFactory.getProperties().get("hibernate.persistenceUnitName");
+    }
 
     class JpaLocalTransaction extends Transaction {
 
@@ -43,23 +60,5 @@ public class JpaLocalTransactionManager implements TransactionManager {
                 }
             }
         }
-    }
-
-    private EntityManagerFactory entityManagerFactory;
-
-    public JpaLocalTransactionManager(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
-    }
-
-    @Override
-    public Transaction beginTransaction() throws Exception {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        ThreadLoacalEntityManagerProxy.setEntityManager(getPuName(), entityManager);
-        return new JpaLocalTransaction(entityManager);
-    }
-
-    private String getPuName() {
-        return (String) this.entityManagerFactory.getProperties().get("hibernate.persistenceUnitName");
     }
 }

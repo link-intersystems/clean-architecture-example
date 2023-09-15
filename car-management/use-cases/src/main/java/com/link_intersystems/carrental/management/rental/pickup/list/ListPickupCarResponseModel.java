@@ -7,12 +7,12 @@ public class ListPickupCarResponseModel {
     private LocalDateTime pickupDate;
     private int odometer;
 
-    void setBookingNumber(int bookingNumber) {
-        this.bookingNumber = bookingNumber;
-    }
-
     public int getBookingNumber() {
         return bookingNumber;
+    }
+
+    void setBookingNumber(int bookingNumber) {
+        this.bookingNumber = bookingNumber;
     }
 
     public LocalDateTime getPickupDate() {

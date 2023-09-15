@@ -16,13 +16,6 @@ class ListPickupCarInteractor implements ListPickupCarUseCase {
         this.listPickupCarRepository = listPickupCarRepository;
     }
 
-    @Override
-    public List<ListPickupCarResponseModel> listPickedUpCars() {
-        List<CarRental> carPickups = listPickupCarRepository.findAll();
-
-        return toResponseModel(carPickups);
-    }
-
     private static List<ListPickupCarResponseModel> toResponseModel(List<CarRental> carRentals) {
         List<ListPickupCarResponseModel> pickupCarResponses = new ArrayList<>();
 
@@ -39,5 +32,12 @@ class ListPickupCarInteractor implements ListPickupCarUseCase {
         }
 
         return pickupCarResponses;
+    }
+
+    @Override
+    public List<ListPickupCarResponseModel> listPickedUpCars() {
+        List<CarRental> carPickups = listPickupCarRepository.findAll();
+
+        return toResponseModel(carPickups);
     }
 }

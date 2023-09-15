@@ -1,6 +1,5 @@
 package com.link_intersystems.jdbc;
 
-import com.link_intersystems.jdbc.ConnectionSupplier;
 import com.link_intersystems.sql.AbstractDataSource;
 
 import java.sql.Connection;

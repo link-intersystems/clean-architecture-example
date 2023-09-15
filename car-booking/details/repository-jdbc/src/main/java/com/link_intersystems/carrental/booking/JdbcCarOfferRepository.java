@@ -22,6 +22,12 @@ class JdbcCarOfferRepository implements CarOfferRepository {
         this.jdbcTemplate = carRentalJdbcTemplate;
     }
 
+    private static RowMapper<CarBooking> getCarBookingRowMapper() {
+
+
+        return new CarBookingRowMapper();
+    }
+
     @Override
     public List<RentalCar> findRentalCars(CarCriteria criteria) {
         List<Car> cars = findCars();
@@ -79,12 +85,6 @@ class JdbcCarOfferRepository implements CarOfferRepository {
 
 
         return new CarBookinsByCar(carBookings.stream().filter(cb -> cb.getBookingPeriod().overlaps(desiredPeriod)).collect(Collectors.toList()));
-    }
-
-    private static RowMapper<CarBooking> getCarBookingRowMapper() {
-
-
-        return new CarBookingRowMapper();
     }
 
     @Override

@@ -6,13 +6,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CarIdTest {
 
+    private static CarId newCarId(String value) {
+        return new CarId(new VIN(value));
+    }
+
     @Test
     void testEquals() {
         assertEquals(newCarId("YV4952ND0F1201834"), newCarId("YV4952ND0F1201834"));
-    }
-
-    private static CarId newCarId(String value) {
-        return new CarId(new VIN(value));
     }
 
     @Test

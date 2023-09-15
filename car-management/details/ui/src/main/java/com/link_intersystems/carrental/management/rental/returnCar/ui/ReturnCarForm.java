@@ -41,14 +41,14 @@ public class ReturnCarForm {
         makeGrid(panel, panel.getComponentCount() / 2, 2, 3, 3, 3, 3);
     }
 
+    public ReturnCarModel getModel() {
+        return returnCarModel;
+    }
+
     public void setModel(ReturnCarModel returnCarModel) {
         this.returnCarModel = Objects.requireNonNull(returnCarModel);
 
         updateForm();
-    }
-
-    public ReturnCarModel getModel() {
-        return returnCarModel;
     }
 
     private void updateModel() {

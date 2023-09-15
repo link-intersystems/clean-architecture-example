@@ -5,10 +5,6 @@ import java.util.Map;
 
 public class GetPickupCarUseCaseMock implements GetPickupCarUseCase {
 
-    public static interface GetPickupCarResponse {
-        void thenReturn(GetPickupCarResponseModel response);
-    }
-
     private Map<Integer, GetPickupCarResponseModel> getPickupCarResponses = new HashMap<>();
 
     @Override
@@ -20,5 +16,9 @@ public class GetPickupCarUseCaseMock implements GetPickupCarUseCase {
         return response -> {
             getPickupCarResponses.put(bookingNumber, response);
         };
+    }
+
+    public static interface GetPickupCarResponse {
+        void thenReturn(GetPickupCarResponseModel response);
     }
 }

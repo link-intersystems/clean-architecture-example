@@ -10,12 +10,12 @@ public class GetPickupCarResponseModel {
     private int odometer;
     private FuelLevel fuelLevel;
 
-    void setBookingNumber(int bookingNumber) {
-        this.bookingNumber = bookingNumber;
-    }
-
     public int getBookingNumber() {
         return bookingNumber;
+    }
+
+    void setBookingNumber(int bookingNumber) {
+        this.bookingNumber = bookingNumber;
     }
 
     public LocalDateTime getPickupDate() {

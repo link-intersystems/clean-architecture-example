@@ -1,16 +1,9 @@
 package com.link_intersystems.carrental.management;
 
 import com.link_intersystems.carrental.DomainEventBus;
-import com.link_intersystems.carrental.DomainEventPublisher;
 import com.link_intersystems.carrental.DomainEventSubscriber;
 import com.link_intersystems.carrental.components.ComponentsConfig;
-import com.link_intersystems.carrental.management.booking.CarRentalEventSubscriber;
-import com.link_intersystems.carrental.management.booking.UpdateCarBookingRentalUseCase;
-import com.link_intersystems.carrental.management.booking.create.CarBookedEventSubscriber;
-import com.link_intersystems.carrental.management.booking.create.CreateCarBookingComponent;
-import com.link_intersystems.carrental.management.booking.create.CreateCarBookingUseCase;
-import com.link_intersystems.carrental.management.booking.list.ListBookingsUseCase;
-import com.link_intersystems.carrental.management.booking.list.ListCarBookingComponent;
+import com.link_intersystems.carrental.management.booking.*;
 import com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingController;
 import com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingUIConfig;
 import com.link_intersystems.carrental.management.booking.list.ui.ListCarBookingView;
@@ -52,8 +45,8 @@ public class CarManagementViewConfig {
 
     public CarManagementView getCarManagementView() {
         if (carManagementView == null) {
-            ListCarBookingComponent jdbcListCarBookingComponent = componentsConfig.getListCarBookingComponent();
-            ListBookingsUseCase listBookingUseCase = jdbcListCarBookingComponent.getListBookingsUseCase();
+            ManagementCarBookingComponent managementCarBookingComponent = componentsConfig.getCreateCarBookingComponent();
+            ListBookingsUseCase listBookingUseCase = managementCarBookingComponent.getListBookingsUseCase();
 
             ListCarBookingUIConfig listCarBookingUIConfig = new ListCarBookingUIConfig();
             ListCarBookingController listCarBookingController = listCarBookingUIConfig.getListCarBookingController(listBookingUseCase);
@@ -89,8 +82,8 @@ public class CarManagementViewConfig {
 
     public DomainEventSubscriber getCarBookedEventSubscriber() {
         if (carBookedEventSubscriber == null) {
-            CreateCarBookingComponent createCarBookingComponent = componentsConfig.getCreateCarBookingComponent();
-            CreateCarBookingUseCase createCarBookingUseCase = createCarBookingComponent.getCreateCarBookingUseCase();
+            ManagementCarBookingComponent managementCarBookingComponent = componentsConfig.getCreateCarBookingComponent();
+            CreateCarBookingUseCase createCarBookingUseCase = managementCarBookingComponent.getCreateCarBookingUseCase();
             carBookedEventSubscriber = new CarBookedEventSubscriber(createCarBookingUseCase);
         }
         return carBookedEventSubscriber;
@@ -98,8 +91,8 @@ public class CarManagementViewConfig {
 
     public DomainEventSubscriber getCarRentalEventSubscriber() {
         if (carRentalEventSubscriber == null) {
-            CreateCarBookingComponent createCarBookingComponent = componentsConfig.getCreateCarBookingComponent();
-            UpdateCarBookingRentalUseCase updateCarBookingRentalUseCase = createCarBookingComponent.getUpdateCarBookingRentalUseCase();
+            ManagementCarBookingComponent managementCarBookingComponent = componentsConfig.getCreateCarBookingComponent();
+            UpdateCarBookingRentalUseCase updateCarBookingRentalUseCase = managementCarBookingComponent.getUpdateCarBookingRentalUseCase();
             carRentalEventSubscriber = new CarRentalEventSubscriber(updateCarBookingRentalUseCase);
         }
         return carRentalEventSubscriber;

@@ -27,6 +27,13 @@ public class DataSourceConfig {
         this.properties = properties;
     }
 
+    private static JdbcDataSource createDataSource(String jdbcUrl) {
+        JdbcDataSource jdbcDataSource = new JdbcDataSource();
+        jdbcDataSource.setURL(jdbcUrl);
+        jdbcDataSource.setUser("sa");
+        jdbcDataSource.setPassword("123");
+        return jdbcDataSource;
+    }
 
     public DataSource getDataSource() {
         if (dataSource == null) {
@@ -54,14 +61,6 @@ public class DataSourceConfig {
             executeScript(dataSource, "/com/link_intersystems/carrental/init.sql");
             executeScript(dataSource, "/com/link_intersystems/carrental/management/init.sql");
         }
-    }
-
-    private static JdbcDataSource createDataSource(String jdbcUrl) {
-        JdbcDataSource jdbcDataSource = new JdbcDataSource();
-        jdbcDataSource.setURL(jdbcUrl);
-        jdbcDataSource.setUser("sa");
-        jdbcDataSource.setPassword("123");
-        return jdbcDataSource;
     }
 
     private void executeScript(DataSource dataSource, String scriptResource) {

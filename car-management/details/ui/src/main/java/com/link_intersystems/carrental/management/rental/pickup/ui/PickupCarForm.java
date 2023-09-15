@@ -21,10 +21,8 @@ public class PickupCarForm<T> {
     private JTextField driverFirstname = new JTextField();
     private JTextField driverLastname = new JTextField();
     private JTextField driverLicence = new JTextField();
-
-    private DocumentListener viewToModelListener = INSERT_UPDATE.listener(this::viewToModel);
-
     private PickupCarModel pickupCarModel = new PickupCarModel();
+    private DocumentListener viewToModelListener = INSERT_UPDATE.listener(this::viewToModel);
 
     PickupCarForm() {
         panel.add(new JLabel("Booking Number:"));
@@ -62,14 +60,14 @@ public class PickupCarForm<T> {
         setEventsEnabled(true);
     }
 
+    public PickupCarModel getModel() {
+        return pickupCarModel;
+    }
+
     public void setModel(PickupCarModel pickupCarModel) {
         this.pickupCarModel = Objects.requireNonNull(pickupCarModel);
 
         modelToView();
-    }
-
-    public PickupCarModel getModel() {
-        return pickupCarModel;
     }
 
     public void setEventsEnabled(boolean enabled) {

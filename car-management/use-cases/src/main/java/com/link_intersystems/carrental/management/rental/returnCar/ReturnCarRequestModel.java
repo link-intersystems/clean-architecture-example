@@ -11,36 +11,36 @@ public class ReturnCarRequestModel {
     private FuelLevel fuelLevel;
     private Integer odometer;
 
-    public void setBookingNumber(int bookingNumber) {
-        this.bookingNumber = bookingNumber;
-    }
-
     int getBookingNumber() {
         return bookingNumber;
     }
 
-    public void setFuelLevel(FuelLevel fuelLevel) {
-        this.fuelLevel = fuelLevel;
-    }
-
-    public void setOdometer(Integer odometer) {
-        this.odometer = odometer;
-    }
-
-    public void setReturnDateTime(LocalDateTime returnDateTime) {
-        this.returnDateTime = returnDateTime;
+    public void setBookingNumber(int bookingNumber) {
+        this.bookingNumber = bookingNumber;
     }
 
     FuelLevel getFuelLevel() {
         return fuelLevel;
     }
 
+    public void setFuelLevel(FuelLevel fuelLevel) {
+        this.fuelLevel = fuelLevel;
+    }
+
     Integer getOdometer() {
         return odometer;
     }
 
+    public void setOdometer(Integer odometer) {
+        this.odometer = odometer;
+    }
+
     LocalDateTime getReturnDateTime() {
         return returnDateTime;
+    }
+
+    public void setReturnDateTime(LocalDateTime returnDateTime) {
+        this.returnDateTime = returnDateTime;
     }
 
     @Override

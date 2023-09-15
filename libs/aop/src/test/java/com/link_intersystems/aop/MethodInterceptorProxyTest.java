@@ -1,6 +1,5 @@
 package com.link_intersystems.aop;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -8,12 +7,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MethodInterceptorProxyTest {
-
-    static interface GreetingService {
-
-        public String sayHello(String who);
-    }
-
 
     @Test
     void proxy() {
@@ -37,6 +30,12 @@ class MethodInterceptorProxyTest {
         assertEquals("Hello René", greeting);
 
         assertEquals(0, interceptor.getInvocationOrder());
+    }
+
+
+    static interface GreetingService {
+
+        public String sayHello(String who);
     }
 
 }

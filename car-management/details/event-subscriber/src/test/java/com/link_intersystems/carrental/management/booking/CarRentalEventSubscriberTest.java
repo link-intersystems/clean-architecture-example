@@ -1,7 +1,6 @@
 package com.link_intersystems.carrental.management.booking;
 
 import com.link_intersystems.carrental.booking.BookingNumber;
-import com.link_intersystems.carrental.booking.CarBookedEvent;
 import com.link_intersystems.carrental.management.rental.pickup.CarRentalDomainEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -13,12 +13,12 @@ public class ListPickupCarModel {
         this.bookingNumber = bookingNumber;
     }
 
-    public void setPickupDate(String pickupDate) {
-        this.pickupDate = pickupDate;
-    }
-
     public String getPickupDate() {
         return pickupDate;
+    }
+
+    public void setPickupDate(String pickupDate) {
+        this.pickupDate = pickupDate;
     }
 
 }
