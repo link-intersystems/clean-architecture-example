@@ -1,9 +1,9 @@
-package com.link_intersystems.carrental.offer;
+package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.CarId;
 import com.link_intersystems.carrental.CarsById;
 import com.link_intersystems.carrental.VehicleType;
-import com.link_intersystems.carrental.booking.CarBookinsByCar;
+import com.link_intersystems.carrental.offer.RentalOffer;
 import com.link_intersystems.carrental.rental.RentalCar;
 import com.link_intersystems.carrental.time.Period;
 
@@ -15,7 +15,7 @@ import static java.util.stream.Collectors.*;
 
 class CarOfferInteractor implements CarOfferUseCase {
 
-    private BoundaryModelMapper boundaryModelMapper = new BoundaryModelMapper();
+    private CarOfferModelMapper carOfferModelMapper = new CarOfferModelMapper();
 
     private final CarOfferRepository repository;
 
@@ -37,7 +37,7 @@ class CarOfferInteractor implements CarOfferUseCase {
 
         List<CarId> carIds = rentalOffers.stream().map(RentalOffer::getRentalCar).map(RentalCar::getCarId).collect(toList());
         CarsById carsById = repository.findCars(carIds);
-        return boundaryModelMapper.toResponseModels(carsById, rentalOffers, bookingPeriod);
+        return carOfferModelMapper.toResponseModels(carsById, rentalOffers, bookingPeriod);
     }
 
     private List<RentalOffer> makeOffer(List<RentalCar> rentalCars, Period desiredPeriod) {

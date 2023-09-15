@@ -1,4 +1,4 @@
-package com.link_intersystems.carrental.offer;
+package com.link_intersystems.carrental.booking;
 
 public class CarSpecModel {
     private int seats;

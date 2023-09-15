@@ -1,12 +1,9 @@
-package com.link_intersystems.carrental.offer;
+package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.Car;
 import com.link_intersystems.carrental.CarId;
 import com.link_intersystems.carrental.CarsById;
 import com.link_intersystems.carrental.VehicleType;
-import com.link_intersystems.carrental.booking.CarBooking;
-import com.link_intersystems.carrental.booking.CarBookinsByCar;
-import com.link_intersystems.carrental.booking.JpaCarBooking;
 import com.link_intersystems.carrental.rental.RentalCar;
 import com.link_intersystems.carrental.time.Period;
 import jakarta.persistence.EntityManager;

@@ -12,10 +12,18 @@ public abstract class CarBookingComponent {
     }
 
     public CarBookingUseCase getCarBookingUseCase(DomainEventPublisher eventPublisher) {
-        CarBookingRepository repository = getRepository();
+        CarBookingRepository repository = getCarBookingRepository();
         CarBookingInteractor interactor = new CarBookingInteractor(repository, eventPublisher);
         return aopConfig.applyAOP(CarBookingUseCase.class, interactor);
     }
 
-    protected abstract CarBookingRepository getRepository();
+    public CarOfferUseCase getCarOfferUseCase() {
+        CarOfferRepository repository = getCarOfferRepository();
+        CarOfferInteractor carOfferInteractor = new CarOfferInteractor(repository);
+        return aopConfig.applyAOP(CarOfferUseCase.class, carOfferInteractor);
+    }
+
+    protected abstract CarOfferRepository getCarOfferRepository();
+
+    protected abstract CarBookingRepository getCarBookingRepository();
 }

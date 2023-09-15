@@ -1,17 +1,14 @@
 package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.CarId;
-import com.link_intersystems.carrental.VIN;
 import com.link_intersystems.carrental.customer.Customer;
 import com.link_intersystems.carrental.customer.CustomerId;
 import com.link_intersystems.carrental.time.Period;
 import com.link_intersystems.jdbc.JdbcTemplate;
-import com.link_intersystems.jdbc.RowMapper;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,21 +26,7 @@ class JdbcCarBookingRepository implements CarBookingRepository {
         String sql = "select * from car_booking where carid = ? " + " AND ((CAR_BOOKING.PICKUP_DATETIME >= ? OR CAR_BOOKING.PICKUP_DATETIME <= ?)" + " OR (CAR_BOOKING.RETURN_DATETIME >= ? OR CAR_BOOKING.RETURN_DATETIME <= ?))";
         LocalDateTime begin = bookingPeriod.getBegin();
         LocalDateTime end = bookingPeriod.getEnd();
-        List<CarBooking> carBookings = jdbcTemplate.query(sql, new Object[]{carId.getValue(), begin, end, begin, end}, new RowMapper<CarBooking>() {
-            @Override
-            public CarBooking mapRow(ResultSet rs) throws SQLException {
-                CustomerId customerId = new CustomerId(rs.getInt("CUSTOMER_ID"));
-                CarId carId = new CarId(new VIN(rs.getString("CARID")));
-
-                Timestamp pickupDateTime = rs.getTimestamp("PICKUP_DATETIME");
-                Timestamp returnDateTime = rs.getTimestamp("RETURN_DATETIME");
-
-                Period bookingPeriod = new Period(pickupDateTime.toLocalDateTime(), returnDateTime.toLocalDateTime());
-                CarBooking carBooking = new CarBooking(customerId, carId, bookingPeriod);
-                carBooking.setBookingNumber(new BookingNumber(rs.getInt("BOOKING_NUMBER")));
-                return carBooking;
-            }
-        });
+        List<CarBooking> carBookings = jdbcTemplate.query(sql, new Object[]{carId.getValue(), begin, end, begin, end}, new CarBookingRowMapper());
 
         List<CarBooking> overlappingCarBookings = carBookings.stream().filter(cb -> bookingPeriod.overlaps(cb.getBookingPeriod())).collect(Collectors.toList());
         return overlappingCarBookings.isEmpty() ? null : overlappingCarBookings.get(0);

@@ -1,29 +1,35 @@
-package com.link_intersystems.carrental.offer;
+package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.*;
-import com.link_intersystems.carrental.booking.CarBooking;
-import com.link_intersystems.carrental.booking.CarBookinsByCar;
 import com.link_intersystems.carrental.rental.RentalCar;
 import com.link_intersystems.carrental.time.Period;
 import com.link_intersystems.carrental.time.PeriodBuilder;
-import com.link_intersystems.jdbc.JdbcTemplate;
+import com.link_intersystems.jdbc.test.db.h2.H2Database;
+import jakarta.persistence.EntityManager;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Connection;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @CarRentalDBExtension
-class JdbcCarOfferRepositoryIntTest {
+class JpaCarOfferRepositoryIntTest {
 
-    private JdbcCarOfferRepository repository;
+    private JpaCarOfferRepository repository;
+    private EntityManager entityManager;
 
     @BeforeEach
-    void setUp(Connection connection) {
-        repository = new JdbcCarOfferRepository(new JdbcTemplate(() -> connection));
+    void setUp(H2Database connection) {
+        entityManager = new CarBookingJpaConfig(connection).newEntityManager();
+        repository = new JpaCarOfferRepository(entityManager);
+    }
+
+    @AfterEach
+    void tearDown() {
+        entityManager.close();
     }
 
     @Test

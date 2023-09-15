@@ -1,17 +1,18 @@
-package com.link_intersystems.carrental.offer;
+package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.Car;
 import com.link_intersystems.carrental.CarId;
 import com.link_intersystems.carrental.CarsById;
 import com.link_intersystems.carrental.Specs;
 import com.link_intersystems.carrental.money.Amount;
+import com.link_intersystems.carrental.offer.RentalOffer;
 import com.link_intersystems.carrental.rental.RentalCar;
 import com.link_intersystems.carrental.time.Period;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class BoundaryModelMapper {
+class CarOfferModelMapper {
 
     public List<CarOfferResponseModel> toResponseModels(CarsById carsById, List<RentalOffer> rentalOffers, Period bookingPeriod) {
         List<CarOfferResponseModel> carOfferResponseModels = new ArrayList<>();

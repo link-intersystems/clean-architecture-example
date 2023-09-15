@@ -17,8 +17,6 @@ import com.link_intersystems.carrental.management.rental.pickup.list.JdbcListPic
 import com.link_intersystems.carrental.management.rental.pickup.list.ListPickupCarComponent;
 import com.link_intersystems.carrental.management.rental.returnCar.JdbcReturnCarComponent;
 import com.link_intersystems.carrental.management.rental.returnCar.ReturnCarComponent;
-import com.link_intersystems.carrental.offer.CarOfferComponent;
-import com.link_intersystems.carrental.offer.JdbcCarOfferComponent;
 import com.link_intersystems.tx.TransactionMethodInterceptor;
 import com.link_intersystems.tx.jdbc.JdbcLocalTransactionManager;
 
@@ -51,11 +49,6 @@ public class JdbcComponentsConfig implements ComponentsConfig {
 
         List<MethodInterceptor> methodInterceptors = Arrays.asList(transactionMethodInterceptor);
         return new AOPConfig(methodInterceptors);
-    }
-
-    @Override
-    public CarOfferComponent getCarOfferComponent() {
-        return new JdbcCarOfferComponent(getAopConfig(), getDataSourceConfig().getBookingJdbcTemplate());
     }
 
     protected DataSourceConfig getDataSourceConfig() {

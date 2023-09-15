@@ -1,9 +1,6 @@
-package com.link_intersystems.carrental.offer;
+package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.*;
-import com.link_intersystems.carrental.booking.CarBooking;
-import com.link_intersystems.carrental.booking.CarBookingRowMapper;
-import com.link_intersystems.carrental.booking.CarBookinsByCar;
 import com.link_intersystems.carrental.money.Amount;
 import com.link_intersystems.carrental.rental.RentalCar;
 import com.link_intersystems.carrental.time.Period;

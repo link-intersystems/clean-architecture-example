@@ -3,6 +3,7 @@ package com.link_intersystems.carrental.offer;
 import com.link_intersystems.carrental.DomainEventPublisher;
 import com.link_intersystems.carrental.booking.CarBookingComponent;
 import com.link_intersystems.carrental.booking.CarBookingUseCase;
+import com.link_intersystems.carrental.booking.CarOfferUseCase;
 import com.link_intersystems.carrental.components.ComponentsConfig;
 import com.link_intersystems.carrental.offer.ui.CarOfferUIConfig;
 import com.link_intersystems.carrental.offer.ui.CarOfferView;
@@ -23,16 +24,12 @@ public class CarOfferViewConfig {
     }
 
     public CarOfferView getCarOfferView() {
-        CarBookingUseCase carBookingUseCase = createCarBookingUseCase();
-        CarOfferComponent carOfferComponent = componentsConfig.getCarOfferComponent();
-        CarOfferUseCase carOfferUseCase = carOfferComponent.createCarOfferUseCase();
+        CarBookingComponent carBookingComponent = componentsConfig.getCarBookingComponent();
+        CarBookingUseCase carBookingUseCase = carBookingComponent.getCarBookingUseCase(eventPublisher);
+        CarOfferUseCase carOfferUseCase = carBookingComponent.getCarOfferUseCase();
 
         CarOfferUIConfig carOfferUIConfig = new CarOfferUIConfig(messageDialog);
         return carOfferUIConfig.getCarOfferView(carBookingUseCase, carOfferUseCase, messageDialog);
     }
 
-    private CarBookingUseCase createCarBookingUseCase() {
-        CarBookingComponent carBookingComponent = componentsConfig.getCarBookingComponent();
-        return carBookingComponent.getCarBookingUseCase(eventPublisher);
-    }
 }

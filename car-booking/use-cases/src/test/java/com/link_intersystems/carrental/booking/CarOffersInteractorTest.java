@@ -1,7 +1,6 @@
-package com.link_intersystems.carrental.offer;
+package com.link_intersystems.carrental.booking;
 
 import com.link_intersystems.carrental.CarFixture;
-import com.link_intersystems.carrental.booking.CarBookingFixture;
 import com.link_intersystems.carrental.rental.RentalCarFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-public class CarBookingRowMapper implements RowMapper<CarBooking> {
+class CarBookingRowMapper implements RowMapper<CarBooking> {
     @Override
     public CarBooking mapRow(ResultSet rs) throws SQLException {
         CustomerId customerId = new CustomerId(rs.getInt("CUSTOMER_ID"));

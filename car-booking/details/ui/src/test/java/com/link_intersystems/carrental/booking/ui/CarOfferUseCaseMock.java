@@ -1,8 +1,8 @@
 package com.link_intersystems.carrental.booking.ui;
 
-import com.link_intersystems.carrental.offer.CarOfferResponseModel;
-import com.link_intersystems.carrental.offer.CarOfferRequestModel;
-import com.link_intersystems.carrental.offer.CarOfferUseCase;
+import com.link_intersystems.carrental.booking.CarOfferResponseModel;
+import com.link_intersystems.carrental.booking.CarOfferRequestModel;
+import com.link_intersystems.carrental.booking.CarOfferUseCase;
 
 import java.util.List;
 

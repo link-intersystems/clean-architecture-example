@@ -19,8 +19,6 @@ import com.link_intersystems.carrental.management.rental.pickup.list.JpaListPick
 import com.link_intersystems.carrental.management.rental.pickup.list.ListPickupCarComponent;
 import com.link_intersystems.carrental.management.rental.returnCar.JpaReturnCarComponent;
 import com.link_intersystems.carrental.management.rental.returnCar.ReturnCarComponent;
-import com.link_intersystems.carrental.offer.CarOfferComponent;
-import com.link_intersystems.carrental.offer.JpaCarOfferComponent;
 import com.link_intersystems.tx.CompositeTransactionManager;
 import com.link_intersystems.tx.TransactionManager;
 import com.link_intersystems.tx.TransactionMethodInterceptor;
@@ -50,11 +48,6 @@ public class JpaComponentsConfig implements ComponentsConfig {
         List<MethodInterceptor> methodInterceptors = Arrays.asList(managementTmInterceptor);
 
         this.aopConfig = new AOPConfig(methodInterceptors);
-    }
-
-    @Override
-    public CarOfferComponent getCarOfferComponent() {
-        return new JpaCarOfferComponent(aopConfig, bookingEmProxy);
     }
 
     protected DataSourceConfig getDataSourceConfig() {

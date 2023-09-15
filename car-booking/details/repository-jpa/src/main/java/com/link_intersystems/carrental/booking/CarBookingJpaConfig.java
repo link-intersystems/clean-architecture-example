@@ -1,7 +1,5 @@
 package com.link_intersystems.carrental.booking;
 
-import com.link_intersystems.carrental.offer.JpaCar;
-import com.link_intersystems.carrental.offer.JpaRentalCar;
 import com.link_intersystems.jpa.JpaConfig;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;

@@ -7,11 +7,8 @@ import com.link_intersystems.carrental.management.rental.pickup.PickupCarCompone
 import com.link_intersystems.carrental.management.rental.pickup.get.GetPickupCarComponent;
 import com.link_intersystems.carrental.management.rental.pickup.list.ListPickupCarComponent;
 import com.link_intersystems.carrental.management.rental.returnCar.ReturnCarComponent;
-import com.link_intersystems.carrental.offer.CarOfferComponent;
 
 public interface ComponentsConfig {
-
-    CarOfferComponent getCarOfferComponent();
 
     CarBookingComponent getCarBookingComponent();
 

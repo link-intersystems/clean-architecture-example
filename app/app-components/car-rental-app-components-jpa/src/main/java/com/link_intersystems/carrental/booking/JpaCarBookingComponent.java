@@ -13,7 +13,12 @@ public class JpaCarBookingComponent extends CarBookingComponent {
     }
 
     @Override
-    protected CarBookingRepository getRepository() {
+    protected CarOfferRepository getCarOfferRepository() {
+        return new JpaCarOfferRepository(entityManager);
+    }
+
+    @Override
+    protected CarBookingRepository getCarBookingRepository() {
         return new JpaCarBookingRepository(entityManager);
     }
 }
