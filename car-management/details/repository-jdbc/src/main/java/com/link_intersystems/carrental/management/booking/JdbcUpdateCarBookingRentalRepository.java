@@ -21,7 +21,7 @@ public class JdbcUpdateCarBookingRentalRepository implements UpdateCarBookingRen
         Map<String, Object> row = jdbcTemplate.queryForMap("""
                 SELECT * FROM CAR_BOOKING 
                     WHERE
-                     BOOKING_NUMER = ?
+                     BOOKING_NUMBER = ?
                      """, bookingNumber.getValue());
         return new CarBookingFactory().create(row);
     }

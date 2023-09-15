@@ -26,7 +26,19 @@ class JdbcUpdateCarBookingRentalRepositoryIntTest {
     }
 
     @Test
-    void persistCarBooking() {
+    void findCarBooking() {
+        CarBooking carBooking = repository.findCarBooking(new BookingNumber(1));
+
+        assertNotNull(carBooking);
+        assertEquals(new BookingNumber(1), carBooking.getBookingNumber());
+        assertEquals(new VIN("WMEEJ8AA3FK792135"), carBooking.getVin());
+        assertEquals("Nick", carBooking.getCustomer().getFirstname());
+        assertEquals("Wahlberg", carBooking.getCustomer().getLastname());
+        assertNull(carBooking.getRentalState());
+    }
+
+    @Test
+    void persist() {
         CarBooking carBooking = new CarBooking(new BookingNumber(42), new VIN("WMEEJ8AA3FK792135"), new Customer("René", "Link"));
         carBooking.setRentalState(RentalState.PICKED_UP);
         repository.persist(carBooking);
