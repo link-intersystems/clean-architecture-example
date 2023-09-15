@@ -5,31 +5,32 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.acme.car-rental.management</groupId>
-        <artifactId>car-management-details</artifactId>
+        <groupId>com.acme.car-rental.booking</groupId>
+        <artifactId>car-booking-details</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>car-management-repository-h2</artifactId>
+    <artifactId>car-booking-repository-jdbc</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>com.acme.car-rental.management</groupId>
-            <artifactId>car-management-use-cases</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.acme.car-rental.management</groupId>
-            <artifactId>car-management-entities</artifactId>
+            <groupId>com.acme.car-rental.booking</groupId>
+            <artifactId>car-booking-use-cases</artifactId>
         </dependency>
         <dependency>
             <groupId>com.acme.car-rental.shared</groupId>
             <artifactId>car-rental-shared-jdbc</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>com.link_intersystems.libs</groupId>
-            <artifactId>time</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <groupId>com.acme.car-rental.booking</groupId>
+            <artifactId>car-booking-entities</artifactId>
+            <type>test-jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.acme.car-rental.shared</groupId>
+            <artifactId>car-rental-shared-entities</artifactId>
             <type>test-jar</type>
         </dependency>
         <dependency>
