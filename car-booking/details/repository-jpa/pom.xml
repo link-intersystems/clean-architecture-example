@@ -18,10 +18,6 @@
             <groupId>com.acme.car-rental.booking</groupId>
             <artifactId>car-booking-use-cases</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.acme.car-rental.shared</groupId>
-            <artifactId>car-rental-shared-jdbc</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>com.acme.car-rental.booking</groupId>

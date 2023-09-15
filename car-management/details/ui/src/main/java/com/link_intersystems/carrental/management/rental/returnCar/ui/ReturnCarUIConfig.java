@@ -1,8 +1,8 @@
 package com.link_intersystems.carrental.management.rental.returnCar.ui;
 
-import com.link_intersystems.carrental.management.rental.pickup.get.GetPickupCarUseCase;
+import com.link_intersystems.carrental.management.rental.GetPickupCarUseCase;
+import com.link_intersystems.carrental.management.rental.ReturnCarUseCase;
 import com.link_intersystems.carrental.management.rental.pickup.list.ui.ListPickupCarController;
-import com.link_intersystems.carrental.management.rental.returnCar.ReturnCarUseCase;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
 
 public class ReturnCarUIConfig {

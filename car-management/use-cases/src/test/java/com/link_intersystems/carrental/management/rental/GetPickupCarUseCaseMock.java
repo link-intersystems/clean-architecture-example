@@ -1,0 +1,24 @@
+package com.link_intersystems.carrental.management.rental;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class GetPickupCarUseCaseMock implements GetPickupCarUseCase {
+
+    private Map<Integer, GetPickupCarResponseModel> getPickupCarResponses = new HashMap<>();
+
+    @Override
+    public GetPickupCarResponseModel getPickupCar(int bookingNumber) {
+        return getPickupCarResponses.getOrDefault(bookingNumber, new GetPickupCarResponseModel());
+    }
+
+    public GetPickupCarResponse whenGetPickupCar(int bookingNumber) {
+        return response -> {
+            getPickupCarResponses.put(bookingNumber, response);
+        };
+    }
+
+    public static interface GetPickupCarResponse {
+        void thenReturn(GetPickupCarResponseModel response);
+    }
+}

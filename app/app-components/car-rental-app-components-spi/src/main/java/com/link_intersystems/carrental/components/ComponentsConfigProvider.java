@@ -1,5 +1,7 @@
 package com.link_intersystems.carrental.components;
 
+import com.link_intersystems.carrental.DomainEventBus;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -7,7 +9,7 @@ import java.util.ServiceLoader;
 
 public abstract class ComponentsConfigProvider {
 
-    public static ComponentsConfig findComponentsConfig(Properties appProperties) {
+    public static ComponentsConfig findComponentsConfig(Properties appProperties, DomainEventBus domainEventBus) {
         ServiceLoader<ComponentsConfigProvider> providers = ServiceLoader.load(ComponentsConfigProvider.class);
 
         Iterator<ComponentsConfigProvider> iterator = providers.iterator();
@@ -23,9 +25,9 @@ public abstract class ComponentsConfigProvider {
             throw new IllegalStateException("Multiple " + ComponentsConfigProvider.class.getName() + " found in classpath: " + allProviders);
         }
 
-        return provider.createComponentsConfig(appProperties);
+        return provider.createComponentsConfig(appProperties, domainEventBus);
     }
 
 
-    public abstract ComponentsConfig createComponentsConfig(Properties appProperties);
+    public abstract ComponentsConfig createComponentsConfig(Properties appProperties, DomainEventBus domainEventBus);
 }

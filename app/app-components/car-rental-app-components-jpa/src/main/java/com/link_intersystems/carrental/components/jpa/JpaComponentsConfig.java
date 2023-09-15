@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.components.jpa;
 
 import com.link_intersystems.aop.MethodInterceptor;
-import com.link_intersystems.carrental.DomainEventPublisher;
+import com.link_intersystems.carrental.DomainEventBus;
 import com.link_intersystems.carrental.booking.CarBookingComponent;
 import com.link_intersystems.carrental.booking.CarBookingJpaConfig;
 import com.link_intersystems.carrental.booking.JpaCarBookingComponent;
@@ -10,14 +10,8 @@ import com.link_intersystems.carrental.components.ComponentsConfig;
 import com.link_intersystems.carrental.management.CarManagementJpaConfig;
 import com.link_intersystems.carrental.management.booking.JpaManagementCarBookingComponent;
 import com.link_intersystems.carrental.management.booking.ManagementCarBookingComponent;
-import com.link_intersystems.carrental.management.rental.pickup.JpaPickupCarComponent;
-import com.link_intersystems.carrental.management.rental.pickup.PickupCarComponent;
-import com.link_intersystems.carrental.management.rental.pickup.get.GetPickupCarComponent;
-import com.link_intersystems.carrental.management.rental.pickup.get.JpaGetPickupCarComponent;
-import com.link_intersystems.carrental.management.rental.pickup.list.JpaListPickupCarComponent;
-import com.link_intersystems.carrental.management.rental.pickup.list.ListPickupCarComponent;
-import com.link_intersystems.carrental.management.rental.returnCar.JpaReturnCarComponent;
-import com.link_intersystems.carrental.management.rental.returnCar.ReturnCarComponent;
+import com.link_intersystems.carrental.management.rental.JpaManagementRentalComponent;
+import com.link_intersystems.carrental.management.rental.ManagementRentalComponent;
 import com.link_intersystems.tx.CompositeTransactionManager;
 import com.link_intersystems.tx.TransactionManager;
 import com.link_intersystems.tx.TransactionMethodInterceptor;
@@ -29,13 +23,16 @@ import java.util.Properties;
 
 public class JpaComponentsConfig implements ComponentsConfig {
 
+    private final DomainEventBus domainEventBus;
     private AOPConfig aopConfig;
     private DataSourceConfig dataSourceConfig;
     private EntityManager bookingEmProxy = ThreadLoacalEntityManagerProxy.createProxy("BOOKING");
     private EntityManager managementEmProxy = ThreadLoacalEntityManagerProxy.createProxy("MANAGEMENT");
 
-    public JpaComponentsConfig(Properties properties) {
+    public JpaComponentsConfig(Properties properties, DomainEventBus domainEventBus) {
         this.dataSourceConfig = new DataSourceConfig(properties);
+
+        this.domainEventBus = domainEventBus;
 
         CarBookingJpaConfig carBookingJpaConfig = new CarBookingJpaConfig(dataSourceConfig.getDataSource());
         TransactionManager bookingTm = new JpaLocalTransactionManager(carBookingJpaConfig.getEntityManagerFactory());
@@ -55,27 +52,12 @@ public class JpaComponentsConfig implements ComponentsConfig {
     }
 
     @Override
-    public PickupCarComponent getPickupCarComponent(DomainEventPublisher eventPublisher) {
-        return new JpaPickupCarComponent(aopConfig, managementEmProxy, eventPublisher);
+    public ManagementRentalComponent getManagementRentalComponent() {
+        return new JpaManagementRentalComponent(aopConfig, managementEmProxy, domainEventBus);
     }
 
     @Override
-    public ListPickupCarComponent getListPickupCarComponent() {
-        return new JpaListPickupCarComponent(aopConfig, managementEmProxy);
-    }
-
-    @Override
-    public ReturnCarComponent getReturnCarComponent() {
-        return new JpaReturnCarComponent(aopConfig, managementEmProxy);
-    }
-
-    @Override
-    public GetPickupCarComponent getGetPickupCarComponent() {
-        return new JpaGetPickupCarComponent(aopConfig, managementEmProxy);
-    }
-
-    @Override
-    public ManagementCarBookingComponent getCreateCarBookingComponent() {
+    public ManagementCarBookingComponent getManagementCarBookingComponent() {
         return new JpaManagementCarBookingComponent(aopConfig, managementEmProxy);
     }
 

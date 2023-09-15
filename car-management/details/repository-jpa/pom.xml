@@ -26,10 +26,6 @@
             <groupId>com.acme.car-rental.booking</groupId>
             <artifactId>car-booking-use-cases</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.acme.car-rental.shared</groupId>
-            <artifactId>car-rental-shared-jdbc</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>com.acme.car-rental.booking</groupId>
@@ -41,16 +37,16 @@
             <artifactId>car-rental-shared-entities</artifactId>
             <type>test-jar</type>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
-        <dependency>
-            <groupId>org.hibernate.orm</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>6.3.0.Final</version>
-        </dependency>
         <dependency>
             <groupId>com.link_intersystems.libs</groupId>
             <artifactId>jpa</artifactId>
             <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.link_intersystems.libs</groupId>
+            <artifactId>jdbc</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.link-intersystems.commons</groupId>

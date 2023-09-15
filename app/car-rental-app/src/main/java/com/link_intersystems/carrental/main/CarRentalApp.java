@@ -24,15 +24,13 @@ public class CarRentalApp {
     public void run(String[] args) {
         AppArgsParser appArgsParser = new AppArgsParser();
         Properties appProperties = appArgsParser.parse(args);
-        ComponentsConfig componentsConfig = ComponentsConfigProvider.findComponentsConfig(appProperties);
 
         DefaultMessageDialog messageDialog = new DefaultMessageDialog();
 
         DomainEventBus domainEventBus = createDomainEventBus(appProperties);
 
-        CarManagementViewConfig carManagementViewConfig = createCarManagementViewConfig(componentsConfig, domainEventBus, messageDialog);
-        domainEventBus.addSubscribers(carManagementViewConfig.getCarBookedEventSubscriber());
-        domainEventBus.addSubscribers(carManagementViewConfig.getCarRentalEventSubscriber());
+        ComponentsConfig componentsConfig = ComponentsConfigProvider.findComponentsConfig(appProperties, domainEventBus);
+        CarManagementViewConfig carManagementViewConfig = createCarManagementViewConfig(componentsConfig, messageDialog, domainEventBus);
 
         CarOfferViewConfig carOfferViewConfig = createCarOfferViewConfig(componentsConfig, domainEventBus, messageDialog);
         CarRentalConfig carRentalConfig = new CarRentalConfig(carOfferViewConfig, carManagementViewConfig, messageDialog);
@@ -48,7 +46,7 @@ public class CarRentalApp {
     private DomainEventBus createDomainEventBus(Properties appProperties) {
         Map<String, Supplier<EventDispatchStrategy>> strategyMap = new HashMap<>();
         strategyMap.put("sync", SyncEventDispatchStrategy::new);
-        strategyMap.put("async", AsyncEventDispatchStrategy::new);
+        strategyMap.put("async", () -> new AsyncEventDispatchStrategy(Integer.parseInt(appProperties.getProperty("asyncDelay", "0"))));
 
         String eventBusType = appProperties.getProperty("eb", "sync");
         EventDispatchStrategy eventDispatchStrategy = strategyMap.getOrDefault(eventBusType, SyncEventDispatchStrategy::new).get();
@@ -59,7 +57,7 @@ public class CarRentalApp {
         return new CarOfferViewConfig(componentsConfig, eventPublisher, messageDialog);
     }
 
-    private CarManagementViewConfig createCarManagementViewConfig(ComponentsConfig componentsConfig, DomainEventBus domainEventBus, DefaultMessageDialog messageDialog) {
+    private CarManagementViewConfig createCarManagementViewConfig(ComponentsConfig componentsConfig, DefaultMessageDialog messageDialog, DomainEventBus domainEventBus) {
         return new CarManagementViewConfig(componentsConfig, domainEventBus, messageDialog);
     }
 

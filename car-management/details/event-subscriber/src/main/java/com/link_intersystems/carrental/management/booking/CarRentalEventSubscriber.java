@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.management.booking;
 
 import com.link_intersystems.carrental.DomainEventSubscriber;
-import com.link_intersystems.carrental.management.rental.pickup.CarRentalDomainEvent;
+import com.link_intersystems.carrental.management.rental.CarRentalDomainEvent;
 
 public class CarRentalEventSubscriber implements DomainEventSubscriber {
 

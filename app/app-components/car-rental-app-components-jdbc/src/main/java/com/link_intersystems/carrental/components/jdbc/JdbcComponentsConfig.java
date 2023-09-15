@@ -1,21 +1,15 @@
 package com.link_intersystems.carrental.components.jdbc;
 
 import com.link_intersystems.aop.MethodInterceptor;
-import com.link_intersystems.carrental.DomainEventPublisher;
+import com.link_intersystems.carrental.DomainEventBus;
 import com.link_intersystems.carrental.booking.CarBookingComponent;
 import com.link_intersystems.carrental.booking.JdbcBookingComponent;
 import com.link_intersystems.carrental.components.AOPConfig;
 import com.link_intersystems.carrental.components.ComponentsConfig;
 import com.link_intersystems.carrental.management.booking.JdbcManagementCarBookingComponent;
 import com.link_intersystems.carrental.management.booking.ManagementCarBookingComponent;
-import com.link_intersystems.carrental.management.rental.pickup.JdbcPickupCarComponent;
-import com.link_intersystems.carrental.management.rental.pickup.PickupCarComponent;
-import com.link_intersystems.carrental.management.rental.pickup.get.GetPickupCarComponent;
-import com.link_intersystems.carrental.management.rental.pickup.get.JdbcGetPickupCarComponent;
-import com.link_intersystems.carrental.management.rental.pickup.list.JdbcListPickupCarComponent;
-import com.link_intersystems.carrental.management.rental.pickup.list.ListPickupCarComponent;
-import com.link_intersystems.carrental.management.rental.returnCar.JdbcReturnCarComponent;
-import com.link_intersystems.carrental.management.rental.returnCar.ReturnCarComponent;
+import com.link_intersystems.carrental.management.rental.JdbcManagementRentalComponent;
+import com.link_intersystems.carrental.management.rental.ManagementRentalComponent;
 import com.link_intersystems.tx.TransactionMethodInterceptor;
 import com.link_intersystems.tx.jdbc.JdbcLocalTransactionManager;
 
@@ -26,11 +20,13 @@ import java.util.Properties;
 
 public class JdbcComponentsConfig implements ComponentsConfig {
 
+    private final DomainEventBus domainEventBus;
     private AOPConfig aopConfig;
     private DataSourceConfig dataSourceConfig;
 
-    public JdbcComponentsConfig(Properties properties) {
+    public JdbcComponentsConfig(Properties properties, DomainEventBus domainEventBus) {
         this.dataSourceConfig = new DataSourceConfig(properties);
+        this.domainEventBus = domainEventBus;
     }
 
     public AOPConfig getAopConfig() {
@@ -60,27 +56,12 @@ public class JdbcComponentsConfig implements ComponentsConfig {
     }
 
     @Override
-    public PickupCarComponent getPickupCarComponent(DomainEventPublisher eventPublisher) {
-        return new JdbcPickupCarComponent(getAopConfig(), getDataSourceConfig().getManagementJdbcTemplate(), eventPublisher);
+    public ManagementRentalComponent getManagementRentalComponent() {
+        return new JdbcManagementRentalComponent(getAopConfig(), getDataSourceConfig().getManagementJdbcTemplate(), domainEventBus);
     }
 
     @Override
-    public ListPickupCarComponent getListPickupCarComponent() {
-        return new JdbcListPickupCarComponent(getAopConfig(), getDataSourceConfig().getManagementJdbcTemplate());
-    }
-
-    @Override
-    public ReturnCarComponent getReturnCarComponent() {
-        return new JdbcReturnCarComponent(getAopConfig(), getDataSourceConfig().getManagementJdbcTemplate());
-    }
-
-    @Override
-    public GetPickupCarComponent getGetPickupCarComponent() {
-        return new JdbcGetPickupCarComponent(getAopConfig(), getDataSourceConfig().getManagementJdbcTemplate());
-    }
-
-    @Override
-    public ManagementCarBookingComponent getCreateCarBookingComponent() {
+    public ManagementCarBookingComponent getManagementCarBookingComponent() {
         return new JdbcManagementCarBookingComponent(getAopConfig(), getDataSourceConfig().getManagementJdbcTemplate());
     }
 

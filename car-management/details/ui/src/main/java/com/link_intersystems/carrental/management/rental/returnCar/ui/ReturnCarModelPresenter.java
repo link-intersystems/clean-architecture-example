@@ -1,8 +1,8 @@
 package com.link_intersystems.carrental.management.rental.returnCar.ui;
 
 import com.link_intersystems.carrental.management.rental.FuelLevel;
-import com.link_intersystems.carrental.management.rental.pickup.get.GetPickupCarResponseModel;
-import com.link_intersystems.carrental.management.rental.returnCar.ReturnCarRequestModel;
+import com.link_intersystems.carrental.management.rental.GetPickupCarResponseModel;
+import com.link_intersystems.carrental.management.rental.ReturnCarRequestModel;
 
 import javax.swing.*;
 import java.time.LocalDateTime;
