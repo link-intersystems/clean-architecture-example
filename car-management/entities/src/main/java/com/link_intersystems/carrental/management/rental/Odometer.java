@@ -4,10 +4,6 @@ import static java.util.Objects.*;
 
 public class Odometer implements Comparable<Odometer> {
 
-    public static Odometer of(Integer value) {
-        return new Odometer(requireNonNull(value, "odometer must not be null").intValue());
-    }
-
     private int value;
 
     public Odometer(int value) {
@@ -16,6 +12,10 @@ public class Odometer implements Comparable<Odometer> {
         }
 
         this.value = value;
+    }
+
+    public static Odometer of(Integer value) {
+        return new Odometer(requireNonNull(value, "odometer must not be null").intValue());
     }
 
     public int getValue() {

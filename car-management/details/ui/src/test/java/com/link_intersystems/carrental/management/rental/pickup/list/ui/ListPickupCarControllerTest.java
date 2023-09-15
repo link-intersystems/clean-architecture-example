@@ -1,8 +1,8 @@
 package com.link_intersystems.carrental.management.rental.pickup.list.ui;
 
-import com.link_intersystems.carrental.management.rental.pickup.list.ListPickupCarResponseModel;
-import com.link_intersystems.carrental.management.rental.pickup.list.ListPickupCarResponseModelMock;
-import com.link_intersystems.carrental.management.rental.pickup.list.ListPickupCarUseCaseMock;
+import com.link_intersystems.carrental.management.rental.ListPickupCarResponseModel;
+import com.link_intersystems.carrental.management.rental.ListPickupCarResponseModelMock;
+import com.link_intersystems.carrental.management.rental.ListPickupCarUseCaseMock;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
 import com.link_intersystems.carrental.swing.notification.MessageDialogMock;
 import com.link_intersystems.carrental.time.FixedClock;

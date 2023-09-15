@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -19,8 +19,9 @@
             <artifactId>car-booking-use-cases</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.acme.car-rental.shared</groupId>
-            <artifactId>car-rental-shared-ui</artifactId>
+            <groupId>com.link_intersystems.libs</groupId>
+            <artifactId>ui</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.link-intersystems.commons</groupId>
@@ -47,8 +48,9 @@
             <type>test-jar</type>
         </dependency>
         <dependency>
-            <groupId>com.acme.car-rental.shared</groupId>
-            <artifactId>car-rental-shared-time</artifactId>
+            <groupId>com.link_intersystems.libs</groupId>
+            <artifactId>time</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
             <type>test-jar</type>
         </dependency>
         <dependency>

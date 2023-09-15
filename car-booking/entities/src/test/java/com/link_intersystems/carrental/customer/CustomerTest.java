@@ -30,7 +30,7 @@ class CustomerTest {
     }
 
     @Test
-    void equalsAndHashCode(){
+    void equalsAndHashCode() {
         Customer customer2 = new Customer(new CustomerId(6), "René", "Link");
 
         assertEquals(customer, customer2);

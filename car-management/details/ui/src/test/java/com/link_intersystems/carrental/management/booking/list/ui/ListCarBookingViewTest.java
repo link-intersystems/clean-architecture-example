@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,13 +16,12 @@ class ListCarBookingViewTest implements SelectionListener<ListCarBookingModel> {
     private ListCarBookingViewControl viewControl;
     private SelectionChangeEvent<ListCarBookingModel> latestSelectionEvent;
     private ListCarBookingModel listCarBookingModel;
+    private ListCarBookingView listCarBookingView;
 
     @Override
     public void selectionChanged(SelectionChangeEvent<ListCarBookingModel> event) {
         this.latestSelectionEvent = event;
     }
-
-    private ListCarBookingView listCarBookingView;
 
     @BeforeEach
     void setUp() {
@@ -58,8 +56,8 @@ class ListCarBookingViewTest implements SelectionListener<ListCarBookingModel> {
 
     @Test
     void cellValues() {
-        assertEquals("123", viewControl.getValue(0,0));
-        assertEquals("WMEEJ8AA3FK792135", viewControl.getValue(0,1));
-        assertEquals("René Link", viewControl.getValue(0,2));
+        assertEquals("123", viewControl.getValue(0, 0));
+        assertEquals("WMEEJ8AA3FK792135", viewControl.getValue(0, 1));
+        assertEquals("René Link", viewControl.getValue(0, 2));
     }
 }

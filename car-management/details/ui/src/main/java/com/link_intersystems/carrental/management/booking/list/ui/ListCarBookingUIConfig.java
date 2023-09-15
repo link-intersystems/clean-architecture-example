@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental.management.booking.list.ui;
 
-import com.link_intersystems.carrental.management.booking.list.ListBookingsUseCase;
+import com.link_intersystems.carrental.management.booking.ListBookingsUseCase;
 import com.link_intersystems.carrental.management.rental.pickup.ui.PickupCarController;
 
 public class ListCarBookingUIConfig {

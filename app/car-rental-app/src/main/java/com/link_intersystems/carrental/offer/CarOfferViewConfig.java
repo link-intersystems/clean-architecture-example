@@ -3,45 +3,33 @@ package com.link_intersystems.carrental.offer;
 import com.link_intersystems.carrental.DomainEventPublisher;
 import com.link_intersystems.carrental.booking.CarBookingComponent;
 import com.link_intersystems.carrental.booking.CarBookingUseCase;
-import com.link_intersystems.carrental.main.AOPConfig;
+import com.link_intersystems.carrental.booking.CarOfferUseCase;
+import com.link_intersystems.carrental.components.ComponentsConfig;
 import com.link_intersystems.carrental.offer.ui.CarOfferUIConfig;
 import com.link_intersystems.carrental.offer.ui.CarOfferView;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
-import com.link_intersystems.jdbc.JdbcTemplate;
 
 import static java.util.Objects.*;
 
 public class CarOfferViewConfig {
 
-    private JdbcTemplate jdbcTemplate;
     private DomainEventPublisher eventPublisher;
-    private AOPConfig aopConfig;
+    private ComponentsConfig componentsConfig;
     private MessageDialog messageDialog;
 
-    public CarOfferViewConfig(JdbcTemplate jdbcTemplate, DomainEventPublisher eventPublisher, AOPConfig aopConfig, MessageDialog messageDialog) {
-        this.jdbcTemplate = requireNonNull(jdbcTemplate);
+    public CarOfferViewConfig(ComponentsConfig componentsConfig, DomainEventPublisher eventPublisher, MessageDialog messageDialog) {
         this.eventPublisher = requireNonNull(eventPublisher);
-        this.aopConfig = requireNonNull(aopConfig);
+        this.componentsConfig = requireNonNull(componentsConfig);
         this.messageDialog = requireNonNull(messageDialog);
     }
 
     public CarOfferView getCarOfferView() {
-        CarBookingUseCase carBookingUseCase = createCarBookingUseCase(jdbcTemplate);
-        CarOfferUseCase carOfferUseCase = createCarOfferUseCase(jdbcTemplate);
+        CarBookingComponent carBookingComponent = componentsConfig.getCarBookingComponent();
+        CarBookingUseCase carBookingUseCase = carBookingComponent.getCarBookingUseCase(eventPublisher);
+        CarOfferUseCase carOfferUseCase = carBookingComponent.getCarOfferUseCase();
 
         CarOfferUIConfig carOfferUIConfig = new CarOfferUIConfig(messageDialog);
         return carOfferUIConfig.getCarOfferView(carBookingUseCase, carOfferUseCase, messageDialog);
     }
 
-    private CarOfferUseCase createCarOfferUseCase(JdbcTemplate rentalJdbcTemplate) {
-        CarOfferComponent carOfferComponent = new CarOfferComponent();
-        CarOfferUseCase carOfferUseCase = carOfferComponent.createCarOfferUseCase(rentalJdbcTemplate);
-        return aopConfig.applyAOP(carOfferUseCase);
-    }
-
-    private CarBookingUseCase createCarBookingUseCase(JdbcTemplate rentalJdbcTemplate) {
-        CarBookingComponent carBookingComponent = new CarBookingComponent();
-        CarBookingUseCase carBookingUseCase = carBookingComponent.getCarBookingUseCase(rentalJdbcTemplate, eventPublisher);
-        return aopConfig.applyAOP(carBookingUseCase);
-    }
 }

@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental.booking.ui;
 
-import com.link_intersystems.carrental.offer.CarOfferResponseModelMock;
+import com.link_intersystems.carrental.booking.CarOfferResponseModelMock;
 import com.link_intersystems.carrental.offer.ui.CarOfferModel;
 import com.link_intersystems.carrental.offer.ui.CarOfferPresenter;
 import org.junit.jupiter.api.Test;

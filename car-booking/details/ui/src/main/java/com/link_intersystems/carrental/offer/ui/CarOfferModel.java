@@ -44,12 +44,12 @@ public class CarOfferModel {
         this.vehicleType = vehicleType;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LocalDateTime getPickupDateTime() {

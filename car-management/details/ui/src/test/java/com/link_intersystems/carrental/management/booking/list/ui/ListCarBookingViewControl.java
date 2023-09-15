@@ -2,7 +2,6 @@ package com.link_intersystems.carrental.management.booking.list.ui;
 
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
-import java.awt.*;
 
 public class ListCarBookingViewControl {
     private ListCarBookingView listCarBookingView;

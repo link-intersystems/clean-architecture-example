@@ -1,8 +1,8 @@
 package com.link_intersystems.carrental.offer.ui;
 
 import com.link_intersystems.carrental.booking.CarBookingUseCase;
+import com.link_intersystems.carrental.booking.CarOfferUseCase;
 import com.link_intersystems.carrental.booking.ui.CarBookingController;
-import com.link_intersystems.carrental.offer.CarOfferUseCase;
 import com.link_intersystems.carrental.swing.notification.MessageDialog;
 
 import java.time.LocalDateTime;

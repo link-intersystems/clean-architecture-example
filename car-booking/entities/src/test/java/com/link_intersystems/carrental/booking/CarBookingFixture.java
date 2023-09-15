@@ -23,11 +23,11 @@ public class CarBookingFixture extends EntityFixture<CarBooking> {
         entities.add(createBooking2());
     }
 
-    public CarBooking getBooking1(){
+    public CarBooking getBooking1() {
         return get(0);
     }
 
-    public CarBooking getBooking2(){
+    public CarBooking getBooking2() {
         return get(1);
     }
 

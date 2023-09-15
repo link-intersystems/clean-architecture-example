@@ -32,12 +32,12 @@ public class CarRental {
         return driver;
     }
 
-    public void setPickupDateTime(LocalDateTime pickupDateTime) {
-        this.pickupDateTime = requireNonNull(pickupDateTime);
-    }
-
     public LocalDateTime getPickupDateTime() {
         return pickupDateTime;
+    }
+
+    public void setPickupDateTime(LocalDateTime pickupDateTime) {
+        this.pickupDateTime = requireNonNull(pickupDateTime);
     }
 
     public LocalDateTime getReturnDateTime() {

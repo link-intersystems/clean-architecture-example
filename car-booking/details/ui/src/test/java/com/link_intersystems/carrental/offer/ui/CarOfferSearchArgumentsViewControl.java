@@ -1,7 +1,5 @@
 package com.link_intersystems.carrental.offer.ui;
 
-import com.link_intersystems.carrental.VehicleType;
-
 import javax.swing.*;
 
 public class CarOfferSearchArgumentsViewControl {

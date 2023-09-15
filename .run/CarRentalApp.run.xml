@@ -4,7 +4,7 @@
     <module name="car-rental-app" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="com.link_intersystems.carrental.main.DataSourceConfig" />
+        <option name="PATTERN" value="com.link_intersystems.carrental.components.jdbc.DataSourceConfig" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

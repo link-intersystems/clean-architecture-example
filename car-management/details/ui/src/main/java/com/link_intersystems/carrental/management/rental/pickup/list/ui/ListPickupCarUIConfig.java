@@ -1,6 +1,6 @@
 package com.link_intersystems.carrental.management.rental.pickup.list.ui;
 
-import com.link_intersystems.carrental.management.rental.pickup.list.ListPickupCarUseCase;
+import com.link_intersystems.carrental.management.rental.ListPickupCarUseCase;
 import com.link_intersystems.carrental.management.rental.returnCar.ui.ReturnCarFormController;
 
 public class ListPickupCarUIConfig {

@@ -54,23 +54,23 @@ public class PickupCarModel {
         this.bookingNumber = bookingNumber;
     }
 
-    public void setPickupDate(String pickupDate) {
-        this.pickupDate = pickupDate;
-    }
-
     public String getPickupDate() {
         return pickupDate;
+    }
+
+    public void setPickupDate(String pickupDate) {
+        this.pickupDate = pickupDate;
     }
 
     public BoundedRangeModel getFuelLevel() {
         return fuelLevel;
     }
 
-    public void setOdometer(String odometer) {
-        this.odometer = odometer;
-    }
-
     public String getOdometer() {
         return odometer;
+    }
+
+    public void setOdometer(String odometer) {
+        this.odometer = odometer;
     }
 }

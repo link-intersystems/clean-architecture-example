@@ -1,7 +1,7 @@
 package com.link_intersystems.carrental.management.booking.list.ui;
 
-import com.link_intersystems.carrental.management.booking.list.CarBookingResponseModelMock;
-import com.link_intersystems.carrental.management.booking.list.CustomerResponseModelMock;
+import com.link_intersystems.carrental.management.booking.CarBookingResponseModelMock;
+import com.link_intersystems.carrental.management.booking.CustomerResponseModelMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

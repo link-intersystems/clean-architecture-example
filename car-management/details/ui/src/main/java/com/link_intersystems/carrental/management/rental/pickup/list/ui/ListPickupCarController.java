@@ -1,8 +1,8 @@
 package com.link_intersystems.carrental.management.rental.pickup.list.ui;
 
 import com.link_intersystems.carrental.management.booking.ui.BookingNumberModel;
-import com.link_intersystems.carrental.management.rental.pickup.list.ListPickupCarResponseModel;
-import com.link_intersystems.carrental.management.rental.pickup.list.ListPickupCarUseCase;
+import com.link_intersystems.carrental.management.rental.ListPickupCarResponseModel;
+import com.link_intersystems.carrental.management.rental.ListPickupCarUseCase;
 import com.link_intersystems.swing.action.AbstractTaskAction;
 import com.link_intersystems.swing.action.TaskProgress;
 import com.link_intersystems.swing.selection.*;
