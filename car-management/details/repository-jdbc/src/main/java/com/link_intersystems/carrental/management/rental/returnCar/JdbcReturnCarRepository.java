@@ -9,12 +9,12 @@ import com.link_intersystems.jdbc.JdbcTemplate;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-class H2ReturnCarRepository implements ReturnCarRepository {
+class JdbcReturnCarRepository implements ReturnCarRepository {
 
     private CarRentalFactory carRentalFactory = new CarRentalFactory();
     private JdbcTemplate jdbcTemplate;
 
-    public H2ReturnCarRepository(JdbcTemplate managementJdbcTemplate) {
+    public JdbcReturnCarRepository(JdbcTemplate managementJdbcTemplate) {
         this.jdbcTemplate = managementJdbcTemplate;
     }
 

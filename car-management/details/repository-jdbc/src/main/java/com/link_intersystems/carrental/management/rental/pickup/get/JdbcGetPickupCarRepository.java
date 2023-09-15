@@ -7,12 +7,12 @@ import com.link_intersystems.jdbc.JdbcTemplate;
 
 import java.util.Map;
 
-class H2GetPickupCarRepository implements GetPickupCarRepository {
+class JdbcGetPickupCarRepository implements GetPickupCarRepository {
 
     private CarRentalFactory carRentalFactory = new CarRentalFactory();
     private JdbcTemplate jdbcTemplate;
 
-    public H2GetPickupCarRepository(JdbcTemplate managementJdbcTemplate) {
+    public JdbcGetPickupCarRepository(JdbcTemplate managementJdbcTemplate) {
         this.jdbcTemplate = managementJdbcTemplate;
     }
 

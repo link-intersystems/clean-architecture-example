@@ -14,13 +14,13 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 @CarManagementDBExtension
-class H2CreateCarBookingRepositoryIntTest extends AbstractManagementRepositoryTest {
+class JdbcJdbcCreateCarBookingRepository extends AbstractManagementRepositoryTest {
 
-    private H2CreateCarBookingRepository repository;
+    private JdbcCreateCarBookingRepository repository;
 
     @BeforeEach
     void setUp() {
-        repository = new H2CreateCarBookingRepository(jdbcTemplate);
+        repository = new JdbcCreateCarBookingRepository(jdbcTemplate);
     }
 
     @Test

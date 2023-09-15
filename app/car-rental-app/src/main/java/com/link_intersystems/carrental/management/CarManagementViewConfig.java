@@ -1,7 +1,11 @@
 package com.link_intersystems.carrental.management;
 
+import com.link_intersystems.carrental.DomainEventBus;
+import com.link_intersystems.carrental.DomainEventPublisher;
 import com.link_intersystems.carrental.DomainEventSubscriber;
 import com.link_intersystems.carrental.components.ComponentsConfig;
+import com.link_intersystems.carrental.management.booking.CarRentalEventSubscriber;
+import com.link_intersystems.carrental.management.booking.UpdateCarBookingRentalUseCase;
 import com.link_intersystems.carrental.management.booking.create.CarBookedEventSubscriber;
 import com.link_intersystems.carrental.management.booking.create.CreateCarBookingComponent;
 import com.link_intersystems.carrental.management.booking.create.CreateCarBookingUseCase;
@@ -32,14 +36,17 @@ import static java.util.Objects.*;
 public class CarManagementViewConfig {
 
     private final ComponentsConfig componentsConfig;
+    private final DomainEventBus domainEventBus;
     private final MessageDialog messageDialog;
     private CarManagementView carManagementView;
 
     private CarBookedEventSubscriber carBookedEventSubscriber;
+    private CarRentalEventSubscriber carRentalEventSubscriber;
 
 
-    public CarManagementViewConfig(ComponentsConfig componentsConfig, MessageDialog messageDialog) {
+    public CarManagementViewConfig(ComponentsConfig componentsConfig, DomainEventBus domainEventBus, MessageDialog messageDialog) {
         this.componentsConfig = requireNonNull(componentsConfig);
+        this.domainEventBus = domainEventBus;
         this.messageDialog = requireNonNull(messageDialog);
     }
 
@@ -52,12 +59,11 @@ public class CarManagementViewConfig {
             ListCarBookingController listCarBookingController = listCarBookingUIConfig.getListCarBookingController(listBookingUseCase);
             PickupUIConfig pickupUIConfig = new PickupUIConfig();
 
-            PickupCarComponent pickupCarComponent = componentsConfig.getPickupCarComponent();
+            PickupCarComponent pickupCarComponent = componentsConfig.getPickupCarComponent(domainEventBus);
             PickupCarUseCase pickupCarUseCase = pickupCarComponent.getPickupCarUseCase();
 
             PickupCarController pickupCarController = pickupUIConfig.getPickupCarController(messageDialog, pickupCarUseCase);
             ListCarBookingView listCarBookingView = listCarBookingUIConfig.getListCarBookingView(listCarBookingController, pickupCarController);
-
 
             ListPickupCarComponent listPickupCarComponent = componentsConfig.getListPickupCarComponent();
             ListPickupCarUseCase listPickupCarUseCase = listPickupCarComponent.getListPickupCarUseCase();
@@ -88,5 +94,14 @@ public class CarManagementViewConfig {
             carBookedEventSubscriber = new CarBookedEventSubscriber(createCarBookingUseCase);
         }
         return carBookedEventSubscriber;
+    }
+
+    public DomainEventSubscriber getCarRentalEventSubscriber() {
+        if (carRentalEventSubscriber == null) {
+            CreateCarBookingComponent createCarBookingComponent = componentsConfig.getCreateCarBookingComponent();
+            UpdateCarBookingRentalUseCase updateCarBookingRentalUseCase = createCarBookingComponent.getUpdateCarBookingRentalUseCase();
+            carRentalEventSubscriber = new CarRentalEventSubscriber(updateCarBookingRentalUseCase);
+        }
+        return carRentalEventSubscriber;
     }
 }

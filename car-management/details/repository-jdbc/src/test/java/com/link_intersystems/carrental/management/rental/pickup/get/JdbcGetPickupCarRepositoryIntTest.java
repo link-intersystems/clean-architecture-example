@@ -14,15 +14,15 @@ import static com.link_intersystems.carrental.time.LocalDateTimeUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @CarManagementDBExtension
-class H2GetPickupCarRepositoryIntTest {
+class JdbcGetPickupCarRepositoryIntTest {
 
-    private H2GetPickupCarRepository repository;
+    private JdbcGetPickupCarRepository repository;
     private JdbcTemplate jdbcTemplate;
 
     @BeforeEach
     void setUp(Connection connection) {
         jdbcTemplate = new JdbcTemplate(() -> connection);
-        repository = new H2GetPickupCarRepository(jdbcTemplate);
+        repository = new JdbcGetPickupCarRepository(jdbcTemplate);
     }
 
     @Test

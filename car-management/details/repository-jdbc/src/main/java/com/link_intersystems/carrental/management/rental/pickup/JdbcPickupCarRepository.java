@@ -3,22 +3,19 @@ package com.link_intersystems.carrental.management.rental.pickup;
 import com.link_intersystems.carrental.booking.BookingNumber;
 import com.link_intersystems.carrental.management.booking.CarBooking;
 import com.link_intersystems.carrental.management.booking.CarBookingFactory;
-import com.link_intersystems.carrental.management.booking.Customer;
-import com.link_intersystems.carrental.management.booking.RentalState;
 import com.link_intersystems.carrental.management.rental.CarRental;
 import com.link_intersystems.jdbc.JdbcTemplate;
 
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
-import java.sql.Types;
 import java.util.Map;
 
-class H2PickupCarRepository implements PickupCarRepository {
+class JdbcPickupCarRepository implements PickupCarRepository {
 
     private CarBookingFactory carBookingFactory = new CarBookingFactory();
     private JdbcTemplate jdbcTemplate;
 
-    public H2PickupCarRepository(JdbcTemplate managementJdbcTemplate) {
+    public JdbcPickupCarRepository(JdbcTemplate managementJdbcTemplate) {
         this.jdbcTemplate = managementJdbcTemplate;
     }
 
@@ -58,36 +55,4 @@ class H2PickupCarRepository implements PickupCarRepository {
 
         return carBookingFactory.create(row);
     }
-
-    @Override
-    public void persist(CarBooking carBooking) {
-        jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement("""
-                    MERGE INTO CAR_BOOKING (
-                        VIN, 
-                        BOOKING_NUMBER, 
-                        RENTAL_STATE,
-                        CUSTOMER_FIRSTNAME,
-                        CUSTOMER_LASTNAME
-                        ) 
-                        KEY(BOOKING_NUMBER) 
-                        VALUES (?, ? ,?, ?, ?)""");
-            ps.setObject(1, carBooking.getVin().getValue());
-            ps.setObject(2, carBooking.getBookingNumber().getValue());
-
-            RentalState rentalState = carBooking.getRentalState();
-            if (rentalState == null) {
-                ps.setNull(3, Types.VARCHAR);
-            } else {
-                ps.setObject(3, rentalState.name());
-            }
-
-            Customer customer = carBooking.getCustomer();
-            ps.setString(4, customer.getFirstname());
-            ps.setString(5, customer.getLastname());
-
-            return ps.executeUpdate();
-        });
-    }
-
 }

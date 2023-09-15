@@ -1,9 +1,8 @@
 package com.link_intersystems.carrental.management.rental.pickup;
 
-import com.link_intersystems.carrental.VIN;
+import com.link_intersystems.carrental.DomainEventBus;
+import com.link_intersystems.carrental.DomainEventSubscriber;
 import com.link_intersystems.carrental.booking.BookingNumber;
-import com.link_intersystems.carrental.management.booking.CarBooking;
-import com.link_intersystems.carrental.management.booking.Customer;
 import com.link_intersystems.carrental.management.rental.CarRental;
 import com.link_intersystems.carrental.management.rental.CarState;
 import com.link_intersystems.carrental.management.rental.Driver;
@@ -20,10 +19,24 @@ class PickupCarInteractorTest {
     private PickupCarInteractor useCase;
     private PickupCarRepositoryMock repository;
 
+    private CarRentalDomainEvent carRentalDomainEvent;
+
     @BeforeEach
     void setUp() {
         repository = new PickupCarRepositoryMock();
-        useCase = new PickupCarInteractor(repository);
+        DomainEventBus domainEventBus = new DomainEventBus();
+        domainEventBus.addSubscribers(new DomainEventSubscriber() {
+            @Override
+            public boolean subscribedTo(Class<?> domainEventType) {
+                return CarRentalDomainEvent.class.equals(domainEventType);
+            }
+
+            @Override
+            public void handleEvent(Object domainEvent) {
+                carRentalDomainEvent = (CarRentalDomainEvent) domainEvent;
+            }
+        });
+        useCase = new PickupCarInteractor(repository, domainEventBus);
     }
 
     @Test
@@ -42,13 +55,15 @@ class PickupCarInteractorTest {
         LocalDateTime pickupDataTime = LocalDateTime.of(2023, 2, 15, 8, 0, 0);
         requestModel.setPickupDateTime(pickupDataTime);
 
-        repository.persist(new CarBooking(new BookingNumber(1), new VIN("WMEEJ8AA3FK792135"), new Customer("Nick", "Wahlberg")));
-
         useCase.pickupCar(requestModel);
 
         assertHandover(repository.getCarRental(), pickupDataTime);
         assertDriver(repository.getCarRental().getDriver());
         assertCarState(repository.getCarRental().getPickupCarState());
+
+        assertNotNull(carRentalDomainEvent);
+        assertEquals(CarRentalDomainEvent.PICKED_UP, carRentalDomainEvent.getEventType());
+        assertEquals(new BookingNumber(1), carRentalDomainEvent.getBookingNumber());
     }
 
     private void assertHandover(CarRental carPickup, LocalDateTime pickupDataTime) {

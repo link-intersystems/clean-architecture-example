@@ -1,5 +1,6 @@
 package com.link_intersystems.carrental.components;
 
+import com.link_intersystems.carrental.DomainEventPublisher;
 import com.link_intersystems.carrental.booking.CarBookingComponent;
 import com.link_intersystems.carrental.management.booking.create.CreateCarBookingComponent;
 import com.link_intersystems.carrental.management.booking.list.ListCarBookingComponent;
@@ -14,7 +15,7 @@ public interface ComponentsConfig {
 
     ListCarBookingComponent getListCarBookingComponent();
 
-    PickupCarComponent getPickupCarComponent();
+    PickupCarComponent getPickupCarComponent(DomainEventPublisher eventPublisher);
 
     ListPickupCarComponent getListPickupCarComponent();
 

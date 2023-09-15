@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-class H2ListBookingsRepository implements ListBookingsRepository {
+class JdbcListBookingsRepository implements ListBookingsRepository {
 
     private CarBookingFactory carBookingFactory = new CarBookingFactory();
     private JdbcTemplate jdbcTemplate;
 
-    public H2ListBookingsRepository(JdbcTemplate managementJdbcTemplate) {
+    public JdbcListBookingsRepository(JdbcTemplate managementJdbcTemplate) {
         this.jdbcTemplate = managementJdbcTemplate;
     }
 

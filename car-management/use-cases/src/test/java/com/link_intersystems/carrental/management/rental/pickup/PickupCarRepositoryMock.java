@@ -26,11 +26,6 @@ public class PickupCarRepositoryMock implements PickupCarRepository {
         return carBooking;
     }
 
-    @Override
-    public void persist(CarBooking carBooking) {
-        this.carBooking = carBooking;
-    }
-
     public CarRental getCarRental() {
         return carRental;
     }

@@ -11,13 +11,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @CarManagementDBExtension
-class H2ListBookingsRepositoryIntTest extends AbstractManagementRepositoryTest {
+class JdbcListBookingsRepositoryIntTest extends AbstractManagementRepositoryTest {
 
-    private H2ListBookingsRepository repository;
+    private JdbcListBookingsRepository repository;
 
     @BeforeEach
     void setUp() {
-        repository = new H2ListBookingsRepository(jdbcTemplate);
+        repository = new JdbcListBookingsRepository(jdbcTemplate);
     }
 
     @Test

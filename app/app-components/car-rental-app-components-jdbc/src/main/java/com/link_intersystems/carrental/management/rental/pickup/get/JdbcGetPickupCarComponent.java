@@ -15,6 +15,6 @@ public class JdbcGetPickupCarComponent extends GetPickupCarComponent {
 
     @Override
     protected GetPickupCarRepository getRepository() {
-        return new H2GetPickupCarRepository(managementJdbcTemplate);
+        return new JdbcGetPickupCarRepository(managementJdbcTemplate);
     }
 }

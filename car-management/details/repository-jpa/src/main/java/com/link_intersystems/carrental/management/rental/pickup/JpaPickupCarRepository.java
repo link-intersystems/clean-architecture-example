@@ -32,11 +32,4 @@ class JpaPickupCarRepository implements PickupCarRepository {
         return null;
     }
 
-    @Override
-    public void persist(CarBooking carBooking) {
-        JpaCarBooking jpaCarBooking = new JpaCarBooking();
-        jpaCarBooking.update(carBooking);
-        entityManager.merge(jpaCarBooking);
-    }
-
 }

@@ -1,6 +1,7 @@
 package com.link_intersystems.carrental.components.jpa;
 
 import com.link_intersystems.aop.MethodInterceptor;
+import com.link_intersystems.carrental.DomainEventPublisher;
 import com.link_intersystems.carrental.booking.CarBookingComponent;
 import com.link_intersystems.carrental.booking.CarBookingJpaConfig;
 import com.link_intersystems.carrental.booking.JpaCarBookingComponent;
@@ -65,8 +66,8 @@ public class JpaComponentsConfig implements ComponentsConfig {
     }
 
     @Override
-    public PickupCarComponent getPickupCarComponent() {
-        return new JpaPickupCarComponent(aopConfig, managementEmProxy);
+    public PickupCarComponent getPickupCarComponent(DomainEventPublisher eventPublisher) {
+        return new JpaPickupCarComponent(aopConfig, managementEmProxy, eventPublisher);
     }
 
     @Override

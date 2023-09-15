@@ -14,6 +14,6 @@ public class JdbcReturnCarComponent extends ReturnCarComponent {
 
     @Override
     protected ReturnCarRepository getRepository() {
-        return new H2ReturnCarRepository(managementJdbcTemplate);
+        return new JdbcReturnCarRepository(managementJdbcTemplate);
     }
 }

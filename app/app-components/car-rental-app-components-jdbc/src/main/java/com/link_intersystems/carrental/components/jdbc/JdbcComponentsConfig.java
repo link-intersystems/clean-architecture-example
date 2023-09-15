@@ -1,6 +1,7 @@
 package com.link_intersystems.carrental.components.jdbc;
 
 import com.link_intersystems.aop.MethodInterceptor;
+import com.link_intersystems.carrental.DomainEventPublisher;
 import com.link_intersystems.carrental.booking.CarBookingComponent;
 import com.link_intersystems.carrental.booking.JdbcBookingComponent;
 import com.link_intersystems.carrental.components.AOPConfig;
@@ -66,8 +67,8 @@ public class JdbcComponentsConfig implements ComponentsConfig {
     }
 
     @Override
-    public PickupCarComponent getPickupCarComponent() {
-        return new JdbcPickupCarComponent(getAopConfig(), getDataSourceConfig().getManagementJdbcTemplate());
+    public PickupCarComponent getPickupCarComponent(DomainEventPublisher eventPublisher) {
+        return new JdbcPickupCarComponent(getAopConfig(), getDataSourceConfig().getManagementJdbcTemplate(), eventPublisher);
     }
 
     @Override

@@ -5,11 +5,11 @@ import com.link_intersystems.carrental.management.booking.CarBooking;
 import com.link_intersystems.carrental.management.booking.Customer;
 import com.link_intersystems.jdbc.JdbcTemplate;
 
-class H2CreateCarBookingRepository implements CreateCarBookingRepository {
+class JdbcCreateCarBookingRepository implements CreateCarBookingRepository {
 
     private JdbcTemplate jdbcTemplate;
 
-    public H2CreateCarBookingRepository(JdbcTemplate managementJdbcTemplate) {
+    public JdbcCreateCarBookingRepository(JdbcTemplate managementJdbcTemplate) {
         this.jdbcTemplate = managementJdbcTemplate;
     }
 

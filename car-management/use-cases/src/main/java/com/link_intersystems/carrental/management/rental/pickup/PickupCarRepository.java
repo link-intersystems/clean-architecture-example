@@ -8,6 +8,4 @@ interface PickupCarRepository {
     void persist(CarRental carRental);
 
     CarBooking findBooking(BookingNumber bookingNumber);
-
-    void persist(CarBooking carBooking);
 }

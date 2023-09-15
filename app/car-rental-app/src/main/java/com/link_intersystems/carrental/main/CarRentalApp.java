@@ -30,8 +30,9 @@ public class CarRentalApp {
 
         DomainEventBus domainEventBus = createDomainEventBus(appProperties);
 
-        CarManagementViewConfig carManagementViewConfig = createCarManagementViewConfig(componentsConfig, messageDialog);
+        CarManagementViewConfig carManagementViewConfig = createCarManagementViewConfig(componentsConfig, domainEventBus, messageDialog);
         domainEventBus.addSubscribers(carManagementViewConfig.getCarBookedEventSubscriber());
+        domainEventBus.addSubscribers(carManagementViewConfig.getCarRentalEventSubscriber());
 
         CarOfferViewConfig carOfferViewConfig = createCarOfferViewConfig(componentsConfig, domainEventBus, messageDialog);
         CarRentalConfig carRentalConfig = new CarRentalConfig(carOfferViewConfig, carManagementViewConfig, messageDialog);
@@ -58,8 +59,8 @@ public class CarRentalApp {
         return new CarOfferViewConfig(componentsConfig, eventPublisher, messageDialog);
     }
 
-    private CarManagementViewConfig createCarManagementViewConfig(ComponentsConfig componentsConfig, DefaultMessageDialog messageDialog) {
-        return new CarManagementViewConfig(componentsConfig, messageDialog);
+    private CarManagementViewConfig createCarManagementViewConfig(ComponentsConfig componentsConfig, DomainEventBus domainEventBus, DefaultMessageDialog messageDialog) {
+        return new CarManagementViewConfig(componentsConfig, domainEventBus, messageDialog);
     }
 
     protected void openFrame(CarRentalMainFrame mainFrame) {

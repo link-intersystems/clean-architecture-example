@@ -1,8 +1,7 @@
 package com.link_intersystems.carrental.management.rental.pickup;
 
+import com.link_intersystems.carrental.DomainEventPublisher;
 import com.link_intersystems.carrental.booking.BookingNumber;
-import com.link_intersystems.carrental.management.booking.CarBooking;
-import com.link_intersystems.carrental.management.booking.RentalState;
 import com.link_intersystems.carrental.management.rental.CarRental;
 import com.link_intersystems.carrental.management.rental.CarState;
 import com.link_intersystems.carrental.management.rental.Driver;
@@ -13,9 +12,11 @@ import java.time.LocalDateTime;
 class PickupCarInteractor implements PickupCarUseCase {
 
     private PickupCarRepository repository;
+    private final DomainEventPublisher eventPublisher;
 
-    public PickupCarInteractor(PickupCarRepository repository) {
+    public PickupCarInteractor(PickupCarRepository repository, DomainEventPublisher eventPublisher) {
         this.repository = repository;
+        this.eventPublisher = eventPublisher;
     }
 
     @Override
@@ -32,10 +33,8 @@ class PickupCarInteractor implements PickupCarUseCase {
 
         repository.persist(carRental);
 
-        CarBooking carBooking = repository.findBooking(bookingNumber);
-        carBooking.setRentalState(RentalState.PICKED_UP);
-
-        repository.persist(carBooking);
+        CarRentalDomainEvent pickedUpEvent = CarRentalDomainEvent.pickedUpEvent(bookingNumber);
+        eventPublisher.publish(pickedUpEvent);
     }
 
     private Driver createDriver(PickupCarRequestModel requestModel) {
