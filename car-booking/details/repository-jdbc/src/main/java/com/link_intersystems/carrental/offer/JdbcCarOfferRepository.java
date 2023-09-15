@@ -2,8 +2,8 @@ package com.link_intersystems.carrental.offer;
 
 import com.link_intersystems.carrental.*;
 import com.link_intersystems.carrental.booking.CarBooking;
+import com.link_intersystems.carrental.booking.CarBookingRowMapper;
 import com.link_intersystems.carrental.booking.CarBookinsByCar;
-import com.link_intersystems.carrental.customer.CustomerId;
 import com.link_intersystems.carrental.money.Amount;
 import com.link_intersystems.carrental.rental.RentalCar;
 import com.link_intersystems.carrental.time.Period;
@@ -12,7 +12,6 @@ import com.link_intersystems.jdbc.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
@@ -79,22 +78,16 @@ class JdbcCarOfferRepository implements CarOfferRepository {
         queryBuilder.append(String.join(", ", chars));
         queryBuilder.append(")");
 
-        List<CarBooking> carBookings = jdbcTemplate.query(queryBuilder.toString(), carIds.stream().map(CarId::getValue).toArray(), new RowMapper<CarBooking>() {
-            @Override
-            public CarBooking mapRow(ResultSet rs) throws SQLException {
-                CustomerId customerId = new CustomerId(rs.getInt("CUSTOMER_ID"));
-                CarId carId = new CarId(new VIN(rs.getString("CARID")));
-
-                Timestamp pickupDateTime = rs.getTimestamp("PICKUP_DATETIME");
-                Timestamp returnDateTime = rs.getTimestamp("RETURN_DATETIME");
-
-                Period bookingPeriod = new Period(pickupDateTime.toLocalDateTime(), returnDateTime.toLocalDateTime());
-                return new CarBooking(customerId, carId, bookingPeriod);
-            }
-        });
+        List<CarBooking> carBookings = jdbcTemplate.query(queryBuilder.toString(), carIds.stream().map(CarId::getValue).toArray(), getCarBookingRowMapper());
 
 
         return new CarBookinsByCar(carBookings.stream().filter(cb -> cb.getBookingPeriod().overlaps(desiredPeriod)).collect(Collectors.toList()));
+    }
+
+    private static RowMapper<CarBooking> getCarBookingRowMapper() {
+
+
+        return new CarBookingRowMapper();
     }
 
     @Override
