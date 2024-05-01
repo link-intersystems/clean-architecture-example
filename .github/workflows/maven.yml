@@ -53,7 +53,8 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Deploy
-        run: mvn -B -P github -Dmaven.test.skip=true deploy --file pom.xml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: GabrielBB/xvfb-action@v1
+        with:
+          run: mvn -B -P github -Dmaven.test.skip=true deploy --file pom.xml
