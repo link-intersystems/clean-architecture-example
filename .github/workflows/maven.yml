@@ -50,6 +50,8 @@ jobs:
       - uses: actions/download-artifact@master
         with:
           name: jacoco
+      - name: Display structure of downloaded files
+        run: ls -R
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
