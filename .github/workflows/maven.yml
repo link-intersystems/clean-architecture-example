@@ -61,7 +61,7 @@ jobs:
       - name: Build with Maven
         env:
           COVERALLS_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
-        run: mvn -B coveralls:report --file pom.xml
+        run: mvn -B jacoco:report coveralls:report --file pom.xml
 
 
   publish:
