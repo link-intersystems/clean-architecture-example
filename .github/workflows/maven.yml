@@ -38,8 +38,6 @@ jobs:
           name: target
           path: '**/target/**'
           retention-days: 1
-      - name: Clear Caches
-        run: curl -X PURGE https://camo.githubusercontent.com/12360894f9884ce231cc60af14c148a20f0e1690f05047e503a37c69c8eab868/68747470733a2f2f636f766572616c6c732e696f2f7265706f732f6769746875622f6c696e6b2d696e74657273797374656d732f636c65616e2d6172636869746563747572652d6578616d706c652f62616467652e7376673f6272616e63683d6d61696e
 
   coveralls:
     needs: build
@@ -83,3 +81,13 @@ jobs:
         uses: GabrielBB/xvfb-action@v1
         with:
           run: mvn -B -P github -Dmaven.test.skip=true  -T 1C deploy --file pom.xml
+
+
+  clear-caches:
+    needs:
+      - build
+    if: ${{ (github.repository == 'link-intersystems/clean-architecture-example') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clear Caches
+        run: curl -X PURGE https://camo.githubusercontent.com/12360894f9884ce231cc60af14c148a20f0e1690f05047e503a37c69c8eab868/68747470733a2f2f636f766572616c6c732e696f2f7265706f732f6769746875622f6c696e6b2d696e74657273797374656d732f636c65616e2d6172636869746563747572652d6578616d706c652f62616467652e7376673f6272616e63683d6d61696e
