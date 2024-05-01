@@ -11,7 +11,7 @@ name: Deploy to Github Repository
 on:
   workflow_run:
     workflows:
-      - Java CI with Maven
+      - 'Java CI with Maven'
     types:
       - completed
 
