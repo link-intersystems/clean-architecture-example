@@ -53,6 +53,6 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Deploy
-        run: mvn -B deploy --file pom.xml
+        run: mvn -B -P github deploy --file pom.xml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
