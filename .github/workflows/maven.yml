@@ -43,7 +43,7 @@ jobs:
 
   coveralls:
     needs: build
-    if: ${{ secrets.COVERALLS_TOKEN != '' }}
+    if: ${{ (github.repository == 'link-intersystems/clean-architecture-example') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
