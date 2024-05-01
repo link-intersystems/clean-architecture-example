@@ -30,13 +30,29 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with Maven
-        env:
-          COVERALLS_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
         uses: GabrielBB/xvfb-action@v1
         with:
-          run: mvn -B package coveralls:report --file pom.xml
+          run: mvn -B test --file pom.xml
       - name: Clear Caches
         run: curl -X PURGE https://camo.githubusercontent.com/12360894f9884ce231cc60af14c148a20f0e1690f05047e503a37c69c8eab868/68747470733a2f2f636f766572616c6c732e696f2f7265706f732f6769746875622f6c696e6b2d696e74657273797374656d732f636c65616e2d6172636869746563747572652d6578616d706c652f62616467652e7376673f6272616e63683d6d61696e
+
+  coveralls:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+      - name: Build with Maven
+        env:
+          COVERALLS_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
+        run: mvn -B coveralls:report --file pom.xml
+
 
   publish:
     needs: build
