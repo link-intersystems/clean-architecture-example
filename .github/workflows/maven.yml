@@ -87,6 +87,7 @@ jobs:
     needs:
       - coveralls
       - publish
+    if: ${{ (github.repository == 'link-intersystems/clean-architecture-example') }}
     runs-on: ubuntu-latest
     steps:
       - name: Clear Caches
