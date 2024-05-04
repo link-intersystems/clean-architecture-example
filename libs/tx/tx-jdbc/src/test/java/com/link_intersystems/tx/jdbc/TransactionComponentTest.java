@@ -1,6 +1,7 @@
 package com.link_intersystems.tx.jdbc;
 
 import com.link_intersystems.jdbc.ConnectionSupplierDataSourceAdapter;
+import com.link_intersystems.sql.AbstractDataSource;
 import com.link_intersystems.tx.Transaction;
 import com.link_intersystems.tx.TransactionManager;
 import com.link_intersystems.tx.TransactionTemplate;
@@ -21,7 +22,8 @@ class TransactionComponentTest {
     @BeforeEach
     void setUp() {
         connection = new MockConnection();
-        transactionManager = new JdbcLocalTransactionManager(() -> connection);
+        SingleConnectionDataSource singleConnectionDataSource = new SingleConnectionDataSource(connection);
+        transactionManager = new JdbcLocalTransactionManager(singleConnectionDataSource);
         transactionAwareDataSource = new TransactionAwareDataSource(new ConnectionSupplierDataSourceAdapter(() -> connection));
 
         transactionTemplate = new TransactionTemplate(transactionManager);

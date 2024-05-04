@@ -1,5 +1,6 @@
 package com.link_intersystems.tx.jdbc;
 
+import com.link_intersystems.jdbc.AbstractConnectionDelegate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +18,23 @@ class JdbcLocalTransactionTest {
     void setUp() {
         mockConnection = new MockConnection();
         jdbcLocalTransaction = new JdbcLocalTransaction(mockConnection);
+    }
+
+    @Test
+    void exceptionOnInit() {
+        SQLException sqlException = new SQLException("");
+
+        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> {
+            new JdbcLocalTransaction(new AbstractConnectionDelegate(new MockConnection()) {
+                @Override
+                public void setAutoCommit(boolean autoCommit) throws SQLException {
+
+                    throw sqlException;
+                }
+            });
+        });
+
+        assertSame(runtimeException.getCause(), sqlException);
     }
 
     @Test
@@ -41,5 +59,10 @@ class JdbcLocalTransactionTest {
         connection.setAutoCommit(false);
 
         assertTrue(connection.getAutoCommit());
+    }
+
+    @Test
+    void unwrapUnknownType() throws SQLException {
+        assertNull(jdbcLocalTransaction.unwrap(CharSequence.class));
     }
 }
