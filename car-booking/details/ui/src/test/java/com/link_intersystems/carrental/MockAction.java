@@ -1,11 +1,11 @@
-package com.link_intersystems.carrental.offer.ui;
+package com.link_intersystems.carrental;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class MockAction extends AbstractAction {
+public class MockAction extends AbstractAction {
 
     private boolean performed = false;
 

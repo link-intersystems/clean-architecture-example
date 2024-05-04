@@ -1,4 +1,4 @@
-package com.link_intersystems.carrental.offer.ui;
+package com.link_intersystems.carrental;
 
 import org.junit.jupiter.api.Assertions;
 

@@ -1,11 +1,12 @@
 package com.link_intersystems.carrental.offer.ui;
 
+import com.link_intersystems.carrental.MockAction;
+import com.link_intersystems.carrental.ViewControl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;
-import java.awt.event.ActionEvent;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
