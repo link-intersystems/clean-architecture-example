@@ -13,6 +13,12 @@ public class MockConnection implements Connection {
     private boolean autoCommit = true;
     private boolean closed;
 
+    private MockStatement mockStatement;
+
+    public MockStatement getMockStatement() {
+        return mockStatement;
+    }
+
     public boolean isRollback() {
         return rollback;
     }
@@ -23,7 +29,8 @@ public class MockConnection implements Connection {
 
     @Override
     public Statement createStatement() throws SQLException {
-        return null;
+        mockStatement = new MockStatement();
+        return mockStatement;
     }
 
     @Override
